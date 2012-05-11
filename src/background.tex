@@ -1,0 +1,79 @@
+\chapter{Background}
+\label{chap:background}
+In this chapter we describe the background techniques and tools used in our research. All tools were selected based on the ability to execute command-line using a script, the ability to export output reports, and the ability to fulfill the needs of our research.
+
+
+\section{LIBSVM -- A Library for Support Vector Machines}
+\label{sec:libsvm}
+A support vector machine (SVM) is an example of a linear discrimination machine learning technique and assumes that ``...\emph{instances of a class are linearly separable from instances of other classes}''~\cite{ALP04}. A SVM is capable of learning how a set of features inform the classification of a data item. It can also be trained on known data items (in which the features and category are present), and then used to predict the category of  unknown data items (in which only the features are present).
+
+Traditionally, SVMs have been used for two-group classification problems~\cite{CV95} but have also been generalized to \emph{n}-group classification problems. In our research we use LIBSVM (version 3.11), a SVM library capable of solving \emph{n}-group classification problems~\cite{CL11}.
+
+
+\section{Javalanche -- A Mutation Testing Tool for Java}
+\label{sec:javalanche}
+Mutation testing has previously been described in Chapter~\ref{chap:introduction}. In our research we use Javalanche (version 0.4), a mutation testing tool for Java~\cite{SZ09} that applies a subset of the method-level mutation operators. Method-level operators are the most common set of mutation operators applied to procedural programming languages and each method-level mutation defines a syntactic change to an operator, operand or statement in a program. Javalanche uses a subset of the method-level mutation operators (replace constant, negate jump, arithmetic replace, remove call, replace variable, absolute value, unary operator). These selected operators provide a close approximation of the effectiveness of using the entire set of method-level operators at a reduced cost~\cite{OLR+96}.
+
+We chose Javalanche for our research because it is customizable and extensible, therefore allowing us to modify Javalanche to calculate unit mutation scores and output a richer set of results. We plan to further take advantage of Javalanche's extensibility in the future by adding object-oriented mutation operators. Other benefits of Javalanche include: full integration with JUnit and the use of mutation schemas to improve performance.
+
+\section{Eclipse Metrics Plugin -- A Source Code Metrics Tool}
+\label{sec:Metrics}
+Source code metrics give insight into various aspects of the source code including it's complexity, size, coupling, cohesion as well as object-oriented attributes~\cite{SCE05,McCa76,Kan02,HWY09,Hend95,SRD12}. In our research, we use the Eclipse Metrics Plugin (version 1.3.8.20100730-001) to acquire source code metrics of the method- and class-level code unit under test~\cite{Metrics}. We selected this tool as it provides a comprehensive set of metrics for Java programs (see feature sets \ding{172}~\&~\ding{174} from Table~\ref{tab:metrics}).
+
+\begin{table}[!b]
+  \centering
+  \rowcolors{2}{gray!30}{gray!20}
+  \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[RGB]{169,196,223}
+    \textbf{Metrics} & \textbf{Description} & \textbf{Scope} & \textbf{Set} \\
+
+    % Set 1: Source Code Metrics
+    \hline MLOC & Method lines of code & Method & \ding{172} \\
+    \hline NBD & Nested block depth & Method & \ding{172} \\
+    \hline VG & McCabe cyclomatic complexity & Method & \ding{172} \\
+    \hline PAR & Number of parameters & Method & \ding{172} \\
+    \hline NORM & Number of overridden methods & Class & \ding{172} \\
+    \hline NOF & Number of attributes & Class & \ding{172} \\
+    \hline NSC & Number of children & Class & \ding{172} \\
+    \hline DIT & Depth of inheritance tree & Class & \ding{172} \\
+    \hline LCOM & Lack of cohesion of methods & Class & \ding{172} \\
+    \hline NSM & Number of static methods & Class & \ding{172} \\
+    \hline NOM & Number of methods & Class & \ding{172} \\
+    \hline SIX & Specialization index & Class & \ding{172} \\
+    \hline WMC & Weighted method per class & Class & \ding{172} \\
+    \hline NSF & Number of static attributes & Class & \ding{172} \\
+
+    % Set 2: Coverage Metrics
+    \hline BCOV & Basic blocks covered in code unit & Class & \ding{173} \\
+    \hline BTOT & Total basic blocks for code unit & Class & \ding{173} \\
+
+    % Set 3: Accumulated Source Code Metrics
+    \hline SMLOC & Sum MLOC of methods & Class & \ding{174} \\
+    \hline SNBD & Sum NBD of methods & Class & \ding{174} \\
+    \hline SVG & Sum VG of methods & Class & \ding{174} \\
+    \hline SPAR & Sum PAR of methods & Class & \ding{174} \\
+    \hline AMLOC & Average MLOC of methods & Class & \ding{174} \\
+    \hline ANBD & Average NBD of methods & Class & \ding{174} \\
+    \hline AVG & Average VG of methods & Class & \ding{174} \\
+    \hline APAR & Average PAR of methods & Class & \ding{174} \\
+
+    % Set 4: Accumulated Test Case Metrics
+    \hline STMLOC & Sum MLOC of test methods & Both & \ding{175} \\
+    \hline STNBD & Sum NBD of test methods & Both & \ding{175} \\
+    \hline STVG & Sum VG of test methods & Both & \ding{175} \\
+    \hline STPAR & Sum PAR of test methods & Both & \ding{175} \\
+    \hline ATMLOC & Average MLOC of test methods & Both & \ding{175} \\
+    \hline ATNBD & Average NBD of test methods & Both & \ding{175} \\
+    \hline ATVG & Average VG of test methods & Both & \ding{175} \\
+    \hline ATPAR & Average PAR of test methods & Both & \ding{175} \\
+    \hline
+  \end{tabular}
+  \caption{The set of metrics used in our research. Organized by feature set (\ding{172}: Source Code Metrics, \ding{173}: Coverage Metrics, \ding{174}: Accumulated Source Code Metrics, \ding{175}: Accumulated Test Case Metrics)}
+  \label{tab:metrics}
+\end{table}
+
+
+\section{EMMA -- A Test Suite Coverage Tool}
+\label{sec:emma}
+Test suite metrics can be gathered using similar technique to those used in the gathering of source code metrics. In fact, since we focus on JUnit test cases (which are Java classes) we can actually use the Eclipse Metrics Plugin to gather some of the test suite metrics (see feature set \ding{175} from Table~\ref{tab:metrics}). To gather other test suite metrics we use EMMA (version 2.0.5312) which is capable of determining the statement and basic block coverage of a test suite~\cite{EMMA}. We use EMMA to acquire metrics for feature set \ding{173} from Table~\ref{tab:metrics}.
