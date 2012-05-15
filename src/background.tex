@@ -3,22 +3,41 @@
 In this chapter we describe the background techniques and tools used in our research. All tools were selected based on the ability to execute command-line using a script, the ability to export output reports, and the ability to fulfill the needs of our research.
 
 
-\section{LIBSVM -- A Library for Support Vector Machines}
-\label{sec:libsvm}
-A support vector machine (SVM) is an example of a linear discrimination machine learning technique and assumes that ``...\emph{instances of a class are linearly separable from instances of other classes}''~\cite{ALP04}. A SVM is capable of learning how a set of features inform the classification of a data item. It can also be trained on known data items (in which the features and category are present), and then used to predict the category of  unknown data items (in which only the features are present).
-
-Traditionally, SVMs have been used for two-group classification problems~\cite{CV95} but have also been generalized to \emph{n}-group classification problems. In our research we use LIBSVM (version 3.11), a SVM library capable of solving \emph{n}-group classification problems~\cite{CL11}.
+\section{Mutation Testing}
+\label{sec:background_mutation_testing}
+Mutation testing has traditionally been used as a coverage technique to evaluate the effectiveness of test suites and provide confidence in the testing process~\cite{DLS78, JH10}. For over 30 years, mutation testing has been applied to software written in programming languages including C~\cite{DM96, JH08}, Fortran~\cite{KO91} and Java~\cite{MKO02, BCD06}. Furthermore, mutation testing has also been applied to non-programming artifacts such as formal specification languages~\cite{ABM98} and spreadsheets~\cite{AE09}.
 
 
-\section{Javalanche -- A Mutation Testing Tool for Java}
-\label{sec:javalanche}
+\subsection{Javalanche -- A Mutation Testing Tool for Java}
+\label{subsec:background_javalanche}
 Mutation testing has previously been described in Chapter~\ref{chap:introduction}. In our research we use Javalanche (version 0.4), a mutation testing tool for Java~\cite{SZ09} that applies a subset of the method-level mutation operators. Method-level operators are the most common set of mutation operators applied to procedural programming languages and each method-level mutation defines a syntactic change to an operator, operand or statement in a program. Javalanche uses a subset of the method-level mutation operators (replace constant, negate jump, arithmetic replace, remove call, replace variable, absolute value, unary operator). These selected operators provide a close approximation of the effectiveness of using the entire set of method-level operators at a reduced cost~\cite{OLR+96}.
 
 We chose Javalanche for our research because it is customizable and extensible, therefore allowing us to modify Javalanche to calculate unit mutation scores and output a richer set of results. We plan to further take advantage of Javalanche's extensibility in the future by adding object-oriented mutation operators. Other benefits of Javalanche include: full integration with JUnit and the use of mutation schemas to improve performance.
 
-\section{Eclipse Metrics Plugin -- A Source Code Metrics Tool}
-\label{sec:Metrics}
+
+\section{Machine Learning}
+\label{sec:background_machine_learning}
+
+
+\subsection{LIBSVM -- A Library for Support Vector Machines}
+\label{subsec:background_libsvm}
+A \gls{svm} is an example of a linear discrimination machine learning technique and assumes that ``...\emph{instances of a class are linearly separable from instances of other classes}''~\cite{ALP04}. A SVM is capable of learning how a set of features inform the classification of a data item. It can also be trained on known data items (in which the features and category are present), and then used to predict the category of  unknown data items (in which only the features are present).
+
+Traditionally, SVMs have been used for two-group classification problems~\cite{CV95} but have also been generalized to \emph{n}-group classification problems. In our research we use LIBSVM (version 3.11), a SVM library capable of solving \emph{n}-group classification problems~\cite{CL11}.
+
+
+\section{Metrics}
+\label{sec:background_metrics}
+
+
+\subsection{Eclipse Metrics Plugin -- A Source Code Metrics Tool}
+\label{subsec:background_metrics_plugin}
 Source code metrics give insight into various aspects of the source code including it's complexity, size, coupling, cohesion as well as object-oriented attributes~\cite{SCE05,McCa76,Kan02,HWY09,Hend95,SRD12}. In our research, we use the Eclipse Metrics Plugin (version 1.3.8.20100730-001) to acquire source code metrics of the method- and class-level code unit under test~\cite{Metrics}. We selected this tool as it provides a comprehensive set of metrics for Java programs (see feature sets \ding{172}~\&~\ding{174} from Table~\ref{tab:metrics}).
+
+
+\subsection{EMMA -- A Test Suite Coverage Tool}
+\label{subsec:background_emma}
+Test suite metrics can be gathered using similar technique to those used in the gathering of source code metrics. In fact, since we focus on JUnit test cases (which are Java classes) we can actually use the Eclipse Metrics Plugin to gather some of the test suite metrics (see feature set \ding{175} from Table~\ref{tab:metrics}). To gather other test suite metrics we use EMMA (version 2.0.5312) which is capable of determining the statement and basic block coverage of a test suite~\cite{EMMA}. We use EMMA to acquire metrics for feature set \ding{173} from Table~\ref{tab:metrics}.
 
 \begin{table}[!b]
   \centering
@@ -69,11 +88,9 @@ Source code metrics give insight into various aspects of the source code includi
     \hline ATPAR & Average PAR of test methods & Both & \ding{175} \\
     \hline
   \end{tabular}
-  \caption{The set of metrics used in our research. Organized by feature set (\ding{172}: Source Code Metrics, \ding{173}: Coverage Metrics, \ding{174}: Accumulated Source Code Metrics, \ding{175}: Accumulated Test Case Metrics)}
+  \caption{The set of metrics used in our research.}
+  \vspace{1mm}
+  \footnotesize{\emph{Table~\ref{tab:metrics} shows the set of metrics used in our research organized by feature set (\ding{172}: Source Code Metrics, \ding{173}: Coverage Metrics, \ding{174}: Accumulated Source Code Metrics, \ding{175}: Accumulated Test Case Metrics).}}
+  \vspace{1mm}
   \label{tab:metrics}
 \end{table}
-
-
-\section{EMMA -- A Test Suite Coverage Tool}
-\label{sec:emma}
-Test suite metrics can be gathered using similar technique to those used in the gathering of source code metrics. In fact, since we focus on JUnit test cases (which are Java classes) we can actually use the Eclipse Metrics Plugin to gather some of the test suite metrics (see feature set \ding{175} from Table~\ref{tab:metrics}). To gather other test suite metrics we use EMMA (version 2.0.5312) which is capable of determining the statement and basic block coverage of a test suite~\cite{EMMA}. We use EMMA to acquire metrics for feature set \ding{173} from Table~\ref{tab:metrics}.

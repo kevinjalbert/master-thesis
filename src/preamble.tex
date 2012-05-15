@@ -3,8 +3,11 @@
 % Adjust the margin's length and line spacing
 \usepackage{geometry}
 \usepackage{setspace}
-\geometry{margin=1.5in}
+\geometry{left=1.5in,right=1.0in,top=1.0in,bottom=1.0in,includefoot}
 \doublespacing
+
+% Initally use roman numbering
+\pagenumbering{roman}
 
 % Adjust the appearance of the Table of Contents
 \usepackage{tocbibind}
@@ -25,6 +28,12 @@
 \usepackage{moreverb}
 \usepackage{listings}
 \usepackage[chapter]{algorithm}
+
+% Handle abbreviations
+\newcommand*{\glossaryname}{Abbreviations}
+\usepackage[nonumberlist,toc]{glossaries}
+\input{abbreviations}
+\makeglossaries
 
 % thesisTitle(newcommand)
 % Creates a thesis title page.
