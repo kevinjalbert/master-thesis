@@ -26,8 +26,38 @@
 \usetikzlibrary{positioning}
 \usepackage{pgfplots}
 \usepackage{moreverb}
+\usepackage{threeparttable}
+\usepackage[T1]{fontenc}
+\usepackage[scaled=0.85]{beramono}
 \usepackage{listings}
+\usepackage{amsmath}
+\usepackage{lscape}
+\usepackage{color}
 \usepackage[chapter]{algorithm}
+
+% Java source code listing format
+\definecolor{lightgray}{gray}{.95}
+\definecolor{darkgray}{gray}{.80}
+
+\lstset{
+  lineskip=0.5pt,
+  basicstyle=\scriptsize\ttfamily,
+  numberstyle=\scriptsize,
+  stepnumber=1,
+  numbersep=3pt,
+  fontadjust=true,
+  backgroundcolor=\color{lightgray},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  keepspaces=true,
+  frame=none,
+  tabsize=2,
+  captionpos=b,
+  breaklines=true,
+  breakatwhitespace=false,
+  escapeinside={\%}{)}
+}
 
 % Handle abbreviations
 \newcommand*{\glossaryname}{Abbreviations}
