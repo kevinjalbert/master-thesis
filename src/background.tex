@@ -5,92 +5,257 @@ In this chapter we describe the background techniques and tools used in our rese
 
 \section{Mutation Testing}
 \label{sec:background_mutation_testing}
-Mutation testing has traditionally been used as a coverage technique to evaluate the effectiveness of test suites and provide confidence in the testing process~\cite{DLS78, JH10}. For over 30 years, mutation testing has been applied to software written in programming languages including C~\cite{DM96, JH08}, Fortran~\cite{KO91} and Java~\cite{MKO02, BCD06}. Furthermore, mutation testing has also been applied to non-programming artifacts such as formal specification languages~\cite{ABM98} and spreadsheets~\cite{AE09}.
+Fault-based testing can be used as a coverage technique to demonstrate the absence of faults in a software system~\cite{DLS78, BSLS80}. Mutation testing makes use of fault-based testing by generating a set of mutants, each representing a possible fault in the software system. These mutants are then executed along with the test suite with hopes that the test suite can detect the mutant's fault. If the fault is detected this means that the test suite is effective enough to handle the detection of that specific bug. If the fault goes undetected then the test suite is lacking as it cannot detect that specific bug. Using the results of mutation testing it is possible to assess the adequacy of a test suite -- the effectiveness of the test suite of detecting bugs. Figure~\ref{fig:mutation_testing_overview} illustrates a generic process for mutation testing, the main components are mutation generation and mutation evaluation.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=14cm]{figures/mutation_testing_overview.pdf}
+  \caption{A generic process for mutation testing.}
+  \label{fig:mutation_testing_overview}
+\end{figure}
+
+Mutation testing uses a set of \emph{mutation operators} to generate faulty versions of a software system's source code called mutants. A mutation operator applies a transformation to a software artifact such that it now exhibits a fault (see Section~\ref{subsec:background_method_operators}~\&~\ref{subsec:background_class_operators} for examples). Mutation operators are designed based on existing fault taxonomy, such that the generate mutants that represent real faults. Studies have indicated that mutants could be used as substitutes for real faults with caution to external threats~\cite{ABLN06, NK11}.
+
+The transformation is a small and single change as most bugs appear follow the \emph{\gls{cph}}~\cite{ABD+79} which suggests that developers write software that is nearly correct. The \emph{\gls{ceh}}~\cite{Off92} suggests that a large percent of complex faults can be detected if all the simple faults can be detected. These two hypothesis strengthen the use of simple small changes for mutation operators and why mutation testing is adequate for evaluating test suite effectiveness.
+
+After all the mutants have been generated a testing approach is used to evaluate them against the test suite. If a mutant is detected by the test suite then the mutant is \emph{killed} otherwise it has \emph{survived}. There are some cases where the mutant generated is \emph{equivalent} such that the behaviour of the mutant is the same as the original system. These equivalent mutants pose a problem as they cannot be killed using the given test suite. Manual inspection of mutants to determine if they are equivalent is not feasible for a large number of mutants. A \emph{mutation score} is given to each source code unit based on the number of percentage of non-equivalent mutants they killed. The mutation score indicates how effective a test suite is at detecting faults in terms of mutation fault-based testing adequacy.
+
+% TODO Maybe show a small example of equivalent mutants?
+
+\begin{small}
+\begin{center}
+\emph{$\text{mutation score} = \frac{\text{killed mutants}}{\text{total mutants} - \text{equivalent mutants}}$}
+\end{center}
+\end{small}
+
+Mutation testing has traditionally been used as a coverage technique to evaluate the effectiveness of test suites and provide confidence in the testing process~\cite{JH10}. For over 30 years, mutation testing has been applied to software written in programming languages including C~\cite{DM96, JH08}, Fortran~\cite{KO91} and Java~\cite{MKO02, BCD06}. Furthermore, mutation testing has also been applied to non-programming artifacts such as formal specification languages~\cite{ABM98}, markup languages~\cite{PO10} and spreadsheets~\cite{AE09}.
+
+There are two major critique on mutation testing: equivalent mutants and performance. Schuler et al. proposes a solution in determining whether a surviving mutant is equivalent or not using impact analysis~\cite{SZ10}. Their approach observes the impact of the original program's execution against that of the mutant in respect to control flow and data. Their experiments showed that using statement coverage allowed them to achieved a classification precision of 75\% and a recall of 56\%. In their previous work they also considered the use of the impact of dynamic invariants to uncover equivalent mutants~\cite{SDZ09}. Offutt et al. used compiler optimization techniques and were able to detect about 10\% of equivalent mutations~\cite{OC94}. Mutation sampling can be used to reduce the evaluation efforts by only considering a random subset of the generated mutants~\cite{Bud80}. Untch et al. introduced a mutation runtime technique call \emph{Mutant Schema Generation} that represented all possible mutants in a single meta-program~\cite{UOH93}. Offutt et al. were able to perform mutation testing at the bytecode level, effectively avoiding recompilations of the generated mutants~\cite{OMK04}.
 
 
-\subsection{Javalanche -- A Mutation Testing Tool for Java}
-\label{subsec:background_javalanche}
-Mutation testing has previously been described in Chapter~\ref{chap:introduction}. In our research we use Javalanche (version 0.4), a mutation testing tool for Java~\cite{SZ09} that applies a subset of the method-level mutation operators. Method-level operators are the most common set of mutation operators applied to procedural programming languages and each method-level mutation defines a syntactic change to an operator, operand or statement in a program. Javalanche uses a subset of the method-level mutation operators (replace constant, negate jump, arithmetic replace, remove call, replace variable, absolute value, unary operator). These selected operators provide a close approximation of the effectiveness of using the entire set of method-level operators at a reduced cost~\cite{OLR+96}.
+\subsection{Method-Level Operators}
+\label{subsec:background_method_operators}
+We look at the set of method-level mutation operators found in \emph{MuJava}~\cite{MOK05}, as they are well documented and designed. These mutation operators apply source transformations that modify expressions at the method-level. These operators can cause data to be slightly off, as well as adjusting the outcome of conditions. Figure~\ref{tab:method_operators} tabulates the method-level mutation operators~\cite{MO05a}.
 
-We chose Javalanche for our research because it is customizable and extensible, therefore allowing us to modify Javalanche to calculate unit mutation scores and output a richer set of results. We plan to further take advantage of Javalanche's extensibility in the future by adding object-oriented mutation operators. Other benefits of Javalanche include: full integration with JUnit and the use of mutation schemas to improve performance.
-
-
-\section{Machine Learning}
-\label{sec:background_machine_learning}
-
-
-\subsection{LIBSVM -- A Library for Support Vector Machines}
-\label{subsec:background_libsvm}
-A \gls{svm} is an example of a linear discrimination machine learning technique and assumes that ``...\emph{instances of a class are linearly separable from instances of other classes}''~\cite{ALP04}. A SVM is capable of learning how a set of features inform the classification of a data item. It can also be trained on known data items (in which the features and category are present), and then used to predict the category of  unknown data items (in which only the features are present).
-
-Traditionally, SVMs have been used for two-group classification problems~\cite{CV95} but have also been generalized to \emph{n}-group classification problems. In our research we use LIBSVM (version 3.11), a SVM library capable of solving \emph{n}-group classification problems~\cite{CL11}.
-
-
-\section{Metrics}
-\label{sec:background_metrics}
-
-
-\subsection{Eclipse Metrics Plugin -- A Source Code Metrics Tool}
-\label{subsec:background_metrics_plugin}
-Source code metrics give insight into various aspects of the source code including it's complexity, size, coupling, cohesion as well as object-oriented attributes~\cite{SCE05,McCa76,Kan02,HWY09,Hend95,SRD12}. In our research, we use the Eclipse Metrics Plugin (version 1.3.8.20100730-001) to acquire source code metrics of the method- and class-level code unit under test~\cite{Metrics}. We selected this tool as it provides a comprehensive set of metrics for Java programs (see feature sets \ding{172}~\&~\ding{174} from Table~\ref{tab:metrics}).
-
-
-\subsection{EMMA -- A Test Suite Coverage Tool}
-\label{subsec:background_emma}
-Test suite metrics can be gathered using similar technique to those used in the gathering of source code metrics. In fact, since we focus on JUnit test cases (which are Java classes) we can actually use the Eclipse Metrics Plugin to gather some of the test suite metrics (see feature set \ding{175} from Table~\ref{tab:metrics}). To gather other test suite metrics we use EMMA (version 2.0.5312) which is capable of determining the statement and basic block coverage of a test suite~\cite{EMMA}. We use EMMA to acquire metrics for feature set \ding{173} from Table~\ref{tab:metrics}.
-
-\begin{table}[!b]
+\begin{table}[h]
   \centering
   \rowcolors{2}{gray!30}{gray!20}
-  \begin{tabular}{|l|l|l|l|}
+  \begin{tabular}{|l|l|}
     \hline
     \rowcolor[RGB]{169,196,223}
-    \textbf{Metrics} & \textbf{Description} & \textbf{Scope} & \textbf{Set} \\
-
-    % Set 1: Source Code Metrics
-    \hline MLOC & Method lines of code & Method & \ding{172} \\
-    \hline NBD & Nested block depth & Method & \ding{172} \\
-    \hline VG & McCabe cyclomatic complexity & Method & \ding{172} \\
-    \hline PAR & Number of parameters & Method & \ding{172} \\
-    \hline NORM & Number of overridden methods & Class & \ding{172} \\
-    \hline NOF & Number of attributes & Class & \ding{172} \\
-    \hline NSC & Number of children & Class & \ding{172} \\
-    \hline DIT & Depth of inheritance tree & Class & \ding{172} \\
-    \hline LCOM & Lack of cohesion of methods & Class & \ding{172} \\
-    \hline NSM & Number of static methods & Class & \ding{172} \\
-    \hline NOM & Number of methods & Class & \ding{172} \\
-    \hline SIX & Specialization index & Class & \ding{172} \\
-    \hline WMC & Weighted method per class & Class & \ding{172} \\
-    \hline NSF & Number of static attributes & Class & \ding{172} \\
-
-    % Set 2: Coverage Metrics
-    \hline BCOV & Basic blocks covered in code unit & Class & \ding{173} \\
-    \hline BTOT & Total basic blocks for code unit & Class & \ding{173} \\
-
-    % Set 3: Accumulated Source Code Metrics
-    \hline SMLOC & Sum MLOC of methods & Class & \ding{174} \\
-    \hline SNBD & Sum NBD of methods & Class & \ding{174} \\
-    \hline SVG & Sum VG of methods & Class & \ding{174} \\
-    \hline SPAR & Sum PAR of methods & Class & \ding{174} \\
-    \hline AMLOC & Average MLOC of methods & Class & \ding{174} \\
-    \hline ANBD & Average NBD of methods & Class & \ding{174} \\
-    \hline AVG & Average VG of methods & Class & \ding{174} \\
-    \hline APAR & Average PAR of methods & Class & \ding{174} \\
-
-    % Set 4: Accumulated Test Case Metrics
-    \hline STMLOC & Sum MLOC of test methods & Both & \ding{175} \\
-    \hline STNBD & Sum NBD of test methods & Both & \ding{175} \\
-    \hline STVG & Sum VG of test methods & Both & \ding{175} \\
-    \hline STPAR & Sum PAR of test methods & Both & \ding{175} \\
-    \hline ATMLOC & Average MLOC of test methods & Both & \ding{175} \\
-    \hline ATNBD & Average NBD of test methods & Both & \ding{175} \\
-    \hline ATVG & Average VG of test methods & Both & \ding{175} \\
-    \hline ATPAR & Average PAR of test methods & Both & \ding{175} \\
+    \textbf{Operator} & \textbf{Description} \\
+    \hline AOR & Arithmetic Operator Replacement \\
+    \hline AOI & Arithmetic Operator Insertion \\
+    \hline AOD & Arithmetic Operator Deletion \\
+    \hline ROR & Relational Operator Replacement \\
+    \hline COR & Conditional Operator Replacement \\
+    \hline COI & Conditional Operator Insertion \\
+    \hline COD & Conditional Operator Deletion \\
+    \hline SOR & Shift Operator Replacement \\
+    \hline LOR & Logical Operator Replacement \\
+    \hline LOI & Logical Operator Insertion \\
+    \hline LOD & Logical Operator Deletion \\
+    \hline ASR & Assignment Operator Replacement \\
     \hline
   \end{tabular}
-  \caption{The set of metrics used in our research.}
-  \vspace{1mm}
-  \footnotesize{\emph{Table~\ref{tab:metrics} shows the set of metrics used in our research organized by feature set (\ding{172}: Source Code Metrics, \ding{173}: Coverage Metrics, \ding{174}: Accumulated Source Code Metrics, \ding{175}: Accumulated Test Case Metrics).}}
-  \vspace{1mm}
-  \label{tab:metrics}
+  \caption{The set of method-level mutation operators for Java.}
+  \label{tab:method_operators}
 \end{table}
+
+To illustrate the effects of a method-level operator, we can look at the \emph{Relational Operator Relational} (\texttt{ROR}) mutation operator. This transformation replaces a relational operator (i.e., \texttt{>}, \texttt{>=}, \texttt{==}, \texttt{!=}, \texttt{=<} or, \texttt{<}) with another type of relational operator (see Figure~\ref{fig:ROR_mutation}). See Figure~\ref{fig:AOI_mutation} for another example demonstrating the \emph{Arithmetic Operator Insertion} (\texttt{AOI}) mutation operator. The remaining set of method-level mutation operators function in a similar fashion except with other operators (i.e., conditional, shift, logical and, assignment).
+
+\begin{figure}[h]
+  \centering
+  \begin{minipage}{6.5cm}
+  \centering
+  \footnotesize{\textbf{Correct Program}}
+  \lstinputlisting[language=Java, literate={>}{{\textcolor{red}{>}}}{1}]{listings/mutation_example.java}
+  \end{minipage}
+  $\xrightarrow{\texttt{ROR}}$
+  \begin{minipage}{6.5cm}
+  \centering
+  \footnotesize{\textbf{Mutant Program}}
+  \lstinputlisting[language=Java, literate={>}{{\textcolor{red}{<}}}{1}]{listings/mutation_example.java}
+  \end{minipage}
+  \caption{Example application of the \texttt{ROR} method-level mutation operator.}
+  \vspace{1mm}
+  \footnotesize{In Figure~\ref{fig:ROR_mutation} the syntax being transformed using the \texttt{ROR} is red in the source listing.}
+  \vspace{1mm}
+  \label{fig:ROR_mutation}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \begin{minipage}{6.5cm}
+  \centering
+  \footnotesize{\textbf{Correct Program}}
+  \lstinputlisting[language=Java, literate={this.limit}{{\textcolor{red}{\textbf{this}.limit}}}{10}]{listings/mutation_example.java}
+  \end{minipage}
+  $\xrightarrow{\texttt{AOI}}$
+  \begin{minipage}{6.5cm}
+  \centering
+  \footnotesize{\textbf{Mutant Program}}
+  \lstinputlisting[language=Java, literate={this.limit}{{\textcolor{red}{\textbf{this}.limit---}}}{12}]{listings/mutation_example.java}
+  \end{minipage}
+  \caption{Example application of the \texttt{AOI} method-level mutation operator.}
+  \vspace{1mm}
+  \footnotesize{In Figure~\ref{fig:AOI_mutation} the syntax being transformed using the \texttt{AOI} is red in the source listing.}
+  \vspace{1mm}
+  \label{fig:AOI_mutation}
+\end{figure}
+
+
+\subsection{Class-Level Operators}
+\label{subsec:background_class_operators}
+We look at the set of class-level mutation operators found in \emph{MuJava}~\cite{MOK05, MKO02}, as they are well documented and designed. These mutation operators apply source transformations that modify language features at the class-level. These operators can allow objects to behave in unexpected ways, as well as exposing design issues. Figure~\ref{tab:class_operators} tabulates the class-level mutation operators~\cite{MO05b}.
+
+\begin{table}[h]
+  \centering
+  \rowcolors{2}{gray!30}{gray!20}
+  \begin{tabular}{|c|l|l|}
+    \hline
+    \rowcolor[RGB]{169,196,223}
+    \textbf{Group} & \textbf{Operator} & \textbf{Description} \\
+    \hline \ding{172} & AMC & Access modifier change \\
+    \hline \ding{173} & IHD & Hiding variable deletion \\
+    \hline \ding{173} & IHI & Hiding variable insertion \\
+    \hline \ding{173} & IOD & Overriding method deletion \\
+    \hline \ding{173} & IOP & Overriding method calling position change \\
+    \hline \ding{173} & IOR & Overriding method rename \\
+    \hline \ding{173} & ISI & \texttt{super} keyword insertion \\
+    \hline \ding{173} & ISD & \texttt{super} keyword deletion \\
+    \hline \ding{173} & IPC & Explicit call to a parent's constructor deletion \\
+    \hline \ding{174} & PNC & \texttt{new} method call with child class type \\
+    \hline \ding{174} & PMD & Member variable declaration with parent class type \\
+    \hline \ding{174} & PPD & Parameter variable declaration with child class type \\
+    \hline \ding{174} & PCI & Type cast operator insertion \\
+    \hline \ding{174} & PCC & Cast type change \\
+    \hline \ding{174} & PCD & Type cast operator deletion \\
+    \hline \ding{174} & PRV & Reference assignment with other comparable variable \\
+    \hline \ding{174} & OMR & Overloading method contents replace \\
+    \hline \ding{174} & OMD & Overloading method deletion \\
+    \hline \ding{174} & OAC & Arguments of overloading method call change \\
+    \hline \ding{175} & JTI & \texttt{this} keyword insertion \\
+    \hline \ding{175} & JTD & \texttt{this} keyword deletion \\
+    \hline \ding{175} & JSI & \texttt{static} modifier insertion \\
+    \hline \ding{175} & JSD & \texttt{static} modifier deletion \\
+    \hline \ding{175} & JID & Member variable initialization deletion \\
+    \hline \ding{175} & JDC & Java-supported default constructor creation \\
+    \hline \ding{175} & EOA & Reference assignment and content assignment replacement \\
+    \hline \ding{175} & EOC & Reference comparison and content comparison replacement \\
+    \hline \ding{175} & EAM & Acessor method change \\
+    \hline \ding{175} & EMM & Modifier method change \\
+    \hline
+  \end{tabular}
+  \caption{The set of class-level mutation operators for Java.}
+  \vspace{1mm}
+  \footnotesize{\emph{Table~\ref{tab:class_operators} shows the set of class-level mutation operators. The group column indicates the specific language feature of the mutation operator (\ding{172}: Encapsulation, \ding{173}: Inheritance, \ding{174}: Polymorphism, \ding{175}: Java-Specific Features).}}
+  \vspace{1mm}
+  \label{tab:class_operators}
+\end{table}
+
+To illustrate the effects of a class-level operator, we can look at the \emph{Member Variable Initialization Deletion} (\texttt{JID}) mutation operator. This transformation deletes an instance variables initialization (see Figure~\ref{fig:ROR_mutation}). See Figure~\ref{fig:AMC_mutation} for another example demonstrating the \emph{Access Modifier Change} (\texttt{AMC}) mutation operator. The remaining set of class-level mutation operators function by inserting, deleting and, changing certain elements in the class with respect to inheritance, polymorphism and, Java-specific features).
+
+\begin{figure}[h]
+  \centering
+  \begin{minipage}{6.5cm}
+  \centering
+  \footnotesize{\textbf{Correct Program}}
+  \lstinputlisting[language=Java, literate={Integer\ limit\ =\ new\ Integer(10)}{{{\textcolor{red}{Integer\ limit\ =\ \textbf{new}\ Integer(10)}}}}{31}]{listings/mutation_example.java}
+  \end{minipage}
+  $\xrightarrow{\texttt{JID}}$
+  \begin{minipage}{6.5cm}
+  \centering
+  \footnotesize{\textbf{Mutant Program}}
+  \lstinputlisting[language=Java, literate={Integer\ limit\ =\ new\ Integer(10)}{{{\textcolor{red}{Integer\ limit}}}}{13}]{listings/mutation_example.java}
+  \end{minipage}
+  \caption{Example application of the \texttt{JID} class-level mutation operator.}
+  \vspace{1mm}
+  \footnotesize{In Figure~\ref{fig:JID_mutation} the syntax being transformed using the \texttt{JID} is red in the source listing.}
+  \vspace{1mm}
+  \label{fig:JID_mutation}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \begin{minipage}{6.5cm}
+  \centering
+  \footnotesize{\textbf{Correct Program}}
+  \lstinputlisting[language=Java, literate={public}{{\textbf{\textcolor{red}{public}}}}{6}]{listings/mutation_example.java}
+  \end{minipage}
+  $\xrightarrow{\texttt{AMC}}$
+  \begin{minipage}{6.5cm}
+  \centering
+  \footnotesize{\textbf{Mutant Program}}
+  \lstinputlisting[language=Java, literate={public}{{\textbf{\textcolor{red}{private}}}}{7}]{listings/mutation_example.java}
+  \end{minipage}
+  \caption{Example application of the \texttt{AMC} class-level mutation operator.}
+  \vspace{1mm}
+  \footnotesize{In Figure~\ref{fig:AMC_mutation} the syntax being transformed using the \texttt{AMC} is red in the source listing.}
+  \vspace{1mm}
+  \label{fig:AMC_mutation}
+\end{figure}
+
+
+\subsection{Mutation Testing Tools}
+\label{subsec:background_mutation_tools}
+In the last decade a number of mutation testing tools for the Java programming language have emerged~\cite{JH10}. Most of the tools have unique features that set them apart from one-another. Table~\ref{tab:mutation_tools} shows a number of Java mutation tools along with their features:
+
+\begin{description}
+  \item [Inception Year] the year the tool was released to the public
+  \item [Generation-Level] mutation can be generated either at the source code or bytecode level. Source code mutation generation requires re-compilation, while bytecode does not.
+  \item [Test Selection] test selection indicates which unit test cases are ran for each mutant. A naive based approach simply runs all the unit test cases, while convention based runs all tests based on a package/test name or defined annotations. Coverage based approach only runs unit test cases that are directly involved in the mutated source code, while a manual bases approach allows the user to specify each unit test case.
+  \item [Mutant Insertion] generated mutants are stored and ran against the selected unit test cases. A naive approach stores the mutants on disk and creates a new \gls{jvm} for each mutant. A schmeta~\cite{UOH93} approach stores all the mutants in a single class, and the mutants are enabled through runtime flags one-at-a-time. An in-memory approach stores all the mutants in-memory which are then injected into the \gls{jvm} by creating a new classloader. An instrumentation approach stores the mutants in memory, but injects them into the \gls{jvm} directly using an instrumentation \gls{api}.
+  \item [Method-Level] whether a tool has a set of \emph{traditional} method-level mutation operators as mentioned in Section~\ref{subsec:background_method_operators}.
+  \item [Concurrency-Level] whether a tool has a set of concurrency-level mutation operators, those which mutate concurrency syntax to cause potential deadlocks, data races and more concurrency related bugs.
+  \item [Class-Level] whether a tool has a set of object-oriented class-level mutation operators as mentioned in Section~\ref{subsec:background_class_operators}.
+  \item [JUnit Support] whether a tool has support for JUnit test cases (de facto for unit testing Java~\cite{JUnit}.
+  \item [Command-Line] whether a tool has support to be ran via a command-line interface.
+  \item [Structured Output] whether a tool has support to output results in a structure format (i.e., \gls{xml}, etc \ldots)
+  \item [Unit Scores] whether a tool indicates the mutation score of individual source code units (i.e., the mutation score of methods).
+  \item [Open Source] whether a tool's source code is open source and freely available to modify.
+  \item [Academic Tool] whether a tool was developed from an academic research group, otherwise industry or community developed.
+  \item [Special Feature] whether a tools has a special feature that is unique in mutation testing.
+\end{description}
+
+\begin{landscape}
+  \begin{table}[h]
+    \centering
+    \rowcolors{1}{gray!30}{gray!20}
+    \begin{threeparttable}
+      \begin{tabular}{|l|l|l|l|l|l|l|}
+        \rowcolor[RGB]{169,196,223}
+        \hline & \textbf{Jester~\cite{Jester}} & \textbf{MuJava~\cite{MOK05}} & \textbf{Jumble~\cite{Jumble}} & \textbf{Javalanche~\cite{SZ09}} & \textbf{Judy~\cite{MR10}} & \textbf{PIT~\cite{PIT}} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Inception Year} & 2001 & 2004 & 2007 & 2009 & 2010 & 2011 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Generation-Level} & Source Code & Bytecode & Bytecode & Bytecode & Source Code & Bytecode \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Test Selection} & Naive\tnote{f} & Manual & Convention & Coverage & Convention & Coverage \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Mutant Insertion} & Naive\tnote{f} & Schmeta & In-Memory & Schmeta & Schmeta\tnote{c} & Instrument \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Method-Level} & No & Yes & No & Yes & Yes & Yes \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Concurrency-Level} & No & No & No & Yes & No & No \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Class-Level} & No & Yes & No & No & Yes\tnote{b} & No \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{JUnit Support} & Yes & No\tnote{c} & Yes & Yes & Yes & Yes \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Command-Line} & Yes & No & Yes & Yes & Yes & Yes \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Structured Output} & No & No & No & Yes & No & Yes \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Unit Scores} & No & No & No & Yes & No & No\tnote{g} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Open Source} & Yes & No\tnote{d} & Yes & Yes & No & Yes \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Academic Tool} & No & Yes & No & Yes & Yes & No \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Special Feature} & No & No & No & Yes\tnote{e} & No & No \\
+        \hline
+      \end{tabular}
+      \begin{tablenotes}
+        \item[a] The Eclipse plugin has support for JUnit 3.
+        \item[b] Limited set of class-level operators.
+        \item[c] Iterative schmata (only allows a certain limit of mutants per iteration).
+        \item[d] Limited basis to researchers.
+        \item[e] Impact analysis to deal with equivalent mutants.
+        \item[f] Best guess considering limited documentation.
+        \item[g] The unit score could be calculated manually using structured output.
+      \end{tablenotes}
+    \end{threeparttable}
+    \caption{Java mutation testing tools and their feature.}
+    \vspace{1mm}
+    \footnotesize{\emph{Table~\ref{tab:mutation_tools} shows a categorization of several Java mutation testing tools(table compiled using data from~\cite{PIT, MR10})}}
+    \vspace{1mm}
+    \label{tab:mutation_tools}
+  \end{table}
+\end{landscape}
