@@ -259,3 +259,16 @@ In the last decade a number of mutation testing tools for the Java programming l
     \label{tab:mutation_tools}
   \end{table}
 \end{landscape}
+
+
+\section{Machine Learning}
+\label{sec:background_machine_learning}
+Machine learning is a branch of artificial intelligence that primarily focuses on the ability to classify complex data. Given a set data with complex relationship within it, machine learning algorithms can attempt to uncover patterns that describe the data. With the uncovered patterns and relationships it then is possible to make intelligent predictions based on the data.
+
+There are two types of machine learning algorithms for classification algorithms: \emph{supervised} and \emph{unsupervised} learning. The main difference between the two types of algorithms is whether one can properly classify some data prior to using the algorithm. In situations where nothing is known about the data set in terms of classification of the data then a unsupervised classification algorithm could be used. These types of algorithms generally aim to classify the data based on density or clusters (i.e., \emph{k}-mean clustering). The other type of algorithm, supervised learning, requires that an \emph{expert} can classify some of the data to use for \emph{training}. Using a supervised learning algorithm a model is created that describes the training data. Unclassified data can then be passed through the model to see what classification best fits the data.
+
+If one does not have any idea of what the they are trying to classify, unsupervised learning is the best approach. It is not possible to label the data correctly, and incorrect labeling would only be detrimental to the classification. If it is possible to label the data then it becomes possible to perform supervised learning on the data. With correct labeling for the training data, future data can be classified on the constructed model from the training phase. In a sense unsupervised learning is more on exploratory need, while supervised learning is more on constructing a classifier.
+
+In either case both learning algorithms require data to be classified. Dataset consist of a feature set of size \emph{n}. The power of machine learning comes of its ability to handle multiple dimensions of features for multiple dimensions of classification categories. For unsupervised learning datasets do not require a classification category. On the other hand the datasets for supervised learning require a pre-determined category.
+
+A \gls{svm} is an example of a linear discrimination machine learning technique and assumes that ``...\emph{instances of a class are linearly separable from instances of other classes}''~\cite{ALP04}. A SVM is capable of learning how a set of features inform the classification of a data item. It can also be trained on known data items (in which the features and category are present), and then used to predict the category of unknown data items (in which only the features are present). Traditionally, SVMs have been used for two-group classification problems~\cite{CV95} but have also been generalized to \emph{n}-group classification problems.
