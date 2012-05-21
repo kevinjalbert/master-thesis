@@ -273,3 +273,45 @@ In either case both learning algorithms require data to be classified. Dataset c
 
 Many areas of research have benefited from machine learning such as the data mining~\cite{WFH11}, computer vision~\cite{Her03}, biology~\cite{OLP08}, business~\cite{Her00}, health sciences~\cite{Kon01} amongst many others areas. Furthermore, most companies that offer a complex recommendation system utilize machine learning techniques. For example in 2006, \emph{Netflix} challenged the computer science, data mining and machine learning communities to develop a system that exceed its own recommendation system~\cite{BL07}.
 
+
+\subsection{Support Vector Machine}
+\label{subsec:background_support_vector_machine}
+A \gls{svm} is an example of a linear discrimination machine learning technique and assumes that ``...\emph{instances of a class are linearly separable from instances of other classes}''~\cite{ALP04}. Traditionally, \gls{svm}s have been used for two-group classification problems~\cite{CV95} but have also been generalized to \emph{n}-group classification problems. The dataset used in \gls{svm} is applied to a \emph{feature space} that consists of a set of \emph{vectors} (a row of data in the dataset), with each vector containing a set of \emph{attributes} (the values that define the vector). In Figure~\ref{fig:SVM_margin} we have a \gls{svm} example with each vector having two predictor variables (\emph{x} and \emph{y} coordinates). A \gls{svm} attempts to find the maximum margin space between support vectors of opposite categories, which results in the optimal hyperplane. The optimal hyperplane is chosen over other as ``Intuitively, we would expect this boundary to generalise well as opposed to the other possible boundaries.''~\cite{Gun98}.
+
+\begin{figure}[h]
+  \centering
+  \fbox{\subfloat[][\gls{svm} separated with a small margin between support vectors]{
+    \includegraphics[width=5.5cm]{figures/SVM_small_margin.pdf}
+    \label{fig:SVM_small_margin}
+  }}
+  \qquad
+  \fbox{\subfloat[][\gls{svm} separated with a maximum margin between support vectors]{
+    \includegraphics[width=5.5cm]{figures/SVM_maximum_margin.pdf}
+    \label{fig:SVM_maximum_margin}
+  }}
+  \caption{Difference between small and maximum margins between support vectors.}
+  \vspace{1mm}
+  \footnotesize{As we can see in Figure~\ref{fig:SVM_margin} two simple example of \gls{svm}s are illustrated. There are two categories in the feature space with a solid line separating them, this is called the \emph{hyperplane}. The dotted lines represent the distance to the closest vector from the hyperplane, the distance between both dotted lines is also called the \emph{margin}. \emph{Support vectors} are the vectors that are touching the margin. The goal of a \gls{svm} is to maximizing the distance between support vectors of opposite categories using the hyperplane. There is a clear difference in the distance separating support vectors in the above examples, with the maximum margin~\subref{fig:SVM_maximum_margin} being a better solution then the small margin~\subref{fig:SVM_small_margin}.}
+  \vspace{1mm}
+  \label{fig:SVM_margin}
+\end{figure}
+
+In some cases a linear separation is not possible in the feature space, for example in Figure~\ref{fig:SVM_non-linear_kernel}. It is possible to map the vectors to a higher dimension such that the feature space now becomes linearly separable. The separating hyperplane is always of \emph{n}-1 dimensions (for example, two dimensional data is separated with a 1 dimensional line). Over-fitting can lower the ability of a classifier to generalize. \gls{svm} handle this first with the maximum margin distance which allows some flexibility in adding new vectors to the feature space. Secondly, the concept of \emph{cost} is also present in \gls{svm}. If there is a low cost then the the \gls{svm} will allow some mis-classifications (within a distance from the hyperplane using a function of cost). A higher cost value will reduce the number of mis-classifications, but may create a model that does not generalize outside of the training data.
+
+\begin{figure}[h]
+  \centering
+  \fbox{\subfloat[][\gls{svm} separated with a small margin between support vectors]{
+    \includegraphics[width=5.5cm]{figures/SVM_non-linear.pdf}
+    \label{fig:SVM_non-linear}
+  }}
+  $\xrightarrow{\texttt{Kernel Function}}$
+  \fbox{\subfloat[][\gls{svm} separated with a maximum margin between support vectors]{
+    \includegraphics[width=5.5cm]{figures/SVM_kernel_function.pdf}
+    \label{fig:SVM_kernel_function}
+  }}
+  \caption{Linearly separating non-linear data using a kernel function.}
+  \vspace{1mm}
+  \footnotesize{As we can see in Figure~\ref{fig:SVM_non-linear_kernel} two example of \gls{svm}s are illustrated. A non-linear hyperplane is required in~\subref{fig:SVM_non-linear} to properly separate the two categories. \gls{svm}s attempt to linearly separate the feature space, in this case it is possible to \emph{map} the vectors to a higher dimension using a \emph{kernel function}. In the above example a kernel function is used to map~\subref{fig:SVM_non-linear} to~\subref{fig:SVM_kernel_function} which results in a higher dimension such that each vector now has a \emph{radius} value (distance from the center). As we can see in~\subref{fig:SVM_kernel_function} it is now linearly separable when the feature space is mapped to a higher dimension (from two-dimensions to three-dimensions).}
+  \vspace{1mm}
+  \label{fig:SVM_non-linear_kernel}
+\end{figure}
