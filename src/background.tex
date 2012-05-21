@@ -315,3 +315,99 @@ In some cases a linear separation is not possible in the feature space, for exam
   \vspace{1mm}
   \label{fig:SVM_non-linear_kernel}
 \end{figure}
+
+
+\section{Metrics}
+\label{sec:background_metrics}
+Metrics are measurements of a system, in which they can provide insight in describing the system. Goodman defines software metrics as ``\emph{The continuous application of measurement-based techniques to the software development process and its products to supply meaningful and timely management information, together with the use of those techniques to improve that process and its products}''~\cite{Goo93}. Having the ability to measure a system and use those measurement for future considerations is a large benefit of metrics. For software systems there are plentiful metrics that can be acquire and used. In most cases anything that can be measured can very well be used as a metrics.
+
+
+\subsection{Source Code Metrics}
+\label{subsec:background_source_code_metrics}
+Software metrics can be used to measure a number of qualities of a software system. In particular, source code metrics give insight into structural aspects of the system including it's complexity, size, as well as object-oriented attributes~\cite{McCa76, Kan02, HWY09, Hend95, SRD12}. Chidamber et al. presented a suite of object-oriented metrics~\cite{CK94}, around the same time Abreu et al. also presented the MOOD object-oriented suite~\cite{AC94}. Source code metrics are typically extracted from the source code using static analysis techniques. Some metrics like \emph{defect density} make use of external bug reports along with the source code to indicate problematic modules~\cite{FP98}. In other cases software metrics might only be observable during the execution of the system in cases where dynamic/runtime metrics are considered~\cite{SS08}. Table~\ref{tab:source_metrics} presents a number of source code metrics that measure the structure of a software system.
+
+\begin{table}[h]
+  \centering
+  \rowcolors{2}{gray!30}{gray!20}
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \rowcolor[RGB]{169,196,223}
+    \textbf{Metric} & \textbf{Description} & \textbf{Scope} \\
+    \hline MLOC & Method lines of code & Method \\
+    \hline NBD & Nested block depth & Method \\
+    \hline VG & McCabe cyclomatic complexity & Method \\
+    \hline PAR & Number of parameters & Method \\
+    \hline NORM & Number of overridden methods & Class \\
+    \hline NOF & Number of attributes & Class \\
+    \hline NSC & Number of children & Class \\
+    \hline DIT & Depth of inheritance tree & Class \\
+    \hline LCOM & Lack of cohesion of methods & Class \\
+    \hline NSM & Number of static methods & Class \\
+    \hline NOM & Number of methods & Class \\
+    \hline SIX & Specialization index & Class \\
+    \hline WMC & Weighted method per class & Class \\
+    \hline NSF & Number of static attributes & Class \\
+    \hline SMLOC & Sum MLOC of methods & Class \\
+    \hline SNBD & Sum NBD of methods & Class \\
+    \hline SVG & Sum VG of methods & Class \\
+    \hline SPAR & Sum PAR of methods & Class \\
+    \hline AMLOC & Average MLOC of methods & Class \\
+    \hline ANBD & Average NBD of methods & Class \\
+    \hline AVG & Average VG of methods & Class \\
+    \hline APAR & Average PAR of methods & Class \\
+    \hline
+  \end{tabular}
+  \caption{The set of source code metrics used in our research.}
+  \vspace{1mm}
+  \footnotesize{\emph{Table~\ref{tab:source_metrics} shows the set of metrics used in our research with respect to what source code unit scope they are connected with. Class-level source metrics measure object-oriented interactions and structural aspects for classes. Method-level source metrics measure method complexity and size.}}
+  \vspace{1mm}
+  \label{tab:source_metrics}
+\end{table}
+
+
+\subsection{Test Suite Metrics}
+\label{subsec:background_test_suite_metrics}
+Test suite metrics can be gathered using similar technique to those used in the gathering of source code metrics. There is less research and metrics in this area. In our research, we consider JUnit test cases as an aspect related to test suite metrics. Test case units still behave as source code, thus the complexity and size of test cases can be used as an observable metric. As mentioned in Section~\ref{sec:introduction_motivation}, coverage metrics can also assess what parts of the source code are exercise by the test suite~\cite{ZHM97}. Table~\ref{tab:test_suite_source_metrics} presents a set of test suite metrics that measure the complexity and size of the test suite for the \gls{sut}. Table~\ref{tab:test_suite_coverage_metrics} presents a set of test suite metrics that measure the coverage of the test suite for the \gls{sut}.
+
+\begin{table}[h]
+  \centering
+  \rowcolors{2}{gray!30}{gray!20}
+  \begin{tabular}{|l|l|}
+    \hline
+    \rowcolor[RGB]{169,196,223}
+    \textbf{Metric} & \textbf{Description} \\
+    \hline STMLOC & Sum MLOC of test methods \\
+    \hline STNBD & Sum NBD of test methods \\
+    \hline STVG & Sum VG of test methods \\
+    \hline STPAR & Sum PAR of test methods \\
+    \hline ATMLOC & Average MLOC of test methods \\
+    \hline ATNBD & Average NBD of test methods \\
+    \hline ATVG & Average VG of test methods \\
+    \hline ATPAR & Average PAR of test methods \\
+    \hline
+  \end{tabular}
+  \caption{The set of test suite source code metrics used in our research.}
+  \vspace{1mm}
+  \footnotesize{\emph{Table~\ref{tab:test_suite_source_metrics} shows the set of metrics used in our research with respect to what source code unit scope they are connected with. Class-level source metrics measure object-oriented interactions and structural aspects for classes. Method-level source metrics measure method complexity and size.}}
+  \vspace{1mm}
+  \label{tab:test_suite_source_metrics}
+\end{table}
+
+\begin{table}[h]
+  \centering
+  \rowcolors{2}{gray!30}{gray!20}
+  \begin{tabular}{|l|l|}
+    \hline
+    \rowcolor[RGB]{169,196,223}
+    \textbf{Metric} & \textbf{Description} \\
+    \hline BCOV & Basic blocks covered in code unit \\
+    \hline BTOT & Total basic blocks for code unit \\
+    \hline NOT & Number of tests \\
+    \hline
+  \end{tabular}
+  \caption{The set of test suite coverage metrics used in our research.}
+  \vspace{1mm}
+  \footnotesize{\emph{Table~\ref{tab:test_suite_coverage_metrics} shows a set of test suite metrics used in our research with respect to the coverage provided on the \gls{sut}. \emph{Basic block} is an atomic set of instructions, which can be used as a coverage measure.}}
+  \vspace{1mm}
+  \label{tab:test_suite_coverage_metrics}
+\end{table}
