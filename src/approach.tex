@@ -28,7 +28,7 @@ In our research we use Javalanche (version 0.4), a mutation testing tool for Jav
     \hline UNARY\_OPERATOR & Insert unary operator \\
     \hline
   \end{tabular}
-  \caption{The set of selective method-level mutation operators used in Javalanche~\cite{ OLR+96}}
+  \caption{The set of selective method-level mutation operators used in Javalanche.}
   \label{tab:javalanche_operators}
 \end{table}
 
@@ -52,7 +52,7 @@ We focus on JUnit test cases as our testing framework, thus can actually use the
 
 \section{Process}
 \label{sec:approach_process}
-Our process for mutation score prediction using source code and test suite metrics is shown in Figure~\ref{fig:process}. As we are using a supervised learning technique for prediction, a \gls{svm}, we need to initially collect training data. Thus we inevitably have to calculate the mutation scores of a software system at least once. As mentioned in the motivation (see Section~\ref{sec:introduction_motivation}) our approach aims to reduce the amount of mutation testing done in iterative development. If our technique generalize well then it can be possible to build a comprehensive model and predict on different software systems without any prior mutation testing (we explore this in Chapter~\ref{??}). The following sections walk through the complete process one step at a time, providing examples where possible.
+Our process for mutation score prediction using source code and test suite metrics is shown in Figure~\ref{fig:process}. As we are using a supervised learning technique for prediction, a \gls{svm}, we need to initially collect training data. Thus we inevitably have to calculate the mutation scores of a software system at least once. As mentioned in the motivation (see Section~\ref{sec:introduction_motivation}) our approach aims to reduce the amount of mutation testing done in iterative development. If our technique generalize well then it can be possible to build a comprehensive model and predict on different software systems without any prior mutation testing (we explore this in Chapter~\ref{??}). The following sections walk through the complete process one phase at a time, providing examples where possible.
 
 \begin{figure}[h]
   \centering
@@ -64,16 +64,77 @@ Our process for mutation score prediction using source code and test suite metri
 
 \subsection{Inputs}
 \label{subsec:appraoch_inputs}
-To predict the mutation score of source code units (methods and classes) our approach requires certain inputs. A set of source units of code (the Java files that compose the \gls{sut}) and the corresponding set of unit test cases (the JUnit files that compose the test suite for the \gls{sut}). The more coverage the test suite provides the more data that can be extracted from the \gls{sut}. Our approach is only concerned with source units of code that are being tested.
+To predict the mutation score of source code units (methods and classes) our approach requires the following inputs: a set of source units of code (the Java files that compose the \gls{sut}) and the corresponding set of unit test cases (the JUnit files that compose the test suite for the \gls{sut}). A simple example of the input our approach requires is presented in Figure~\ref{fig:triangle_example}. Our approach is only concerned with source units of code that are being tested, thus the more coverage the test suite provides the more data that can be extracted from the \gls{sut}.
 
+\begin{figure}[h]
+  \centering
+  \begin{minipage}{6.75cm}
+  \centering
+  \footnotesize{\textbf{\texttt{Triangle} Source Code}}
+  \lstinputlisting[language=Java]{listings/Triangle.java}
+  \end{minipage}
+  \qquad
+  \begin{minipage}{6.75cm}
+  \centering
+  \footnotesize{\textbf{\texttt{TriangleTest} Test Suite}}
+  \lstinputlisting[language=Java]{listings/TriangleTest.java}
+  \end{minipage}
+  \caption{Example source code of \texttt{Triangle} and its test suite \texttt{TriangleTest}.}
+  \vspace{1mm}
+  \footnotesize{Figure~\ref{fig:triangle_example} presents a stripped down example of expected input that our prediction approach requires. This system has a single method to classify triangles, along with a few test cases to test its capabilities in classifying triangles.}
+  \vspace{1mm}
+  \label{fig:triangle_example}
+\end{figure}
 
 
 \subsection{Collect Source Code Metrics}
 \label{subsec:appraoch_collect_source_metrics}
+Given our input of the software system we first must acquire the source code metrics of the source code units and the unit test cases. We use the Eclipse Metrics Plugin to analyze the software system to produce an \gls{xml} file of the source code metrics. The produced \gls{xml} file is \emph{metric-oriented}, so we translate so it is \emph{unit-oriented}. This phase acquires the source code metrics (see feature set \ding{172}) for each source code unit and unit test case. Using the example in Figure~\ref{fig:triangle_example} this phase extracts the following metrics as seen in Table~\ref{tab:triangle_class_extracted_metrics}~\&~\ref{tab:triangle_method_extracted_metrics}.
+
+\begin{landscape}
+  \begin{table}[h]
+    \centering
+    \rowcolors{2}{gray!30}{gray!20}
+    \begin{tabular}{|l|r|r|}
+      \hline
+      \rowcolor[RGB]{169,196,223}
+      \textbf{Metrics} & \texttt{\textbf{Triangle}} & \texttt{\textbf{TriangleTest}} \\
+      \hline NORM & 0 & 0 \\
+      \hline NOF & 0 & 0 \\
+      \hline NSC & 0 & 0 \\
+      \hline DIT & 1 & 1 \\
+      \hline LCOM & 0 & 0 \\
+      \hline NSM & 1 & 0 \\
+      \hline NOM & 0 & 5 \\
+      \hline SIX & 0 & 0 \\
+      \hline WMC & 18 & 5 \\
+      \hline NSF & 0 & 0 \\
+      \hline
+    \end{tabular}
+    \caption{Extracted class source code metrics of the \texttt{Triangle} system.}
+    \label{tab:triangle_class_extracted_metrics}
+  \end{table}
+
+  \begin{table}[h]
+    \centering
+    \rowcolors{2}{gray!30}{gray!20}
+    \begin{tabular}{|l|r|r|r|r|r|r|}
+      \hline
+      \rowcolor[RGB]{169,196,223}
+      \textbf{Metrics} & \texttt{\textbf{classify}} & \texttt{\textbf{testScalene}} & \texttt{\textbf{testIsoceles}} & \texttt{\textbf{testEquiliteral}} & \texttt{\textbf{testNegative}} & \texttt{\textbf{testInvalid}} \\
+      \hline MLOC & 24 & 2 & 2 & 2 & 2 & 2 \\
+      \hline NBD & 1 & 1 & 1 & 1 & 1 & 1 \\
+      \hline VG & 18 & 1 & 1 & 1 & 1 & 1 \\
+      \hline PAR & 3 & 0 & 0 & 0 & 0 & 0 \\
+      \hline
+    \end{tabular}
+    \caption{Extracted method source code metrics of the \texttt{Triangle} system.}
+    \label{tab:triangle_class_extracted_metrics}
+  \end{table}
+\end{landscape}
 
 
-
-\subsection{Collect Source Code Metrics}
+\subsection{Collect Test Suite Coverage Metrics}
 \label{subsec:appraoch_collect_coverage_metrics}
 
 
