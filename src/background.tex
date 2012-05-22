@@ -59,6 +59,9 @@ We look at the set of method-level mutation operators found in \emph{MuJava}~\ci
     \hline
   \end{tabular}
   \caption{The set of method-level mutation operators for Java.}
+  \vspace{1mm}
+  \footnotesize{The mutation operators in \emph{Table~\ref{tab:method_operators} come from the mutation testing tool MuJava~\cite{MO05a}.}}
+  \vspace{1mm}
   \label{tab:method_operators}
 \end{table}
 
@@ -149,7 +152,7 @@ We look at the set of class-level mutation operators found in \emph{MuJava}~\cit
   \end{tabular}
   \caption{The set of class-level mutation operators for Java.}
   \vspace{1mm}
-  \footnotesize{\emph{Table~\ref{tab:class_operators} shows the set of class-level mutation operators. The group column indicates the specific language feature of the mutation operator (\ding{172}: Encapsulation, \ding{173}: Inheritance, \ding{174}: Polymorphism, \ding{175}: Java-Specific Features).}}
+  \footnotesize{\emph{Table~\ref{tab:class_operators} shows the set of class-level mutation operators from MuJava~\cite{MO05b}. The group column indicates the specific language feature of the mutation operator (\ding{172}: Encapsulation, \ding{173}: Inheritance, \ding{174}: Polymorphism, \ding{175}: Java-Specific Features).}}
   \vspace{1mm}
   \label{tab:class_operators}
 \end{table}
@@ -201,22 +204,22 @@ To illustrate the effects of a class-level operator, we can look at the \emph{Me
 \label{subsec:background_mutation_tools}
 In the last decade a number of mutation testing tools for the Java programming language have emerged~\cite{JH10}. Most of the tools have unique features that set them apart from one-another. Table~\ref{tab:mutation_tools} shows a number of Java mutation tools along with their features:
 
-\begin{description}
-  \item [Inception Year] the year the tool was released to the public
-  \item [Generation-Level] mutation can be generated either at the source code or bytecode level. Source code mutation generation requires re-compilation, while bytecode does not.
-  \item [Test Selection] test selection indicates which unit test cases are ran for each mutant. A naive based approach simply runs all the unit test cases, while convention based runs all tests based on a package/test name or defined annotations. Coverage based approach only runs unit test cases that are directly involved in the mutated source code, while a manual bases approach allows the user to specify each unit test case.
-  \item [Mutant Insertion] generated mutants are stored and ran against the selected unit test cases. A naive approach stores the mutants on disk and creates a new \gls{jvm} for each mutant. A schmeta~\cite{UOH93} approach stores all the mutants in a single class, and the mutants are enabled through runtime flags one-at-a-time. An in-memory approach stores all the mutants in-memory which are then injected into the \gls{jvm} by creating a new classloader. An instrumentation approach stores the mutants in memory, but injects them into the \gls{jvm} directly using an instrumentation \gls{api}.
-  \item [Method-Level] whether a tool has a set of \emph{traditional} method-level mutation operators as mentioned in Section~\ref{subsec:background_method_operators}.
-  \item [Concurrency-Level] whether a tool has a set of concurrency-level mutation operators, those which mutate concurrency syntax to cause potential deadlocks, data races and more concurrency related bugs.
-  \item [Class-Level] whether a tool has a set of object-oriented class-level mutation operators as mentioned in Section~\ref{subsec:background_class_operators}.
-  \item [JUnit Support] whether a tool has support for JUnit test cases (de facto for unit testing Java~\cite{JUnit}.
-  \item [Command-Line] whether a tool has support to be ran via a command-line interface.
-  \item [Structured Output] whether a tool has support to output results in a structure format (i.e., \gls{xml}, etc \ldots)
-  \item [Unit Scores] whether a tool indicates the mutation score of individual source code units (i.e., the mutation score of methods).
-  \item [Open Source] whether a tool's source code is open source and freely available to modify.
-  \item [Academic Tool] whether a tool was developed from an academic research group, otherwise industry or community developed.
-  \item [Special Feature] whether a tools has a special feature that is unique in mutation testing.
-\end{description}
+\begin{itemize}
+  \item \textbf{Inception Year}: the year the tool was released to the public
+  \item \textbf{Generation-Level}: mutation can be generated either at the source code or bytecode level. Source code mutation generation requires re-compilation, while bytecode does not.
+  \item \textbf{Test Selection}: test selection indicates which unit test cases are ran for each mutant. A naive based approach simply runs all the unit test cases, while convention based runs all tests based on a package/test name or defined annotations. Coverage based approach only runs unit test cases that are directly involved in the mutated source code, while a manual bases approach allows the user to specify each unit test case.
+  \item \textbf{Mutant Insertion}: generated mutants are stored and ran against the selected unit test cases. A naive approach stores the mutants on disk and creates a new \gls{jvm} for each mutant. A schmeta~\cite{UOH93} approach stores all the mutants in a single class, and the mutants are enabled through runtime flags one-at-a-time. An in-memory approach stores all the mutants in-memory which are then injected into the \gls{jvm} by creating a new classloader. An instrumentation approach stores the mutants in memory, but injects them into the \gls{jvm} directly using an instrumentation \gls{api}.
+  \item \textbf{Method-Level}: whether a tool has a set of \emph{traditional} method-level mutation operators as mentioned in Section~\ref{subsec:background_method_operators}.
+  \item \textbf{Concurrency-Level}: whether a tool has a set of concurrency-level mutation operators, those which mutate concurrency syntax to cause potential deadlocks, data races and more concurrency related bugs.
+  \item \textbf{Class-Level}: whether a tool has a set of object-oriented class-level mutation operators as mentioned in Section~\ref{subsec:background_class_operators}.
+  \item \textbf{JUnit Support}: whether a tool has support for JUnit test cases (de facto for unit testing Java~\cite{JUnit}.
+  \item \textbf{Command-Line}: whether a tool has support to be ran via a command-line interface.
+  \item \textbf{Structured Output}: whether a tool has support to output results in a structure format (i.e., \gls{xml}, etc \ldots)
+  \item \textbf{Unit Scores}: whether a tool indicates the mutation score of individual source code units (i.e., the mutation score of methods).
+  \item \textbf{Open Source}: whether a tool's source code is open source and freely available to modify.
+  \item \textbf{Academic Tool}: whether a tool was developed from an academic research group, otherwise industry or community developed.
+  \item \textbf{Special Feature}: whether a tools has a special feature that is unique in mutation testing.
+\end{itemize}
 
 \begin{landscape}
   \begin{table}[h]
@@ -271,7 +274,7 @@ If one does not have any idea of what the they are trying to classify, unsupervi
 
 In either case both learning algorithms require data to be classified. Dataset consist of a feature set of size \emph{n}. The power of machine learning comes of its ability to handle multiple dimensions of features for multiple dimensions of classification categories. For unsupervised learning datasets do not require a classification category. On the other hand the datasets for supervised learning require a pre-determined category.
 
-Many areas of research have benefited from machine learning such as the data mining~\cite{WFH11}, computer vision~\cite{Her03}, biology~\cite{OLP08}, business~\cite{Her00}, health sciences~\cite{Kon01} amongst many others areas. Furthermore, most companies that offer a complex recommendation system utilize machine learning techniques. For example in 2006, \emph{Netflix} challenged the computer science, data mining and machine learning communities to develop a system that exceed its own recommendation system~\cite{BL07}.
+Many areas of research have benefited from machine learning such as the data mining~\cite{WFH11}, computer vision~\cite{Her03}, biology~\cite{OLP08}, business~\cite{Her00}, health sciences~\cite{Kon01} amongst many others areas. Furthermore, most companies that offer a complex recommendation system utilize machine learning techniques. For example in 2006, \emph{Netflix} challenged the computer science, data mining and machine learning communities to develop a system that exceed its own recommendation system~\cite{BL07}. Several tools that provide sophisticated machine learning techniques in a \emph{off-the-shelf} format does exist such as WEKA~\cite{HFH+09} and LIBSVM~\cite{CL11}. These tools allow other research areas not familiar in machine learning to exploit their benefits.
 
 
 \subsection{Support Vector Machine}

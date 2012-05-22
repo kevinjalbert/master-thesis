@@ -89,7 +89,7 @@ To predict the mutation score of source code units (methods and classes) our app
 
 \subsection{Collect Source Code Metrics}
 \label{subsec:appraoch_collect_source_metrics}
-Given our input of the software system we first must acquire the source code metrics of the source code units and the unit test cases. We use the Eclipse Metrics Plugin to analyze the software system to produce an \gls{xml} file of the source code metrics. The produced \gls{xml} file is \emph{metric-oriented}, so we translate so it is \emph{unit-oriented}. This phase acquires the source code metrics (see feature set \ding{172}) for each source code unit and unit test case. Using the example in Figure~\ref{fig:triangle_example} this phase extracts the following metrics as seen in Table~\ref{tab:triangle_class_extracted_metrics}~\&~\ref{tab:triangle_method_extracted_metrics}.
+Given our input of the software system we first must acquire the source code metrics of the source code units and the unit test cases. We use the Eclipse Metrics Plugin to analyze the software system to produce an \gls{xml} file of the source code metrics. The produced \gls{xml} file is \emph{metric-oriented}, so we translate so it is \emph{unit-oriented}. This phase acquires the source code metrics (see feature set \ding{172} in Figure~\ref{tab:metrics}) for each source code unit and unit test case. Using the example in Figure~\ref{fig:triangle_example} this phase extracts the following metrics as seen in Table~\ref{tab:triangle_class_extracted_metrics}~\&~\ref{tab:triangle_method_extracted_metrics}.
 
 \begin{landscape}
   \begin{table}[h]
@@ -129,7 +129,7 @@ Given our input of the software system we first must acquire the source code met
       \hline
     \end{tabular}
     \caption{Extracted method source code metrics of the \texttt{Triangle} system.}
-    \label{tab:triangle_class_extracted_metrics}
+    \label{tab:triangle_method_extracted_metrics}
   \end{table}
 \end{landscape}
 
