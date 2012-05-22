@@ -1,13 +1,152 @@
 \chapter{Approach}
 \label{chap:approach}
-We now describe our SVM approach to determining the mutation score of a unit under test based on source code and test suite metrics. In Section~\ref{sec:approach_training} we outline the process for collecting our initial data and training the SVM (see Figure~\ref{fig:process}) and in Section~\ref{sec:approach_prediction} we describe how to use the SVM for prediction.
+This chapter describes our approach to determine the mutation score of a source code unit under test based on source code and test suite metrics. In Section~\ref{sec:approach_tools} we first describe the tools and technologies used in our approach. Section~\ref{sec:approach_process} details the complete process for collecting our initial data. Then in Section~\ref{sec:approach_training}~\&~\ref{sec:approach_prediction} we describe how we use a SVM for training and prediction.
 
-\begin{figure}[!t]
+
+\section{Tools}
+\label{sec:approach_tools}
+The following sections show the tools selected for the technologies we are using in our approach. We selected our tools based on the ability to easily synthesis data to-and-from the tools. In addition, we preferred tools that give access to a \gls{cli}.
+
+
+\subsection{Javalanche}
+\label{subsec:approach_javalanche}
+In our research we use Javalanche (version 0.4), a mutation testing tool for Java~\cite{SZ09} that applies a subset of the method-level mutation operators. Javalanche uses a subset of the method-level mutation operators (see Table~\ref{tab:javalanche_operators}). These selected operators provide a close approximation of the effectiveness of using the entire set of method-level operators at a reduced cost~\cite{OLR+96}.
+
+\begin{table}[h]
   \centering
-  \includegraphics[width=7cm]{figures/process.pdf}
-  \caption{Our SVM training process.}
+  \rowcolors{2}{gray!30}{gray!20}
+  \begin{tabular}{|l|l|}
+    \hline
+    \rowcolor[RGB]{169,196,223}
+    \textbf{Name} & \textbf{Description} \\
+    \hline REPLACE\_CONSTANT & Replace a constant \\
+    \hline NEGATE\_JUMP & Negate jump condition \\
+    \hline ARITHMETIC\_REPLACE & Replace arithmetic operator \\
+    \hline REMOVE\_CALL & Remove method call \\
+    \hline REPLACE\_VARIABLE & Replace variable reference\\
+    \hline ABSOLUTE\_VALUE & Insert absolute value of a variable \\
+    \hline UNARY\_OPERATOR & Insert unary operator \\
+    \hline
+  \end{tabular}
+  \caption{The set of selective method-level mutation operators used in Javalanche~\cite{ OLR+96}}
+  \label{tab:javalanche_operators}
+\end{table}
+
+We chose Javalanche for our research because it is customizable and extensible, therefore allowing us to modify Javalanche to calculate unit mutation scores and output a richer set of results. Other benefits of Javalanche include (see Table~\ref{tab:mutation_tools} for all features): full integration with JUnit, the use of mutation schemas and bytecode generation to improve performance and, test selection using coverage. Although Javalanche does not have class-level mutation operators, due to the open source nature of Javalanche we plan to extend it to incorporate class-level mutation operators. In addition, Javalanche does have concurrency-level mutation operators as well as the ability to identify equivalent mutants using impact analysis.
+
+
+\subsection{LIBSVM}
+\label{subsec:approach_libsvm}
+In our research we use LIBSVM (version 3.12), a \gls{svm} library capable of solving \emph{n}-group classification problems~\cite{CL11}. We decided to use this library implementation as it is mature and used in many other publications\footnote{LIBSVM~\cite{CL11} has been cited 9323 times according to Google Scholar as of May 21$^{st}$, 2012}. LIBSVM has the ability to run entirely from a \gls{cli}, and provides an easy to use interface to perform training and prediction.
+
+
+\subsection{Eclipse Metrics Plugin}
+\label{subsec:approach_metrics_plugin}
+In our research, we use the Eclipse Metrics Plugin (version 1.3.8.20100730-001) to acquire source code metrics of the method- and class-level source code unit under test~\cite{Metrics}. We selected this tool as it provides a comprehensive set of metrics for Java programs (see feature sets \ding{172}~\&~\ding{174} from Table~\ref{tab:metrics}). The metrics can also be exported to \gls{xml} which is a suitable format to extract data from. Though this tool is part of Eclipse as a plugin it is possible to initiate the tool through a \gls{cli} interface after importing the \gls{sut} into Eclipse.
+
+
+\subsection{EMMA}
+\label{subsec:approach_emma}
+We focus on JUnit test cases as our testing framework, thus can actually use the Eclipse Metrics Plugin to gather the source code metrics of the test suite (see feature set \ding{175} from Table~\ref{tab:metrics}). In order to gather other test suite coverage metrics we use EMMA (version 2.0.5312) which is capable of determining the basic block coverage of a test suite~\cite{EMMA}. Specifically, we use EMMA to acquire metrics for feature set \ding{173} from Table~\ref{tab:metrics}.
+
+
+\section{Process}
+\label{sec:approach_process}
+Our process for mutation score prediction using source code and test suite metrics is shown in Figure~\ref{fig:process}. As we are using a supervised learning technique for prediction, a \gls{svm}, we need to initially collect training data. Thus we inevitably have to calculate the mutation scores of a software system at least once. As mentioned in the motivation (see Section~\ref{sec:introduction_motivation}) our approach aims to reduce the amount of mutation testing done in iterative development. If our technique generalize well then it can be possible to build a comprehensive model and predict on different software systems without any prior mutation testing (we explore this in Chapter~\ref{??}). The following sections walk through the complete process one step at a time, providing examples where possible.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=11cm]{figures/process.pdf}
+  \caption{The complete process for collecting data used to training a SVM to predict mutation scores.}
   \label{fig:process}
 \end{figure}
+
+
+\subsection{Inputs}
+\label{subsec:appraoch_inputs}
+To predict the mutation score of source code units (methods and classes) our approach requires certain inputs. A set of source units of code (the Java files that compose the \gls{sut}) and the corresponding set of unit test cases (the JUnit files that compose the test suite for the \gls{sut}). The more coverage the test suite provides the more data that can be extracted from the \gls{sut}. Our approach is only concerned with source units of code that are being tested.
+
+
+
+\subsection{Collect Source Code Metrics}
+\label{subsec:appraoch_collect_source_metrics}
+
+
+
+\subsection{Collect Source Code Metrics}
+\label{subsec:appraoch_collect_coverage_metrics}
+
+
+\subsection{Combine Coverage and Source Metrics}
+\label{subsec:appraoch_combine_metrics}
+
+
+\subsection{Aggregate and Merge Method-Level Metrics}
+\label{subsec:appraoch_aggregate_merge_metrics}
+\begin{table}[h]
+  \centering
+  \rowcolors{2}{gray!30}{gray!20}
+  \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[RGB]{169,196,223}
+    \textbf{Metrics} & \textbf{Description} & \textbf{Scope} & \textbf{Set} \\
+
+    % Set 1: Source Code Metrics
+    \hline MLOC & Method lines of code & Method & \ding{172} \\
+    \hline NBD & Nested block depth & Method & \ding{172} \\
+    \hline VG & McCabe cyclomatic complexity & Method & \ding{172} \\
+    \hline PAR & Number of parameters & Method & \ding{172} \\
+    \hline NORM & Number of overridden methods & Class & \ding{172} \\
+    \hline NOF & Number of attributes & Class & \ding{172} \\
+    \hline NSC & Number of children & Class & \ding{172} \\
+    \hline DIT & Depth of inheritance tree & Class & \ding{172} \\
+    \hline LCOM & Lack of cohesion of methods & Class & \ding{172} \\
+    \hline NSM & Number of static methods & Class & \ding{172} \\
+    \hline NOM & Number of methods & Class & \ding{172} \\
+    \hline SIX & Specialization index & Class & \ding{172} \\
+    \hline WMC & Weighted method per class & Class & \ding{172} \\
+    \hline NSF & Number of static attributes & Class & \ding{172} \\
+
+    % Set 2: Coverage Metrics
+    \hline BCOV & Basic blocks covered in code unit & Class/Method & \ding{173} \\
+    \hline BTOT & Total basic blocks for code unit & Class/Method & \ding{173} \\
+    \hline NOT & Number of test cases & Class/Method & \ding{173} \\
+
+    % Set 3: Accumulated Source Code Metrics
+    \hline SMLOC & Sum MLOC of methods & Class & \ding{174} \\
+    \hline SNBD & Sum NBD of methods & Class & \ding{174} \\
+    \hline SVG & Sum VG of methods & Class & \ding{174} \\
+    \hline SPAR & Sum PAR of methods & Class & \ding{174} \\
+    \hline AMLOC & Average MLOC of methods & Class & \ding{174} \\
+    \hline ANBD & Average NBD of methods & Class & \ding{174} \\
+    \hline AVG & Average VG of methods & Class & \ding{174} \\
+    \hline APAR & Average PAR of methods & Class & \ding{174} \\
+
+    % Set 4: Accumulated Test Case Metrics
+    \hline STMLOC & Sum MLOC of test methods & Class/Method & \ding{175} \\
+    \hline STNBD & Sum NBD of test methods & Class/Method & \ding{175} \\
+    \hline STVG & Sum VG of test methods & Class/Method & \ding{175} \\
+    \hline STPAR & Sum PAR of test methods & Class/Method & \ding{175} \\
+    \hline ATMLOC & Average MLOC of test methods & Class/Method & \ding{175} \\
+    \hline ATNBD & Average NBD of test methods & Class/Method & \ding{175} \\
+    \hline ATVG & Average VG of test methods & Class/Method & \ding{175} \\
+    \hline ATPAR & Average PAR of test methods & Class/Method & \ding{175} \\
+    \hline
+  \end{tabular}
+  \caption{The complete set of metrics used as attributes for each vector of the \gls{svm}.}
+  \vspace{1mm}
+  \footnotesize{\emph{Table~\ref{tab:metrics} shows the complete set of metrics used as attributes for each vector of the \gls{svm}, categorized by feature set (\ding{172}: Source Code Metrics, \ding{173}: Coverage Metrics, \ding{174}: Accumulated Source Code Metrics, \ding{175}: Accumulated Test Case Metrics).}}
+  \vspace{1mm}
+  \label{tab:metrics}
+\end{table}
+
+
+\subsection{Collect Mutation Scores}
+\label{subsec:appraoch_collect_mutation_scores}
+
+
+\subsection{Create LIBSVM File}
+\label{subsec:appraoch_create_libsvm_file}
 
 
 \section{Training}
