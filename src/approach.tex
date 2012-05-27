@@ -122,7 +122,7 @@ As our approach attempts to predict the mutation score of source code units we n
 
 
 \subsection{Inputs}
-\label{subsec:appraoch_inputs}
+\label{subsec:approach_inputs}
 To predict the mutation score of source code units (methods and classes) our approach requires the following inputs: a set of source units of code (the Java files that compose the \gls{sut}) and the corresponding set of unit test cases (the JUnit files that compose the test suite for the \gls{sut}). A simple example of the input our approach requires is presented in Figure~\ref{fig:triangle_example}. Our approach is only concerned with source units of code that are being tested, thus the more coverage the test suite provides the more data that can be extracted from the \gls{sut}.
 
 \begin{figure}[h]
@@ -147,12 +147,12 @@ To predict the mutation score of source code units (methods and classes) our app
 
 
 \subsection{Collect Mutation Scores}
-\label{subsec:appraoch_collect_mutation_scores}
+\label{subsec:approach_collect_mutation_scores}
 We use \gls{svm}, a supervised learning technique, to predict mutation scores. Before any predictions can occur we must first collect data to compose a feature set with vectors of attributes. The collected data must also have their correct categories assigned to them as we will use the collected data for training purposes. Afterwards when training is completed it becomes possible to make predictions on new data based on the model that has been trained.
 
 Javalanche is the mutation testing tool that our approach uses. Using scripts we made our whole approach as automated as possible, thus the user only has to configure a couple variables to target a different project (i.e., package prefix, test suite name, test \& source directories). We have made minor modifications to Javalanche that allows it to use all the specified operators from Table~\ref{tab:javalanche_operators}. Javalanche also is configured to use its coverage impact analysis to give insight on equivalent mutants (more on this in Chapter~\ref{chap:experiment}) though this slows down Javalanche substantially. Furthermore we added a custom analyzer that outputs the mutation scores of each class and method units in the \gls{sut}.
 
-Javalanche generates all possible mutants, then considers the set of them that are covered by the provided test suite. Given the set of covered mutants Javalanche then tests and records the results of each mutant using its subset of covered test cases for that specific mutant. The newly added analyzer for Javalanche then outputs an intermediate \gls{csv} file of mutation scores for the covered source code units. Using the example \texttt{Triangle} system presented in Section~\ref{subsec:appraoch_inputs} the \gls{csv} file of the acquire mutation scores are shown in Figure~\ref{fig:triangle_mutation_scores}. Using the \gls{csv} file we populate a database with all the acquired data, this eases management and analysis of the data.
+Javalanche generates all possible mutants, then considers the set of them that are covered by the provided test suite. Given the set of covered mutants Javalanche then tests and records the results of each mutant using its subset of covered test cases for that specific mutant. The newly added analyzer for Javalanche then outputs an intermediate \gls{csv} file of mutation scores for the covered source code units. Using the example \texttt{Triangle} system presented in Section~\ref{subsec:approach_inputs} the \gls{csv} file of the acquire mutation scores are shown in Figure~\ref{fig:triangle_mutation_scores}. Using the \gls{csv} file we populate a database with all the acquired data, this eases management and analysis of the data.
 
 \begin{figure}[h]
   \centering
@@ -167,7 +167,7 @@ Javalanche generates all possible mutants, then considers the set of them that a
 
 
 \subsection{Collect Test Suite Coverage Metrics}
-\label{subsec:appraoch_collect_coverage_metrics}
+\label{subsec:approach_collect_coverage_metrics}
 We collect test suite coverage metrics (see feature set \ding{173} in Table~\ref{tab:metrics}) using EMMA. Using the test suite and the \gls{sut} it is possible to acquire the coverage for each source code unit using the set of covering unit test cases\footnote{Currently we acquire the covered test cases using Javalanche, though this can easily be computed solely using EMMA with additional analysis}. We run the set of covered unit test cases for each source code unit with EMMA, this produces \gls{xml} files containing the block coverage of of the covered unit test cases on the \gls{sut}. We then can extract the coverage of the targeted source code unit. Using the example in Figure~\ref{fig:triangle_example} this phase extracts the following metrics as seen in Table~\ref{tab:triangle_coverage_metrics}.
 
 \begin{table}[h]
@@ -191,7 +191,7 @@ We collect test suite coverage metrics (see feature set \ding{173} in Table~\ref
 
 
 \subsection{Collect Source Code Metrics}
-\label{subsec:appraoch_collect_source_metrics}
+\label{subsec:approach_collect_source_metrics}
 We use the Eclipse Metrics Plugin to analyze the software system to produce an \gls{xml} file of the source code metrics of the source code units and unit test cases. The produced \gls{xml} file is \emph{metric-oriented}, so we translate so it is \emph{unit-oriented}. This phase acquires source code metrics (see feature set \ding{172} in Figure~\ref{tab:metrics}) for each source code unit and unit test case. Using the example in Figure~\ref{fig:triangle_example} this phase extracts the following metrics as seen in Table~\ref{tab:triangle_class_extracted_metrics}~\&~\ref{tab:triangle_method_extracted_metrics}.
 
 \begin{landscape}
@@ -234,12 +234,12 @@ We use the Eclipse Metrics Plugin to analyze the software system to produce an \
 
 
 \subsection{Combine Coverage and Source Metrics}
-\label{subsec:appraoch_combine_metrics}
-At this point in the process we have acquired all the raw data (mutation scores, source code metrics, and test suite metrics). We now begin synthesizing data together, in this phase we combine source code metrics and coverage metrics together. We first analyze all the coverage \gls{xml} files produced from the coverage phase (see Section~\ref{subsec:appraoch_collect_coverage_metrics}. We calculate the coverage that each source code unit has given the set of covered unit test cases used. Now we combine the source code metrics and coverage metrics of a source code unit. The combined data is put into our database to go along with the acquire mutation score. Each source code unit in the database eventually will contain all the metrics pertaining to it, along with its mutation score.
+\label{subsec:approach_combine_metrics}
+At this point in the process we have acquired all the raw data (mutation scores, source code metrics, and test suite metrics). We now begin synthesizing data together, in this phase we combine source code metrics and coverage metrics together. We first analyze all the coverage \gls{xml} files produced from the coverage phase (see Section~\ref{subsec:approach_collect_coverage_metrics}. We calculate the coverage that each source code unit has given the set of covered unit test cases used. Now we combine the source code metrics and coverage metrics of a source code unit. The combined data is put into our database to go along with the acquire mutation score. Each source code unit in the database eventually will contain all the metrics pertaining to it, along with its mutation score.
 
 
 \subsection{Aggregate and Merge Method-Level Metrics}
-\label{subsec:appraoch_aggregate_merge_metrics}
+\label{subsec:approach_aggregate_merge_metrics}
 The last phase for data synthesis is to merge the source code metrics of the covered unit test cases together into their corresponding source code unit. This merger acquires feature set \ding{175} from Table~\ref{tab:metrics}. Using the example in Figure~\ref{fig:triangle_example} this phase merges the source code metrics of the unit test cases into the source code unit's metrics as seen in Table~\ref{tab:triangle_merge_test_metrics}.
 
 We also aggregate the method-level source code units metrics into their respected parent class-level source code unit. This allows us to populate the database with metrics from feature set \ding{174} from Table~\ref{tab:metrics}. Using our example the aggregation of method-level metrics to class-level source code units is shown in Table~\ref{tab:triangle_aggregate_metrics}.
@@ -284,7 +284,7 @@ We also aggregate the method-level source code units metrics into their respecte
 
 
 \subsection{Create LIBSVM File}
-\label{subsec:appraoch_create_libsvm_file}
+\label{subsec:approach_create_libsvm_file}
 Finally at this point in the process our database contains all the necessary information for the \gls{svm}. We have collected and synthesized all the source code and test suite metrics for both class- and method-level source code units. We can now output the specific file format \emph{.libsvm} of the acquired data. This format is required for our \gls{svm} tool LIBSVM and contains a list of vectors with each having a category and set of attributes, as seen in Figure~\ref{fig:libsvm_file}. Our process produces two \emph{.libsvm} files, one for the method-level source code units and another for the class-level source code units.
 
 \begin{figure}[h]
@@ -301,7 +301,7 @@ Finally at this point in the process our database contains all the necessary inf
 
 
 \subsection{Create LIBSVM File}
-\label{subsec:appraoch_create_libsvm_file}
+\label{subsec:approach_create_libsvm_file}
 Next, we create a .libsvm file containing the category and feature data from the database. Instead of predicting a specific mutation score percentage, we categorize all mutation scores as \textit{low, medium, high} which reduces the mutation score prediction to a three-group classification problem. The ranges of values in each category are determined based on the distribution of the mutation scores in our training data (further explained in Section~\ref{sec:experiment_results}). Finally, the .libsvm file is passed into LIBSVM to complete the training process.
 
 Mutation scores have a range between 0.0 and 1.0, unfortunately a \gls{svm} cannot perform classification over such a range of real numbers. To circumvent this problem we instead group ranges of mutation scores into groups (i.e., low: 0.00--0.33, medium: 0.34--0.66, and high: 0.67--1.00). Chapter~\ref{chap:experiment} explores ranges of mutation scores for our categories.
@@ -317,3 +317,8 @@ It is also possible to perform \emph{cross-validation} which is a technique that
 \section{Related Work}
 \label{sec:approach_related_work}
 The use of software metrics to locate faults in source code has been well researched. For example, Koru et al. utilized static software measure along with defect data at the class level to predict bugs using machine learning~\cite{KL05}. Similarly, Gyimothy et al. used object-oriented metrics with logistic regression and machine learning techniques to identify faulty classes in open source software~\cite{GFS05}. Finally, design level metrics were used with a linear prediction model to determine the estimated maintainability and error prone modules of large software systems~\cite{MKPS00}. Our work is unique in comparison to these previous works since we not only use source code metrics but we also use test suite metrics to enhance our predication capabilities.
+
+
+\section{Summary}
+\label{sec:approach_summary}
+This chapter we cover all aspects of our approach in terms of tools and steps used to collect and train our \gls{svm}. Using the tools described in Section~\ref{sec:approach_tools} we are able to collect source code and test suite metrics of source code units. As we use a \gls{svm} as our prediction technique we require training data, thus we also collect the mutation scores of each source code unit. Synthesizing all the acquire data allows us to train our \gls{svm} to make prediction on existing and new data. We described each step of our process in Section~\ref{sec:approach_process}, and how we perform prediction in Section~\ref{sec:approach_prediction}. Finally in Section~\ref{sec:approach_related_work} we address related work to our approach on prediction of mutation scores using machine learning prediction techniques.
