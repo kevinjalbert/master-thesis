@@ -311,8 +311,6 @@ Mutation scores have a range between 0.0 and 1.0, unfortunately a \gls{svm} cann
 \label{sec:approach_prediction}
 Once we have trained the \gls{svm}, we can then use the \gls{svm} for prediction. We can predict the mutation score category of an unknown source code unit by first determining the source code and test suite metrics. The metrics (i.e., attributes) are passed into the \gls{svm} which will then assign a category of \textit{low, medium, high} for the mutation score.
 
-It is also possible to perform \emph{cross-validation} which is a technique that assess the prediction accuracy using the trained data. This is evaluation is typically used when small amount of data is used for training. Commonly a \emph{10-fold} cross-validation is used to evaluate predictive models~\cite{Koh95}, as we follow suite. Effectively, this divides our dataset into \emph{10} equal-sized partitions and the \gls{svm} trains on \emph{9} sets and predicts on the last. This process is repeated \emph{10} times where a different partition is selected for prediction each time. Finally all the individual prediction accuracies are tallied and averaged for a cross-validation accuracy of \emph{10}-folds.
-
 
 \section{Related Work}
 \label{sec:approach_related_work}
