@@ -70,56 +70,66 @@ As our approach attempts to predict the mutation score of source code units we n
 \begin{table}[h]
   \centering
   \rowcolors{2}{gray!30}{gray!20}
-  \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[RGB]{169,196,223}
-    \textbf{Metrics} & \textbf{Description} & \textbf{Scope} & \textbf{Set} \\
+  \begin{threeparttable}
+    \begin{tabular}{|l|l|l|c|}
+      \hline
+      \rowcolor[RGB]{169,196,223}
+      \textbf{Metrics} & \textbf{Description} & \textbf{Scope} & \textbf{Set} \\
 
-    % Set 1: Source Code Metrics
-    \hline MLOC & Method lines of code & Method & \ding{172} \\
-    \hline NBD & Nested block depth & Method & \ding{172} \\
-    \hline VG & McCabe cyclomatic complexity & Method & \ding{172} \\
-    \hline PAR & Number of parameters & Method & \ding{172} \\
-    \hline NORM & Number of overridden methods & Class & \ding{172} \\
-    \hline NOF & Number of attributes & Class & \ding{172} \\
-    \hline NSC & Number of children & Class & \ding{172} \\
-    \hline DIT & Depth of inheritance tree & Class & \ding{172} \\
-    \hline LCOM & Lack of cohesion of methods & Class & \ding{172} \\
-    \hline NSM & Number of static methods & Class & \ding{172} \\
-    \hline NOM & Number of methods & Class & \ding{172} \\
-    \hline SIX & Specialization index & Class & \ding{172} \\
-    \hline WMC & Weighted method per class & Class & \ding{172} \\
-    \hline NSF & Number of static attributes & Class & \ding{172} \\
+      % Set 1: Source Code Metrics
+      \hline MLOC & Method lines of code & Method & \ding{172} \\
+      \hline NBD & Nested block depth & Method & \ding{172} \\
+      \hline VG & McCabe cyclomatic complexity & Method & \ding{172} \\
+      \hline PAR & Number of parameters & Method & \ding{172} \\
+      \hline NORM & Number of overridden methods & Class & \ding{172} \\
+      \hline NOF & Number of attributes & Class & \ding{172} \\
+      \hline NSC & Number of children & Class & \ding{172} \\
+      \hline DIT & Depth of inheritance tree & Class & \ding{172} \\
+      \hline LCOM & Lack of cohesion of methods & Class & \ding{172} \\
+      \hline NSM & Number of static methods & Class & \ding{172} \\
+      \hline NOM & Number of methods & Class & \ding{172} \\
+      \hline SIX & Specialization index & Class & \ding{172} \\
+      \hline WMC & Weighted method per class & Class & \ding{172} \\
+      \hline NSF & Number of static attributes & Class & \ding{172} \\
 
-    % Set 2: Coverage Metrics
-    \hline BCOV & Basic blocks covered in code unit & Class/Method & \ding{173} \\
-    \hline BTOT & Total basic blocks for code unit & Class/Method & \ding{173} \\
-    \hline NOT & Number of test cases & Class/Method & \ding{173} \\
+      % Set 2: Coverage Metrics
+      \hline BCOV & Basic blocks covered in code unit & Class/Method & \ding{173} \\
+      \hline BTOT & Total basic blocks for code unit & Class/Method & \ding{173} \\
+      \hline NOT & Number of test cases & Class/Method & \ding{173} \\
 
-    % Set 3: Accumulated Source Code Metrics
-    \hline SMLOC & Sum MLOC of methods & Class & \ding{174} \\
-    \hline SNBD & Sum NBD of methods & Class & \ding{174} \\
-    \hline SVG & Sum VG of methods & Class & \ding{174} \\
-    \hline SPAR & Sum PAR of methods & Class & \ding{174} \\
-    \hline AMLOC & Average MLOC of methods & Class & \ding{174} \\
-    \hline ANBD & Average NBD of methods & Class & \ding{174} \\
-    \hline AVG & Average VG of methods & Class & \ding{174} \\
-    \hline APAR & Average PAR of methods & Class & \ding{174} \\
+      % Set 3: Accumulated Source Code Metrics
+      \hline SMLOC & Sum MLOC of methods & Class & \ding{174} \\
+      \hline SNBD & Sum NBD of methods & Class & \ding{174} \\
+      \hline SVG & Sum VG of methods & Class & \ding{174} \\
+      \hline SPAR & Sum PAR of methods & Class & \ding{174} \\
+      \hline AMLOC & Average MLOC of methods & Class & \ding{174} \\
+      \hline ANBD & Average NBD of methods & Class & \ding{174} \\
+      \hline AVG & Average VG of methods & Class & \ding{174} \\
+      \hline APAR & Average PAR of methods & Class & \ding{174} \\
 
-    % Set 4: Accumulated Test Case Metrics
-    \hline STMLOC & Sum MLOC of test methods & Class/Method & \ding{175} \\
-    \hline STNBD & Sum NBD of test methods & Class/Method & \ding{175} \\
-    \hline STVG & Sum VG of test methods & Class/Method & \ding{175} \\
-    \hline STPAR & Sum PAR of test methods & Class/Method & \ding{175} \\
-    \hline ATMLOC & Average MLOC of test methods & Class/Method & \ding{175} \\
-    \hline ATNBD & Average NBD of test methods & Class/Method & \ding{175} \\
-    \hline ATVG & Average VG of test methods & Class/Method & \ding{175} \\
-    \hline ATPAR & Average PAR of test methods & Class/Method & \ding{175} \\
-    \hline
-  \end{tabular}
+      % Set 4: Accumulated Test Case Metrics
+      \hline STMLOC & Sum MLOC of test methods & Class/Method & \ding{175} \\
+      \hline STNBD & Sum NBD of test methods & Class/Method & \ding{175} \\
+      \hline STVG & Sum VG of test methods & Class/Method & \ding{175} \\
+      \hline STPAR & Sum PAR of test methods & Class/Method & \ding{175} \\
+      \hline ATMLOC & Average MLOC of test methods & Class/Method & \ding{175} \\
+      \hline ATNBD & Average NBD of test methods & Class/Method & \ding{175} \\
+      \hline ATVG & Average VG of test methods & Class/Method & \ding{175} \\
+      \hline ATPAR & Average PAR of test methods & Class/Method & \ding{175} \\
+
+      % Set 5: Mutation Metrics
+      \hline NCM & Number of covered mutants in code unit & Class/Method & \ding{176} \\
+      \hline NCM\emph{x}\tnote{a} & Number of \emph{x} covered mutants in code unit & Class/Method & \ding{176} \\
+      \hline
+    \end{tabular}
+    \begin{tablenotes}
+      \item[a] This is a generalization of 7 metrics, the \emph{x} represents the different mutation operators from Table~\ref{tab:javalanche_operators}.
+    \end{tablenotes}
+  \end{threeparttable}
+
   \caption{The complete set of metrics used as attributes for each vector of the \gls{svm}.}
   \vspace{1mm}
-  \footnotesize{\emph{Table~\ref{tab:metrics} shows the complete set of metrics used as attributes for each vector of the \gls{svm}, categorized by feature set (\ding{172}: Source Code Metrics, \ding{173}: Coverage Metrics, \ding{174}: Accumulated Source Code Metrics, \ding{175}: Accumulated Test Case Metrics).}}
+  \footnotesize{\emph{Table~\ref{tab:metrics} shows the complete set of metrics used as attributes for each vector of the \gls{svm}, categorized by feature set (\ding{172}: Source Code Metrics, \ding{173}: Coverage Metrics, \ding{174}: Accumulated Source Code Metrics, \ding{175}: Accumulated Test Case Metrics, \ding{176}: Mutation Metrics).}}
   \vspace{2mm}
   \hrule
   \label{tab:metrics}
@@ -158,7 +168,7 @@ We use \gls{svm}, a supervised learning technique, to predict mutation scores. B
 
 Javalanche is the mutation testing tool that our approach uses. Using scripts we made our whole approach as automated as possible, thus the user only has to configure a couple variables to target a different project (i.e., package prefix, test suite name, test \& source directories). We have made minor modifications to Javalanche that allows it to use all the specified operators from Table~\ref{tab:javalanche_operators}. Javalanche also is configured to use its coverage impact analysis to give insight on equivalent mutants (more on this in Chapter~\ref{chap:experiment}) though this slows down Javalanche substantially. Furthermore we added a custom analyzer that outputs the mutation scores of each class and method units in the \gls{sut}.
 
-Javalanche generates all possible mutants, then considers the set of them that are covered by the provided test suite. Given the set of covered mutants Javalanche then tests and records the results of each mutant using its subset of covered test cases for that specific mutant. The newly added analyzer for Javalanche then outputs an intermediate \gls{csv} file of mutation scores for the covered source code units. Using the example \texttt{Triangle} system presented in Section~\ref{subsec:approach_inputs} the \gls{csv} file of the acquire mutation scores are shown in Figure~\ref{fig:triangle_mutation_scores}. Using the \gls{csv} file we populate a database with all the acquired data, this eases management and analysis of the data.
+Javalanche generates all possible mutants, then considers the set of them that are covered by the provided test suite. Furthermore we utilize the number of covered mutants as another metric set for our attributes (see feature set \ding{176} in Table~\ref{tab:metrics}). We believe that the number of covered mutants will provide useful insight for describing mutation scores of source code units, it also turns out that the generation of mutants is not the costly part of mutation testing. Given the set of covered mutants Javalanche then tests and records the results of each mutant using its subset of covered test cases for that specific mutant. The newly added analyzer for Javalanche then outputs an intermediate \gls{csv} file of mutation scores for the covered source code units. Using the example \texttt{Triangle} system presented in Section~\ref{subsec:approach_inputs} the \gls{csv} file of the acquire mutation scores are shown in Figure~\ref{fig:triangle_mutation_scores}. Using the \gls{csv} file we populate a database with all the acquired data, this eases management and analysis of the data.
 
 \begin{figure}[h]
   \centering
