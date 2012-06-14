@@ -1,0 +1,361 @@
+\appendix
+\chapter{Mutation Score Distributions}
+\label{app:mutation_score_distributions}
+The individual mutation score distributions of method-level and class-level source code units from the experimental subjects (see Section~\ref{sec:experiment_subjects}) are displayed in this appendix. The collective mutation score distribution of all subjects is shown and described in Section~\ref{sec:experiment_results}. Statistical summary of each project's mutation score distribution is presented in Table~\ref{tab:mutation_distribution_class_statistics}~\&~\ref{tab:mutation_distribution_method_statistics}.
+
+\begin{landscape}
+  \begin{table}[ht!]
+    \centering
+    \rowcolors{1}{gray!30}{gray!20}
+    \begin{threeparttable}
+      \begin{tabular}{|l|>{\raggedleft}p{2.25cm}|>{\raggedleft}p{2.25cm}|>{\raggedleft}p{2.25cm}|r|r|r|r|}
+        \rowcolor[RGB]{169,196,223}
+        \hline & \textbf{25$^{th}$ Percentile} & \textbf{50$^{th}$ Percentile} & \textbf{75$^{th}$ Percentile} & \textbf{Count} & \textbf{Min} & \textbf{Max} & \textbf{Sum} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 0.53 & 0.74 & 0.83 & 100 & 0 & 7 & 115 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 0.46 & 0.70 & 0.83 & 100 & 0 & 3 & 31 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 0.53 & 0.74 & 0.87 & 100 & 0 & 16 & 124 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{commons-lang} & 0.76 & 0.81 & 0.87 & 100 & 0 & 12 & 124 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-time} & 0.77 & 0.86 & 0.91 & 100 & 0 & 17 & 194 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 0.74 & 0.85 & 0.93 & 100 & 0 & 25 & 120 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 0.77 & 0.88 & 0.94 & 100 & 0 & 17 & 83 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 0.77 & 0.79 & 0.85 & 100 & 0 & 10 & 73 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{ALL} & \textbf{0.72} & \textbf{0.81} & \textbf{0.89} & \textbf{100} & \textbf{0} & \textbf{96} & \textbf{864} \\
+        \hline
+      \end{tabular}
+    \end{threeparttable}
+    \caption{Statistical summary of the class-level data for each subject's mutation score.}
+    \vspace{2mm}
+    \hrule
+    \label{tab:mutation_distribution_class_statistics}
+  \end{table}
+
+  \begin{table}[ht!]
+    \centering
+    \rowcolors{1}{gray!30}{gray!20}
+    \begin{threeparttable}
+      \begin{tabular}{|l|>{\raggedleft}p{2.25cm}|>{\raggedleft}p{2.25cm}|>{\raggedleft}p{2.25cm}|r|r|r|r|}
+        \rowcolor[RGB]{169,196,223}
+        \hline & \textbf{25$^{th}$ Percentile} & \textbf{50$^{th}$ Percentile} & \textbf{75$^{th}$ Percentile} & \textbf{Count} & \textbf{Min} & \textbf{Max} & \textbf{Sum} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 0.61 & 0.83 & 0.99 & 100 & 0 & 145 & 447 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 0.49 & 0.77 & 0.90 & 100 & 0 & 33 & 143 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 0.59 & 0.80 & 0.99 & 100 & 0 & 211 & 655 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{commons-lang} & 0.77 & 0.87 & 0.99 & 100 & 0 & 288 & 789 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-time} & 0.83 & 0.94 & 0.94 & 100 & 0 & 974 & 2019 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 0.77 & 0.87 & 0.99 & 100 & 0 & 159 & 401 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 0.79 & 0.91 & 0.99 & 100 & 0 & 166 & 381 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 0.71 & 0.83 & 0.99 & 100 & 0 & 207 & 675 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{ALL} & \textbf{0.75} & \textbf{0.87} & \textbf{0.99} & \textbf{100} & \textbf{0} & \textbf{2183} & \textbf{5510} \\
+        \hline
+      \end{tabular}
+    \end{threeparttable}
+    \caption{Statistical summary of the method-level data for each subject's mutation score.}
+    \vspace{2mm}
+    \hrule
+    \label{tab:mutation_distribution_method_statistics}
+  \end{table}
+\end{landscape}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Classes,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/barbecue/evaluation_projects_class_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of classes from \texttt{barbecue} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_class_barbecue}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Methods,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/barbecue/evaluation_projects_method_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of methods from \texttt{barbecue} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_method_barbecue}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Classes,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/commons-lang/evaluation_projects_class_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of classes from \texttt{commons-lang} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_class_commons-lang}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Methods,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/commons-lang/evaluation_projects_method_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of methods from \texttt{commons-lang} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_method_commons-lang}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Classes,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/jgap/evaluation_projects_class_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of classes from \texttt{jgap} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_class_jgap}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Methods,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/jgap/evaluation_projects_method_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of methods from \texttt{jgap} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_method_jgap}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Classes,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/joda-primitives/evaluation_projects_class_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of classes from \texttt{joda-primitives} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_class_joda-primitives}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Methods,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/joda-primitives/evaluation_projects_method_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of methods from \texttt{joda-primitives} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_method_joda-primitives}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Classes,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/joda-time/evaluation_projects_class_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of classes from \texttt{joda-time} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_class_joda-time}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Methods,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/joda-time/evaluation_projects_method_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of methods from \texttt{joda-time} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_method_joda-time}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Classes,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/jsoup/evaluation_projects_class_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of classes from \texttt{jsoup} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_class_jsoup}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Methods,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/jsoup/evaluation_projects_method_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of methods from \texttt{jsoup} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_method_jsoup}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Classes,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/logback-core/evaluation_projects_class_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of classes from \texttt{logback-core} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_class_logback-core}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Methods,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/logback-core/evaluation_projects_method_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of methods from \texttt{logback-core} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_method_logback-core}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Classes,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/openfast/evaluation_projects_class_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of classes from \texttt{openfast} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_class_openfast}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Methods,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/openfast/evaluation_projects_method_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of methods from \texttt{openfast} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_method_openfast}
+\end{figure}
+

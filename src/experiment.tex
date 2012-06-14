@@ -35,6 +35,7 @@ We then explore aspects of optimizing our approach by observing the correlation 
 
 \section{Experimental Subjects}
 \label{sec:experiment_subjects}
+% TODO Add # of classes/methods (for source and tests)
 \begin{table}[!t]
   \centering
   \rowcolors{2}{gray!30}{gray!20}
@@ -75,3 +76,186 @@ Following the criteria outlined in Section~\ref{sec:experiment_setup} we selecte
 
 \section{Experimental Results}
 \label{sec:experiment_results}
+Our results are broken up into separate sections:
+
+\begin{itemize}
+  \item \textbf{Mutation Score Distribution (Section~\ref{subsec:experiment_mutation_score_distribution})}: We discuss the results of the mutation score collection of the source code units. This section outlines the raw data and observations regarding the distribution of mutation scores. In particular we identify a suitable category abstraction for the mutation scores before moving forward to training and prediction using a \gls{svm}.
+  \item \textbf{Cross Validation (Section~\ref{subsec:experiment_cross_validation})}:
+  \item \textbf{Prediction (Section~\ref{subsec:experiment_prediction})}:
+  \item \textbf{Correlation \& Optimization (Section~\ref{subsec:experiment_correlation_optimization})}:
+  \item \textbf{Cross-Project Prediction} (Section~\ref{subsec:experiment_cross_project_prediction})}:
+\end{itemize}
+
+
+\subsection{Mutation Score Distribution}
+\label{subsec:experiment_mutation_score_distribution}
+\begin{landscape}
+  \begin{table}[ht!]
+    \centering
+    \rowcolors{1}{gray!30}{gray!20}
+    \begin{threeparttable}
+      \begin{tabular}{|l|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft\arraybackslash}p{2.5cm}|}
+        \rowcolor[RGB]{169,196,223}
+        \hline & \textbf{Mutants Generated} & \textbf{Mutants Covered} & \textbf{Coverage Percent} & \textbf{Mutants Killed} & \textbf{Mutation Score\tnote{a}} & \textbf{Time Taken (\emph{hh:mm:ss})} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 10682 & 7350 & 0.6881 & 5400 & 0.7347 & 01:49:10 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 27324 & 4339 & 0.1588 & 2727 & 0.6285 & 00:49:51 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 31929 & 17903 & 0.5607 & 13328 & 0.7445 & 07:04:44 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{commons-lang} & 45141 & 41761 & 0.9251 & 33772 & 0.8087 & 15:51:59 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-time} & 70594 & 58595 & 0.8300 & 48545 & 0.8285 & 31:55:50 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 14910 & 8371 & 0.5614 & 6869 & 0.8206 & 01:34:38 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 14165 & 10540 & 0.7441 & 8430 & 0.7998 & 03:55:56 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 22269 & 17334 & 0.7784 & 13499 & 0.7788 & 01:24:33 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{TOTAL} & \textbf{237014} & \textbf{166193} & \textbf{0.7012} & \textbf{132570} & \textbf{0.7786} & \textbf{64:26:41} \\
+        \hline
+      \end{tabular}
+      \begin{tablenotes}
+        \item[a] Mutation score is calculated using the covered and killed mutants.
+      \end{tablenotes}
+    \end{threeparttable}
+    \caption{Mutation testing results of the experimental subjects from table~\ref{tab:experimental_subjects}.}
+    \vspace{2mm}
+    \hrule
+    \label{tab:experiments_mutation_results}
+  \end{table}
+
+  \begin{table}[ht!]
+    \centering
+    \rowcolors{1}{gray!30}{gray!20}
+    \begin{threeparttable}
+      \begin{tabular}{|l|r|r|}
+        \rowcolor[RGB]{169,196,223}
+        \hline & \textbf{Class-Level} & \textbf{Method-Level} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 115 & 447 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 31 & 143 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 124 & 655 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{commons-lang} & 124 & 789 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-time} & 194 & 2019 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 120 & 401 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 83 & 381 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 73 & 675 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{TOTAL} & \textbf{864} & \textbf{5510} \\
+        \hline
+      \end{tabular}
+    \end{threeparttable}
+    \caption{The usable number of source code unit data points gathered from the experimental subjects in table~\ref{tab:experimental_subjects}.}
+    \vspace{2mm}
+    \hrule
+    \label{tab:experiments_collected_data}
+  \end{table}
+\end{landscape}
+
+As described in Chapter~\ref{chap:approach} our approach uses mutation testing to acquire the necessary mutation score data used for the category of the source code units. Table~\ref{tab:experiments_mutation_results} shows the results of running Javalanche on our experimental subjects. In all of our subjects mutation testing produced a large number of mutants that were evaluated, taking just over 64 hours for the entire mutation testing process. As described in Section~\ref{subsec:background_mutation_tools} Javalanche utilizes \emph{coverage} (i.e., basic block coverage) for test selection, which limits the number of mutants to evaluate to a subset of covered mutants. In most cases Javalanche was able to kill a reasonable percentage of the covered mutants with a mutation score of 0.7786 using all projects cumulatively. From the table we can see that the mutation scores of the individual projects are mostly above 0.7 which is a good indication that the test suites for covered source code units are reasonably effective. The coverage percent overall is 0.7012 which indicates that the test suites of the projects did not cover about 30\% of the generated mutants. Realistically mutation test works off of the entire project's source code, for our purpose only covered mutants were used to calculate the mutation score. The corrective action for non-covered mutants (i.e., mutants not covered by test suite using basic block coverage) is to add new test cases that provide coverage over the mutant's location.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Classes,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/all/evaluation_projects_class_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of classes from all 8 subjects from Table~\ref{tab:experimental_subjects} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_class_all}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=Mutation Score (\%),
+      ylabel=\# of Methods,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/all/evaluation_projects_method_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Mutation score distribution of methods from all 8 subjects from Table~\ref{tab:experimental_subjects} that can be used for training.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:mutation_distributions_method_all}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      xtick={0, 25, 50, 75, 100, 125, 150, 175, 200},
+      xticklabels={0, 25, 50, 75, 100, 125, 150, 175, 200>=},
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=\# of Covered Mutants,
+      ylabel=\# of Classes,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/all/covered_mutants_class_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Covered mutant distribution of classes from all 8 subjects from Table~\ref{tab:experimental_subjects} that can be used for training.}
+  \vspace{1mm}
+  \footnotesize{\emph{Figure~\ref{fig:covered_mutant_distributions_class_all} only presents a subset of the full distribution, with the excluded values added on the last visible value. The max number of covered mutants found was 6507, which corresponds to the following class \texttt{org.joda.time.format.ISODateTimeFormat} from the \texttt{joda-time} project.}}
+  \vspace{2mm}
+  \hrule
+  \label{fig:covered_mutant_distributions_class_all}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[
+      xtick={0, 25, 50, 75, 100, 125, 150, 175, 200},
+      xticklabels={0, 25, 50, 75, 100, 125, 150, 175, 200>=},
+      bar width=1,
+      ymajorgrids=true,
+      xlabel=\# of Covered Mutants,
+      ylabel=\# of Methods,
+      width=\linewidth,
+      height=9.0cm]
+      \addplot[ybar,fill=black] file {plots/all/covered_mutants_method_distribution.txt};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Covered mutant distribution of methods from all 8 subjects from Table~\ref{tab:experimental_subjects} that can be used for training.}
+  \vspace{1mm}
+  \footnotesize{\emph{Figure~\ref{fig:covered_mutant_distributions_method_all} only presents a subset of the full distribution, with the excluded values added on the last visible value. The max number of covered mutants found was 587, which corresponds to the following method \texttt{org.joda.time.format.PeriodFormatterBuilder\$FieldFormatter.parseInto} from the \texttt{joda-time} project. There were also 51 methods that had 117 covered mutants, of these 48 all fall within the \texttt{ISODateTimeFormat} class within the \texttt{joda-time} project.}}
+  \vspace{2mm}
+  \hrule
+  \label{fig:covered_mutant_distributions_method_all}
+\end{figure}
+
+Source code and test code metrics were collected as described in Chapter~\ref{chap:approach} which represents the set of feature data that make up the vectors of our \gls{svm}. Our approach can only make predictions using the synthesis of both mutation score data (i.e., category data) and source and test suite metrics (i.e., feature data) of source code units. If any piece of data is missing then we cannot use that source code unit for training and prediction purposes. Using our approach we collected data for 864 class-level and 5510 method-level source code units shown in Table~\ref{tab:experiments_collected_data}. The collected data items is lower then the total available methods and classes, this is because: we ignore abstract, anonymous and overloaded source code units, as well as any source units with missing data (i.e., no tests cases). We present the distribution of the all the collected data points for both class-level and method-level source code units with respect to mutation score in Figure~\ref{fig:mutation_distributions_class_all}~\&~\ref{fig:mutation_distributions_method_all}. The mutation score distributions for each individual project are found in Appendix~\ref{app:mutation_score_distributions}. The mutation distribution of the both class-level and method-level source code units are both negatively skewed which confirms our earlier observation that the test suite for the collected source code units are reasonably strong at detecting faults. The 0\%, 50\% and 100\% values for mutation score contain significantly more data points then their surroundings, in particular the 100\% is ranges 2--9 times more dense then other areas respectively. We speculate this occurs because a large number of source code units probably have small number of covered mutants (i.e., easier to kill all, evenly kill half, kill none). Analysis of the covered mutant distribution for class-level source code units (as seen in Figure~\ref{fig:covered_mutant_distributions_method_all}) shows a slightly denser grouping for low covered mutants. The covered mutant distribution for method-level source code units supports our speculation, the distribution is positively skewed. With respect to the percentile of the class-level distribution of covered mutants a \sfrac{1}{4} of the classes have less then 16 covered mutants. The method-level results show that \sfrac{1}{4} of the methods have less then 2 covered mutants, furthermore \sfrac{1}{2} of the method have less then 6 covered mutants. With distributions like this we can assure that our speculation of many low covered mutant that can contribute to the high 0\%, 50\% and 100\% values for mutation score.
+
+Earlier in Section~\ref{subsec:approach_create_libsvm_file} we mentioned that our approached would create \emph{.libsvm} files using the acquire data. The category data required for the files that the \gls{svm} utilizes is based on the mutation score of source code units. To avoid predicting the exact mutation score which is a set of real numbers, we instead use an abstracted set of categories (i.e., ranges of mutation scores). We were unsure on how to properly select the ranges to use for our categories. We decided to base our categories on the distribution of mutation scores from Figure~\ref{fig:covered_mutant_distributions_class_all}~\&~\ref{fig:covered_mutant_distributions_method_all}. We found that the class-level distribution has a 25$^{th}$, 50$^{th}$ and 75$^{th}$ percentile of 0.72, 0.81, 0.89 respectively, and for same percentiles of the method-level distribution are 0.75, 0.87, 0.99. Using these values we decided to use the following as our general case for categories:
+
+\begin{itemize}
+  \item \textbf{LOW} = [0.00--0.70)
+  \item \textbf{MEDIUM} = [0.70--0.90)
+  \item \textbf{HIGH} = [0.90--1.00]
+\end{itemize}
+
+The rational behind the categories is separate the lower and upper percentiles in to the LOW and HIGH category, with the remaining into the MEDIUM category. We believe that these values will provide a sufficient level of information over the mutation testing coverage of the source code units.
+
+
+\subsection{Cross Validation}
+\label{subsec:experiment_cross_validation}
+
+
+\subsection{Prediction}
+\label{subsec:experiment_prediction}
+
+
+\subsection{Correlation \& Optimization}
+\label{subsec:experiment_correlation_optimization}
+
+
+\subsection{Cross-Project Prediction}
+\label{subsec:experiment_cross_project_prediction}
+
+
