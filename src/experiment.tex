@@ -72,17 +72,16 @@ Our results are broken up into separate sections:
 
 \begin{itemize}
   \item \textbf{Mutation Score Distribution (Section~\ref{subsec:experiment_mutation_score_distribution})}: We discuss the results of the mutation score collection of the source code units. This section outlines the raw data and observations regarding the distribution of mutation scores. In particular we identify a suitable category abstraction for the mutation scores before moving forward to training and prediction using a \gls{svm}.
-  \item \textbf{Cross Validation (Section~\ref{subsec:experiment_cross_validation})}:
-  \item \textbf{Prediction (Section~\ref{subsec:experiment_prediction})}:
-  \item \textbf{Correlation \& Optimization (Section~\ref{subsec:experiment_correlation_optimization})}:
-  \item \textbf{Cross-Project Prediction} (Section~\ref{subsec:experiment_cross_project_prediction}):
+  \item \textbf{Cross Validation (Section~\ref{subsec:experiment_cross_validation})}: We discuss the cross-validation accuracy of our data sets. We present the cross-validation accuracy results with respect to the feature sets outlined in Table~\ref{tab:metrics}.
+  \item \textbf{Prediction (Section~\ref{subsec:experiment_prediction})}: We discuss our approach and results on predicting unknown subjects using the collected data from our subjects.
+  \item \textbf{Optimization \& Generalization (Section~\ref{subsec:experiment_optimization_generalization})}: We discuss ways to optimize our feature set by reducing redundant and detrimental attributes. We also consider finding a generalizable set of parameters that fit for our prediction purposes. We then re-evaluate the cross-validation and prediction accuracy using the optimized subset of features with generalized parameters.
 \end{itemize}
 
 
 \subsection{Mutation Score Distribution}
 \label{subsec:experiment_mutation_score_distribution}
 \begin{landscape}
-  \begin{table}[ht!]
+  \begin{table}[]
     \centering
     \rowcolors{1}{gray!30}{gray!20}
     \begin{threeparttable}
@@ -97,7 +96,7 @@ Our results are broken up into separate sections:
         \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 14910 & 8371 & 0.5614 & 6869 & 0.8206 & 01:34:38 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 14165 & 10540 & 0.7441 & 8430 & 0.7998 & 03:55:56 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 22269 & 17334 & 0.7784 & 13499 & 0.7788 & 01:24:33 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{TOTAL} & \textbf{237014} & \textbf{166193} & \textbf{0.7012} & \textbf{132570} & \textbf{0.7786} & \textbf{64:26:41} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{ALL} & \textbf{237014} & \textbf{166193} & \textbf{0.7012} & \textbf{132570} & \textbf{0.7786} & \textbf{64:26:41} \\
         \hline
       \end{tabular}
       \begin{tablenotes}
@@ -125,7 +124,7 @@ Our results are broken up into separate sections:
         \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 120 & 401 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 83 & 381 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 73 & 675 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{TOTAL} & \textbf{864} & \textbf{5510} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{ALL} & \textbf{864} & \textbf{5510} \\
         \hline
       \end{tabular}
     \end{threeparttable}
