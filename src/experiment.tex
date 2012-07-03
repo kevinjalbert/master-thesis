@@ -5,7 +5,16 @@ In this chapter we discuss the application of our approach from Chapter~\ref{cha
 
 \section{Experimental Setup}
 \label{sec:experiment_setup}
-For our experiment we collect a set of 8 open source software systems to use for both training and prediction. Our selection criteria for our experimental subjects were the following:
+We run our approach on a machine that has 6 GB of \gls{ram} and an Intel Core i7-870 processor running at 2.93 GHz. We have configured Javalanche to run with no parallel task execution along with its coverage impact analysis. We avoid task parallelization as it avoids any unnecessary issues that can occur due to concurrent access to file resources that a test suite may use. The coverage impact analysis slows down Javalanche though it provides comprehensive data regarding the mutants.
+
+For each test subject we import the project into Eclipse and run the project through a \emph{test} that Javalanche provides. This test indicates any unit test cases that cannot execute properly or fail within Javalanche. We have to remove these test cases as the mutation testing process requires a test suite with no errors. We collect all the results in a database so we can conduct several forms of evaluation.
+
+Using the common classifier performance measures as described in Section~\ref{subsec:background_performance_measures} we can quantifier how well the classifier does at prediction. We perform 10-fold cross-validation as described in Section~\ref{sec:background_machine_learning}. We also observe the performance of the classifier on real predictions by training on a subset of the available data then predicting on the remaining subset. LIBSVM provides an \emph{easy script} that automatically scale the data and make parameter selection using a grid search~\cite{HCL03}. Parameter selection is critical aspect of machine learning algorithms, it can influence the classification accuracy greatly. We allow LIBSVM to automatically take care of this to best select the parameters based on the provided data. We allow LIBSVM to use 8 threads for computation tasks. We also utilize the \gls{rbf} kernel as it is the default and comes recommended by the authors~\cite{HCL03}.
+
+
+\section{Experimental Subjects}
+\label{sec:experiment_subjects}
+Our selection criteria for the experimental subjects were the following:
 
 \begin{itemize}
   \item An open source Java software system.
@@ -13,54 +22,35 @@ For our experiment we collect a set of 8 open source software systems to use for
   \item Is over 5K total \gls{sloc}.
 \end{itemize}
 
-We only wanted to collect software system that have a minimum of 5K total \gls{sloc} to ensure that the our approach would gather a decent amount of data. Open source projects are relatively easy to find and are freely available to analyze. The only firm requirement we desired was the need for a test suite or set of test cases, due to fundamental needs of mutation testing.
+We only wanted software system that have a minimum of 5K total \gls{sloc} to ensure that the our approach would gather a decent amount of data. Open source projects are relatively easy to find and are freely available to analyze. The only firm requirement we desired was the need for a test suite or set of test cases, due to fundamental needs of mutation testing.
 
-We run our approach on a machine that has 6 GB of \gls{ram} and an Intel Core i7-870 processor running at 2.93 GHz. We have configured Javalanche to run with no parallel task execution along with its coverage impact analysis. We avoid task parallelization as it avoids any unnecessary issues that can occur due to concurrent access to file resources that a test suite may use. The coverage impact analysis slows down Javalanche though it provides comprehensive data regarding the mutants, thus allowing use to recalculate the mutation score for different sets of mutation operators easily.
+\begin{landscape}
+  \begin{table}[t]
+    \centering
+    \rowcolors{2}{gray!30}{gray!20}
+    \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|}
+      \hline
+      \rowcolor[RGB]{169,196,223}
+      \textbf{Program} & \textbf{Source SLOC} & \textbf{Source Classes} & \textbf{Source Methods} & \textbf{Test SLOC} & \textbf{Test Classes} & \textbf{Test Methods} & \textbf{Test Cases} \\
+      \hline logback-core (1.0.3)~\cite{logback} & 12118 & 249 & 1270 & 8377 & 174 & 688 & 286 \\
+      \hline barbecue (1.5-beta1)~\cite{barbecue} & 4790 & 58 & 299 & 2910 & 38 & 416 & 225 \\
+      \hline jgap (3.6.1)~\cite{jgap} & 28975 & 415 & 3017 & 19694 & 180 & 1633 & 1355 \\
+      \hline commons-lang (3.1)~\cite{commons-lang} & 19499 & 149 & 1196 & 33332 & 242 & 2408 & 2050 \\
+      \hline joda-time (2.0)~\cite{joda-time} & 27139 & 227 & 3635 & 51388 & 221 & 4755 & 3866 \\
+      \hline openfast (1.1.0)~\cite{openfast} & 11646 & 265 & 1447 & 5587 & 115 & 421 & 322 \\
+      \hline jsoup (1.6.2)~\cite{jsoup} & 10949 & 198 & 954 & 2883 & 25 & 335 & 319 \\
+      \hline joda-primitives (1.0)~\cite{joda-primitives} & 11157 & 128 & 1868 & 6989 & 49 & 746 & 1810 \\
+      \hline \textbf{ALL} & \textbf{126273} & \textbf{1689} & \textbf{13686} & \textbf{131160} & \textbf{1044} & \textbf{11402} & \textbf{10233} \\
+      \hline
+    \end{tabular}
+    \caption{The set of experimental subjects along with source and test metrics.}
+    \vspace{2mm}
+    \hrule
+    \label{tab:experimental_subjects}
+  \end{table}
+\end{landscape}
 
-For each test subject we import the project into Eclipse and run the project through a \emph{test} that Javalanche provides. This test indicates any unit test cases that cannot execute properly or fail within Javalanche. We have to remove these test cases as the mutation testing process requires a test suite with no errors. We collect all the results in a database so we can conduct several forms of evaluation.
-
-Using LIBSVM we can calculate the accuracy of the collected data from our test subjects. We allow LIBSVM to use 8 threads for computation tasks. We can evaluate how effective our predict approach is using the following accuracy values:
-
-\begin{itemize}
-  \item Cross-validation accuracy of each test subject using itself for training.
-  \item Cross-validation accuracy of all test subjects using all data for training.
-  \item Prediction accuracy of each test subject using all data for training.
-  \item Prediction accuracy of some test subjects using a different test subject's data for training.
-\end{itemize}
-
-The first accuracy can provide some insight on how effective the prediction is on intra-project data. The remaining accuracies provide insight on how effective the prediction is on cross-project data. Provided the results of the cross-project data prediction we can better understand if our prediction approach can generalize to some extent.
-
-We then explore aspects of optimizing our approach by observing the correlation of the provided attributes used in our \gls{svm}. We also observe the effect of changing the set of mutation operators and attributes to find their effect on prediction accuracy. Finally we re-conduct the previous experiments regarding the cross-validation and prediction accuracy to validate the effect of our optimizations.
-
-
-\section{Experimental Subjects}
-\label{sec:experiment_subjects}
-% TODO Add # of classes/methods (for source and tests)
-\begin{table}[!t]
-  \centering
-  \rowcolors{2}{gray!30}{gray!20}
-  \begin{tabular}{|l|r|r|r|}
-    \hline
-    \rowcolor[RGB]{169,196,223}
-    \textbf{Program} & \textbf{SLOC} & \textbf{Test SLOC} & \textbf{Test Cases} \\
-    \hline logback-core (1.0.3)~\cite{logback} & 12118 & 8145 & 286 \\
-    \hline barbecue (1.5-beta1)~\cite{barbecue} & 4837 & 2910 & 225 \\
-    \hline jgap (3.6.1)~\cite{jgap} & 28975 & 19694 & 1355 \\
-    \hline commons-lang (3.1)~\cite{commons-lang} & 19499 & 33332 & 2050 \\
-    \hline joda-time (2.0)~\cite{joda-time} & 27139 & 51428 & 3866 \\
-    \hline openfast (1.1.0)~\cite{openfast} & 11646 & 5587 & 322 \\
-    \hline jsoup (1.6.2)~\cite{jsoup} & 10949 & 2883 & 319 \\
-    \hline joda-primitives (1.0)~\cite{joda-primitives} & 11157 & 6989 & 1810 \\
-    \hline \textbf{TOTAL} & \textbf{126320} & \textbf{130968} & \textbf{10233} \\
-    \hline
-  \end{tabular}
-  \caption{The experimental subjects.}
-  \vspace{2mm}
-  \hrule
-  \label{tab:experimental_subjects}
-\end{table}
-
-Following the criteria outlined in Section~\ref{sec:experiment_setup} we selected the following 8 open source Java projects shown in Table~\ref{tab:experimental_subjects}. We provide a brief description of each project:
+Following the criteria outlined we selected the following 8 open source Java projects shown in Table~\ref{tab:experimental_subjects}. We provide a brief description of each project:
 
 \begin{itemize}
   \item \textbf{logback-core}: \emph{``Logback is intended as a successor to the popular log4j project, picking up where log4j leaves off. The logback-core module lays the groundwork for the other two modules.''}~\cite{logback}
@@ -72,6 +62,8 @@ Following the criteria outlined in Section~\ref{sec:experiment_setup} we selecte
   \item \textbf{jsoup}: \emph{``jsoup is a Java library for working with real-world HTML. It provides a very convenient API for extracting and manipulating data, using the best of DOM, CSS, and jquery-like methods.''}~\cite{jsoup}
   \item \textbf{joda-primitives}: \emph{``Joda Primitives provides collections and utilities to bridge the gap between objects and primitive types in Java.''}~\cite{joda-primitives}
 \end{itemize}
+
+We use these experimental subjects in combination while collecting results. We consider an \emph{all} set which contains the data from all individual subjects, this allows us to observe the results using an amalgamation of subjects. We also consider subsets of the \emph{all} set by omitting a different subject for each subset (i.e., \emph{all\_but\_<subject>}), this allows us to perform predictions on a completely unknown subject using that data of the 7 other subjects.
 
 
 \section{Experimental Results}
