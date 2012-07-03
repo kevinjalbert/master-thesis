@@ -20,15 +20,14 @@ Mutation testing uses a set of \emph{mutation operators} to generate faulty vers
 
 The transformation is a small and single change as most bugs appear follow the \emph{\gls{cph}}~\cite{ABD+79} which suggests that developers write software that is nearly correct. The \emph{\gls{ceh}}~\cite{Off92} suggests that a large percent of complex faults can be detected if all the simple faults can be detected. These two hypothesis strengthen the use of simple small changes for mutation operators and why mutation testing is adequate for evaluating test suite effectiveness.
 
-After all the mutants have been generated a testing approach is used to evaluate them against the test suite. If a mutant is detected by the test suite then the mutant is \emph{killed} otherwise it has \emph{survived}. There are some cases where the mutant generated is \emph{equivalent} such that the behaviour of the mutant is the same as the original system. These equivalent mutants pose a problem as they cannot be killed using the given test suite. Manual inspection of mutants to determine if they are equivalent is not feasible for a large number of mutants. A \emph{mutation score} is given to each source code unit based on the number of percentage of non-equivalent mutants they killed. The mutation score indicates how effective a test suite is at detecting faults in terms of mutation fault-based testing adequacy.
-
 % TODO Maybe show a small example of equivalent mutants?
 
-\begin{Large}
-\begin{center}
-\emph{$\text{mutation score} = \frac{\text{killed mutants}}{\text{total mutants} - \text{equivalent mutants}}$}
-\end{center}
-\end{Large}
+\begin{equation}
+  \emph{$\text{mutation score} = \frac{\text{killed mutants}}{\text{total mutants} - \text{equivalent mutants}}$}
+  \label{equ:mutation_score}
+\end{equation}
+
+After all the mutants have been generated a testing approach is used to evaluate them against the test suite. If a mutant is detected by the test suite then the mutant is \emph{killed} otherwise it has \emph{survived}. There are some cases where the mutant generated is \emph{equivalent} such that the behaviour of the mutant is the same as the original system. These equivalent mutants pose a problem as they cannot be killed using the given test suite. Manual inspection of mutants to determine if they are equivalent is not feasible for a large number of mutants. A \emph{mutation score} is given to each source code unit based on the number of percentage of non-equivalent mutants they killed. The mutation score indicates how effective a test suite is at detecting faults in terms of mutation fault-based testing adequacy.
 
 Mutation testing has traditionally been used as a coverage technique to evaluate the effectiveness of test suites and provide confidence in the testing process~\cite{JH10}. For over 30 years, mutation testing has been applied to software written in programming languages including C~\cite{DM96, JH08}, Fortran~\cite{KO91} and Java~\cite{MKO02, BCD06}. Furthermore, mutation testing has also been applied to non-programming artifacts such as formal specification languages~\cite{ABM98}, markup languages~\cite{PO10} and spreadsheets~\cite{AE09}.
 
@@ -331,6 +330,73 @@ Many areas of research have benefited from machine learning such as the data min
 Using this criteria we provide a comparison of a different \gls{svm} implementations in Table~\ref{tab:svm_tools}. We can see various aspects of different \gls{svm} implementations, for example all three of these \gls{svm}s are open source academic tools that support cross-validation. SVM$^{light}$ does not support multiple-group classification, though it does have an alternative tool that does allow this. LS-SVMlab has the ability to gather perform measure, though it also works as a MATLAB toolkit.
 
 
+\subsection{Performance Measures}
+\label{subsec:background_performance_measures}
+\begin{figure}[!t]
+  \centering
+  \begin{tikzpicture}[
+  box/.style={draw,rectangle,minimum size=1.0cm,text width=3.75cm,align=center}]
+    \matrix (confusion_matrix) {
+      \node (actual_positive_prediction_positive)
+      [box,
+        label=left:$\mathbf{+}$,
+        label=above:$\mathbf{+}$
+      ] {\gls{tp}};
+      &
+      \node (actual_positive_prediction_negative)
+      [box,
+        label=above:$\mathbf{-}$
+      ] {\gls{fn}};
+      \\
+      \node (actual_negative_prediction_positive)
+      [box,
+        label=left:$\mathbf{-}$
+      ] {\gls{fp}};
+      &
+      \node (actual_negative_prediction_negative)
+      [box] {\gls{tn}};
+      \\
+    };
+    \node [left=-.1cm of confusion_matrix,text width=1.5cm,align=right] {\textbf{Actual \\ Value}};
+    \node [above=-.1cm of confusion_matrix] {\textbf{Prediction Value}};
+  \end{tikzpicture}
+  \caption{Example confusion matrix (2~\times~2) for classification results.}
+  \vspace{1mm}
+  \footnotesize{\emph{Figure~\ref{fig:example_confusion_matrix} shows an example confusion matrix with variables in place of the classifications. These variables (\gls{tp}, \gls{fn}, \gls{fp} and \gls{tn}) provide descriptive classification results. A confusion matrix can extend to n~\times~n dimensions.}}
+  \vspace{2mm}
+  \hrule
+  \label{fig:example_confusion_matrix}
+\end{figure}
+
+A supervised learning machine learning technique can prove to be a valuable tool for predicting unknown data. As previously mentioned a classifier must first be training on known data prior to using it for predictive purposes. One can wonder how well does the classifier perform? Given the training data it is possible to simply prediction on known data and observe the resulting predictions. A confusion matrix can visually represents the allotment of predictions over the actual categories as seen in Figure~\ref{fig:example_confusion_matrix}. Using the variables of a confusion matrix it is possible to construct several performance measures that describe the effectiveness of the classifier that created the confusion matrix. The following performance measures are commonly used to describe the performance of a classifier~\footnote{all of these measures can all be applied to each category, for demonstrative purposes we focus on the positive category}~\cite{SJS06}:
+
+\begin{itemize}
+  \item \textbf{Precision}: Of the predictions made \emph{precision} represents the fraction of positive predictions that correctly belong to the positive category.
+  \begin{equation}
+    \emph{$\text{precision} = \frac{tp}{tp + fp}$}
+    \label{equ:precision}
+  \end{equation}
+
+  \item \textbf{Recall}: Of the predictions made \emph{recall} represents the fraction of positive predictions that were correctly identified.
+  \begin{equation}
+    \emph{$\text{recall} = \frac{tp}{tp + fn}$}
+    \label{equ:recall}
+  \end{equation}
+
+  \item \textbf{Specificity}: Of the predictions made \emph{specificity} represents the fraction of negative predictions that were correctly identified.
+  \begin{equation}
+    \emph{$\text{specificity} = \frac{tn}{tn + fp}$}
+    \label{equ:specificity}
+  \end{equation}
+
+  \item \textbf{Accuracy}: Of the predictions made \emph{accuracy} represents the fraction of all predictions made that were correctly identify.
+  \begin{equation}
+    \emph{$\text{accuracy} = \frac{tp + tn}{tp + fp + fn + tn}$}
+    \label{equ:accuracy}
+  \end{equation}
+\end{itemize}
+
+
 \subsection{Support Vector Machine}
 \label{subsec:background_support_vector_machine}
 \begin{figure}[ht]
@@ -403,6 +469,6 @@ In this chapter we covered the following topics that are considered background m
 
 \begin{itemize}
   \item In Section~\ref{sec:background_mutation_testing} we covered what mutation testing is and how it relates to test suite effectiveness with respect to fault detection adequacy. We explored various sets of mutation operators with examples for method- and class-level mutation operators. A set of Java specific mutation tools was also presented for comparison.
-  \item In Section~\ref{sec:background_machine_learning} we covered what machine learning and how it can be for supervised and unsupervised classification technique. We specifically cover how \gls{svm}s work.
+  \item In Section~\ref{sec:background_machine_learning} we covered what machine learning and how it can be for supervised and unsupervised classification technique. We specifically cover common performance measures and how \gls{svm}s work.
   \item In Section~\ref{sec:background_metrics} we covered metrics, specifically source code and test suite metrics. We explain how source code metrics can be used to identify \emph{code smells} and some examples of these metrics. We also introduce several approaches to test suite metrics using a combination of source code metrics on JUnit test cases as well as coverage metrics.
 \end{itemize}
