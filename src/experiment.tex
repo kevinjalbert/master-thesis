@@ -330,11 +330,76 @@ We included a modified version of feature set \ding{176} (noted as \ding{176}$^a
 \label{subsec:experiment_prediction}
 
 
-\subsection{Correlation \& Optimization}
-\label{subsec:experiment_correlation_optimization}
+By using LIBSVM we want to train a classifier such that it can predict well on \emph{unknown data}. Parameter selection and the training/testing data sets play an important role in making a good classifier. Ultimately, we want to obtain a classifier that is able to \emph{generalize} to new unknown data. In our specific case since we have 8 different subjects (that are most likely not similar to each other in terms of features) in which we want to maximize our generalizability. We used cross-validation in Section~\ref{subsec:experiment_cross_validation} as it mitigates the overfitting problem introduced by training (i.e., a model becomes specifically tuned for the training data set)~\cite{HCL03}. Parameter selection also occurred automatically using a grid search approach to find a set of parameters that maximized the cross-validation accuracy on the training data set. We were able to achieve a cross-validation accuracy of 0.641546 using all features which performs much better then a random approach (i.e., around 0.333333), though does this generalize to unknown data?
+
+To explore this generalization problem we conducted a number of tests where we use LIBSVM's \emph{easy script} to find the best parameters that maximize cross-validation accuracy and then apply the classifier to unknown data. As we are still using undersampling we conduct each experiment 10 times to determine the mean and standard deviation in prediction accuracy. We consider the prediction accuracy on the remaining unknown data (i.e., what is left from the undersampling) of the experimental subject being used (see Table~\ref{?}). We also looked at the prediction accuracy on completely unknown subject by training on the other 7 \emph{all\_but\_<subject>} sets and predicting on the unknown subject (see Table~\ref{?}).
 
 
-\subsection{Cross-Project Prediction}
-\label{subsec:experiment_cross_project_prediction}
+\subsection{Optimization \& Generalization}
+\label{subsec:experiment_optimization_generalization}
+We keep track of the frequency of parameter pairs selected over all the prediction experiments conducted in Section~\ref{subsec:experiment_prediction}. As shown in Table~\ref{?} we can see that a large number of parameter pairings are used to maximize the cross-validation accuracy of the training data sets, before using them for prediction. This indicates that the classifiers are being tuned specifically to maximize the cross-validation accuracy, and due to undersampling different parameters are being used to ensure this maximization. To encourage generalization of unknown projects and data we ideally want to find a parameter pairing that maximizes generalizability and classification performance.
+
+We noticed that in some situations accuracy is not the best measure for a classifier's effectiveness. For example, consider the following situation: Given imbalanced data for the testing/unknown data set the accuracy could misrepresent the performance of the classifier. If we look at Figure~\ref{fig:raw_output_bad}~\&~\ref{fig:raw_output_good} we can see the raw outputs of our classifier using two different sets of parameters. We can see a confusion matrix for both a good classifier and bad classifier. We can see in Figure~\ref{fig:raw_output_bad} that the majority of predictions fall in category \texttt{2}, with very few in category \texttt{0}, and none in the remaining category. This data set does constitute imbalanced data as around 56\% of the data belongs to category \texttt{2}. We can see that even with the biased predictions made towards the majority category the accuracy of the prediction is 0.561680. In contrast to the the raw output presented in Figure~\ref{fig:raw_output_good} we can see that the accuracy is slightly lower at 0.543307. Now even though the accuracy in the second example is slightly lower we can consider it a superior classifier to the former as it actually treats the three categories in a more unbiased fashion (i.e., one category is not receiving the majority of predictions like the previous example). To alleviate this problem we consider other measurements that can be used to assess the predictive capabilities of classifiers, in particular we consider the following measure:
+
+\begin{itemize}
+  \item \textbf{F-score}: A harmonic mean of the recall and precision of the category.
+  \begin{equation}
+    \emph{$\text{F-score} = 2*\frac{recall * precision}{recall + precision}$}
+    \label{equ:f_score}
+  \end{equation}
+
+  \item \textbf{Balanced Accuracy}: A measure that represents the average accuracy obtained on the category.~\cite{BOSB10}
+  \begin{equation}
+    \emph{$\text{balanced accuracy} = \frac{recall + specificity}{2}$}
+    \label{equ:balanced_area_under_curve}
+  \end{equation}
+
+  \item \textbf{Youden's Index}: A measure that represents the classifier's ability to avoid failure. It is also related to balanced accuracy.~\cite{SJS06}
+  \begin{equation}
+    \emph{$\text{youden's index} = recall - ( 1 - specificity)$}
+    \label{equ:youden_index_a}
+  \end{equation}
+  \begin{equation}
+    \emph{$\text{youden's index} = 2 * \text{balanced accuracy} - 1$}
+    \label{equ:youden_index_b}
+  \end{equation}}
+\end{itemize}
+
+\begin{landscape}
+  \begin{figure}
+    \centering
+    \begin{minipage}{22.0cm}
+    \scriptsize{
+    \lstinputlisting[language=Java, basicstyle=\footnotesize\ttfamily,]{listings/raw_output_bad.txt}
+    }
+    \end{minipage}
+    \caption{Raw output of running \texttt{all\_but\_jsoup} (training on all but \texttt{jsoup} then predicting on it) using the parameters \emph{cost}=1 and \emph{gamma}=0.001.}
+    \vspace{2mm}
+    \hrule
+    \label{fig:raw_output_bad}
+  \end{figure}
+
+  \begin{figure}
+    \centering
+    \begin{minipage}{22.0cm}
+    \scriptsize{
+    \lstinputlisting[language=Java, basicstyle=\footnotesize\ttfamily,]{listings/raw_output_good.txt}
+    }
+    \end{minipage}
+    \caption{Raw output of running \texttt{all\_but\_jsoup} (training on all but \texttt{jsoup} then predicting on it) using the parameters \emph{cost}=10 and \emph{gamma}=10.}
+    \vspace{2mm}
+    \hrule
+    \label{fig:raw_output_good}
+  \end{figure}
+\end{landscape}
 
 
+\section{Summary}
+\label{sec:experiment_summary}
+In this chapter we covered the following topics that are considered background material for the approach presented in this thesis:
+
+\begin{itemize}
+  \item In Section~\ref{sec:experiment_setup} we covered how our experimental setup with respect to machine setup and the different types of evaluations we will perform.
+  \item In Section~\ref{sec:experiment_subjects} we covered the 8 experimental subjects what machine learning and how it can be for supervised and unsupervised classification technique. We specifically cover how \gls{svm}s work.
+  \item In Section~\ref{sec:experiment_results} we covered metrics, specifically source code and test suite metrics. We explain how source code metrics can be used to identify \emph{code smells} and some examples of these metrics. We also introduce several approaches to test suite metrics using a combination of source code metrics on JUnit test cases as well as coverage metrics.
+\end{itemize}
