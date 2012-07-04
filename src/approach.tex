@@ -116,20 +116,12 @@ As our approach attempts to predict the mutation score of source code units we n
       \hline ATNBD & Average NBD of test methods & Class/Method & \ding{175} \\
       \hline ATVG & Average VG of test methods & Class/Method & \ding{175} \\
       \hline ATPAR & Average PAR of test methods & Class/Method & \ding{175} \\
-
-      % Set 5: Mutation Metrics
-      \hline NCM & Number of covered mutants in code unit & Class/Method & \ding{176} \\
-      \hline NCM\emph{x}\tnote{a} & Number of \emph{x} covered mutants in code unit & Class/Method & \ding{176} \\
       \hline
     \end{tabular}
-    \begin{tablenotes}
-      \item[a] This is a generalization of 7 metrics, the \emph{x} represents the different mutation operators from Table~\ref{tab:javalanche_operators}.
-    \end{tablenotes}
   \end{threeparttable}
-
   \caption{The complete set of metrics used as attributes for each vector of the \gls{svm}.}
   \vspace{1mm}
-  \footnotesize{\emph{Table~\ref{tab:metrics} shows the complete set of metrics used as attributes for each vector of the \gls{svm}, categorized by feature set (\ding{172}: Source Code, \ding{173}: Coverage, \ding{174}: Accumulated Source Code, \ding{175}: Accumulated Test Case, \ding{176}: Mutation).}}
+  \footnotesize{\emph{Table~\ref{tab:metrics} shows the complete set of metrics used as attributes for each vector of the \gls{svm}, categorized by feature set (\ding{172}: Source Code, \ding{173}: Coverage, \ding{174}: Accumulated Source Code, \ding{175}: Accumulated Test Case).}}
   \vspace{2mm}
   \hrule
   \label{tab:metrics}
@@ -168,7 +160,7 @@ We use \gls{svm}, a supervised learning technique, to predict mutation scores. B
 
 Javalanche is the mutation testing tool that our approach uses. Using scripts we made our whole approach as automated as possible, thus the user only has to configure a couple variables to target a different project (i.e., package prefix, test suite name, test \& source directories). We have made minor modifications to Javalanche that allows it to use all the specified operators from Table~\ref{tab:javalanche_operators}. Javalanche also is configured to use its coverage impact analysis to give insight on equivalent mutants (more on this in Chapter~\ref{chap:experiment}) though this slows down Javalanche substantially. Furthermore we added a custom analyzer that outputs the mutation scores of each class and method units in the \gls{sut}.
 
-Javalanche generates all possible mutants, then considers the set of them that are covered by the provided test suite. Furthermore we utilize the number of covered mutants as another metric set for our attributes (see feature set \ding{176} in Table~\ref{tab:metrics}). We believe that the number of covered mutants will provide useful insight for describing mutation scores of source code units, it also turns out that the creation/generation of mutants is not the costly part of mutation testing. Given the set of covered mutants Javalanche then tests and records the results of each mutant using its subset of covered test cases for that specific mutant. The newly added analyzer for Javalanche then outputs an intermediate \gls{csv} file of mutation scores for the covered source code units. Using the example \texttt{Triangle} system presented in Section~\ref{subsec:approach_inputs} the \gls{csv} file of the acquire mutation scores are shown in Figure~\ref{fig:triangle_mutation_scores}. Using the \gls{csv} file we populate a database with all the acquired data, this eases management and analysis of the data.
+Javalanche generates all possible mutants, then considers the set of them that are covered by the provided test suite. Given the set of covered mutants Javalanche then tests and records the results of each mutant using its subset of covered test cases for that specific mutant. The newly added analyzer for Javalanche then outputs an intermediate \gls{csv} file of mutation scores for the covered source code units. Using the example \texttt{Triangle} system presented in Section~\ref{subsec:approach_inputs} the \gls{csv} file of the acquire mutation scores are shown in Figure~\ref{fig:triangle_mutation_scores}. Using the \gls{csv} file we populate a database with all the acquired data, this eases management and analysis of the data.
 
 \begin{figure}[h]
   \centering

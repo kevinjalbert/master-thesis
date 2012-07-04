@@ -267,20 +267,10 @@ Using the determined classification categories from the previous section we have
       \hline \ding{173} & 0.441361 & 0.018696 \\
       \hline \ding{174} & 0.471379 & 0.012187 \\
       \hline \ding{175} & 0.432984 & 0.015792 \\
-      \hline \ding{176} & 0.503316 & 0.017744 \\
-      \hline \ding{176}~\tnote{a} & 0.454799 & 0.014111 \\
       \hline \ding{172} \ding{174} \ding{175} & 0.525131 & 0.011413 \\
-      \hline \ding{173} \ding{176} & 0.547643 & 0.016936\\
-      \hline \ding{173} \ding{176}~\tnote{a} & 0.477487 & 0.012208\\
       \hline \ding{172} \ding{173} \ding{174} \ding{175} & 0.526701 & 0.019912\\
-      \hline \ding{172} \ding{173} \ding{174} \ding{175} \ding{176} & 0.562478 & 0.010177 \\
-      \hline \ding{172} \ding{173} \ding{174} \ding{175} \ding{176}~\tnote{a} & 0.544852 & 0.015297 \\
       \hline
     \end{tabular}
-    \begin{tablenotes}
-      \item[a] A modified version of feature set \ding{176} that does excludes the NCM\emph{x} metrics.
-      \item[b] Feature set \ding{174} only effects the class feature space.
-    \end{tablenotes}
   \end{threeparttable}
   \caption{Using all available data we present the 10-fold cross-validation accuracy of class-level source code units with random under-sampling. We consider the mean accuracy of various feature sets (see Table~\ref{tab:metrics}) over 10 execution per set.}
   \vspace{2mm}
@@ -297,21 +287,14 @@ Using the determined classification categories from the previous section we have
       \textbf{Set}& \textbf{Mean Method Accuracy}& \textbf{Method Standard Deviation} \\
       \hline \ding{172} & 0.463708 & 0.004627 \\
       \hline \ding{173} & 0.485447 & 0.005327 \\
-      \hline \ding{174} & N/A~\tnote{b} & N/A~\tnote{b} \\
+      \hline \ding{174} & N/A~\tnote{a} & N/A~\tnote{a} \\
       \hline \ding{175} & 0.426509 & 0.007074 \\
-      \hline \ding{176} & 0.592452 & 0.006023 \\
-      \hline \ding{176}~\tnote{a} & 0.501238 & 0.006415 \\
       \hline \ding{172} \ding{174} \ding{175} & 0.504922 & 0.008867 \\
-      \hline \ding{173} \ding{176}& 0.616033 & 0.005218 \\
-      \hline \ding{173} \ding{176}~\tnote{a}& 0.523907 & 0.008791 \\
       \hline \ding{172} \ding{173} \ding{174} \ding{175}& 0.542662 & 0.008034 \\
-      \hline \ding{172} \ding{173} \ding{174} \ding{175} \ding{176} & 0.641546 & 0.005079 \\
-      \hline \ding{172} \ding{173} \ding{174} \ding{175} \ding{176}~\tnote{a} & 0.593750 & 0.006315 \\
       \hline
     \end{tabular}
     \begin{tablenotes}
-      \item[a] A modified version of feature set \ding{176} that does excludes the NCM\emph{x} metrics.
-      \item[b] Feature set \ding{174} only effects the class feature space.
+      \item[a] Feature set \ding{174} only effects the class feature space.
     \end{tablenotes}
   \end{threeparttable}
   \caption{Using all available data we present the 10-fold cross-validation accuracy of method-level source code units with random under-sampling. We consider the mean accuracy of various feature sets (see Table~\ref{tab:metrics}) over 10 execution per set.}
@@ -321,16 +304,13 @@ Using the determined classification categories from the previous section we have
 
 We use the LIBSVM~\cite{CL11} library to perform the 10-fold cross-validation. To evaluate the cross-validation accuracy of the acquired data we randomly under-sample the data to balance the amount of instances within each category. We utilize 191 instances of class-level and 1104 instances of method-level source code units from each category, these values are chosen to maximize the number of instances of the minority category using random under-sampling.
 
-In Table~\ref{tab:subset_class_cross_validation_accuracy}~\&~\ref{tab:subset_method_cross_validation_accuracy} we measure the cross-validation accuracy of class- and method-level source code units over 10 executions to account for the random under-sampling of our data. In addition we evaluate the cross-validation of each individual set of features to understand their individual impacts on cross-validation accuracy. The baseline to outperform is random in terms of cross-validation accuracy, in our case since we under-sample our three categories random accuracy is 0.33. We can see that all feature sets are able to outperform random which indicates that there is some predictive power in the selected feature sets. Globally we see small variation in all feature set's standard deviation ranging from about 0.005--0.02. This gives us confidence that the mean cross-validation accuracy are not occurring by chance. We include subsets of the features (feature sets \ding{172} \ding{174} \ding{175} and \ding{173} \ding{176}) to show the effects of merging the individual features in a hierarchical fashion. We can clearly see that by using all feature sets together we can acquire higher cross-validation accuracy then using the feature sets alone. This supports our intuition using various metrics together we can predict the mutation scores of source code units well.
+In Table~\ref{tab:subset_class_cross_validation_accuracy}~\&~\ref{tab:subset_method_cross_validation_accuracy} we measure the cross-validation accuracy of class- and method-level source code units over 10 executions to account for the random under-sampling of our data. In addition we evaluate the cross-validation of each individual set of features to understand their individual impacts on cross-validation accuracy. The baseline to outperform is random in terms of cross-validation accuracy, in our case since we under-sample our three categories random accuracy is 0.33. We can see that all feature sets are able to outperform random which indicates that there is some predictive power in the selected feature sets. Globally we see small variation in all feature set's standard deviation ranging from about 0.005--0.02. This gives us confidence that the mean cross-validation accuracy are not occurring by chance. We include a subset of all features (feature sets \ding{172} \ding{174} \ding{175}) to show the effects of merging only the source and test metrics. We can clearly see that by using all feature sets together we can acquire higher cross-validation accuracy then using the feature sets alone. This supports our intuition using various metrics together we can predict the mutation scores of source code units well.
 
-We included a modified version of feature set \ding{176} (noted as \ding{176}$^a$) in our cross-validation results. We speculate that it might be the case that the \emph{mutation metrics} (feature set \ding{176}) might be too specific based on the mutation testing tool and projects we are using. As we can see in Table~\ref{tab:subset_method_cross_validation_accuracy} the cross-validation accuracy of \ding{176} substantially outperforms the other individual features in method accuracy (i.e., by at most 0.107005). When we consider \ding{176}$^a$ alone the method accuracy is more consistent with the other individual feature sets. These results could mean either: feature set \ding{176} is too specific thus performs exceedingly well in cross-validation or that mutation metrics is a very strong predictor for mutation score. The modified version of feature set \ding{176}$^a$ is more reasonable in terms of accuracy and by excluding the specific NCM\emph{x} metrics these metrics are not tied to the specific mutation testing tool and project. Currently it is unclear whether the NCM\emph{x} metrics would generalize to unknown data. We will continue to utilize the following three feature sets for future results (\ding{172} \ding{173} \ding{174} \ding{175}, \ding{172} \ding{173} \ding{174} \ding{175} \ding{176} and \ding{172} \ding{173} \ding{174} \ding{175} \ding{176}$^a$) until we can conclude which is more appropriate for mutation score prediction.
 
 
 \subsection{Prediction}
 \label{subsec:experiment_prediction}
-
-
-By using LIBSVM we want to train a classifier such that it can predict well on \emph{unknown data}. Parameter selection and the training/testing data sets play an important role in making a good classifier. Ultimately, we want to obtain a classifier that is able to \emph{generalize} to new unknown data. In our specific case since we have 8 different subjects (that are most likely not similar to each other in terms of features) in which we want to maximize our generalizability. We used cross-validation in Section~\ref{subsec:experiment_cross_validation} as it mitigates the overfitting problem introduced by training (i.e., a model becomes specifically tuned for the training data set)~\cite{HCL03}. Parameter selection also occurred automatically using a grid search approach to find a set of parameters that maximized the cross-validation accuracy on the training data set. We were able to achieve a cross-validation accuracy of 0.641546 using all features which performs much better then a random approach (i.e., around 0.333333), though does this generalize to unknown data?
+By using LIBSVM we want to train a classifier such that it can predict well on \emph{unknown data}. Parameter selection and the training/testing data sets play an important role in making a good classifier. Ultimately, we want to obtain a classifier that is able to \emph{generalize} to new unknown data. In our specific case since we have 8 different subjects (that are most likely not similar to each other in terms of features) in which we want to maximize our generalizability. We used cross-validation in Section~\ref{subsec:experiment_cross_validation} as it mitigates the overfitting problem introduced by training (i.e., a model becomes specifically tuned for the training data set)~\cite{HCL03}. Parameter selection also occurred automatically using a grid search approach to find a set of parameters that maximized the cross-validation accuracy on the training data set. We were able to achieve a cross-validation accuracy of 0.542662 using all features which performs much better then a random approach (i.e., around 0.333333), though does this generalize to unknown data?
 
 To explore this generalization problem we conducted a number of tests where we use LIBSVM's \emph{easy script} to find the best parameters that maximize cross-validation accuracy and then apply the classifier to unknown data. As we are still using undersampling we conduct each experiment 10 times to determine the mean and standard deviation in prediction accuracy. We consider the prediction accuracy on the remaining unknown data (i.e., what is left from the undersampling) of the experimental subject being used (see Table~\ref{?}). We also looked at the prediction accuracy on completely unknown subject by training on the other 7 \emph{all\_but\_<subject>} sets and predicting on the unknown subject (see Table~\ref{?}).
 
