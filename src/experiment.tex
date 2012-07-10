@@ -73,8 +73,9 @@ Our results are broken up into separate sections:
 \begin{itemize}
   \item \textbf{Mutation Score Distribution (Section~\ref{subsec:experiment_mutation_score_distribution})}: We discuss the results of the mutation score collection of the source code units. This section outlines the raw data and observations regarding the distribution of mutation scores. In particular we identify a suitable category abstraction for the mutation scores before moving forward to training and prediction using a \gls{svm}.
   \item \textbf{Cross Validation (Section~\ref{subsec:experiment_cross_validation})}: We discuss the cross-validation accuracy of our data sets. We present the cross-validation accuracy results with respect to the feature sets outlined in Table~\ref{tab:metrics}.
+  \item \textbf{Feature Selection (Section~\ref{subsec:experiment_feature_selection})}: We discuss ways to optimize our feature set by reducing redundant and detrimental attributes. The results of the feature selection process are presented using the \emph{all} project.
   \item \textbf{Prediction (Section~\ref{subsec:experiment_prediction})}: We discuss our approach and results on predicting unknown subjects using the collected data from our subjects.
-  \item \textbf{Optimization \& Generalization (Section~\ref{subsec:experiment_optimization_generalization})}: We discuss ways to optimize our feature set by reducing redundant and detrimental attributes. We also consider finding a generalizable set of parameters that fit for our prediction purposes. We then re-evaluate the cross-validation and prediction accuracy using the optimized subset of features with generalized parameters.
+  \item \textbf{Optimization \& Generalization (Section~\ref{subsec:experiment_optimization_generalization})}: We discuss the benefits of finding a generalizable set of parameters that fit our prediction purposes. We then re-evaluate the cross-validation and prediction accuracy using the optimized subset of features (from Section~\ref{subsec:experiment_feature_selection}) with generalized parameters.
 \end{itemize}
 
 
@@ -253,7 +254,7 @@ The rational behind the categories is separate the lower and upper percentiles i
   \label{tab:available_data}
 \end{table}
 
-Using the determined classification categories from the previous section we have imbalanced training data in each category for class- and method-level source code units as shown in Table~\ref{tab:available_data}. Imbalanced data can be problematic for training and predicting using machine learning techniques. With imbalanced data a classifier will heavily classify towards the majority category. Barandela et al. indicate that there are three strategies to reduce the problem of imbalanced training data: Over-sample, under-sample, or internally bias the classification process~\cite{BVSF04}. It was shown that simple random under-sampling can be an effective solution (though not always the best) to this problem~\cite{Jap00,AKJ04}. As Akbani et al. mentioned \emph{``\ldots we are throwing away valid instances, which contain valuable information''}, therefore we might be limiting the ability to generalize to new unknown data~\cite{AKJ04}. The alternative is to perform over-sampling, as Batista et al. mention \emph{``\ldots random over-sampling can increase the likelihood of occurring overﬁtting, since it makes exact copies of the minority class examples''}~\cite{BPM04}. We decided to utilize random under-sampling as it provides a simple approach to dealing with imbalanced data. Furthermore the imbalanced data we have is not extremely severe with a ratio around 2:5, thus we believe we are not losing that much information by under-sampling our training data.
+Using the determined classification categories from the previous section we have imbalanced training data in each category for class- and method-level source code units as shown in Table~\ref{tab:available_data}. Imbalanced data can be problematic for training and predicting using machine learning techniques. With imbalanced data a classifier will heavily classify towards the majority category~\cite{BOSB10}. Barandela et al. indicate that there are three strategies to reduce the problem of imbalanced training data: Over-sample, under-sample, or internally bias the classification process~\cite{BVSF04}. It was shown that simple random under-sampling can be an effective solution (though not always the best) to this problem~\cite{Jap00,AKJ04}. As Akbani et al. mentioned \emph{``\ldots we are throwing away valid instances, which contain valuable information''}, therefore we might be limiting the ability to generalize to new unknown data~\cite{AKJ04}. The alternative is to perform over-sampling, as Batista et al. mention \emph{``\ldots random over-sampling can increase the likelihood of occurring overﬁtting, since it makes exact copies of the minority class examples''}~\cite{BPM04}. We decided to utilize random under-sampling as it provides a simple approach to dealing with imbalanced data. Furthermore the imbalanced data we have is not extremely severe with a ratio around 2:5, thus we believe we are not losing that much information by under-sampling our training data.
 
 \begin{table}[ht!]
   \centering
@@ -307,6 +308,16 @@ We use the LIBSVM~\cite{CL11} library to perform the 10-fold cross-validation. T
 In Table~\ref{tab:subset_class_cross_validation_accuracy}~\&~\ref{tab:subset_method_cross_validation_accuracy} we measure the cross-validation accuracy of class- and method-level source code units over 10 executions to account for the random under-sampling of our data. In addition we evaluate the cross-validation of each individual set of features to understand their individual impacts on cross-validation accuracy. The baseline to outperform is random in terms of cross-validation accuracy, in our case since we under-sample our three categories random accuracy is 0.33. We can see that all feature sets are able to outperform random which indicates that there is some predictive power in the selected feature sets. Globally we see small variation in all feature set's standard deviation ranging from about 0.005--0.02. This gives us confidence that the mean cross-validation accuracy are not occurring by chance. We include a subset of all features (feature sets \ding{172} \ding{174} \ding{175}) to show the effects of merging only the source and test metrics. We can clearly see that by using all feature sets together we can acquire higher cross-validation accuracy then using the feature sets alone. This supports our intuition using various metrics together we can predict the mutation scores of source code units well.
 
 
+\subsection{Feature Selection}
+\label{subsec:experiment_feature_selection}
+In machine learning typically one gathers as many features as possible to supply enough data such that the learning algorithms can make accurate predictions. The problem at hand (i.e., being able to predict the correct category of a vector) is that some features will be redundant, irrelevant or detrimental to the predictive efforts. With proper features the prediction performance can improve, or remain closely the same with less information required. With a lessen feature load the actual performance (i.e., with respect to computational resources required) will improve. By using \emph{feature selection} it is possible to utilize a subset of the features that hopefully improve/retain the predictive performance with less required data~\cite{GE03,BL97}.
+
+There are several approaches to dealing with feature selection, in particular \emph{filter} and \emph{wrapper}. Filters assess the quality/merits of features solely from the data alone as a preprocessing step~\cite{JKP94,BL97}. Various algorithms and measures can be used as a filter (i.e., information gain~\cite{GE03}, correlation~\cite{Hal99}, FOCUS~\cite{AD91}, Relief~\cite{KR92}, etc\ldots). An alternative to filters are wrappers, which evaluates the actual performance of features using the classifier. Wrappers treat the classifier as a black-box and assess the performance using various subsets of features by using the actual predictor~\cite{JKP94,BL97}. Wrappers provide a more accurate and effective means in finding appropriate features, though inefficient as the classification process must occur many times using cross-validation with different features~\cite{KJ97}.
+
+Given that we have over 3000 vectors (with undersampling in effect) with 15 features for the method-level dataset a wrapper approach can be very costly. A wrapper approach might prove more effective as found by Kohavi and John~\cite{KJ97}. For our research we decided against a wrapper approach due to the high computational cost involved. As an alternative to a wrapper approach we use Hall's \gls{cfs} filter which is based on the follow definition: \emph{``A good feature subset is one that contains features highly correlated with (predictive of) the class, yet uncorrelated with (not predictive of) each other''}~\cite{Hal99}. To do this we utilize the \gls{cfs} implementation found in the machine learning toolkit Weka~\cite{HFH+09}.
+
+We undersampled ten times the available data of the combination of our 8 subjects (\emph{all}) for both class- and method-level. Using the 10 different undersampled set of vectors that contain all our features we then apply the \gls{cfs} filter to each which produce an ascending order of features with respect to their correlation ranking (i.e., how effective the feature is with respect to others). To account for the undersampling we apply the \gls{cfs} filter on each of the 10 undersampled sets of data. We then use a simple rank summation to tally the results (i.e., ascending rank \emph{n} has a value of \emph{n}), which then allows us to have a overall ranking of the features across the 10 different undersampled data sets. We then can remove the least useful feature one-at-a-time and observe the new 10-fold cross-validation performance of the classifier using a subset of all the features. The results are presented in Figure~\ref{?}.
+
 
 \subsection{Prediction}
 \label{subsec:experiment_prediction}
@@ -322,19 +333,19 @@ We keep track of the frequency of parameter pairs selected over all the predicti
 We noticed that in some situations accuracy is not the best measure for a classifier's effectiveness. For example, consider the following situation: Given imbalanced data for the testing/unknown data set the accuracy could misrepresent the performance of the classifier. If we look at Figure~\ref{fig:raw_output_bad}~\&~\ref{fig:raw_output_good} we can see the raw outputs of our classifier using two different sets of parameters. We can see a confusion matrix for both a good classifier and bad classifier. We can see in Figure~\ref{fig:raw_output_bad} that the majority of predictions fall in category \texttt{2}, with very few in category \texttt{0}, and none in the remaining category. This data set does constitute imbalanced data as around 56\% of the data belongs to category \texttt{2}. We can see that even with the biased predictions made towards the majority category the accuracy of the prediction is 0.561680. In contrast to the the raw output presented in Figure~\ref{fig:raw_output_good} we can see that the accuracy is slightly lower at 0.543307. Now even though the accuracy in the second example is slightly lower we can consider it a superior classifier to the former as it actually treats the three categories in a more unbiased fashion (i.e., one category is not receiving the majority of predictions like the previous example). To alleviate this problem we consider other measurements that can be used to assess the predictive capabilities of classifiers, in particular we consider the following measure:
 
 \begin{itemize}
-  \item \textbf{F-score}: A harmonic mean of the recall and precision of the category.
+  \item \textbf{F-score} represents the harmonic mean of the recall and precision for a category.~\cite{SJS06}
   \begin{equation}
     \emph{$\text{F-score} = 2*\frac{recall * precision}{recall + precision}$}
     \label{equ:f_score}
   \end{equation}
 
-  \item \textbf{Balanced Accuracy}: A measure that represents the average accuracy obtained on the category.~\cite{BOSB10}
+  \item \textbf{Balanced Accuracy} represents the average accuracy obtained on the category.~\cite{BOSB10, SJS06}
   \begin{equation}
     \emph{$\text{balanced accuracy} = \frac{recall + specificity}{2}$}
     \label{equ:balanced_area_under_curve}
   \end{equation}
 
-  \item \textbf{Youden's Index}: A measure that represents the classifier's ability to avoid failure. It is also related to balanced accuracy.~\cite{SJS06}
+  \item \textbf{Youden's Index} represents the classifier's ability to avoid failure. It can also be calculated using the balanced accuracy.~\cite{SJS06}
   \begin{equation}
     \emph{$\text{youden's index} = recall - ( 1 - specificity)$}
     \label{equ:youden_index_a}
@@ -342,7 +353,7 @@ We noticed that in some situations accuracy is not the best measure for a classi
   \begin{equation}
     \emph{$\text{youden's index} = 2 * \text{balanced accuracy} - 1$}
     \label{equ:youden_index_b}
-  \end{equation}}
+  \end{equation}
 \end{itemize}
 
 \begin{landscape}
