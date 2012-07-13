@@ -282,6 +282,59 @@ We use the LIBSVM~\cite{CL11} library to perform the 10-fold cross-validation. T
 
 In Figure~\ref{fig:all_cross_validation_features_class_graph}~\&~\ref{fig:all_cross_validation_features_method_graph} we present the cross-validation accuracy of class- and method-level source code units on the \emph{all} subject over 10 executions to account for the random undersampling of our data. In addition we evaluate the cross-validation of each individual set of features to understand their individual impacts on cross-validation accuracy. The baseline to outperform is random in terms of cross-validation accuracy, in our case since we undersample our three categories random accuracy is 33.33\%. We can see that all feature sets are able to outperform random which indicates that there is some predictive power in the selected feature sets\footnote{Feature set \ding{174} for method-level source code units (Figure~\ref{fig:all_cross_validation_features_method_graph}) does not add any value (as it is specifically tailor for class-level source code units), and thus performs as random}. We include a subset of all features (feature sets \ding{172} \ding{174} \ding{175}) to show the effects of merging only the source and test metrics (excluding coverage feature set \ding{173}). We can clearly see that by using all feature sets together we can acquire higher cross-validation accuracy then using the feature sets alone. There is a greater difference in the cross-validation accuracy of all feature sets in the method-level source code units, which is fine as method-level source code predictions are finer-grain. This supports our intuition using various metrics together we can predict the mutation scores of source code units well.
 
+\begin{figure}[ht!]
+  \centering
+  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+    \input{plots/individual_cross_validation_class_1_2_3_4_graph}
+  \end{adjustbox}
+  \caption{Class-level cross-validation accuracy of each subject subject using all feature sets (\ding{172} \ding{173} \ding{174} \ding{175}).}
+  \vspace{1mm}
+  \footnotesize{\emph{}}
+  \vspace{2mm}
+  \hrule
+  \label{fig:individual_cross_validation_class_1_2_3_4_graph}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+    \input{plots/individual_cross_validation_method_1_2_3_4_graph}
+  \end{adjustbox}
+  \caption{Method-level cross-validation accuracy of each subject subject using all feature sets (\ding{172} \ding{173} \ding{174} \ding{175}).}
+  \vspace{1mm}
+  \footnotesize{\emph{}}
+  \vspace{2mm}
+  \hrule
+  \label{fig:individual_cross_validation_method_1_2_3_4_graph}
+\end{figure}
+
+\begin{table}[ht!]
+  \centering
+  \rowcolors{1}{gray!30}{gray!20}
+  \begin{threeparttable}
+    \begin{tabular}{|l|r|r|}
+      \rowcolor[RGB]{169,196,223}
+      \hline & \textbf{Class-Level} & \textbf{Method-Level} \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 12 & 138 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 2 & 36 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 27 & 197 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{commons-lang} & 18 & 132 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{joda-time} & 21 & 259 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 24 & 73 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 13 & 58 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 1 & 165 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{all} & 191 & 1104 \\
+      \hline
+    \end{tabular}
+  \end{threeparttable}
+  \caption{The amount of data instances for each subject that is used for each category based on undersampling the lowest category to provide balanced data.}
+  \vspace{2mm}
+  \hrule
+  \label{tab:experiments_undersampled_data}
+\end{table}
+
+We have looked at the overall cross-validation accuracy using the different feature sets and found that using all feature sets provides the best accuracy. To understand how different projects behave when we apply our technique we considered each subject independently using all the feature sets. Figure~\ref{fig:individual_cross_validation_class_1_2_3_4_graph} illustrates the class-level cross-validations of each subjects with the \emph{all} subject as a comparison. We can see that all but \emph{barbecue} and \emph{joda-primitives} are roughtly the same in mean accuracy. All independent subjects have larger variation in their accuracies, this is most likely due to the limited data that each subject provides on its own. Recall that we are undersampling to achieve balanced categories, thus in some situations the amount of data being used can drastically be reduced. In the case of \emph{barbecue} the undersampling only allowed 2 instances of data to be being used for each category, which explains the huge variation that it has. Even worst off \emph{joda-primitives} only has 1 instance for each category, which resulted in a cross-validation accuracy of 0\%. Table~\ref{tab:experiments_undersampled_data} provides the details on the amount of data instances being used with undersampling. Moving on to the method-level source code units presented in Figure~\ref{fig:individual_cross_validation_method_1_2_3_4_graph} we can see that all by \emph{barbecue}, \emph{joda-primitives} and \emph{joda-time} are roughtly around the \emph{all} accuracy with slightly larger variations. Again \emph{barbecue} has a low number of data instances being uses which can explain the larger variations in accuracy. With \emph{joda-primitives} we have an usually high cross-validation accuracy present. If we look at the Figure~\ref{fig:mutation_distributions_method_joda-primitives} in Appendix~\ref{app:mutation_score_distributions} we can see that the mutation score distribution is pretty much cleanly separated according to the category ranges (a large number of 100\% and 50\% mutation score methods, with the remaining between these values). It might just be the case that the \emph{joda-primitives}'s data is easier separable to the \gls{svm} thus allowing it achieve high a accuracy. \emph{joda-time} presents a slightly higher cross-validation accuracy then the other subjects, this could be because it has the most data instances available for the \gls{svm} or because it has 48 methods that are very similar (most likely duplicates) as we saw in the covered mutant distribution (see Figure~\ref{fig:covered_mutant_distributions_method_all}). Similar methods would be classified in the same category, thus this could slightly inflate the cross-validation accuracy if this was the case.
+
 
 \subsection{Feature Selection}
 \label{subsec:experiment_feature_selection}
