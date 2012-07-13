@@ -256,56 +256,31 @@ The rational behind the categories is separate the lower and upper percentiles i
 
 Using the determined classification categories from the previous section we have imbalanced training data in each category for class- and method-level source code units as shown in Table~\ref{tab:available_data}. Imbalanced data can be problematic for training and predicting using machine learning techniques. With imbalanced data a classifier will heavily classify towards the majority category~\cite{BOSB10}. Barandela et al. indicate that there are three strategies to reduce the problem of imbalanced training data: Over-sample, under-sample, or internally bias the classification process~\cite{BVSF04}. It was shown that simple random under-sampling can be an effective solution (though not always the best) to this problem~\cite{Jap00,AKJ04}. As Akbani et al. mentioned \emph{``\ldots we are throwing away valid instances, which contain valuable information''}, therefore we might be limiting the ability to generalize to new unknown data~\cite{AKJ04}. The alternative is to perform over-sampling, as Batista et al. mention \emph{``\ldots random over-sampling can increase the likelihood of occurring overﬁtting, since it makes exact copies of the minority class examples''}~\cite{BPM04}. We decided to utilize random under-sampling as it provides a simple approach to dealing with imbalanced data. Furthermore the imbalanced data we have is not extremely severe with a ratio around 2:5, thus we believe we are not losing that much information by under-sampling our training data.
 
-\begin{table}[ht!]
+\begin{figure}[ht!]
   \centering
-  \rowcolors{2}{gray!30}{gray!20}
-  \begin{threeparttable}
-    \begin{tabular}{|c|>{\raggedleft\arraybackslash}p{3.75cm}|>{\raggedleft\arraybackslash}p{3.75cm}|}
-      \hline
-      \rowcolor[RGB]{169,196,223}
-      \textbf{Set} & \textbf{Mean Class Accuracy} & \textbf{Class Standard Deviation} \\
-      \hline \ding{172} & 0.494590 & 0.009981 \\
-      \hline \ding{173} & 0.441361 & 0.018696 \\
-      \hline \ding{174} & 0.471379 & 0.012187 \\
-      \hline \ding{175} & 0.432984 & 0.015792 \\
-      \hline \ding{172} \ding{174} \ding{175} & 0.525131 & 0.011413 \\
-      \hline \ding{172} \ding{173} \ding{174} \ding{175} & 0.526701 & 0.019912\\
-      \hline
-    \end{tabular}
-  \end{threeparttable}
-  \caption{Using all available data we present the 10-fold cross-validation accuracy of class-level source code units with random under-sampling. We consider the mean accuracy of various feature sets (see Table~\ref{tab:metrics}) over 10 execution per set.}
+  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+    \input{plots/all_cross_validation_features_class_graph}
+  \end{adjustbox}
+  \caption{Class-level cross-validation accuracy of feature sets on the \emph{all} subject.}
   \vspace{2mm}
-  \label{tab:subset_class_cross_validation_accuracy}
-\end{table}
+  \hrule
+  \label{fig:all_cross_validation_features_class_graph}
+\end{figure}
 
-\begin{table}[ht!]
+\begin{figure}[ht!]
   \centering
-  \rowcolors{2}{gray!30}{gray!20}
-  \begin{threeparttable}
-    \begin{tabular}{|c|>{\raggedleft\arraybackslash}p{3.75cm}|>{\raggedleft\arraybackslash}p{3.75cm}|}
-      \hline
-      \rowcolor[RGB]{169,196,223}
-      \textbf{Set}& \textbf{Mean Method Accuracy}& \textbf{Method Standard Deviation} \\
-      \hline \ding{172} & 0.463708 & 0.004627 \\
-      \hline \ding{173} & 0.485447 & 0.005327 \\
-      \hline \ding{174} & N/A~\tnote{a} & N/A~\tnote{a} \\
-      \hline \ding{175} & 0.426509 & 0.007074 \\
-      \hline \ding{172} \ding{174} \ding{175} & 0.504922 & 0.008867 \\
-      \hline \ding{172} \ding{173} \ding{174} \ding{175}& 0.542662 & 0.008034 \\
-      \hline
-    \end{tabular}
-    \begin{tablenotes}
-      \item[a] Feature set \ding{174} only effects the class feature space.
-    \end{tablenotes}
-  \end{threeparttable}
-  \caption{Using all available data we present the 10-fold cross-validation accuracy of method-level source code units with random under-sampling. We consider the mean accuracy of various feature sets (see Table~\ref{tab:metrics}) over 10 execution per set.}
+  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+    \input{plots/all_cross_validation_features_method_graph}
+  \end{adjustbox}
+  \caption{Method-level cross-validation accuracy of feature sets on the \emph{all} subject.}
   \vspace{2mm}
-  \label{tab:subset_method_cross_validation_accuracy}
-\end{table}
+  \hrule
+  \label{fig:all_cross_validation_features_method_graph}
+\end{figure}
 
 We use the LIBSVM~\cite{CL11} library to perform the 10-fold cross-validation. To evaluate the cross-validation accuracy of the acquired data we randomly under-sample the data to balance the amount of instances within each category. We utilize 191 instances of class-level and 1104 instances of method-level source code units from each category, these values are chosen to maximize the number of instances of the minority category using random under-sampling.
 
-In Table~\ref{tab:subset_class_cross_validation_accuracy}~\&~\ref{tab:subset_method_cross_validation_accuracy} we measure the cross-validation accuracy of class- and method-level source code units over 10 executions to account for the random under-sampling of our data. In addition we evaluate the cross-validation of each individual set of features to understand their individual impacts on cross-validation accuracy. The baseline to outperform is random in terms of cross-validation accuracy, in our case since we under-sample our three categories random accuracy is 0.33. We can see that all feature sets are able to outperform random which indicates that there is some predictive power in the selected feature sets. Globally we see small variation in all feature set's standard deviation ranging from about 0.005--0.02. This gives us confidence that the mean cross-validation accuracy are not occurring by chance. We include a subset of all features (feature sets \ding{172} \ding{174} \ding{175}) to show the effects of merging only the source and test metrics. We can clearly see that by using all feature sets together we can acquire higher cross-validation accuracy then using the feature sets alone. This supports our intuition using various metrics together we can predict the mutation scores of source code units well.
+In Figure~\ref{fig:all_cross_validation_features_class_graph}~\&~\ref{fig:all_cross_validation_features_method_graph} we present the cross-validation accuracy of class- and method-level source code units on the \emph{all} subject over 10 executions to account for the random undersampling of our data. In addition we evaluate the cross-validation of each individual set of features to understand their individual impacts on cross-validation accuracy. The baseline to outperform is random in terms of cross-validation accuracy, in our case since we undersample our three categories random accuracy is 33.33\%. We can see that all feature sets are able to outperform random which indicates that there is some predictive power in the selected feature sets\footnote{Feature set \ding{174} for method-level source code units (Figure~\ref{fig:all_cross_validation_features_method_graph}) does not add any value (as it is specifically tailor for class-level source code units), and thus performs as random}. We include a subset of all features (feature sets \ding{172} \ding{174} \ding{175}) to show the effects of merging only the source and test metrics (excluding coverage feature set \ding{173}). We can clearly see that by using all feature sets together we can acquire higher cross-validation accuracy then using the feature sets alone. There is a greater difference in the cross-validation accuracy of all feature sets in the method-level source code units, which is fine as method-level source code predictions are finer-grain. This supports our intuition using various metrics together we can predict the mutation scores of source code units well.
 
 
 \subsection{Feature Selection}
