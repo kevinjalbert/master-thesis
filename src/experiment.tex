@@ -338,13 +338,72 @@ We have looked at the overall cross-validation accuracy using the different feat
 
 \subsection{Feature Selection}
 \label{subsec:experiment_feature_selection}
-In machine learning typically one gathers as many features as possible to supply enough data such that the learning algorithms can make accurate predictions. The problem at hand (i.e., being able to predict the correct category of a vector) is that some features will be redundant, irrelevant or detrimental to the predictive efforts. With proper features the prediction performance can improve, or remain closely the same with less information required. With a lessen feature load the actual performance (i.e., with respect to computational resources required) will improve. By using \emph{feature selection} it is possible to utilize a subset of the features that hopefully improve/retain the predictive performance with less required data~\cite{GE03,BL97}.
+In machine learning typically one gathers as many features as possible to supply enough data such that the learning algorithms can make accurate predictions. The problem at hand (i.e., being able to predict the correct category of a vector) is that some features will be redundant, irrelevant or detrimental to the predictive efforts. With proper features the prediction performance can improve, or remain closely the same with less information required. With a lessen feature load the actual performance (i.e., with respect to computational resources required) will improve. By using \emph{feature selection} it is possible to utilize a subset of the features that improve/maintain the predictive performance while requiring less data~\cite{GE03,BL97}.
 
 There are several approaches to dealing with feature selection, in particular \emph{filter} and \emph{wrapper}. Filters assess the quality/merits of features solely from the data alone as a preprocessing step~\cite{JKP94,BL97}. Various algorithms and measures can be used as a filter (i.e., information gain~\cite{GE03}, correlation~\cite{Hal99}, FOCUS~\cite{AD91}, Relief~\cite{KR92}, etc\ldots). An alternative to filters are wrappers, which evaluates the actual performance of features using the classifier. Wrappers treat the classifier as a black-box and assess the performance using various subsets of features by using the actual predictor~\cite{JKP94,BL97}. Wrappers provide a more accurate and effective means in finding appropriate features, though inefficient as the classification process must occur many times using cross-validation with different features~\cite{KJ97}.
 
 Given that we have over 3000 vectors (with undersampling in effect) with 15 features for the method-level dataset a wrapper approach can be very costly. A wrapper approach might prove more effective as found by Kohavi and John~\cite{KJ97}. For our research we decided against a wrapper approach due to the high computational cost involved. As an alternative to a wrapper approach we use Hall's \gls{cfs} filter which is based on the follow definition: \emph{``A good feature subset is one that contains features highly correlated with (predictive of) the class, yet uncorrelated with (not predictive of) each other''}~\cite{Hal99}. To do this we utilize the \gls{cfs} implementation found in the machine learning toolkit Weka~\cite{HFH+09}.
 
-We undersampled ten times the available data of the combination of our 8 subjects (\emph{all}) for both class- and method-level. Using the 10 different undersampled set of vectors that contain all our features we then apply the \gls{cfs} filter to each which produce an ascending order of features with respect to their correlation ranking (i.e., how effective the feature is with respect to others). To account for the undersampling we apply the \gls{cfs} filter on each of the 10 undersampled sets of data. We then use a simple rank summation to tally the results (i.e., ascending rank \emph{n} has a value of \emph{n}), which then allows us to have a overall ranking of the features across the 10 different undersampled data sets. We then can remove the least useful feature one-at-a-time and observe the new 10-fold cross-validation performance of the classifier using a subset of all the features. The results are presented in Figure~\ref{?}.
+To explore Hall's filter a bit more in detail we created a correlation matrix of our features along with the raw mutation score and used category for the source code unit. General findings indicate that none of our features are highly correlated with the predicted category, though there are a number of features that are highly correlated with each other. Specifically in the class-level correlation there were only 6 features (i.e., \emph{apar}, \emph{atnbd}, \emph{atvg}, \emph{nof}, \emph{nsc} and \emph{spar}) that had a correlation between 0.3 and 0.5 (i.e., moderate correlation) with the rest being weak or no correlation. In the method-level correlations \emph{atmloc} was the only feature with a moderate correlations while the rest were weak or no correlation. These findings suggest either: (1) the selected features are insufficient in describing the predicted category or (2) that the difficulty of predicting this category is highly complex. With respect the suggestion (1) we mentioned in Section~\ref{sec:approach_process} that there are two source artifacts involved in determining the mutation score, and our features are both well established descriptive metrics of these source artifacts. We believe that the correlations suggest (2) as the features structurally relate to the source artifacts involved with mutation testing.
+
+We undersampled ten times the available data of the combination of our 8 subjects (\emph{all}) for both class- and method-level. Using the 10 different undersampled set of vectors that contain all our features we then apply the \gls{cfs} filter to each which produce an ascending order of features with respect to their correlation ranking (i.e., how effective the feature is with respect to others). To account for the undersampling we apply the \gls{cfs} filter on each of the 10 undersampled sets of data. We then use a simple rank summation to tally the results (i.e., ascending rank \emph{n} has a value of \emph{n}), which then allows us to have a overall ranking of the features across the 10 different undersampled data sets. We then can remove the least useful feature one-at-a-time and observe the new 10-fold cross-validation performance of the classifier using a subset of all the features.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+    \input{plots/cross_validation_feature_selection_class_graph}
+  \end{adjustbox}
+  \caption{Class-level cross-validation accuracy on the \emph{all} subject over an iterative exclusion of features}
+  \vspace{1mm}
+  \footnotesize{\emph{The last feature not removed is `nof'.}}
+  \vspace{2mm}
+  \hrule
+  \label{fig:cross_validation_feature_selection_class_graph}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+    \input{plots/cross_validation_feature_selection_method_graph}
+  \end{adjustbox}
+  \caption{Method-level cross-validation accuracy on the \emph{all} subject over an iterative exclusion of features}
+  \vspace{1mm}
+  \footnotesize{\emph{The last feature not removed is `btot'.}}
+  \vspace{2mm}
+  \hrule
+  \label{fig:cross_validation_feature_selection_method_graph}
+\end{figure}
+
+The class-level cross-validation accuracy of iteratively excluding features is shown in Figure~\ref{fig:cross_validation_feature_selection_class_graph}. We can see an interesting trend from the iterative exclusion of features, there is variation yet the mean remains roughly the same for about 17 iterations. Then the cross-validation accuracy begins to drop, which suggests that it is possible to exclude 17 features and still have roughly the same mean as with all the features. With respect to feature selection an ideal situation would allow use to use a reduced set of features that actually increase the cross-validation accuracy (i.e., by removing detrimental features). In our present case we did not see any substantial increase in cross-validation accuracy, though we did not see any loss over 17 iterations of exclusions. The next ideal situation is to completely remove certain feature sets, thus freeing us from the collection of these features. From the excluded features we can only completely remove the coverage metrics (feature set \ding{173}). We need to keep in mind that \gls{cfs} is a filter that removes features based on correlation with the category, yet not with each other. An excluded feature might not necessarily be a \emph{bad} feature, it might just be redundant. In the case of class-level features we can see that \emph{stnbd} and \emph{stvg} are the first two features excluded using \gls{cfs} which makes sense considering both their correlation with the second last feature excluded (\emph{stmloc}) is above 0.995. One interesting note here is that the last three features are each from three different feature sets (\emph{stmloc} belongs to \ding{175}, \emph{smloc} belongs to \ding{174} and \emph{nof} belongs to \ding{172}), which reinforces that each feature set is crucial to prediction and that the other features within these sets might be redundant.
+
+The method-level cross-validation accuracy of iteratively excluding features (see Figure~\ref{fig:cross_validation_feature_selection_method_graph}) follows a similar trend to that of the class-level. With a smaller number of features there does not seem to be a large number of redundant features that don't effect the cross-validation accuracy. If we consider the same approach as in the class-level we could potentially remove the first 3 features, which will maintain the accuracy with a lesser amount of features. Unfortunately, it is not possible to completely remove a feature set with the exclusion of the first 3 features. Also we can see a similar trend in the order of excluded features that \emph{stvg}, \emph{stnbd} and \emph{not} are removed early on with \emph{stmloc} and \emph{mloc} (i.e., similar to \emph{smloc from the class-level}) being the last ones removed) again due to high correlation between these features. The last 4 features for method-level contain one feature from each feature set (i.e., the applicable ones for method-level, which excludes \ding{174}), which again reinforces the necessity of these feature sets.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+    \input{plots/class_train_prediction_default_time_graph}
+  \end{adjustbox}
+  \caption{The time required in seconds for class-level training and predicting using all features vs. a reduced set of features.}  \vspace{1mm}
+  \footnotesize{\emph{Figure~\ref{fig:class_train_prediction_default_time_graph} shows the time taken for training and predicting using all features vs. a reduced set of features. The reduced set of features correspond to the exclusion of the 17 left-most features from Figure~\ref{fig:cross_validation_feature_selection_class_graph}.}}
+  \vspace{2mm}
+  \hrule
+  \label{fig:class_train_prediction_default_time_graph}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+    \input{plots/method_train_prediction_default_time_graph}
+  \end{adjustbox}
+  \caption{The time required in seconds for method-level training and predicting using all features vs. a reduced set of features.}
+  \vspace{1mm}
+  \footnotesize{\emph{Figure~\ref{fig:method_train_prediction_default_time_graph} shows the time taken for training and predicting using all features vs. a reduced set of features. The reduced set of features correspond to the exclusion of the 3 left-most features from Figure~\ref{fig:cross_validation_feature_selection_method_graph}.}}
+  \vspace{2mm}
+  \hrule
+  \label{fig:method_train_prediction_default_time_graph}
+\end{figure}
+
+As we were unable to gain any substantial performance in terms of cross-validation accuracy through feature selection, we decided to observe it from a resource perspective. Using 100 executions Figure~\ref{fig:class_train_prediction_default_time_graph}~\&~\ref{fig:method_train_prediction_default_time_graph} show the time required for training and predicting. We measured the time taken of training and predicting using both the reduced set of features as well as all the features to understand the performance gains with respect to time. We avoided measuring the time required with cross-validation as there are many more factors involved (i.e., the \emph{easy script}, scales and grid searches using the data). With the training process we utilized the defaults that LIBSVM suggests for the \emph{cost} (i.e., \texttt{1}) and \emph{gamma} (i.e., \texttt{1/<number\_of\_features>}) parameters. Regardless of the parameters chosen the relative ratio between the two sets of features will remain the same. We found that the reduced set of features reduces the training and prediction time for class-level by 25.10\% and method-level by 7.87\%. As the reduced set in class-level excluded more features than the method-level there is a great reduction in time taken for training and prediction.
 
 
 \subsection{Prediction}
