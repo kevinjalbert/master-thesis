@@ -337,9 +337,65 @@ We have looked at the overall cross-validation accuracy using the different feat
 
 \subsection{Prediction}
 \label{subsec:experiment_prediction}
-By using LIBSVM we want to train a classifier such that it can predict well on \emph{unknown data}. Parameter selection and the training/testing data sets play an important role in making a good classifier. Ultimately, we want to obtain a classifier that is able to \emph{generalize} to new unknown data. In our specific case since we have 8 different subjects (that are most likely not similar to each other in terms of features) in which we want to maximize our generalizability. We used cross-validation in Section~\ref{subsec:experiment_cross_validation} as it mitigates the overfitting problem introduced by training (i.e., a model becomes specifically tuned for the training data set)~\cite{HCL03}. Parameter selection also occurred automatically using a grid search approach to find a set of parameters that maximized the cross-validation accuracy on the training data set. We were able to achieve a cross-validation accuracy of 0.542662 using all features which performs much better then a random approach (i.e., around 0.333333), though does this generalize to unknown data?
+By using LIBSVM we want to train a classifier such that it can predict well on \emph{unknown data}. Parameter selection and the training/testing data sets play an important role in making a good classifier. Ultimately, we want to obtain a classifier that is able to \emph{generalize} to new unknown data. In our specific case since we have 8 different subjects (that are most likely not similar to each other in terms of features) in which we want to maximize our performance at predicting unknown data. We used cross-validation in Section~\ref{subsec:experiment_cross_validation} as it mitigates the overfitting problem introduced by training (i.e., a model becomes specifically tuned for the training data set)~\cite{HCL03}. Parameter selection also occurred automatically using a grid search approach to find a set of parameters that maximized the cross-validation accuracy on the training data set.
 
-To explore this generalization problem we conducted a number of tests where we use LIBSVM's \emph{easy script} to find the best parameters that maximize cross-validation accuracy and then apply the classifier to unknown data. As we are still using undersampling we conduct each experiment 10 times to determine the mean and standard deviation in prediction accuracy. We consider the prediction accuracy on the remaining unknown data (i.e., what is left from the undersampling) of the experimental subject being used (see Table~\ref{?}). We also looked at the prediction accuracy on completely unknown subject by training on the other 7 \emph{all\_but\_<subject>} sets and predicting on the unknown subject (see Table~\ref{?}).
+\begin{table}[ht!]
+  \centering
+  \rowcolors{1}{gray!30}{gray!20}
+  \begin{threeparttable}
+    \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{4.25cm}|>{\raggedleft\arraybackslash}p{4.25cm}|}
+      \rowcolor[RGB]{169,196,223}
+      \hline & \textbf{Class-Level\newline[Low/Medium/High]} & \textbf{Method-Level\newline[Low/Medium/High]} \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 36/43/0 & 0/3/30 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 13/12/0 & 20/15/0 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 24/19/0 & 26/0/38 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{commons-lang} & 0/65/5 & 0/186/207 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{joda-time} & 0/87/44 & 0/296/946 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 0/33/15 & 0/69/113 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 0/18/26 & 0/50/157 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 0/64/6 & 0/105/75 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_logback-core} & 48,55,12 & 138/141/168 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_barbecue} & 15/14/2 & 56/51/36 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_jgap} & 51/46/27 & 223/197/235 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_commons-lang} & 18/83/23 & 132/318/339 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_joda-time} & 21/108/65 & 256/555/1205 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_openfast} & 24/57/39 & 73/142/186 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_jsoup} & 13/31/39 & 58/108/215 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_joda-primitives} & 1/65/7 & 165/270/240 \\
+      \hline
+    \end{tabular}
+  \end{threeparttable}
+  \caption{The amount of data instances present in each category for each subject's prediction data set after undersampling (if possible) has occurred.}
+  \vspace{2mm}
+  \hrule
+  \label{tab:experiments_remaining_data}
+\end{table}
+
+We conducted a number of tests where we use LIBSVM's \emph{easy script} to find the best parameters that maximize cross-validation accuracy and then apply the classifier to unknown data. As we are still using undersampling we conduct each experiment 10 times to determine the prediction accuracy. We also only consider the prediction accuracy on the remaining unknown data (i.e., what is left from the undersampling) of the experimental subject being used, see Table~\ref{tab:experiments_undersampled_data} for these values. This effect is less on method-level source code units as there is more available data instances available.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+    \input{plots/prediction_class_graph}
+  \end{adjustbox}
+  \caption{Class-level training and prediction accuracy over the 8 subjects and sets of \emph{all\_but\_<subject>}.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:prediction_class_graph}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+    \input{plots/prediction_method_graph}
+  \end{adjustbox}
+  \caption{Method-level training and prediction accuracy over the 8 subjects and sets of \emph{all\_but\_<subject>}.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:prediction_method_graph}
+\end{figure}
+
+We present the results of training and prediction for class- and method-level in Figure~\ref{fig:prediction_class_graph}~\&~\ref{fig:prediction_method_graph}. We can see a common trend in both class- and method-level source code units for prediction accuracy, the individual subjects have a much wider variation in accuracy while the \emph{all\_but\_<subject>} are exhibit this less. This is mainly due to the low amount of training data provided due to undersampling as we previously mentioned in Section~\ref{subsec:experiment_cross_validation} using Table~\ref{tab:experiments_undersampled_data}. In the class-level accuracies we can see that a number of the subjects have variations in their accuracy that was actually 0\%. In these situations nothing was predicted correctly, we describe why this might be occurring in the following section. A number of the class-level subjects mean accuracies are just above or below the random value of 33.33\%, which is a little disappointing. On the contrary, method-level subjects mostly perform much better then their class-level counterparts. The differences between the class- and method-level source code unit predictions is interesting and could be a cause of the two following factors: (1) classes have much more factors involved in them (i.e., a set of methods) thus harder to predict, (2) our approach does not account for overloaded/anonymous/abstract methods thus the classes are partially incomplete in data. Again we see the similar trends from cross-validation (see Section~\ref{subsec:experiment_cross_validation}) for \emph{joda-primitives} and \emph{joda-time} for method-level accuracies.
 
 
 \subsection{Optimization \& Generalization}
