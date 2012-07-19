@@ -332,7 +332,7 @@ In Figure~\ref{fig:all_cross_validation_features_class_graph}~\&~\ref{fig:all_cr
   \label{tab:experiments_undersampled_data}
 \end{table}
 
-We have looked at the overall cross-validation accuracy using the different feature sets and found that using all feature sets provides the best accuracy. To understand how different projects behave when we apply our technique we considered each subject independently using all the feature sets. Figure~\ref{fig:individual_cross_validation_class_1_2_3_4_graph} illustrates the class-level cross-validations of each subjects with the \emph{all} subject as a comparison. We can see that all but \emph{barbecue} and \emph{joda-primitives} are roughtly the same in mean accuracy. All independent subjects have larger variation in their accuracies, this is most likely due to the limited data that each subject provides on its own. Recall that we are undersampling to achieve balanced categories, thus in some situations the amount of data being used can drastically be reduced. In the case of \emph{barbecue} the undersampling only allowed 2 instances of data to be being used for each category, which explains the huge variation that it has. Even worst off \emph{joda-primitives} only has 1 instance for each category, which resulted in a cross-validation accuracy of 0\%. Table~\ref{tab:experiments_undersampled_data} provides the details on the amount of data instances being used with undersampling. Moving on to the method-level source code units presented in Figure~\ref{fig:individual_cross_validation_method_1_2_3_4_graph} we can see that all by \emph{barbecue}, \emph{joda-primitives} and \emph{joda-time} are roughtly around the \emph{all} accuracy with slightly larger variations. Again \emph{barbecue} has a low number of data instances being uses which can explain the larger variations in accuracy. With \emph{joda-primitives} we have an usually high cross-validation accuracy present. If we look at the Figure~\ref{fig:mutation_distributions_method_joda-primitives} in Appendix~\ref{app:mutation_score_distributions} we can see that the mutation score distribution is pretty much cleanly separated according to the category ranges (a large number of 100\% and 50\% mutation score methods, with the remaining between these values). It might just be the case that the \emph{joda-primitives}'s data is easier separable to the \gls{svm} thus allowing it achieve high a accuracy. \emph{joda-time} presents a slightly higher cross-validation accuracy then the other subjects, this could be because it has the most data instances available for the \gls{svm} or because it has 48 methods that are very similar (most likely duplicates) as we saw in the covered mutant distribution (see Figure~\ref{fig:covered_mutant_distributions_method_all}). Similar methods would be classified in the same category, thus this could slightly inflate the cross-validation accuracy if this was the case.
+We have looked at the overall cross-validation accuracy using the different feature sets and found that using all feature sets provides the best accuracy. To understand how different projects behave when we apply our technique we considered each subject independently using all the feature sets. Figure~\ref{fig:individual_cross_validation_class_1_2_3_4_graph} illustrates the class-level cross-validations of each subjects with the \emph{all} subject as a comparison. We can see that all but \emph{barbecue} and \emph{joda-primitives} are roughly the same in mean accuracy. All independent subjects have larger variation in their accuracies, this is most likely due to the limited data that each subject provides on its own. Recall that we are undersampling to achieve balanced categories, thus in some situations the amount of data being used can drastically be reduced. In the case of \emph{barbecue} the undersampling only allowed 2 instances of data to be being used for each category, which explains the huge variation that it has. Even worst off \emph{joda-primitives} only has 1 instance for each category, which resulted in a cross-validation accuracy of 0\%. Table~\ref{tab:experiments_undersampled_data} provides the details on the amount of data instances being used with undersampling. Moving on to the method-level source code units presented in Figure~\ref{fig:individual_cross_validation_method_1_2_3_4_graph} we can see that all by \emph{barbecue}, \emph{joda-primitives} and \emph{joda-time} are roughly around the \emph{all} accuracy with slightly larger variations. Again \emph{barbecue} has a low number of data instances being uses which can explain the larger variations in accuracy. With \emph{joda-primitives} we have an usually high cross-validation accuracy present. If we look at the Figure~\ref{fig:mutation_distributions_method_joda-primitives} in Appendix~\ref{app:mutation_score_distributions} we can see that the mutation score distribution is pretty much cleanly separated according to the category ranges (a large number of 100\% and 50\% mutation score methods, with the remaining between these values). It might just be the case that the \emph{joda-primitives}'s data is easier separable to the \gls{svm} thus allowing it achieve high a accuracy. \emph{joda-time} presents a slightly higher cross-validation accuracy then the other subjects, this could be because it has the most data instances available for the \gls{svm} or because it has 48 methods that are very similar (most likely duplicates) as we saw in the covered mutant distribution (see Figure~\ref{fig:covered_mutant_distributions_method_all}). Similar methods would be classified in the same category, thus this could slightly inflate the cross-validation accuracy if this was the case.
 
 
 \subsection{Prediction}
@@ -400,33 +400,7 @@ We present the results of training and prediction for class- and method-level in
 
 \subsection{Optimization \& Generalization}
 \label{subsec:experiment_optimization_generalization}
-We keep track of the frequency of parameter pairs selected over all the prediction experiments conducted in Section~\ref{subsec:experiment_prediction}. As shown in Table~\ref{?} we can see that a large number of parameter pairings are used to maximize the cross-validation accuracy of the training data sets, before using them for prediction. This indicates that the classifiers are being tuned specifically to maximize the cross-validation accuracy, and due to undersampling different parameters are being used to ensure this maximization. To encourage generalization of unknown projects and data we ideally want to find a parameter pairing that maximizes generalizability and classification performance.
-
-We noticed that in some situations accuracy is not the best measure for a classifier's effectiveness. For example, consider the following situation: Given imbalanced data for the testing/unknown data set the accuracy could misrepresent the performance of the classifier. If we look at Figure~\ref{fig:raw_output_bad}~\&~\ref{fig:raw_output_good} we can see the raw outputs of our classifier using two different sets of parameters. We can see a confusion matrix for both a good classifier and bad classifier. We can see in Figure~\ref{fig:raw_output_bad} that the majority of predictions fall in category \texttt{2}, with very few in category \texttt{0}, and none in the remaining category. This data set does constitute imbalanced data as around 56\% of the data belongs to category \texttt{2}. We can see that even with the biased predictions made towards the majority category the accuracy of the prediction is 0.561680. In contrast to the the raw output presented in Figure~\ref{fig:raw_output_good} we can see that the accuracy is slightly lower at 0.543307. Now even though the accuracy in the second example is slightly lower we can consider it a superior classifier to the former as it actually treats the three categories in a more unbiased fashion (i.e., one category is not receiving the majority of predictions like the previous example). To alleviate this problem we consider other measurements that can be used to assess the predictive capabilities of classifiers, in particular we consider the following measure:
-
-\begin{itemize}
-  \item \textbf{F-score} represents the harmonic mean of the recall and precision for a category.~\cite{SJS06}
-  \begin{equation}
-    \emph{$\text{F-score} = 2*\frac{recall * precision}{recall + precision}$}
-    \label{equ:f_score}
-  \end{equation}
-
-  \item \textbf{Balanced Accuracy} represents the average accuracy obtained on the category.~\cite{BOSB10, SJS06}
-  \begin{equation}
-    \emph{$\text{balanced accuracy} = \frac{recall + specificity}{2}$}
-    \label{equ:balanced_area_under_curve}
-  \end{equation}
-
-  \item \textbf{Youden's Index} represents the classifier's ability to avoid failure. It can also be calculated using the balanced accuracy.~\cite{SJS06}
-  \begin{equation}
-    \emph{$\text{youden's index} = recall - ( 1 - specificity)$}
-    \label{equ:youden_index_a}
-  \end{equation}
-  \begin{equation}
-    \emph{$\text{youden's index} = 2 * \text{balanced accuracy} - 1$}
-    \label{equ:youden_index_b}
-  \end{equation}
-\end{itemize}
+We keep track of the frequency of parameter pairs selected over all the prediction experiments conducted in Section~\ref{subsec:experiment_prediction}. We saw 57 different pairings of LIBSVM parameters (i.e., \emph{cost} and {gamma}) used as a result of LIBSVM's \emph{easy script}. This indicates that the classifiers are being tuned specifically to maximize the cross-validation accuracy. Due to undersampling different parameters are being used to ensure this maximization of cross-validation accuracy. To encourage generalization of unknown projects and data ideally we want to find a parameter pairing that maximizes generalizability and classification performance on unknown data. As our approach initially requires mutation testing results to perform training it might be appropriate to select the best parameters for the given data. In the previous section for predictions (see Section~\ref{subsec:experiment_prediction}) we also considered the set of \emph{all\_but\_<subject>} sets which for our approach does not require us to have the mutation score for practical usage. In this situation it becomes much more clear on why we need a generalizable set of parameters that hopefully performance well on most subjects. In terms of usability if we can find a general set of parameters for predicting mutation scores this will lessen the need to specifically tune every classifier prior to prediction.
 
 \begin{landscape}
   \begin{figure}
@@ -436,7 +410,7 @@ We noticed that in some situations accuracy is not the best measure for a classi
     \lstinputlisting[language=Java, basicstyle=\footnotesize\ttfamily,]{listings/raw_output_bad.txt}
     }
     \end{minipage}
-    \caption{Raw output of running \texttt{all\_but\_jsoup} (training on all but \texttt{jsoup} then predicting on it) using the parameters \emph{cost}=1 and \emph{gamma}=0.001.}
+    \caption{Raw output of training on \texttt{joda-time} then predicting on its unknowns using the parameters \emph{cost}=0.03125 and \emph{gamma}=0.0078125.}
     \vspace{2mm}
     \hrule
     \label{fig:raw_output_bad}
@@ -449,12 +423,74 @@ We noticed that in some situations accuracy is not the best measure for a classi
     \lstinputlisting[language=Java, basicstyle=\footnotesize\ttfamily,]{listings/raw_output_good.txt}
     }
     \end{minipage}
-    \caption{Raw output of running \texttt{all\_but\_jsoup} (training on all but \texttt{jsoup} then predicting on it) using the parameters \emph{cost}=10 and \emph{gamma}=10.}
+    \caption{Raw output of training on \texttt{joda-time} then predicting on its unknowns using the parameters \emph{cost}=8 and \emph{gamma}=0.125.}
     \vspace{2mm}
     \hrule
     \label{fig:raw_output_good}
   \end{figure}
 \end{landscape}
+
+We noticed that in some situations accuracy is not the best measure for a classifier's effectiveness. For example, consider the following situation: Given imbalanced data for the testing/unknown data set the accuracy could misrepresent the performance of the classifier. If we look at Figure~\ref{fig:raw_output_bad}~\&~\ref{fig:raw_output_good} we can see the raw outputs of our classifier using two different sets of parameters. We can see a confusion matrix for both a good classifier and bad classifier. We can see in Figure~\ref{fig:raw_output_bad} that all of predictions fall in category \texttt{2}, with none in the other categories. This data set is imbalanced  with the majority of data (i.e., 76.1675\% of the data) belongs to category \texttt{2}. We can see that even with the biased predictions made towards the majority category the accuracy of the prediction is 76.1675\%. In contrast to the the raw output presented in Figure~\ref{fig:raw_output_good} we can see that the accuracy is slightly lower at 71.7391\%. Now even though the accuracy in the second example is slightly lower we can consider it a superior classifier to the former as it actually treats the categories in a more unbiased fashion (i.e., one category is not receiving the majority of predictions like the previous example). To alleviate this problem we consider other measurements that can be used to assess the predictive capabilities of classifiers, in particular we consider the following measure:
+
+\begin{itemize}
+  \item \textbf{F-score} represents the harmonic mean of the recall and precision for a category~\cite{SJS06}. A score closer to 1 represents better performance.
+  \begin{equation}
+    \emph{$\text{F-score} = 2*\frac{recall * precision}{recall + precision}$}
+    \label{equ:f_score}
+  \end{equation}
+
+  \item \textbf{Balanced Accuracy} represents the average accuracy obtained on the category~\cite{BOSB10, SJS06}. A score closer to 1 represents better performance.
+  \begin{equation}
+    \emph{$\text{balanced accuracy} = \frac{recall + specificity}{2}$}
+    \label{equ:balanced_area_under_curve}
+  \end{equation}
+
+  \item \textbf{Youden's Index} represents the classifier's ability to avoid failure~\cite{SJS06}. It can also be calculated using the balanced accuracy. A score closer to 1 represents better performance.
+  \begin{equation}
+    \emph{$\text{youden's index} = recall - ( 1 - specificity)$}
+    \label{equ:youden_index_a}
+  \end{equation}
+  \begin{equation}
+    \emph{$\text{youden's index} = 2 * \text{balanced accuracy} - 1$}
+    \label{equ:youden_index_b}
+  \end{equation}
+\end{itemize}
+
+\begin{table}[ht!]
+  \centering
+  \rowcolors{1}{gray!30}{gray!20}
+  \begin{threeparttable}
+    \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{3.25cm}|>{\raggedleft\arraybackslash}p{3.25cm}|}
+      \rowcolor[RGB]{169,196,223}
+      \hline & \textbf{Bad Classifier (Figure~\ref{fig:raw_output_bad})} & \textbf{Good Classifier (Figure~\ref{fig:raw_output_good})} \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Mean Accuracy} & 0.761675 & 0.717391 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Mean F-score} & 0.288239 & 0.453783 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Mean Balance Accuracy} & 0.500000 & 0.622753 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Mean Youden-index} & 0.000000 & 0.245506 \\
+      \hline
+    \end{tabular}
+  \end{threeparttable}
+  \caption{Comparison of performance measures for a \emph{bad} classifier vs. a \emph{good} classifier.}
+  \vspace{2mm}
+  \hrule
+  \label{tab:experiments_comparison_measures}
+\end{table}
+
+We can see that from the two examples presented that even though their accuracy cannot distinguish the better classifier (i.e., with respect to fair predictions over all categories) the three aforementioned measures can. As we have three categories if we take the average value of the measures (i.e., the value of the measure divided by 3 categories) we can compare classifiers using all three categories. In both examples we can see that the new measures better reflect the performance of the classifier than traditional accuracy in all three cases, Table~\ref{tab:experiments_comparison_measures} shows the average values for both \emph{bad} and \emph{good} examples.
+
+To achieve better generalizable in our predictions we conducted our own grid search by performing a coarse search over the two \gls{svm} \emph{cost} and \emph{gamma} parameters. We used explored the parameter ranges from 0.00001 \& 10000 by adjusting the order of magnitude (i.e., by a factor of 10). We found generalizable parameters using the following as our grid search:
+
+\begin{itemize}
+  \item We adjusted the parameters as mentioned according to our grid search strategy.
+  \item We focused on F-score (we could have used Balance Accuracy or Youden-index) instead of accuracy.
+  \item We are maximizing F-score on unknown data (i.e., what remains after undersampling or the excluded subject) instead of on cross-validation of the training data.
+  \item We conducted a grid search on the individual subjects and then the \emph{all_but_<subject>} sets.
+  \item 10 executions were carried out for each parameter pairing.
+  \item A simple rank summation (i.e., ascending rank \emph{n} has a value of \emph{n}) was used to tally the pairings that consistently performed the best. This allowed us to gain a overall ranking of the parameters pairings across the 10 different executions for each pairing.
+  \item We picked the parameter pairing that appeared highest on both the individual subjects and the \emph{all_but_<subject>} sets.
+\end{itemize}
+
+Using our grid search as described we attained the following \gls{svm} parameters for the class-level [\emph{cost}=100, \emph{gamma}=0.01] \& method-level [\emph{cost}=100, \emph{gamma}=1]]. These parameters were found that offered the greatest generalizable over the different data sets. Furthermore by maximizing F-score on the predicted data sets (i.e., unknown data) these parameters will avoid issues presented by using accuracy alone.
 
 
 \section{Summary}
