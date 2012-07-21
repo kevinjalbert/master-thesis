@@ -484,13 +484,109 @@ To achieve better generalizable in our predictions we conducted our own grid sea
   \item We adjusted the parameters as mentioned according to our grid search strategy.
   \item We focused on F-score (we could have used Balance Accuracy or Youden-index) instead of accuracy.
   \item We are maximizing F-score on unknown data (i.e., what remains after undersampling or the excluded subject) instead of on cross-validation of the training data.
-  \item We conducted a grid search on the individual subjects and then the \emph{all_but_<subject>} sets.
+  \item We conducted a grid search on the individual subjects and then the \emph{all\_but\_<subject>} sets.
   \item 10 executions were carried out for each parameter pairing.
   \item A simple rank summation (i.e., ascending rank \emph{n} has a value of \emph{n}) was used to tally the pairings that consistently performed the best. This allowed us to gain a overall ranking of the parameters pairings across the 10 different executions for each pairing.
-  \item We picked the parameter pairing that appeared highest on both the individual subjects and the \emph{all_but_<subject>} sets.
+  \item We picked the parameter pairing that appeared highest on both the individual subjects and the \emph{all\_but\_<subject>} sets.
 \end{itemize}
 
-Using our grid search as described we attained the following \gls{svm} parameters for the class-level [\emph{cost}=100, \emph{gamma}=0.01] \& method-level [\emph{cost}=100, \emph{gamma}=1]]. These parameters were found that offered the greatest generalizable over the different data sets. Furthermore by maximizing F-score on the predicted data sets (i.e., unknown data) these parameters will avoid issues presented by using accuracy alone.
+Using our grid search as described we attained the following \gls{svm} parameters for the class-level [\emph{cost}=100, \emph{gamma}=0.01] \& method-level [\emph{cost}=100, \emph{gamma}=1]. These parameters were found that offered the greatest generalizable over the different data sets. Furthermore by maximizing F-score on the predicted data sets (i.e., unknown data) these parameters will avoid issues presented by using accuracy alone.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+    \input{plots/prediction_with_parameters_class_graph}
+  \end{adjustbox}
+  \caption{Class-level training and prediction accuracy over the 8 subjects and sets of \emph{all\_but\_<subject>} using generalized parameters [\emph{cost}=100, \emph{gamma}=0.01].}
+  \vspace{2mm}
+  \hrule
+  \label{fig:prediction_with_parameters_class_graph}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+    \input{plots/prediction_with_parameters_method_graph}
+  \end{adjustbox}
+  \caption{Method-level training and prediction accuracy over the 8 subjects and sets of \emph{all\_but\_<subject>} using generalized parameters [\emph{cost}=100, \emph{gamma}=1].}
+  \vspace{2mm}
+  \hrule
+  \label{fig:prediction_with_parameters_method_graph}
+\end{figure}
+
+\begin{landscape}
+  \begin{table}[ht!]
+    \centering
+    \rowcolors{1}{gray!30}{gray!20}
+    \begin{threeparttable}
+      \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|}
+        \rowcolor[RGB]{169,196,223}
+        \hline & \textbf{Before Parameter Generalization (Figure~\ref{fig:prediction_method_graph})} & \textbf{After Parameter Generalization (Figure~\ref{fig:prediction_with_parameters_method_graph})} & \textbf{Gain($\uparrow$)/Lost($\downarrow$) from Parameter Generalization} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 54.3038\pm3.9333 & 39.8734\pm12.5488 & $ \downarrow$14.4304\pm$\uparrow$8.6155 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 34.4000\pm15.4574 & 40.0000\pm9.2376 & $ \uparrow$5.6000\pm$\downarrow$6.2198 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 38.1395\pm20.5448 & 46.9767\pm7.4998 & $ \uparrow$8.8372\pm$\downarrow$13.0450 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{commons-lang} & 27.0000\pm17.9120 & 30.2857\pm11.2647 & $ \uparrow$3.2857\pm$\downarrow$6.6473 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-time} & 42.6718\pm6.1749 & 41.6031\pm6.6280 & $ \downarrow$1.0687\pm$\uparrow$0.4531 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 28.1250\pm5.1267 & 32.0833\pm5.3069 & $ \uparrow$3.9583\pm$\uparrow$0.1802 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 28.6364\pm12.5949 & 33.8637\pm10.4122 & $ \uparrow$5.2273\pm$\downarrow$2.1827 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 0.0000\pm0.0000 & 28.8572\pm17.7255 & $ \uparrow$28.8572\pm$\uparrow$17.7255 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_logback-core} & 29.0435\pm3.6938 & 38.0870\pm2.6503 & $ \uparrow$9.0435\pm$\downarrow$1.0435 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_barbecue} & 36.1291\pm6.4157 & 31.6129\pm4.7604 & $ \downarrow$4.5162\pm$\downarrow$1.6553 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_jgap} & 34.0323\pm6.0921 & 41.4516\pm2.0188 & $ \uparrow$7.4193\pm$\downarrow$4.0733 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_commons-lang} & 32.0968\pm2.1118 & 32.9032\pm2.9643 & $ \uparrow$0.8064\pm$\uparrow$0.8525 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_joda-time} & 35.5670\pm4.8538 & 48.6082\pm2.3186 & $ \uparrow$13.0412\pm$\downarrow$2.5352 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_openfast} & 37.4167\pm2.6484 & 39.6667\pm3.1963 & $ \uparrow$2.2500\pm$\uparrow$0.5479 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_jsoup} & 44.6988\pm5.8323 & 43.0121\pm4.9854 & $ \downarrow$1.6867\pm$\downarrow$0.8469 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_joda-primitives} & 26.3014\pm6.0509 & 36.7123\pm8.0862 & $ \uparrow$10.4109\pm$\uparrow$2.0353 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{AVERAGE} & 33.0351\pm7.6527 & 37.8498\pm6.9752 & $ \uparrow$4.8147\pm$\downarrow$0.6775 \\
+        \hline
+      \end{tabular}
+    \end{threeparttable}
+    \caption{Comparison of class-level prediction accuracy (mean $\pm$ standard deviation) before/after generalized parameters are used.}
+    \vspace{2mm}
+    \hrule
+    \label{tab:experiments_comparison_class_prediction}
+  \end{table}
+\end{landscape}
+
+\begin{landscape}
+  \begin{table}[ht!]
+    \centering
+    \rowcolors{1}{gray!30}{gray!20}
+    \begin{threeparttable}
+      \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|}
+        \rowcolor[RGB]{169,196,223}
+        \hline & \textbf{Before Parameter Generalization (Figure~\ref{fig:prediction_method_graph})} & \textbf{After Parameter Generalization (Figure~\ref{fig:prediction_with_parameters_method_graph})} & \textbf{Gain($\uparrow$)/Lost($\downarrow$) from Parameter Generalization} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 42.4242\pm5.7140 & 47.5758\pm10.8838 & $\uparrow$5.1516\pm$\uparrow$5.1698 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 45.4286\pm8.0193 & 52.2857\pm8.7339 & $\uparrow$6.8571\pm$\uparrow$0.7146 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 43.4375\pm5.1455 & 53.4375\pm7.1716 & $\uparrow$10.0000\pm$\uparrow$2.0261 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{commons-lang} & 55.7506\pm3.7019 & 52.1883\pm2.2773 & $\downarrow$3.5623\pm$\downarrow$1.4246 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-time} & 62.9952\pm3.4259 & 67.4557\pm5.6466 & $\uparrow$4.4605\pm$\uparrow$2.2207 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 48.2967\pm4.2910 & 50.9890\pm5.5901 & $\uparrow$2.6923\pm$\uparrow$1.2991 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 36.7633\pm8.0078 & 43.1884\pm7.5811 & $\uparrow$6.4251\pm$\downarrow$0.4267 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 90.1111\pm2.6938 & 87.0556\pm1.5282 & $\downarrow$3.0555\pm$\downarrow$1.1656 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_logback-core} & 34.3177\pm1.9480 & 37.6062\pm1.6556 & $\uparrow$3.2885\pm$\downarrow$0.2924 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_barbecue} & 41.6783\pm4.6175 & 46.9230\pm2.6051 & $\uparrow$5.2447\pm$\downarrow$2.0124 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_jgap} & 41.5573\pm1.9576 & 46.9160\pm1.2956 & $\uparrow$5.3587\pm$\downarrow$0.6620 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_commons-lang} & 37.6173\pm2.0652 & 46.5906\pm2.4686 & $\uparrow$8.9733\pm$\uparrow$0.4034 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_joda-time} & 35.3836\pm2.0964 & 43.6602\pm1.5886 & $\uparrow$8.2766\pm$\downarrow$0.5078 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_openfast} & 35.9102\pm2.1677 & 44.3391\pm1.6110 & $\uparrow$8.4289\pm$\downarrow$0.5567 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_jsoup} & 42.5197\pm1.3497 & 47.6903\pm0.9667 & $\uparrow$5.1706\pm$\downarrow$0.3830 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all\_but\_joda-primitives} & 31.9259\pm4.1973 & 28.7703\pm1.9751 & $\downarrow$3.1556\pm$\downarrow$2.2222 \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{AVERAGE} & 46.0073\pm3.8374 & 49.7920\pm3.9737 & $\uparrow$3.7847\pm$\uparrow$0.1363 \\
+        \hline
+      \end{tabular}
+    \end{threeparttable}
+    \caption{Comparison of method-level prediction accuracy (mean $\pm$ standard deviation) before/after generalized parameters are used.}
+    \vspace{2mm}
+    \hrule
+    \label{tab:experiments_comparison_method_prediction}
+  \end{table}
+\end{landscape}
+
+We present the new generalizable results (see Figure~\ref{fig:prediction_with_parameters_class_graph}~\&~\ref{fig:prediction_with_parameters_method_graph}) in a similar fashion to the pre-generalizable results. Using the generalizable parameters we can see that in both class- and method-level results the resulting accuracy tend to increase slightly. In some situations we can even see that the variability in accuracy decreased. In particular we can see that in class-level predictions the possibilities of 0\% accuracy (which occurred in 4 of the subjects without the generalizable parameters) does not occur anymore. This happened as a result of the selecting parameters that maximized F-score instead of, which treats the predictions of categories more fairly (i.e., avoiding predicting all of one categories, which could be the wrong categories). To further see the benefits of using generalized LIBSVM parameters we compared the individual accuracies and standard deviation of each subject. As presented in Table~\ref{tab:experiments_comparison_class_prediction}~\&~\ref{tab:experiments_comparison_method_prediction} we can see the gains and losses in mean and standard deviation of prediction accuracy from the application of generalized parameters. In terms of changes, improvement for mean accuracy would be a gain (i.e., better prediction accuracy) while for standard deviation an improvement would be a loss (i.e., smaller variation in prediction accuracy). Of the 16 subjects present in the class-level Table~\ref{tab:experiments_comparison_class_prediction} 12/16 subjects saw an improvement in mean accuracy and 9/16 subjects saw an improvement in standard deviation. While for the 16 subjects present in the method-level Table~\ref{tab:experiments_comparison_class_prediction} 13/16 subjects saw an improvement in mean accuracy and 10/16 subjects saw an improvement in standard deviation. Overall the class-level average saw an improvement of 4.8147 in mean prediction accuracy with a slight improvement of 0.6775 in standard deviation. Method-level average prediction accuracy saw an improvement of 3.7847 while the standard deviation worsen by 0.1363. The improvements in both class- and method-level are both a side benefit of using generalized LIBSVM parameters, as the main purpose was to nullify the need for parameter selection (i.e., no need to grid search on known data) to make predictions on unknown data.
+
+After optimizations and generalization our approach for mutation score prediction using source code and test suite metrics can out perform random in nearly all subjects we observed. There are two category of subjects we observed for predictions (1) the individual subjects by training on undersampled data and predicting on the remaining unknown data and (2) \emph{all\_but\_<subject>} by training on the 7 other subjects and predicting on the unknown subject. As mentioned before the individual category have a wider variation in prediction accuracy while the \emph{all\_but\_<subject>} category have less variation. With respect to prediction accuracy method-level source code mutation score prediction outperforms class-level predictions. We can see that the prediction accuracy seems to be mostly consistent using the \emph{all\_but\_<subject>} category, but the individual category can allow for individuals which have higher then average prediction accuracy. On average class-level prediction accuracy is 37.8498\pm6.9752 while method-level prediction accuracy is 49.7920\pm3.9737 after parameter generalization. In both class- and method-level these average prediction accuracies outperform random by 4.5165\% and 16.4587\%.
 
 
 \section{Summary}
