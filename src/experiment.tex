@@ -75,6 +75,7 @@ Our results are broken up into separate sections:
   \item \textbf{Cross Validation (Section~\ref{subsec:experiment_cross_validation})}: We discuss the cross-validation accuracy of our data sets. We present the cross-validation accuracy results with respect to the feature sets outlined in Table~\ref{tab:metrics}.
   \item \textbf{Prediction (Section~\ref{subsec:experiment_prediction})}: We discuss our approach and results on predicting unknown subjects using the collected data from our subjects.
   \item \textbf{Optimization \& Generalization (Section~\ref{subsec:experiment_optimization_generalization})}: We discuss the benefits of finding a generalizable set of parameters that fit our prediction purposes as well as optimizations to our feature set. We then re-evaluate the prediction accuracy using generalized parameters.
+  \item \textbf{Impact of Data Availability (Section~\ref{subsec:experiment_data})}: We discuss the impact of our approach for mutation score prediction with respect to the availability of data.
 \end{itemize}
 
 
@@ -589,12 +590,41 @@ We present the new generalizable results (see Figure~\ref{fig:prediction_with_pa
 After optimizations and generalization our approach for mutation score prediction using source code and test suite metrics can out perform random in nearly all subjects we observed. There are two category of subjects we observed for predictions (1) the individual subjects by training on undersampled data and predicting on the remaining unknown data and (2) \emph{all\_but\_<subject>} by training on the 7 other subjects and predicting on the unknown subject. As mentioned before the individual category have a wider variation in prediction accuracy while the \emph{all\_but\_<subject>} category have less variation. With respect to prediction accuracy method-level source code mutation score prediction outperforms class-level predictions. We can see that the prediction accuracy seems to be mostly consistent using the \emph{all\_but\_<subject>} category, but the individual category can allow for individuals which have higher then average prediction accuracy. On average class-level prediction accuracy is 37.8498\pm6.9752 while method-level prediction accuracy is 49.7920\pm3.9737 after parameter generalization. In both class- and method-level these average prediction accuracies outperform random by 4.5165\% and 16.4587\%.
 
 
+\subsection{Impact of Data Availability}
+\label{subsec:experiment_data}
+As we saw in the previous section using our approach we can achieve about 49.7920\% prediction accuracy of method-level source code units. This amount exceeds random by about 16.4587\% which shows that our approach is capable of predicting mutation score using source code and test suite metrics. One aspect that we have not explored yet is how the prediction accuracy is impacted by the availability of data. As mentioned in the thesis statement, \emph{``The predictions can be used to reduce the resource cost of mutation testing in traditional iterative development.''}. Traditional iterative development could involve the adding/removing/refactoring the \gls{sut}, and/or attempting to improve the test suite. Mutation testing between iterations can be costly if done in a naive manner (i.e., re-conduct the whole mutation test process using the new version of the \gls{sut}). Even with an intelligent approach of selective mutation (i.e., only mutation testing source code units that were added/removed/modified since the previous iteration) the cost of mutation testing can still be substantial.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+    \input{plots/divisor_class_graph}
+  \end{adjustbox}
+  \caption{Class-level prediction accuracies of each subject using training and prediction with various amounts of training data.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:divisor_class_graph}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+    \input{plots/divisor_method_graph}
+  \end{adjustbox}
+  \caption{Method-level prediction accuracies of each subject using training and prediction with various amounts of training data.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:divisor_method_graph}
+\end{figure}
+
+We can reduce the resource cost of mutation testing in traditional iterative development with intermixed iterations of mutation testing and predictions by performing mutation testing on a portion of the \gls{sut} and predicting the reminding portion. To demonstrate, we conducted a number of training and prediction executions using different amounts of source code units for training. We took the amount of undersampled training data instances and divided this amount by intervals of 0.5 from 1.0 to 10.0. We conducted 10 executions using the generalized parameters from Section~\ref{subsec:experiment_optimization_generalization} for each new training amount and recorded the mean accuracy. In situations where the new training amount was identical to another's interval their resulting accuracy were averaged. As we can see in Figure~\ref{fig:divisor_class_graph} the class-level source code units did not show much information as there is a limited number of unique points for the subjects. This is because of the limited data set available for the subjects, if we recall \emph{barbecue} only had 2 data instances per category, while \emph{joda-primitives} only had 1. Unfortunately there does not seem to be enough data to warrant any observation from the class-level. With Figure~\ref{fig:divisor_method_graph} we can see an apparent trend for method-level source code units, there appears to be a \emph{log(n)} relationship with prediction accuracy and the amount of data used for training. \emph{joda-primitives} shows exactly the trend we are expecting, the prediction accuracy tappers off reaching its maximum value between 30\%-35\%. Looking at other subjects we can see similar behavior though not as pronounced. The data suggests that we only required a fraction of the available data from a \gls{sut} to maximize prediction accuracy, in our case we'd suggest about \sfrac{1}{3} of the available data should be used for training purposes to maximize prediction accuracy. Going back to the reduction in resources for mutation testing it is possible to perform mutation testing on the \gls{sut} yet only evaluate a \sfrac{1}{3} of the mutants. Using the results of mutation testing the remaining \sfrac{2}{3} of the mutants can be predicted with an average accuracy of about 50\%. To account for the potential mis-classifications it would be best to cycle the training data such that the \sfrac{1}{3} used is mostly unique in each iteration. Within three iterations all mutants would have been actually evaluated once, while the predictions cover the remaining \sfrac{2}{3}. This will allow for \sfrac{2}{3} of the mutation testing resources to be reclaimed in an optimal scenario while reducing the negative effect of mis-classifications. Given that a \gls{sut} is iteratively developed we can assume that at some point all mutants have actually been evaluated. Using our approach we can keep this information in our database and reuse it for training purposes.
+
+
 \section{Summary}
 \label{sec:experiment_summary}
-In this chapter we covered the following topics that are considered background material for the approach presented in this thesis:
+In this chapter we covered the following topics that demonstrate out approach on several experimental subjects:
 
 \begin{itemize}
-  \item In Section~\ref{sec:experiment_setup} we covered how our experimental setup with respect to machine setup and the different types of evaluations we will perform.
-  \item In Section~\ref{sec:experiment_subjects} we covered the 8 experimental subjects what machine learning and how it can be for supervised and unsupervised classification technique. We specifically cover how \gls{svm}s work.
-  \item In Section~\ref{sec:experiment_results} we covered metrics, specifically source code and test suite metrics. We explain how source code metrics can be used to identify \emph{code smells} and some examples of these metrics. We also introduce several approaches to test suite metrics using a combination of source code metrics on JUnit test cases as well as coverage metrics.
+  \item In Section~\ref{sec:experiment_setup} we covered our experimental setup with respect to machine setup and the different types of evaluations performed.
+  \item In Section~\ref{sec:experiment_subjects} we covered the 8 experimental subjects we used in our experimentation as well as their details in size and function.
+  \item In Section~\ref{sec:experiment_results} we covered a number of experiments and discussed their results. Specifically we experimented with mutation score distribution (Section~\ref{subsec:experiment_mutation_score_distribution}, cross-validation (Section~\ref{subsec:experiment_cross_validation}, prediction (Section~\ref{subsec:experiment_prediction}), optimization \& generalization (Section~\ref{subsec:experiment_optimization_generalization}), and the impact of data availability (Section~\ref{subsec:experiment_data}).
 \end{itemize}
