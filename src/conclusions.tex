@@ -17,6 +17,18 @@ In Section~\ref{subsec:experiment_cross_validation} we used our selected categor
 
 \section{Contributions}
 \label{sec:conclusions_contributions}
+Throughout the experiment chapter (see Chapter~\ref{chap:experiment} we noted the following in terms of contributes to the domain of mutation score prediction:
+
+\begin{itemize}
+	\item Identified several features that can be used to prediction mutation scores of source code units
+	\item Presented the mutation score distribution of covered mutants over 8 open-source systems
+	\item Observed the effect on cross-validation accuracy with respect to the feature sets
+	\item Observed the effect of predicting on unknown source code units (i.e., not used for training) both within an individual project and across projects
+	\item Found a set of \gls{svm} parameters for class- and method-level predictions that maximize generalizability in the observed open-source systems.
+	\item Understood the impact on prediction accuracy based on the amount of data from an individual project is used for training.
+\end{itemize}
+
+Specifically we showed that using all the available features we were able to achieve an average prediction accuracy of 37.8498\% and 49.7920\%, for class- and method-level source code units respectively. Method-level predictions have a much higher accuracy than class-level predictions, which is alright as method-level source code units are finer grain in terms of scope. We achieved higher than random prediction accuracies using generalized \gls{svm} parameters, which removes the need of finding suitable parameters for new data. Our approach is novel in that we consider both source code and test suite metrics as factors in making the predictions in software testing. We also performed feature selection on the used features in Appendix~\ref{app:feature_selection}, which showed that it is possible to reduce feature set while retaining prediction accuracy.
 
 
 \section{Limitations}
