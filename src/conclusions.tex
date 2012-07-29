@@ -63,6 +63,26 @@ With experiments one of the major concerns involve the ability for the results t
 
 \section{Future Work}
 \label{sec:conclusions_future_work}
+The future work for this thesis can be broken up into 3 different directions. First in Section~\ref{subsec:conclusions_optimizing_approach} we consider future work that can be done to imporove and optimize our approach for predicting mutation scores. Secondly in Section~\ref{subsec:conclusions_experimental_evaluation} we look at future work that can be done on the experimental and statistical side of this thesis. Finally we consider alternatives and future work to validate generalizability of our results.
+
+
+\subsection{Optimizing and Improving Approach}
+\label{subsec:conclusions_optimizing_approach}
+In our approach we discard abstract/overloaded/anonymous source code units as they were a bit more complex to handle during the construction of our approach. As for future work it would be wise to reconsider these omitted details as they obviously contribute to the data (i.e., mainly for class-level source code units, which might explain why their prediction accuracy was lower). We would like to correctly determine the \emph{not} (i.e., number of tests) feature without relying on \emph{Javalanche} for coverage data. \emph{EMMA} is fully capable in determining the \emph{not} feature. On the topic of features we would like to further explore additional metrics and other facets of a software system. Specifically we could explore the mutants themselves as the mutation generation is not the expensive aspect of mutation testing, or even runtime information.
+
+By using \emph{Javalanche} we unfortunately did not have access to class-level object-oriented mutation operators, and a limited subset of traditional method-level mutation operators. Future work would be required to add these missing mutation operators into \emph{Javalanche} as it would not only benefit this thesis yet those that use the tool. Furthermore there exists more than the traditional mutation operators that generate typical faults, it would be a great addition to incorporate security and concurrency mutation operators into our approach. Equivalent mutants pose a challenge in interpreting mutation testing results, \emph{Javalanche} has an approach that attempts to mitigate the impact of equivalent mutants that we ignored. Further work can integrate this consideration into our approach, we initially did not include it as it would further reduce our available data.
+
+There are standard optimizations that can be done for our implementation such as better data structures and taking advantage of concurrency. We also would like to adapt our approach so that others can use it from a usability point-of-view. For example, a simple script that allows a user to specify source code unit(s) to be predicted based on a already trained classification model or as an Eclipse plugin. As our approach uses a classification approach for prediction, it is possible to extract from the \gls{svm} the probability that a vector belongs to a specific category. We would like to take advantage of this and present this data as well as it illustrates the confidence in the predictions.
+
+
+\subsection{Statistical and Experimental Evaluation}
+\label{subsec:conclusions_experimental_evaluation}
+With our experimental setup we utilize a minimum of 10 executions to reduce the noise in our results. To further reinforce our results future work would involve increasing the number of executions (i.e., between 25 and 100 executions). In our analysis of the results we used primarily summary statistics (i.e., mean, standard deviation, etc...), while these statistics provide valid summary of the results there are other statistical measures that are stronger (i.e., confidence interval, hypothesis testing, etc...). Furthermore we performed a number of experiments to evaluate our approach, these alone are not comprehensive in what could have been done. Additional analysis on the features and their relationship with each other and mutation scores would be an interesting study to conduct as it may provide additional detail on the source code units. For future work we would like to evaluate our current results and new experiments with stronger statistical measures.
+
+
+\subsection{Alternative and Generalizability of Findings}
+\label{subsec:conclusions_generalizability_findings}
+With respect to our implementation we utilized a number of tools to gather features and the mutation scores. We would like to explore using other tools as alternatives, this has two effects: (1) can allow a better tool to be used and (2) can show that our approach still functions correctly independently of the tools used. Due to our limited set of experimental subjects we did not have a wide variety of domains, source sizes, test suite sizes and mutation scores. By including more open-source and potentially industrial software systems we can cover more pairings of the aforementioned criteria, which will shine insight on the generalizability of our approach. 
 
 
 \section{Conclusions}
