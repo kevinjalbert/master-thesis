@@ -95,7 +95,7 @@ As our approach attempts to predict the mutation score of source code units we n
 \label{subsec:approach_inputs}
 To predict the mutation score of method- and class-level source code units our approach requires the following inputs: a set of source units of code (the Java files that compose the \gls{sut}) and the corresponding set of unit test cases (the JUnit files that compose the test suite for the \gls{sut}). A simple example of the input our approach requires is presented in Figure~\ref{fig:triangle_example}. Our approach is only concerned with source units of code that are being tested, thus the more coverage the test suite provides the more data that can be extracted from the \gls{sut}.
 
-\begin{figure}[t]
+\begin{figure}[t!]
   \centering
   \begin{minipage}{7.25cm}
   \centering
@@ -149,7 +149,7 @@ We chose Javalanche for our research because it is customizable and extensible, 
 
 Using scripts we made our whole approach as automated as possible, thus the user only has to configure a couple variables to target a different project (i.e., package prefix, test suite name, test \& source directories). We have made minor modifications to Javalanche that allows it to use all the specified operators from Table~\ref{tab:javalanche_operators}. Javalanche also is configured to use its coverage impact analysis to give insight on equivalent mutants (more on this in Chapter~\ref{chap:experiment}) though this slows down Javalanche substantially. Furthermore we added a custom analyzer that outputs the mutation scores of each class and method units in the \gls{sut}.
 
-\begin{figure}[t]
+\begin{figure}[b]
   \centering
   \lstinputlisting[literate={,}{\textbf{,}}{1}]{listings/Triangle_class_mutation_score.csv}
   \lstinputlisting[literate={,}{\textbf{,}}{1}]{listings/Triangle_method_mutation_score.csv}
@@ -168,47 +168,46 @@ Javalanche generates all possible mutants, then considers the set of them that a
 \label{subsec:approach_collect_source_metrics}
 In our research, we use the Eclipse Metrics Plugin (version 1.3.8.20100730-001) to acquire source code metrics of the method- and class-level source code unit under test~\cite{Metrics}. We selected this tool as it provides a comprehensive set of metrics for Java programs (see feature sets \ding{172}~\&~\ding{174} from Table~\ref{tab:metrics}). The metrics can also be exported to \gls{xml} which is a suitable format to extract data from. Though this tool is part of Eclipse as a plugin it is possible to initiate the tool through a \gls{cli} interface after importing the \gls{sut} into Eclipse. The Eclipse Metrics Plugin is used to produce an \gls{xml} file of the source code metrics of the source code units and unit test cases. The produced \gls{xml} file is \emph{metric-oriented}, so we translate so it is \emph{unit-oriented}. This phase acquires source code metrics (see feature set \ding{172} in Figure~\ref{tab:metrics}) for each source code unit. As we focus on JUnit test cases as our testing framework, we can actually use the Eclipse Metrics Plugin to gather the source code metrics of the test suite (see feature set \ding{175} from Table~\ref{tab:metrics}). Using the example in Figure~\ref{fig:triangle_example} this phase extracts the following metrics as seen in Table~\ref{tab:triangle_class_extracted_metrics}~\&~\ref{tab:triangle_method_extracted_metrics}.
 
-\begin{landscape}
-  \begin{table}[h]
-    \centering
-    \rowcolors{2}{gray!30}{gray!20}
-    \begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|}
-      \hline
-      \rowcolor[RGB]{169,196,223}
-      \textbf{Source Code Unit} & \textbf{NORM} & \textbf{NOF} & \textbf{NSC} & \textbf{DIT} & \textbf{LCOM} & \textbf{NSM} & \textbf{NOM} & \textbf{SIX} & \textbf{WMC} & \textbf{NSF} \\
-      \hline \texttt{Triangle} & 0 & 0 & 0 & 1 & 0 & 0 & 2 & 0 & 20 & 0 \\
-      \hline \texttt{TriangleTest} & 0 & 0 & 0 & 1 & 0 & 0 & 6 & 0 & 6 & 0 \\
-      \hline
-    \end{tabular}
-    \caption{Extracted class source code metrics of the \texttt{Triangle} system.}
-    \label{tab:triangle_class_extracted_metrics}
-    \vspace{2mm}
-    \hrule
-  \end{table}
+\begin{sidewaystable}[h]
+  \centering
+  \captionbox{Extracted class source code metrics of the \texttt{Triangle} system.\label{tab:triangle_class_extracted_metrics}}{
+  	\rowcolors{2}{gray!30}{gray!20}
+  	\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|}
+    	\hline
+    	\rowcolor[RGB]{169,196,223}
+    	\textbf{Source Code Unit} & \textbf{NORM} & \textbf{NOF} & \textbf{NSC} & \textbf{DIT} & \textbf{LCOM} & \textbf{NSM} & \textbf{NOM} & \textbf{SIX} & \textbf{WMC} & \textbf{NSF} \\
+    	\hline \texttt{Triangle} & 0 & 0 & 0 & 1 & 0 & 0 & 2 & 0 & 20 & 0 \\
+    	\hline \texttt{TriangleTest} & 0 & 0 & 0 & 1 & 0 & 0 & 6 & 0 & 6 & 0 \\
+    	\hline
+  	\end{tabular}
+  }
+  
+  \vspace{2mm}
+  \hrule
+  \vspace{3em}
 
-  \begin{table}[h]
-    \centering
-    \rowcolors{2}{gray!30}{gray!20}
-    \begin{tabular}{|l|r|r|r|r|}
-      \hline
-      \rowcolor[RGB]{169,196,223}
-      \textbf{Source Code Unit} & \textbf{MLOC} & \textbf{NBD} & \textbf{VG} & \textbf{PAR} \\
-      \hline \texttt{Triangle.classify} & 20 & 1 & 13 & 3 \\
-      \hline \texttt{Triangle.isValid} & 5 & 1 & 7 & 3 \\
-      \hline \texttt{TriangleTest.testScalene} & 2 & 1 & 1 & 0 \\
-      \hline \texttt{TriangleTest.testIsoceles} & 2 & 1 & 1 & 0 \\
-      \hline \texttt{TriangleTest.testEquiliteral} & 2 & 1 & 1 & 0 \\
-      \hline \texttt{TriangleTest.testNegative} & 2 & 1 & 1 & 0 \\
-      \hline \texttt{TriangleTest.testInvalid} & 2 & 1 & 1 & 0 \\
-      \hline \texttt{TriangleTest.testValid} & 2 & 1 & 1 & 0 \\
-      \hline
-    \end{tabular}
-    \caption{Extracted method source code metrics of the \texttt{Triangle} system.}
-    \label{tab:triangle_method_extracted_metrics}
-    \vspace{2mm}
-    \hrule
-  \end{table}
-\end{landscape}
+  \centering
+  \captionbox{Extracted method source code metrics of the \texttt{Triangle} system.\label{tab:triangle_method_extracted_metrics}}{
+  	\rowcolors{2}{gray!30}{gray!20}
+  	\begin{tabular}{|l|r|r|r|r|}
+    	\hline
+    	\rowcolor[RGB]{169,196,223}
+    	\textbf{Source Code Unit} & \textbf{MLOC} & \textbf{NBD} & \textbf{VG} & \textbf{PAR} \\
+    	\hline \texttt{Triangle.classify} & 20 & 1 & 13 & 3 \\
+    	\hline \texttt{Triangle.isValid} & 5 & 1 & 7 & 3 \\
+    	\hline \texttt{TriangleTest.testScalene} & 2 & 1 & 1 & 0 \\
+    	\hline \texttt{TriangleTest.testIsoceles} & 2 & 1 & 1 & 0 \\
+    	\hline \texttt{TriangleTest.testEquiliteral} & 2 & 1 & 1 & 0 \\
+    	\hline \texttt{TriangleTest.testNegative} & 2 & 1 & 1 & 0 \\
+    	\hline \texttt{TriangleTest.testInvalid} & 2 & 1 & 1 & 0 \\
+    	\hline \texttt{TriangleTest.testValid} & 2 & 1 & 1 & 0 \\
+    	\hline
+  	\end{tabular}
+  }  
+  
+  \vspace{2mm}
+  \hrule
+\end{sidewaystable}
 
 
 \subsection{Collect Test Suite Coverage Metrics}
@@ -220,59 +219,58 @@ EMMA (version 2.0.5312) is capable of determining the basic block coverage of a 
 \label{subsec:approach_combine_metrics}
 At this point in the process we have acquired all the raw data (mutation scores, source code metrics, and test suite metrics). We now begin synthesizing data together, in this phase we combine source code metrics and coverage metrics together. We first analyze all the coverage \gls{xml} files produced from the coverage phase (see Section~\ref{subsec:approach_collect_coverage_metrics}). We calculate the coverage that each source code unit has given the set of covered unit test cases used. Now we combine the source code metrics and coverage metrics of a source code unit. The combined data is put into our database to go along with the acquire mutation score. Each source code unit in the database eventually will contain all the metrics pertaining to it, along with its mutation score.
 
-\begin{landscape}
-	\begin{table}[h]
- 	 \centering
- 	 \rowcolors{2}{gray!30}{gray!20}
- 	 \begin{tabular}{|l|r|r|r|}
- 	   \hline
- 	   \rowcolor[RGB]{169,196,223}
- 	   \textbf{Source Code Unit} & \textbf{NOT} & \textbf{BCOV} & \textbf{BTOT} \\
- 	   \hline \texttt{Triangle} & 6 & 60 & 102 \\
- 	   \hline \texttt{Triangle.classify} & 3 & 36 & 72 \\
- 	   \hline \texttt{Triangle.isValid} & 6 & 24 & 30 \\
- 	   \hline
- 	 \end{tabular}
- 	 \caption{Extracted coverage test suite metrics (feature set \ding{173} of Table~\ref{tab:metrics}) of the \texttt{Triangle} system.}
- 	 \vspace{2mm}
- 	 \hrule
- 	 \label{tab:triangle_coverage_metrics}
-	\end{table}
+\begin{sidewaystable}[h]
+  \centering
+	\captionbox{Extracted coverage test suite metrics (feature set \ding{173} of Table~\ref{tab:metrics}) of the \texttt{Triangle} system.\label{tab:triangle_coverage_metrics}}{
+  	\rowcolors{2}{gray!30}{gray!20}
+  	\begin{tabular}{|l|r|r|r|}
+    	\hline
+    	\rowcolor[RGB]{169,196,223}
+    	\textbf{Source Code Unit} & \textbf{NOT} & \textbf{BCOV} & \textbf{BTOT} \\
+    	\hline \texttt{Triangle} & 6 & 60 & 102 \\
+    	\hline \texttt{Triangle.classify} & 3 & 36 & 72 \\
+    	\hline \texttt{Triangle.isValid} & 6 & 24 & 30 \\
+    	\hline
+  	\end{tabular}
+	}
+	
+	\vspace{2mm}
+	\hrule
+	\vspace{3em}
+	
+	\centering
+	\captionbox{Merged test suite metrics (feature set \ding{175} in Table~\ref{tab:metrics}) for each source code unit of the \texttt{Triangle} system.\label{tab:triangle_merge_test_metrics}}{
+  	\rowcolors{2}{gray!30}{gray!20}
+  	\begin{tabular}{|l|r|r|r|r|r|r|r|r|}
+    	\hline
+    	\rowcolor[RGB]{169,196,223}
+    	\textbf{Source Code Unit} & \textbf{STMLOC} & \textbf{STNBD} & \textbf{STVG} & \textbf{STPAR} & \textbf{ATMLOC} & \textbf{ATNBD} & \textbf{ATVG} & \textbf{ATPAR}  \\
+    	\hline \texttt{Triangle} & 12 & 6 & 6 & 0 & 2 & 1 & 1 & 0 \\
+    	\hline \texttt{Triangle.classify} & 6 & 3 & 3 & 0 & 2 & 1 & 1 & 0 \\
+    	\hline \texttt{Triangle.isValid} & 12 & 6 & 6 & 0 & 2 & 1 & 1 & 0 \\
+    	\hline
+  	\end{tabular}
+	}
 
-  \begin{table}[h]
-    \centering
-    \rowcolors{2}{gray!30}{gray!20}
-    \begin{tabular}{|l|r|r|r|r|r|r|r|r|}
-      \hline
-      \rowcolor[RGB]{169,196,223}
-      \textbf{Source Code Unit} & \textbf{STMLOC} & \textbf{STNBD} & \textbf{STVG} & \textbf{STPAR} & \textbf{ATMLOC} & \textbf{ATNBD} & \textbf{ATVG} & \textbf{ATPAR}  \\
-      \hline \texttt{Triangle} & 12 & 6 & 6 & 0 & 2 & 1 & 1 & 0 \\
-      \hline \texttt{Triangle.classify} & 6 & 3 & 3 & 0 & 2 & 1 & 1 & 0 \\
-      \hline \texttt{Triangle.isValid} & 12 & 6 & 6 & 0 & 2 & 1 & 1 & 0 \\
-      \hline
-    \end{tabular}
-    \caption{Merged test suite metrics (feature set \ding{175} in Table~\ref{tab:metrics}) for each source code unit of the \texttt{Triangle} system.}
-    \vspace{2mm}
-    \hrule
-    \label{tab:triangle_merge_test_metrics}
-  \end{table}
+	\vspace{2mm}
+	\hrule
+	\vspace{3em}
 
-  \begin{table}[h]
-    \centering
-    \rowcolors{2}{gray!30}{gray!20}
-    \begin{tabular}{|l|r|r|r|r|r|r|r|r|}
-      \hline
-      \rowcolor[RGB]{169,196,223}
-      \textbf{Source Code Unit} & \textbf{SMLOC} & \textbf{SNBD} & \textbf{SVG} & \textbf{SPAR} & \textbf{AMLOC} & \textbf{ANBD} & \textbf{AVG} & \textbf{APAR}  \\
-      \hline \texttt{Triangle} & 25 & 2 & 20 & 6 & 12.5 & 1 & 10 & 3 \\
-      \hline
-    \end{tabular}
-    \caption{Aggregation of method-level source code metrics for each class-level source code unit (feature set \ding{174} of Table~\ref{tab:metrics}) of the \texttt{Triangle} system.}
-    \vspace{2mm}
-    \hrule
-    \label{tab:triangle_aggregate_metrics}
-  \end{table}
-\end{landscape}
+	\centering
+	\captionbox{Aggregation of method-level source code metrics for each class-level source code unit (feature set \ding{174} of Table~\ref{tab:metrics}) of the \texttt{Triangle} system.\label{tab:triangle_aggregate_metrics}}{
+  	\rowcolors{2}{gray!30}{gray!20}
+  	\begin{tabular}{|l|r|r|r|r|r|r|r|r|}
+    	\hline
+    	\rowcolor[RGB]{169,196,223}
+    	\textbf{Source Code Unit} & \textbf{SMLOC} & \textbf{SNBD} & \textbf{SVG} & \textbf{SPAR} & \textbf{AMLOC} & \textbf{ANBD} & \textbf{AVG} & \textbf{APAR}  \\
+    	\hline \texttt{Triangle} & 25 & 2 & 20 & 6 & 12.5 & 1 & 10 & 3 \\
+    	\hline
+  	\end{tabular}
+  }
+  
+  \vspace{2mm}
+	\hrule
+\end{sidewaystable}
 
 
 \subsection{Aggregate and Merge Method-Level Metrics}
@@ -310,6 +308,10 @@ Once we have trained the \gls{svm}, we can then use it for prediction. We can pr
 \section{Related Work}
 \label{sec:approach_related_work}
 Although prediction of mutation scores has not be previously researched, the related topic useing of software metrics to locate faults in source code has been well researched. For example, Koru et al. utilized static software measure along with defect data at the class level to predict bugs using machine learning~\cite{KL05}. Similarly, Gyimothy et al. used object-oriented metrics with logistic regression and machine learning techniques to identify faulty classes in open source software~\cite{GFS05}. Finally, design level metrics were used with a linear prediction model to determine the estimated maintainability and error prone modules of large software systems~\cite{MKPS00}. Our work is unique in comparison to these previous works since we not only use source code metrics but we also use test suite metrics to enhance our predication capabilities. The aforementioned works on fault prediction do not use test suite metrics for their predictions, they do in some cases utilize bug reports.
+% TODO add more related works
+% Software Defect Prediction Using Static Code Metrics Underestimates Defect-Proneness
+% Predicting defect-prone software modules using support vector machines
+% Providing Test Quality Feedback Using Static Source Code and Automatic Test Suite Metrics
 
 
 \section{Summary}

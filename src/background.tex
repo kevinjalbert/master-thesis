@@ -230,46 +230,45 @@ In the last decade a number of mutation testing tools for the Java programming l
   \item \textbf{Special Feature}: whether a tools has a special feature that is unique in mutation testing.
 \end{itemize}
 
-\begin{landscape}
-  \begin{table}[t!]
-    \centering
-    \rowcolors{1}{gray!30}{gray!20}
-    \begin{threeparttable}
-      \begin{tabular}{|l|l|l|l|l|l|l|}
-        \rowcolor[RGB]{169,196,223}
-        \hline & \textbf{Jester~\cite{Jester}} & \textbf{MuJava~\cite{MOK05}} & \textbf{Jumble~\cite{Jumble}} & \textbf{Javalanche~\cite{SZ09}} & \textbf{Judy~\cite{MR10}} & \textbf{PIT~\cite{PIT}} \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Inception Year} & 2001 & 2004 & 2007 & 2009 & 2010 & 2011 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Generation-Level} & Source Code & Bytecode & Bytecode & Bytecode & Source Code & Bytecode \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Test Selection} & Naive\tnote{f} & Manual & Convention & Coverage & Convention & Coverage \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Mutant Insertion} & Naive\tnote{f} & Schmeta & In-Memory & Schmeta & Schmeta\tnote{c} & Instrument \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Method-Level} & No & Yes & No & Yes & Yes & Yes \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Class-Level} & No & Yes & No & No & Yes\tnote{b} & No \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Concurrency-Level} & No & No & No & Yes & No & No \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{JUnit Support} & Yes & No\tnote{c} & Yes & Yes & Yes & Yes \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Command-Line} & Yes & No & Yes & Yes & Yes & Yes \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Structured Output} & No & No & No & Yes & No & Yes \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Unit Scores} & No & No & No & Yes & No & No\tnote{g} \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Open Source} & Yes & No\tnote{d} & Yes & Yes & No & Yes \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Academic Tool} & No & Yes & No & Yes & Yes & No \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Special Feature} & No & No & No & Yes\tnote{e} & No & No \\
-        \hline
-      \end{tabular}
-      \begin{tablenotes}
-        \item[a] The Eclipse plugin has support for JUnit 3.
-        \item[b] Limited set of class-level operators.
-        \item[c] Iterative schmata (only allows a certain limit of mutants per iteration).
-        \item[d] Limited basis to researchers.
-        \item[e] Impact analysis to deal with equivalent mutants.
-        \item[f] Best guess considering limited documentation.
-        \item[g] The unit score could be calculated manually using structured output.
-      \end{tablenotes}
-    \end{threeparttable}
-    \caption{A categorization of several Java mutation testing tools and their feature (compiled using data from~\cite{PIT, MR10}).}
-    \vspace{2mm}
-    \hrule
-    \label{tab:mutation_tools}
-  \end{table}
-\end{landscape}
+\begin{sidewaystable}[t!]
+  \centering
+  \rowcolors{1}{gray!30}{gray!20}
+  \begin{threeparttable}
+    \begin{tabular}{|l|l|l|l|l|l|l|}
+      \rowcolor[RGB]{169,196,223}
+      \hline & \textbf{Jester~\cite{Jester}} & \textbf{MuJava~\cite{MOK05}} & \textbf{Jumble~\cite{Jumble}} & \textbf{Javalanche~\cite{SZ09}} & \textbf{Judy~\cite{MR10}} & \textbf{PIT~\cite{PIT}} \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Inception Year} & 2001 & 2004 & 2007 & 2009 & 2010 & 2011 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Generation-Level} & Source Code & Bytecode & Bytecode & Bytecode & Source Code & Bytecode \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Test Selection} & Naive\tnote{f} & Manual & Convention & Coverage & Convention & Coverage \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Mutant Insertion} & Naive\tnote{f} & Schmeta & In-Memory & Schmeta & Schmeta\tnote{c} & Instrument \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Method-Level} & No & Yes & No & Yes & Yes & Yes \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Class-Level} & No & Yes & No & No & Yes\tnote{b} & No \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Concurrency-Level} & No & No & No & Yes & No & No \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{JUnit Support} & Yes & No\tnote{c} & Yes & Yes & Yes & Yes \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Command-Line} & Yes & No & Yes & Yes & Yes & Yes \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Structured Output} & No & No & No & Yes & No & Yes \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Unit Scores} & No & No & No & Yes & No & No\tnote{g} \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Open Source} & Yes & No\tnote{d} & Yes & Yes & No & Yes \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Academic Tool} & No & Yes & No & Yes & Yes & No \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Special Feature} & No & No & No & Yes\tnote{e} & No & No \\
+      \hline
+    \end{tabular}
+    \begin{tablenotes}
+      \item[a] The Eclipse plugin has support for JUnit 3.
+      \item[b] Limited set of class-level operators.
+      \item[c] Iterative schmata (only allows a certain limit of mutants per iteration).
+      \item[d] Limited basis to researchers.
+      \item[e] Impact analysis to deal with equivalent mutants.
+      \item[f] Best guess considering limited documentation.
+      \item[g] The unit score could be calculated manually using structured output.
+    \end{tablenotes}
+  \end{threeparttable}
+  \caption{A categorization of several Java mutation testing tools and their feature (compiled using data from~\cite{PIT, MR10}).}
+  \vspace{2mm}
+  \hrule
+  \label{tab:mutation_tools}
+\end{sidewaystable}
+
 
 Using this criteria we provide a comparison of a set of mutation testing tools for the Java programming language in Table~\ref{tab:mutation_tools}. We can see various aspects of the mutation testing tools, for example only Javalanche has access to concurrency-level mutation operators while Jumble and Jester do not use a proper form of the method- and class-level mutation operators.
 

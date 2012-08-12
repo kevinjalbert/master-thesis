@@ -4,9 +4,9 @@
 \label{app:mutation_score_distributions}
 The individual mutation score distributions of method-level and class-level source code units from the experimental subjects (see Section~\ref{sec:experiment_subjects}) are displayed in this appendix. The collective mutation score distribution of all subjects is shown and described in Section~\ref{sec:experiment_results}. Statistical summary of each project's mutation score distribution is presented in Table~\ref{tab:mutation_distribution_class_statistics}~\&~\ref{tab:mutation_distribution_method_statistics}.
 
-\begin{landscape}
-  \begin{table}[ht!]
-    \centering
+\begin{sidewaystable}[ht!]
+  \centering
+  \captionbox{Statistical summary of the class-level data for each subject's mutation score.\label{tab:mutation_distribution_class_statistics}}{
     \rowcolors{1}{gray!30}{gray!20}
     \begin{threeparttable}
       \begin{tabular}{|l|>{\raggedleft}p{2.25cm}|>{\raggedleft}p{2.25cm}|>{\raggedleft}p{2.25cm}|r|r|r|r|}
@@ -24,14 +24,13 @@ The individual mutation score distributions of method-level and class-level sour
         \hline
       \end{tabular}
     \end{threeparttable}
-    \caption{Statistical summary of the class-level data for each subject's mutation score.}
-    \vspace{2mm}
-    \hrule
-    \label{tab:mutation_distribution_class_statistics}
-  \end{table}
+  }
+  \vspace{2mm}
+  \hrule
+  \vspace{3em}
 
-  \begin{table}[ht!]
-    \centering
+  \centering
+  \captionbox{Statistical summary of the method-level data for each subject's mutation score.\label{tab:mutation_distribution_method_statistics}}{
     \rowcolors{1}{gray!30}{gray!20}
     \begin{threeparttable}
       \begin{tabular}{|l|>{\raggedleft}p{2.25cm}|>{\raggedleft}p{2.25cm}|>{\raggedleft}p{2.25cm}|r|r|r|r|}
@@ -49,12 +48,11 @@ The individual mutation score distributions of method-level and class-level sour
         \hline
       \end{tabular}
     \end{threeparttable}
-    \caption{Statistical summary of the method-level data for each subject's mutation score.}
-    \vspace{2mm}
-    \hrule
-    \label{tab:mutation_distribution_method_statistics}
-  \end{table}
-\end{landscape}
+  }
+  \vspace{2mm}
+  \hrule
+\end{sidewaystable}
+
 
 \begin{figure}[ht!]
   \centering
