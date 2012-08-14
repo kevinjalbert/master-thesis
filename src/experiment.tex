@@ -1,7 +1,7 @@
 % !TEX root = thesis.tex
 \chapter{Empirical Evaluation}
 \label{chap:experiment}
-In this chapter we evaluate our approach from Chapter~\ref{chap:approach}. We describe how we setup and conduct our empirical evaluation in Section~\ref{sec:experiment_setup} and we describe our experimental methodology in Section~\ref{sec:experiment_methodology}. Finally we discuss our experimental results in Section~\ref{sec:experiment_results}.
+In this chapter we evaluate our approach from Chapter~\ref{chap:approach}. We describe how we setup and conduct our empirical evaluation in Section~\ref{sec:experiment_setup} and we describe our experimental methodology in Section~\ref{sec:experiment_methodology}. Finally we discuss our experimental results in Section~\ref{sec:experiment_results} and threats to validity in Section~\ref{sec:experiment_threats}.
 
 
 \section{Experimental Setup}
@@ -98,7 +98,7 @@ The following five sections present experiments used in our empirical evaluation
 \subsection{Mutation Score Distribution}
 \label{subsec:experiment_mutation_score_distribution}
 \begin{quote}
-	\emph{``Given our test subjects are their test suites effective in accordance to mutation score? Using the distribution of our test subjects' mutation scores can we identify a three category range for the mutation score of source code units?''}
+	\emph{\textbf{Research Question:} Given our test subjects are their test suites effective in accordance to mutation score? Using the distribution of our test subjects' mutation scores can we identify a three category range for the mutation score of source code units?}
 \end{quote}
 
 \begin{sidewaystable}[!ht]
@@ -108,7 +108,7 @@ The following five sections present experiments used in our empirical evaluation
     \begin{threeparttable}
       \begin{tabular}{|l|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft\arraybackslash}p{2.5cm}|}
         \rowcolor[RGB]{169,196,223}
-        \hline & \textbf{Mutants Generated} & \textbf{Mutants Covered} & \textbf{Coverage Percent} & \textbf{Mutants Killed} & \textbf{Mutation Score\tnote{a}} & \textbf{Time Taken (\emph{hh:mm:ss})} \\
+        \hline & \textbf{Mutants Generated} & \textbf{Mutants Covered} & \textbf{Coverage Percent (\%)} & \textbf{Mutants Killed} & \textbf{Mutation Score (\%)\tnote{a}} & \textbf{Time Taken (\emph{hh:mm:ss})} \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 10682 & 7350 & 68.8073 & 5400 & 73.4694 & 01:49:10 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 27324 & 4339 & 15.8798 & 2727 & 62.8486 & 00:49:51 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 31929 & 17903 & 56.0713 & 13328 & 74.4456 & 07:04:44 \\
@@ -117,7 +117,7 @@ The following five sections present experiments used in our empirical evaluation
         \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 14910 & 8371 & 56.1435 & 6869 & 82.0571 & 01:34:38 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 14165 & 10540 & 74.4088 & 8430 & 79.9810 & 03:55:56 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 22269 & 17334 & 77.8391 & 13499 & 77.8759 & 01:24:33 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{ALL} & \textbf{237014} & \textbf{166193} & \textbf{70.1195} & \textbf{132570} & \textbf{79.7687} & \textbf{64:26:41} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all} & \textbf{237014} & \textbf{166193} & \textbf{70.1195} & \textbf{132570} & \textbf{79.7687} & \textbf{64:26:41} \\
         \hline
       \end{tabular}
       \begin{tablenotes}
@@ -125,7 +125,7 @@ The following five sections present experiments used in our empirical evaluation
       \end{tablenotes}
     \end{threeparttable}
   }
-    
+
   \vspace{2mm}
   \hrule
   \vspace{3em}
@@ -145,7 +145,7 @@ The following five sections present experiments used in our empirical evaluation
         \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 120 & 401 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 83 & 381 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 73 & 675 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{ALL} & \textbf{864} & \textbf{5510} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all} & \textbf{864} & \textbf{5510} \\
         \hline
       \end{tabular}
     \end{threeparttable}
@@ -258,7 +258,7 @@ The rational behind the categories is separate the lower and upper percentiles i
 \subsection{Cross Validation}
 \label{subsec:experiment_cross_validation}
 \begin{quote}
-	\emph{``Using the acquired data from our test subjects can we identify a set of features that maximize cross-validation accuracy?''}
+	\emph{\textbf{Research Question:} Using the acquired data from our test subjects can we identify a set of features that maximize cross-validation accuracy?}
 \end{quote}
 
 \begin{table}[!ht]
@@ -267,10 +267,10 @@ The rational behind the categories is separate the lower and upper percentiles i
   \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{3cm}|>{\raggedleft\arraybackslash}p{3cm}|>{\raggedleft\arraybackslash}p{3cm}|}
     \hline
     \rowcolor[RGB]{169,196,223}
-    \textbf{Category} & \textbf{Mutation Score Range} & \textbf{Class-Level Units} & \textbf{Method-Level Units} \\
-    \hline LOW & [0.00--0.70) & 191 & 1104 \\
-    \hline MEDIUM & [0.70--0.90) & 459 & 1782 \\
-    \hline HIGH & [0.90--1.00] & 214 & 2624 \\
+    \textbf{Category} & \textbf{Mutation Score Range (\%)} & \textbf{Class-Level Units} & \textbf{Method-Level Units} \\
+    \hline LOW & [0 -- 70) & 191 & 1104 \\
+    \hline MEDIUM & [70 -- 90) & 459 & 1782 \\
+    \hline HIGH & [90 -- 100] & 214 & 2624 \\
     \hline
   \end{tabular}
   \caption{The available number of source code units that fall within the determined ranges of mutation scores.}
@@ -364,7 +364,7 @@ We have looked at the overall cross-validation accuracy using the different feat
 \subsection{Prediction on Unknown Data}
 \label{subsec:experiment_prediction}
 \begin{quote}
-	\emph{``How well can our approach predict on unknown data, within an individual subject and across subjects?''}
+	\emph{\textbf{Research Question:} How well can our approach predict on unknown data, within an individual subject and across subjects?}
 \end{quote}
 
 \noindent
@@ -426,7 +426,7 @@ We conducted a number of tests where we use LIBSVM's \emph{easy script} to find 
   \label{fig:prediction_method_graph}
 \end{figure}
 
-We present the results of training and prediction for class- and method-level in Figure~\ref{fig:prediction_class_graph}~\&~\ref{fig:prediction_method_graph}. We can see a common trend in both class- and method-level source code units for prediction accuracy, the individual subjects have a much wider variation in accuracy while the \emph{all\_but\_<subject>} exhibit this less. This is mainly due to the low amount of training data provided due to undersampling as we previously mentioned in Section~\ref{subsec:experiment_cross_validation} using Table~\ref{tab:experiments_undersampled_data}. In the class-level accuracies we can see that a number of the subjects have variations in their accuracy that was actually 0\%. In these situations nothing was predicted correctly, we describe why this might be occurring in the following section. A number of the class-level subjects mean accuracies are just above or below the random value of 33.3333\%, which is a little disappointing. On the contrary, method-level subjects mostly perform much better then their class-level counterparts. We see the similar trends from cross-validation (see Section~\ref{subsec:experiment_cross_validation}) for \emph{joda-primitives} and \emph{joda-time} for method-level accuracies. The differences between the class- and method-level source code unit prediction of unknown data is interesting and could be a cause of the two following factors: 
+We present the results of training and prediction for class- and method-level in Figure~\ref{fig:prediction_class_graph}~\&~\ref{fig:prediction_method_graph}. We can see a common trend in both class- and method-level source code units for prediction accuracy, the individual subjects have a much wider variation in accuracy while the \emph{all\_but\_<subject>} exhibit this less. This is mainly due to the low amount of training data provided due to undersampling as we previously mentioned in Section~\ref{subsec:experiment_cross_validation} using Table~\ref{tab:experiments_undersampled_data}. In the class-level accuracies we can see that a number of the subjects have variations in their accuracy that was actually 0\%. In these situations nothing was predicted correctly, we describe why this might be occurring in the following section. A number of the class-level subjects mean accuracies are just above or below the random value of 33.3333\%, which is a little disappointing. On the contrary, method-level subjects mostly perform much better then their class-level counterparts. We see the similar trends from cross-validation (see Section~\ref{subsec:experiment_cross_validation}) for \emph{joda-primitives} and \emph{joda-time} for method-level accuracies. The differences between the class- and method-level source code unit prediction of unknown data is interesting and could be a cause of the two following factors:
 
 \begin{itemize}
   \item Classes have much more factors involved in them (i.e., a set of methods) thus harder to predict
@@ -437,11 +437,11 @@ We present the results of training and prediction for class- and method-level in
 \subsection{Optimization \& Generalization}
 \label{subsec:experiment_optimization_generalization}
 \begin{quote}
-	\emph{``Can we optimize our approach to achieve better performance by using a better measure of classifier performance? Can we identify a general set of \gls{svm} parameters that maximize prediction performance on unknown data?''}
+	\emph{\textbf{Research Question:} Can we optimize our approach to achieve better performance by using a better measure of classifier performance? Can we identify a general set of \gls{svm} parameters that maximize prediction performance on unknown data?}
 \end{quote}
 
 \noindent
-We keep track of the frequency of parameter pairs selected over all the prediction experiments conducted in Section~\ref{subsec:experiment_prediction}. As a result of LIBSVM's \emph{easy script} we saw 57 different pairings of the LIBSVM parameters \emph{cost} and {gamma} (described in Section~\ref{subsec:background_support_vector_machine}). This indicates that the classifiers are being tuned specifically to maximize the cross-validation accuracy. Due to undersampling different parameters are being used to ensure this maximization of cross-validation accuracy. To encourage generalization of unknown projects and data ideally we want to find a parameter pairing that maximizes generalizability and classification performance on unknown data. As our approach initially requires mutation testing results to perform training it might be appropriate to select the best parameters for the given data. In the previous section for predictions on unknown data (see Section~\ref{subsec:experiment_prediction}) we included the \emph{all\_but\_<subject>} data sets which for our approach does not require us to have the mutation score for practical usage. In this situation it becomes much more clear on why we need a generalizable set of parameters that hopefully performance well on most subjects. In terms of usability if we can find a general set of parameters for predicting mutation scores this will lessen the need to specifically tune every classifier prior to prediction.
+We keep track of the frequency of parameter pairs selected over all the prediction experiments conducted in Section~\ref{subsec:experiment_prediction}. As a result of LIBSVM's \emph{easy script} we saw 57 different pairings of the LIBSVM parameters \emph{cost} and \emph{gamma} (described in Section~\ref{subsec:background_support_vector_machine}). This indicates that the classifiers are being tuned specifically to maximize the cross-validation accuracy. Due to undersampling different parameters are being used to ensure this maximization of cross-validation accuracy. To encourage generalization of unknown projects and data ideally we want to find a parameter pairing that maximizes generalizability and classification performance on unknown data. As our approach initially requires mutation testing results to perform training it might be appropriate to select the best parameters for the given data. In the previous section for predictions on unknown data (see Section~\ref{subsec:experiment_prediction}) we included the \emph{all\_but\_<subject>} data sets which for our approach does not require us to have the mutation score for practical usage. In this situation it becomes much more clear on why we need a generalizable set of parameters that hopefully performance well on most subjects. In terms of usability if we can find a general set of parameters for predicting mutation scores this will lessen the need to specifically tune every classifier prior to prediction.
 
 \begin{sidewaysfigure}[h]
   \centering
@@ -455,7 +455,7 @@ We keep track of the frequency of parameter pairs selected over all the predicti
 
   \vspace{2mm}
   \hrule
-	\vspace{3em}    
+	\vspace{3em}
 
   \centering
   \captionbox{Raw output of training on \texttt{joda-time} then predicting on its unknowns using the parameters \emph{cost}=8 and \emph{gamma}=0.125.\label{fig:raw_output_good}}{
@@ -466,7 +466,7 @@ We keep track of the frequency of parameter pairs selected over all the predicti
     \end{minipage}
 	}
   \vspace{2mm}
-  \hrule  
+  \hrule
 \end{sidewaysfigure}
 
 We noticed that in some situations accuracy is not the best measure for a classifier's effectiveness. For example, consider the following situation: Given imbalanced data for the testing/unknown data set the accuracy could misrepresent the performance of the classifier. The raw outputs of our classifier using two different sets of parameters on the \emph{joda-time} subject are shown in Figure~\ref{fig:raw_output_bad}~\&~\ref{fig:raw_output_good}. In both of the raw outputs we can see a confusion matrix along with performance measures. We can see raw output in Figure~\ref{fig:raw_output_bad} that all of predictions fall in category \texttt{2}, with none in the other categories. The \emph{joda-time} data set is imbalanced while the majority of data (i.e., 76.1675\% of the data) belongs to category \texttt{2}. Even with the biased predictions made towards the majority category the accuracy of the prediction is 76.1675\%. In contrast to the the raw output presented in Figure~\ref{fig:raw_output_good} we can see that the accuracy is slightly lower at 71.7391\%. Now even though the accuracy in the second example is slightly lower we can consider it a superior classifier to the former as it actually treats the categories in a more unbiased fashion (i.e., one category is not receiving the majority of predictions like the previous example). To alleviate this problem we consider other measurements that can be used to assess the predictive capabilities of classifiers, in particular we consider the following measure:
@@ -499,13 +499,13 @@ We noticed that in some situations accuracy is not the best measure for a classi
   \centering
   \rowcolors{1}{gray!30}{gray!20}
   \begin{threeparttable}
-    \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{3.25cm}|>{\raggedleft\arraybackslash}p{3.25cm}|}
+    \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{3.75cm}|>{\raggedleft\arraybackslash}p{3.75cm}|}
       \rowcolor[RGB]{169,196,223}
-      \hline & \textbf{Bad Classifier (Figure~\ref{fig:raw_output_bad})} & \textbf{Good Classifier (Figure~\ref{fig:raw_output_good})} \\
-      \hline \cellcolor[RGB]{169,196,223} \textbf{Mean Accuracy} & 0.761675 & 0.717391 \\
-      \hline \cellcolor[RGB]{169,196,223} \textbf{Mean F-score} & 0.288239 & 0.453783 \\
-      \hline \cellcolor[RGB]{169,196,223} \textbf{Mean Balance Accuracy} & 0.500000 & 0.622753 \\
-      \hline \cellcolor[RGB]{169,196,223} \textbf{Mean Youden-index} & 0.000000 & 0.245506 \\
+      \hline & \textbf{Bad Classifier (\%) (Figure~\ref{fig:raw_output_bad})} & \textbf{Good Classifier (\%) (Figure~\ref{fig:raw_output_good})} \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Mean Accuracy} & 76.1675 & 71.7391 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Mean F-score} & 28.8239 & 45.3783 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Mean Balance Accuracy} & 50.0000 & 62.2753 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Mean Youden-index} & 00.0000 & 24.5506 \\
       \hline
     \end{tabular}
   \end{threeparttable}
@@ -557,7 +557,7 @@ Using our search strategy as described we attained the following \gls{svm} param
   \begin{threeparttable}
     \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|}
       \rowcolor[RGB]{169,196,223}
-      \hline & \textbf{Before Parameter Generalization (Figure~\ref{fig:prediction_method_graph})} & \textbf{After Parameter Generalization (Figure~\ref{fig:prediction_with_parameters_method_graph})} & \textbf{Gain($\uparrow$)/Lost($\downarrow$) from Parameter Generalization} \\
+      \hline & \textbf{Before Parameter Generalization (\%) (Figure~\ref{fig:prediction_method_graph})} & \textbf{After Parameter Generalization (\%) (Figure~\ref{fig:prediction_with_parameters_method_graph})} & \textbf{Gain($\uparrow$)/Lost($\downarrow$) from Parameter Generalization (\%)} \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 54.3038\pm3.9333 & 39.8734\pm12.5488 & $ \downarrow$14.4304\pm$\uparrow$8.6155 \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 34.4000\pm15.4574 & 40.0000\pm9.2376 & $ \uparrow$5.6000\pm$\downarrow$6.2198 \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 38.1395\pm20.5448 & 46.9767\pm7.4998 & $ \uparrow$8.8372\pm$\downarrow$13.0450 \\
@@ -590,7 +590,7 @@ Using our search strategy as described we attained the following \gls{svm} param
   \begin{threeparttable}
     \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|}
       \rowcolor[RGB]{169,196,223}
-      \hline & \textbf{Before Parameter Generalization (Figure~\ref{fig:prediction_method_graph})} & \textbf{After Parameter Generalization (Figure~\ref{fig:prediction_with_parameters_method_graph})} & \textbf{Gain($\uparrow$)/Lost($\downarrow$) from Parameter Generalization} \\
+      \hline & \textbf{Before Parameter Generalization (\%) (Figure~\ref{fig:prediction_method_graph})} & \textbf{After Parameter Generalization (\%) (Figure~\ref{fig:prediction_with_parameters_method_graph})} & \textbf{Gain($\uparrow$)/Lost($\downarrow$) from Parameter Generalization (\%)} \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 42.4242\pm5.7140 & 47.5758\pm10.8838 & $\uparrow$5.1516\pm$\uparrow$5.1698 \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 45.4286\pm8.0193 & 52.2857\pm8.7339 & $\uparrow$6.8571\pm$\uparrow$0.7146 \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 43.4375\pm5.1455 & 53.4375\pm7.1716 & $\uparrow$10.0000\pm$\uparrow$2.0261 \\
@@ -617,19 +617,26 @@ Using our search strategy as described we attained the following \gls{svm} param
   \label{tab:experiments_comparison_method_prediction}
 \end{sidewaystable}
 
-We present the new generalizable results (see Figure~\ref{fig:prediction_with_parameters_class_graph}~\&~\ref{fig:prediction_with_parameters_method_graph}) in the same format as the pre-generalizable results (see Figure~\ref{fig:prediction_class_graph}~\&~\ref{fig:prediction_method_graph}). Using the generalizable parameters we can see that in both class- and method-level results the resulting accuracy tend to increase slightly. In some situations we can even see that the variability in accuracy decreased. In particular we can see that in class-level predictions the possibilities of 0\% accuracy (which occurred in 4 of the subjects without the generalizable parameters) does not occur anymore. This happened as a result of the selecting parameters that maximized F-score instead of, which treats the predictions of categories more fairly (i.e., avoiding predicting all of one categories, which could be the wrong categories). To further see the benefits of using generalized LIBSVM parameters we compared the individual accuracies and standard deviation of each subject. As presented in Table~\ref{tab:experiments_comparison_class_prediction}~\&~\ref{tab:experiments_comparison_method_prediction} we can see the gains and losses in mean and standard deviation of prediction accuracy from the application of generalized parameters. In terms of changes, improvement for mean accuracy would be a gain (i.e., better prediction accuracy) while for standard deviation an improvement would be a loss (i.e., smaller variation in prediction accuracy). Of the 16 class-level subjects presented in Table~\ref{tab:experiments_comparison_class_prediction}, 12/16 subjects saw an improvement in mean accuracy and 9/16 subjects saw an improvement in standard deviation. Of the 16 method-level subjects presented in Table~\ref{tab:experiments_comparison_class_prediction}, 13/16 subjects saw an improvement in mean accuracy and 10/16 subjects saw an improvement in standard deviation. These results show that the generalized parameters overall had a positive effect on the subjects's performance. Overall the class-level average saw an improvement of 4.8147 in mean prediction accuracy with a slight improvement of 0.6775 in standard deviation. Method-level average prediction accuracy saw an improvement of 3.7847 while the standard deviation worsen by 0.1363. The improvements in both class- and method-level are both a side benefit of using generalized LIBSVM parameters, as the main purpose was to nullify the need for parameter selection (i.e., no need to grid search on known data) to make predictions on unknown data.
+We present the new generalizable results (see Figure~\ref{fig:prediction_with_parameters_class_graph}~\&~\ref{fig:prediction_with_parameters_method_graph}) in the same format as the pre-generalizable results (see Figure~\ref{fig:prediction_class_graph}~\&~\ref{fig:prediction_method_graph}). Using the generalizable parameters we can see that in both class- and method-level results the resulting accuracy tend to increase slightly. In some situations we can even see that the variability in accuracy decreased. In particular we can see that in class-level predictions the possibilities of 0\% accuracy (which occurred in 4 of the subjects without the generalizable parameters) does not occur anymore. This happened as a result of the selecting parameters that maximized F-score instead of, which treats the predictions of categories more fairly (i.e., avoiding predicting all of one categories, which could be the wrong categories). To further see the benefits of using generalized LIBSVM parameters we compared the individual accuracies and standard deviation of each subject. As presented in Table~\ref{tab:experiments_comparison_class_prediction}~\&~\ref{tab:experiments_comparison_method_prediction} we can see the gains and losses in mean and standard deviation of prediction accuracy from the application of generalized parameters. In terms of changes, improvement for mean accuracy would be a gain (i.e., better prediction accuracy) while for standard deviation an improvement would be a loss (i.e., smaller variation in prediction accuracy). Of the 16 class-level subjects presented in Table~\ref{tab:experiments_comparison_class_prediction}, 12/16 subjects saw an improvement in mean accuracy and 9/16 subjects saw an improvement in standard deviation. Of the 16 method-level subjects presented in Table~\ref{tab:experiments_comparison_class_prediction}, 13/16 subjects saw an improvement in mean accuracy and 10/16 subjects saw an improvement in standard deviation. These results show that the generalized parameters overall had a positive effect on the subjects's performance. Overall the class-level average saw an improvement of 4.8147\% in mean prediction accuracy with a slight improvement of 0.6775\% in standard deviation. Method-level average prediction accuracy saw an improvement of 3.7847\% while the standard deviation worsen by 0.1363\%. The improvements in both class- and method-level are both a side benefit of using generalized LIBSVM parameters, as the main purpose was to nullify the need for parameter selection (i.e., no need to grid search on known data) to make predictions on unknown data.
 
-After optimizations and generalization our approach for mutation score prediction using source code and test suite metrics can out perform random in nearly all subjects we observed. There are two category of subjects we observed for predictions (1) the individual subjects by training on undersampled data and predicting on the remaining unknown data and (2) \emph{all\_but\_<subject>} by training on the 7 other subjects and predicting on the unknown subject. As mentioned before the individual category have a wider variation in prediction accuracy while the \emph{all\_but\_<subject>} category have less variation. With respect to prediction accuracy method-level source code mutation score prediction outperforms class-level predictions. We can see that the prediction accuracy seems to be mostly consistent using the \emph{all\_but\_<subject>} category, but the individual category can allow for individuals which have higher then average prediction accuracy. On average class-level prediction accuracy is 37.8498\pm6.9752 while method-level prediction accuracy is 49.7920\pm3.9737 after parameter generalization. In both class- and method-level these average prediction accuracies outperform random by 4.5165\% and 16.4587\%.
+After optimizations and generalization our approach for mutation score prediction using source code and test suite metrics can out perform random in nearly all subjects we observed. There are two category of subjects we observed for predictions:
+
+\begin{itemize}
+  \item The individual subjects by training on undersampled data and predicting on the remaining unknown data
+  \item The \emph{all\_but\_<subject>} by training on the 7 other subjects and predicting on the unknown subject
+\end{itemize}
+
+As mentioned before the individual category have a wider variation in prediction accuracy while the \emph{all\_but\_<subject>} category have less variation. With respect to prediction accuracy method-level source code mutation score prediction outperforms class-level predictions. We can see that the prediction accuracy seems to be mostly consistent using the \emph{all\_but\_<subject>} category, but the individual category can allow for individuals which have higher then average prediction accuracy. On average class-level prediction accuracy is 37.8498\pm6.9752 while method-level prediction accuracy is 49.7920\pm3.9737 after parameter generalization. In both class- and method-level these average prediction accuracies outperform random by 4.5165\% and 16.4587\%.
 
 
 \subsection{Impact of Data Availability}
 \label{subsec:experiment_data}
 \begin{quote}
-	\emph{``How is the prediction accuracy impacted by the availability of data? Is it possible to only train on a fraction of the source code units and achieve approximately the same prediction performance on the reminding source code units?''}
+	\emph{\textbf{Research Question:} How is the prediction accuracy impacted by the availability of data? Is it possible to only train on a fraction of the source code units and achieve approximately the same prediction performance on the reminding source code units?}
 \end{quote}
 
 \noindent
-As we saw in the previous section using our approach we achieve 49.7920\% prediction accuracy of method-level source code units. This result exceeds random by 16.4587\% and therefore shows that our approach is capable of predicting mutation score categories using source code and test suite metrics. As mentioned in the thesis statement, \emph{``The predictions can be used to reduce the resource cost of mutation testing in traditional iterative development.''}. Traditional iterative development may involve expanding/reducing/refactoring the \gls{sut}, and/or attempting to improve the test suite. By including mutation testing between iterations to determine if any improvements have occurred can be costly if done in a naive manner (i.e., re-conduct the whole mutation test process using the new version of the \gls{sut}). Even with an intelligent approach of selective mutation (i.e., only mutation testing source code units that were added/removed/modified since the previous iteration) the cost of mutation testing can still be substantial.
+As we saw in the previous section using our approach we achieve 49.7920\% prediction accuracy of method-level source code units. This result exceeds random by 16.4587\% and therefore shows that our approach is capable of predicting mutation score categories using source code and test suite metrics. As mentioned in the thesis statement, \emph{``The predictions can be used to reduce the resource cost of mutation testing in traditional iterative development.''}. Iterative development is a \gls{sdlc} that allows developers to work on small changes which eventually adds to a large change with respect to a software system. Traditional iterative development may involve expanding/reducing/refactoring the \gls{sut}, and/or attempting to improve the test suite. By including mutation testing between iterations to determine if any improvements have occurred can be costly if done in a naive manner (i.e., re-conduct the whole mutation test process using the new version of the \gls{sut}). Even with an intelligent approach of selective mutation (i.e., only mutation testing source code units that were added/removed/modified since the previous iteration) the cost of mutation testing can still be substantial.
 
 \begin{figure}[!ht]
   \centering
@@ -653,7 +660,49 @@ As we saw in the previous section using our approach we achieve 49.7920\% predic
   \label{fig:divisor_method_graph}
 \end{figure}
 
-We can reduce the resource cost of mutation testing in traditional iterative development with intermixed iterations of mutation testing and predictions by performing mutation testing on a portion of the \gls{sut} and predicting the reminding portion. To demonstrate, we conducted a number of training and prediction executions using different amounts of source code units for training. We took the amount of undersampled training data instances and divided this amount by intervals of 0.5 from 1.0 to 10.0. We conducted 10 executions using the generalized parameters from Section~\ref{subsec:experiment_optimization_generalization} for each new training amount and recorded the mean accuracy. In situations where the new training amount was identical to another's interval their resulting accuracy were averaged. As we can see in Figure~\ref{fig:divisor_class_graph} the class-level source code units did not show much information as there is a limited number of unique points for the subjects. This is because of the limited data set available for the subjects, if we recall \emph{barbecue} only had 2 data instances per category, while \emph{joda-primitives} only had 1. Unfortunately there does not seem to be enough data to warrant any observation from the class-level. With Figure~\ref{fig:divisor_method_graph} we can see an apparent trend for method-level source code units, there appears to be a \emph{log(n)} relationship with prediction accuracy and the amount of data used for training. \emph{joda-primitives} shows exactly the trend we are expecting, the prediction accuracy tappers off reaching its maximum value between 30\%-35\%. Looking at other subjects we can see similar behavior though not as pronounced. The data suggests that we only required a fraction of the available data from a \gls{sut} to maximize prediction accuracy, in our case we'd suggest about \sfrac{1}{3} of the available data should be used for training purposes to maximize prediction accuracy. Going back to the reduction in resources for mutation testing it is possible to perform mutation testing on the \gls{sut} yet only evaluate a \sfrac{1}{3} of the mutants. Using the results of mutation testing the remaining \sfrac{2}{3} of the mutants can be predicted with an average accuracy of about 50\%. To account for the potential mis-classifications it would be best to cycle the training data such that the \sfrac{1}{3} used is mostly unique in each iteration. Within three iterations all mutants would have been actually evaluated once, while the predictions cover the remaining \sfrac{2}{3}. This will allow for \sfrac{2}{3} of the mutation testing resources to be reclaimed in an optimal scenario while reducing the negative effect of mis-classifications. Given that a \gls{sut} is iteratively developed we can assume that at some point all mutants have actually been evaluated. Using our approach we can keep this information in our database and reuse it for training purposes.
+There is no consensus on good ratios for training data and. testing data. Using the common 10-fold cross-validation~\cite{Koh95} as a guide line a 9:1 ratio for training data to testing data is a good rule-of-thumb. Considering that an ideal classifier could be trained with minimal amount of data yet perform at a maximum during predictions. Using 90\% of a large data set for training might be considered wasteful when considering a classifier's \emph{learning curve}. Provost et. al. mention \emph{``Learning curves typically have a steeply sloping portion early in the curve, a more gently sloping middle portion, and a plateau late in the curve''}~\cite{PJO99}. Using a sample of the available training data that provides a representative of the whole data set will retain near the same predictive performance. Through an empirical evaluation Provost et. al. demonstrated that the minimum amount of training data required to maximize the prediction performance of a classifier (i.e., reaching the plateau of the learning curve) varies based on the data set. Using a progress random sampling algorithm Provost et.al. were able to determine the minimum amount of training data essentially using a trial-by-error, it is impossible to know the minimum amount before hand. From their experimentation with three data sets they found that the minimum percent of training data required for maximum prediction performance were 2\% (of 100K items), 12\% (of 100K items) and 25\% (of 32K items). Finally Provost et. al. were able to demonstrate the benefit of random sampling to reduce the training set, namely a reduction in computational cost using a smaller training data set. Wang et. al. also demonstrated random sampling reduce the amount of training data necessary to achieve maximum prediction performance~\cite{WNC05}. Wang et. al. evaluated a range of random sampling (ranging from 10\%-100\%) of four data sets and the worst loss in prediction performance was approximately 10.5\%. 
+
+Random sampling appears to perform well for reducing the training set size while retaining prediction performance~\cite{PJO99, WNC05}. There exists more complex approach to this problem, one uses centroids of weighted clusters which essentially groups similar items in the training set and treating them as one item~\cite{NBP08}. With our approach with respect to data availability we are interested in minimizing the data required to make accuracy predictions. Similarly to the previous research on random sampling to reduce the training data set, we decided to explore how it effects our prediction accuracy. Ideally we can reduce the resource cost of mutation testing in traditional iterative development with intermixed iterations of mutation testing and predictions by performing mutation testing on a portion of the \gls{sut} and predicting the reminding portion. 
+
+We conducted a number of training and prediction executions using different amounts of source code units for training. We took the amount of undersampled training data instances and divided this amount by intervals of 0.5 from 1.0 to 10.0. We conducted 10 executions using the generalized parameters from Section~\ref{subsec:experiment_optimization_generalization} for each new training amount and recorded the mean accuracy. In situations where the new training amount was identical to another's interval their resulting accuracy were averaged. As we can see in Figure~\ref{fig:divisor_class_graph} the class-level source code units did not show much information as there is a limited number of unique points for the subjects. This is due to the limited data set available for the subjects, if we recall \emph{barbecue} only had 2 data instances per category, while \emph{joda-primitives} only had 1. Unfortunately there does not seem to be enough data to warrant any observation from the class-level. With Figure~\ref{fig:divisor_method_graph} we can see an apparent trend for method-level source code units, there appears to be a \emph{log(n)} relationship with prediction accuracy and the amount of data used for training (i.e., the \emph{learning curve}). \emph{joda-primitives} shows exactly the trend we are expecting, the prediction accuracy tappers off reaching its maximum value between 30\%-35\%. Looking at other subjects we can see similar behavior though not as pronounced.
+
+We known that there exists a minimum number of training data items required to reach the prediction accuracy plateau, with our data sets we might not have enough data to see this effect. Considering that the previous research works see results with a little as 2\% of the training data used, we cannot possibly achieve results like that considering we have less than 1000 items for our individual subjects comparative to 100K items. A quick observation of our results suggests that we could probably use a fraction of the available data from a \gls{sut} to achieve near optimal prediction accuracy. In our case we'd suggest using a third or more of the available data for training purposes to maximize prediction accuracy. By considering a fraction of the mutants for training purposes it is not necessary to evaluate the remaining fraction and our approach could be used to predict the mutation score of the remaining source code units. To account for the potential mis-classifications (considering we have 50\% prediction accuracy) it would be best to cycle the training data such that the we select a new random sample that is mostly unique in each iteration. With enough iterations all mutants would have been actually evaluated once, while only really evaluating a fraction of the mutants from the \gls{sut}. As a side effect we can assume that at some point all mutants have actually been evaluated and we could keep this information in our database and reuse it for training purposes.
+
+
+\section{Threats to Validity}
+\label{sec:experiment_threats}
+We consider the four categories for threats to validity with respect to experimentation in Section~\ref{subsec:experiment_conclusion_validity}--~\ref{subsec:experiment_external_validity}.
+
+
+\subsection{Conclusion Validity}
+\label{subsec:experiment_conclusion_validity}
+Threats to conclusion validity involve issues with the process and statistical means to draw any conclusions regarding experiments~\cite{WRH+00,WKP10}. We utilized various summary statistical measures to determine the conclusions of our results. In particular we used the following statistical measures: mean, standard deviation, quartiles and frequencies to understand our experiments with respect to their results. Furthermore with our results we conducted a minimum of 10 executions per experiment to mitigate the randomness of our results. With respect to drawing conclusions were comparing the average accuracy to what a random prediction would achieve. Thus by comparing the mean accuracies we were able to compare our approach to random. In retrospect we should have performed more executions per experiment to further reduce the noise. Furthermore we could have performed a statistical test to understand the statistical significants of our comparison.
+
+
+\subsection{Internal Validity}
+\label{subsec:experiment_internal_validity}
+Internal threats to validity are concerned with factors that could influence the independent variable in our experiments~\cite{WRH+00,WKP10}. Our independent variables are the features themselves from the 8 open-source systems that we selected. Obviously there could be issues that can arise based on the measures that our tools returned for each system, though these tools are well established and provide simplistic measures (i.e., issues are unlikely to arise due to \emph{incorrect} results). With respect to the mutants themselves that are generated by the \emph{Javalanche} mutation testing tool, the version used was experimental and could be more susceptible to \emph{incorrect} results. Furthermore \emph{Javalanche} uses a subset of mutants (i.e., mainly method-level mutants), which could have a major impact on the class-level source code units. With respect to \emph{true} internal validity the independent variables are not influencing each other in ways that we were not aware of that could be detrimental to our experiment.
+
+
+\subsection{Construct Validity}
+\label{subsec:experiment_construct_validity}
+Whether the independent and dependant variables we are using actually align with the problem we are experimenting with is an issue with construct validity~\cite{WRH+00,WKP10}. In our experiment we are using a set of features extracted from open-source software systems (i.e., the independent variables) to determine the accuracy of predicting mutation score (i.e, the dependant variable). Machine learning performance measures (i.e., accuracy, F-score, etc...) are valid dependant variables as they measure the effectiveness of the classification technique. The independent variables for machine learning are harder to determine by nature, there is often no clear set of features for making predictions. For our experiment we observed the two main components involved in mutation testing, and these are the source code and test suite. These two components can be represented in quantifiable metrics (i.e., source code and test suite metrics) which are commonly known and used in Software Engineering research.
+
+
+\subsection{External Validity}
+\label{subsec:experiment_external_validity}
+With experiments one of the major concerns involve the ability for the results to generalize outside of the study, that is external validity~\cite{WRH+00,WKP10}. With our experiment we specifically avoided toy-problems and opted to use open-source systems, which are real software systems. These systems are not industrial system nor extremely large-scale (i.e., 100K+ \gls{sloc}), thus we are unsure if the results would generalize to such systems. The open-source systems we chose had some variation in domain (i.e., library, framework, etc...) though our set obviously does not act as a representative of different domains. In addition most of the subjects we used had relatively \emph{good} test suites (i.e., of the covered mutants the mutation scores were above 50\%), we are unsure how our prediction would perform on systems with \emph{poor} test suites. Furthermore we observed only the Java language, whether these results generalize to other languages has not been verified. As stated by Kitchenham and Mendes \emph{``It is invalid to select one or two datasets to `prove' the validity of a new technique because we cannot be sure that, of the many published datasets, those chosen are the only ones that favour the new technique''}~\cite{KM09}. We used only 8 open-source projects as our datasets for our prediction technique, even though this is more then one or two it is still quite limited.  Mutants can be influenced by external factors such test suite size and mutation operators as it was found that class-level mutants are harder to detect than traditional method-level mutants~\cite{NK11}. As we used only traditional mutation operators this could have an impact on the generalizability, same with the varying sizes of the test suites of our subjects.
+
+Recall that our approach for predicting mutation scores based on source code and test suite metrics utilizes a number of tools:
+
+\begin{itemize}
+  \item \emph{Javalanche} to collect mutation scores
+  \item \emph{Eclipse Metrics Plugin} to collect source code and test suite metrics
+  \item \emph{EMMA} to collect additional test suite coverage metrics
+  \item \emph{LIBSVM} to perform the training and prediction of the source code units
+\end{itemize}
+
+We selected tools based on the metrics they could provide as well as the the output format, there might be other candidates tool that could have performed better. In particular the mutation testing tool we selected is not the newest, and omits a whole class of mutations (i.e., class-level object-oriented mutants), which could be misrepresenting the mutation scores. The tools used to collect the features of the source code units might not be comprehensive in terms of features that describe the source code units.
 
 
 \section{Summary}
@@ -664,4 +713,5 @@ In this chapter we covered the following topics that demonstrate out approach on
   \item In Section~\ref{sec:experiment_setup} we covered our experimental setup with respect to environment, test subjects, tool configuration and data preparation.
   \item In Section~\ref{sec:experiment_methodology} we discussed our experimental methodology for the five experiments that were conducted in this chapter.
   \item In Section~\ref{sec:experiment_results} we covered a number of experiments and discussed their results. Specifically we experimented with mutation score distribution (Section~\ref{subsec:experiment_mutation_score_distribution}, cross-validation (Section~\ref{subsec:experiment_cross_validation}, prediction (Section~\ref{subsec:experiment_prediction}), optimization \& generalization (Section~\ref{subsec:experiment_optimization_generalization}), and the impact of data availability (Section~\ref{subsec:experiment_data}).
+  \item In Section~\ref{sec:experiment_threats} we discussed conclusion, internal, construct and external threats to validity of our empirical evaluation.
 \end{itemize}

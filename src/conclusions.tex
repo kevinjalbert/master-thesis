@@ -16,63 +16,41 @@ We evaluated our approach using 8 experimental test subjects that contained abou
   \item In Section~\ref{subsec:experiment_cross_validation} we used the available data factoring in the three categories and evaluated the different feature sets over all our test subjects. Using all feature sets provided the greatest cross-validation accuracy, outperforming the feature sets individually.
   \item In Section~\ref{subsec:experiment_prediction} we evaluated our prediction approach on unknown data within individual subjects and across subjects. Our results showed that class-level mutation score prediction was harder to predict, while method-level predictions performed better than class-level predictions. Furthermore predictions of unknown data within an individual subject yielded higher accuracy than across subjects.
   \item In Section~\ref{subsec:experiment_optimization_generalization} we explore avenues to optimize and generalize our prediction approach. We identified that using cross-validation accuracy in \gls{svm} parameter selection can be ineffective. We presented several alternative and more effective performance measures, namely \emph{F-score}. We performed our own grid search to identify a single set of \gls{svm} parameters that maximized F-score across all data sets. We identified generalizable \gls{svm} parameters for class- and method-level predictions, and re-evaluated our prediction accuracy using the new parameters. As a result we were able to increase the average prediction accuracy by 4.8147\% and 3.7847\% for class- and method-level source code units respectively.
-  \item In Section~\ref{subsec:experiment_data} we conducted an experiment that observed how our approach's prediction accuracy changed with the availability of data. By limiting the a test subjects data used for training we were able to find that approximately \sfrac{1}{3} of the data is necessary for training to maximize prediction accuracy on the remanding unknown data. We showed the applicability of using our approach for an iterative development environment where it is possible to use mutation testing on a fraction of the available data and predict on the remaining amount.
+  \item In Section~\ref{subsec:experiment_data} we conducted an experiment that observed how our approach's prediction accuracy changed with the availability of data. By limiting the amount of training data used for training we showed that a \emph{learning curve} clearly defined in some of our test subjects while not as pronounced in others. This experiment demonstrates that it is possible to train on a fraction of the available data and predict the remainder with near optimal accuracy. We showed the applicability of using our approach for an iterative development environment where it is possible to use mutation testing on a fraction of the available data and predict on the remaining amount.
 \end{itemize}
 
 
 \section{Contributions}
 \label{sec:conclusions_contributions}
-Based on our empirical evaluation (see Chapter~\ref{chap:experiment}) we also produced the following contributions to the domain of mutation score prediction:
+Based on our empirical evaluation (see Chapter~\ref{chap:experiment}) we produced the following contributions to the domain of mutation score prediction:
 
 \begin{itemize}
-  \item Identified several features that can be used to prediction mutation scores of source code units
-  \item Presented the mutation score distribution of covered mutants over 8 open-source systems
-  \item Observed the effect on cross-validation accuracy with respect to the feature sets
-  \item Observed the effect of predicting on unknown source code units (i.e., not used for training) both within an individual project and across projects
-  \item Found a set of \gls{svm} parameters for class- and method-level predictions that maximize generalizability in the observed open-source systems.
-  \item Understood the impact on prediction accuracy based on the amount of data from an individual project is used for training.
+  \item Proposed a new approach for prediction the mutation score of a class- and method-level source code unit using source code and test suite metrics. We performed an empirical evaluation of our approach over 8 open source test subjects.
+  \item Identified 33 specific metrics (further grouped into four logical sets) capable to describe source code units with respect to mutation score predictions.
+  \item Identified three categories that abstract the exact mutation score of a source code unit using the mutation score distribution of our selected test subjects. This technique can be further used in situations where an even distribution of real values is not plausible to create even categories.
+  \item Demonstrated through cross-validation that the four feature sets in combination provided more accuracy than the feature sets individually.
+  \item Identified that class-level source code units are harder to predict than method-level source code units as they are composed of multiple method-level source code units (i.e., more complex).
+  \item Demonstrated that prediction on unknown data is possible. Predictions within an individual has more more variation in the performance than predictions on an unknown subject. Predictions within an individual potentially have higher accuracy than predictions on an unknown subject.
+  \item Identified a generalizable set of \gls{svm} parameters that maximized F-score over our test subjects. The generalizable parameters increased prediction accuracy (3.7847\% for class-level and 4.8147\% for method-level) over the accuracy determined through cross-validation.
+  \item Demonstrated that it is possible to only train on a fraction of the available data and still achieve near optimal prediction accuracy.
 \end{itemize}
 
 Specifically we showed that using all the available features we were able to achieve an average prediction accuracy of 37.8498\% and 49.7920\%, for class- and method-level source code units respectively. Method-level predictions have a much higher accuracy than class-level predictions, which is all right as method-level source code units are finer grain in terms of scope. We achieved higher than random prediction accuracies using generalized \gls{svm} parameters, which removes the need of finding suitable parameters for new data. Our approach is novel in that we consider both source code and test suite metrics as factors in making the predictions in software testing. We also performed feature selection on the used features in Appendix~\ref{app:feature_selection}, which showed that it is possible to reduce feature set while retaining prediction accuracy.
 
 
-\section{Limitations \& Threats to Validity}
+\section{Limitations}
 \label{sec:conclusions_limitations}
-As with any study/experiment there will be limitations and threats to validity. In Section~\ref{subset:conclusions_limitations_approach} we discuss limitations with our approach. We consider the four categories for threats to validity with respect to experimentation in Section~\ref{subsec:conclusions_conclusion_validity}--~\ref{subsec:conclusions_external_validity}.
-
-
-\subsection{Limitations of Approach}
-\label{subset:conclusions_limitations_approach}
-Recall that our approach for predicting mutation scores based on source code and test suite metrics utilizes a number of tools:
+We list several limitations of our approach and empirical evaluation:
 
 \begin{itemize}
-  \item \emph{Javalanche} to collect mutation scores
-  \item \emph{Eclipse Metrics Plugin} to collect source code and test suite metrics
-  \item \emph{EMMA} to collect additional test suite coverage metrics
-  \item \emph{LIBSVM} to perform the training and prediction of the source code units
+	\item In our approach we had removed any source code unit that was abstract/overloaded/anonymous due to their complexity, which reduced our usable data and could have misrepresented the actual systems.
+	\item We currently calculate the \emph{not} (i.e., number of tests) metrics in our approach using Javalanche, ideally this should be calculated using EMMA.
+	\item We used only 8 open source test subjects, this is probably not a representative sample of software systems.
+	\item We used only a mix of 33 source code and test suite metrics to represent a source code unit, there are probably more metrics that we could use for our predictions.
+	\item We evaluated our approach using a three categories to abstract the exact mutation score prediction. There might be value in a 2 or 4+ category approach.
 \end{itemize}
 
-We selected tools based on the metrics they could provide as well as the the output format, there might be other candidates tool that could have performed better. In particular the mutation testing tool we selected is not the newest, and omits a whole class of mutations (i.e., class-level object-oriented mutants), which could be misrepresenting the mutation scores. In our approach we had removed any source code unit that was abstract/overloaded/anonymous due to their complexity, which reduced our usable data and could have misrepresented the actual systems. The tools used to collect the features of the source code units might not be comprehensive in terms of features that describe the source code units.
-
-
-\subsection{Conclusion Validity}
-\label{subsec:conclusions_conclusion_validity}
-Threats to conclusion validity involve issues with the process and statistical means to draw any conclusions regarding experiments~\cite{WRH+00,WKP10}. We utilized various summary statistical measures to determine the conclusions of our results. In particular we used the following statistical measures: mean, standard deviation, quartiles and frequencies to understand our experiments with respect to their results. Furthermore with our results we conducted a minimum of 10 executions per experiment to mitigate the randomness of our results. With respect to drawing conclusions were comparing the average accuracy to what a random prediction would achieve. Thus by comparing the mean accuracies we were able to compare our approach to random. In retrospect we should have performed more executions per experiment to further reduce the noise. Furthermore we could have performed a statistical test to understand the statistical significants of our comparison.
-
-
-\subsection{Internal Validity}
-\label{subsec:conclusions_internal_validity}
-Internal threats to validity are concerned with factors that could influence the independent variable in our experiments~\cite{WRH+00,WKP10}. Our independent variables are the features themselves from the 8 open-source systems that we selected. Obviously there could be issues that can arise based on the measures that our tools returned for each system, though these tools are well established and provide simplistic measures (i.e., issues are unlikely to arise due to \emph{incorrect} results). With respect to the mutants themselves that are generated by the \emph{Javalanche} mutation testing tool, the version used was experimental and could be more susceptible to \emph{incorrect} results. Furthermore \emph{Javalanche} uses a subset of mutants (i.e., mainly method-level mutants), which could have a major impact on the class-level source code units. With respect to \emph{true} internal validity the independent variables are not influencing each other in ways that we were not aware of that could be detrimental to our experiment.
-
-
-\subsection{Construct Validity}
-\label{subsec:conclusions_construct_validity}
-Whether the independent and dependant variables we are using actually align with the problem we are experimenting with is an issue with construct validity~\cite{WRH+00,WKP10}. In our experiment we are using a set of features extracted from open-source software systems (i.e., the independent variables) to determine the accuracy of predicting mutation score (i.e, the dependant variable). Machine learning performance measures (i.e., accuracy, F-score, etc...) are valid dependant variables as they measure the effectiveness of the classification technique. The independent variables for machine learning are harder to determine by nature, there is often no clear set of features for making predictions. For our experiment we observed the two main components involved in mutation testing, and these are the source code and test suite. These two components can be represented in quantifiable metrics (i.e., source code and test suite metrics) which are commonly known and used in Software Engineering research.
-
-
-\subsection{External Validity}
-\label{subsec:conclusions_external_validity}
-With experiments one of the major concerns involve the ability for the results to generalize outside of the study, that is external validity~\cite{WRH+00,WKP10}. With our experiment we specifically avoided toy-problems and opted to use open-source systems, which are real software systems. These systems are not industrial system nor extremely large-scale (i.e., 100K+ \gls{sloc}), thus we are unsure if the results would generalize to such systems. The open-source systems we chose had some variation in domain (i.e., library, framework, etc...) though our set obviously does not act as a representative of different domains. In addition most of the subjects we used had relatively \emph{good} test suites (i.e., of the covered mutants the mutation scores were above 50\%), we are unsure how our prediction would perform on systems with \emph{poor} test suites. Furthermore we observed only the Java language, whether these results generalize to other languages has not been verified. As stated by Kitchenham and Mendes \textit{``It is invalid to select one or two datasets to `prove' the validity of a new technique because we cannot be sure that, of the many published datasets, those chosen are the only ones that favour the new technique''}~\cite{KM09}. We used only 8 open-source projects as our datasets for our prediction technique, even though this is more then one or two it is still quite limited.  Mutants can be influenced by external factors such test suite size and mutation operators as it was found that class-level mutants are harder to detect than traditional method-level mutants~\cite{NK11}. As we used only traditional mutation operators this could have an impact on the generalizability, same with the varying sizes of the test suites of our subjects.
+Furthermore the issues concerning the threats to validity (see Section~\ref{sec:experiment_threats}) are also limitations to our approach and empirical evaluation.
 
 
 \section{Future Work}
@@ -83,6 +61,8 @@ The future work for this thesis can be broken up into two topics:
   \item Improvement and optimization of our approach for predicting mutation scores (Section~\ref{subsec:conclusions_optimizing_approach}
   \item Further experimentation with additional statistical measures to validate the generalizability of our results (Section~\ref{subsec:conclusions_experimental_evaluation})
 \end{itemize}
+
+Furthermore obviously we would like to address the limitations listed in the previous section.
 
 
 \subsection{Optimizing and Improving Approach}
@@ -98,7 +78,7 @@ There are standard optimizations that can be done for our implementation such as
 \label{subsec:conclusions_experimental_evaluation}
 With our experimental setup we utilize a minimum of 10 executions to reduce the noise in our results. To further reinforce our results future work would involve increasing the number of executions (i.e., between 25 and 100 executions). In our analysis of the results we used primarily summary statistics (i.e., mean, standard deviation, etc...), while these statistics provide valid summary of the results there are other statistical measures that are stronger (i.e., confidence interval, hypothesis testing, etc...). Furthermore we performed a number of experiments to evaluate our approach, these alone are not comprehensive in what could have been done. Additional analysis on the features and their relationship with each other and mutation scores would be an interesting study to conduct as it may provide additional detail on the source code units. For future work we would like to evaluate our current results and new experiments with stronger statistical measures.
 
-With respect to our implementation we utilized a number of tools to gather features and the mutation scores. We would like to explore using other tools as alternatives, this has two effects: (1) can allow a better tool to be used and (2) can show that our approach still functions correctly independently of the tools used. Due to our limited set of experimental subjects we did not have a wide variety of domains, source sizes, test suite sizes and mutation scores. By including more open-source and potentially industrial software systems we can cover more pairings of the aforementioned criteria, which will shine insight on the generalizability of our approach.
+With respect to our implementation we utilized a number of tools to gather features and the mutation scores. We would like to explore using other tools as alternative as this can show that our approach still functions correctly independently of the tools used. Due to our limited set of experimental subjects we did not have a wide variety of domains, source sizes, test suite sizes and mutation scores. By including more open-source and potentially industrial software systems we can cover more pairings of the aforementioned criteria, which will shine insight on the generalizability of our approach.
 
 
 \section{Conclusions}
