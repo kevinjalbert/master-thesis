@@ -17,7 +17,7 @@ In Section~\ref{sec:approach_process} we describe each step of our process in de
 \begin{figure}[H]
   \centering
   \includegraphics[width=11cm]{figures/process.pdf}
-  \caption{The complete process for out approach to predict mutation scores.}
+  \caption{Our training process for predicting mutation scores of source code units.}
   \label{fig:process}
   \vspace{2mm}
   \hrule
@@ -302,7 +302,16 @@ Instead of predicting a specific mutation score percentage, we categorize all mu
 
 \section{Prediction}
 \label{sec:approach_prediction}
-Once we have trained the \gls{svm}, we can then use it for prediction. We can predict the mutation score category of an unknown source code unit by first determining the source code and test suite metrics. The metrics (i.e., attributes) are passed into the \gls{svm} model which will then assign a category of \textit{low, medium, high} for the mutation score.
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[width=7cm]{figures/process_prediction.pdf}
+  \caption{Our prediction process for predicting mutation scores of source code units given a trained \gls{svm}.}
+  \label{fig:process_prediction}
+  \vspace{2mm}
+  \hrule
+\end{figure}
+
+Once we have trained the \gls{svm}, we can then use it for prediction. We can predict the mutation score category of an unknown source code unit by first determining the source code and test suite metrics. The metrics (i.e., attributes) are passed into the \gls{svm} model which will then assign a category of \textit{low, medium, high} for the mutation score. As shown in Figure~\ref{fig:process_prediction} our prediction process is not too different from the training process, we now can exclude \emph{Javalanche} from the process\footnote{As previously mentioned we currently calculate the \emph{NOT} (i.e., number of tests) attribute using Javalanche, though ideally we can calculate this using \emph{EMMA}. This is a setback in our current implementation.}.
 
 
 \section{Related Work}
