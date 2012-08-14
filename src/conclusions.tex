@@ -27,15 +27,13 @@ Based on our empirical evaluation (see Chapter~\ref{chap:experiment}) we produce
 \begin{itemize}
   \item Proposed a new approach for prediction the mutation score of a class- and method-level source code unit using source code and test suite metrics. We performed an empirical evaluation of our approach over 8 open source test subjects.
   \item Identified 33 specific metrics (further grouped into four logical sets) capable to describe source code units with respect to mutation score predictions.
-  \item Identified three categories that abstract the exact mutation score of a source code unit using the mutation score distribution of our selected test subjects. This technique can be further used in situations where an even distribution of real values is not plausible to create even categories.
   \item Demonstrated through cross-validation that the four feature sets in combination provided more accuracy than the feature sets individually.
-  \item Identified that class-level source code units are harder to predict than method-level source code units as they are composed of multiple method-level source code units (i.e., more complex).
-  \item Demonstrated that prediction on unknown data is possible. Predictions within an individual has more more variation in the performance than predictions on an unknown subject. Predictions within an individual potentially have higher accuracy than predictions on an unknown subject.
-  \item Identified a generalizable set of \gls{svm} parameters that maximized F-score over our test subjects. The generalizable parameters increased prediction accuracy (3.7847\% for class-level and 4.8147\% for method-level) over the accuracy determined through cross-validation.
-  \item Demonstrated that it is possible to only train on a fraction of the available data and still achieve near optimal prediction accuracy.
+  \item Demonstrated that prediction on unknown data is possible. Predictions within an individual software system has more variation in the mutation score performance than predictions on an unknown software system. Predictions within an individual potentially have higher accuracy than predictions on an unknown software system. Specifically we showed that using all the available features we were able to achieve an average prediction accuracy of 37.8498\% and 49.7920\%, for class- and method-level source code units respectively.
+  \item Identified a generalizable set of \gls{svm} parameters that maximized F-score over our test subjects. The generalizable parameters increased prediction accuracy (+3.7847\% for class-level and +4.8147\% for method-level) over the accuracy determined through cross-validation. We achieved higher than random prediction accuracies using generalized \gls{svm} parameters, which removes the need of finding suitable parameters for new data
+  \item Demonstrated that it is not necessary to train on 90\% of the available data (as in 10-fold cross-validation) in order achieve near optimal prediction accuracy.
 \end{itemize}
 
-Specifically we showed that using all the available features we were able to achieve an average prediction accuracy of 37.8498\% and 49.7920\%, for class- and method-level source code units respectively. Method-level predictions have a much higher accuracy than class-level predictions, which is all right as method-level source code units are finer grain in terms of scope. We achieved higher than random prediction accuracies using generalized \gls{svm} parameters, which removes the need of finding suitable parameters for new data. Our approach is novel in that we consider both source code and test suite metrics as factors in making the predictions in software testing. We also performed feature selection on the used features in Appendix~\ref{app:feature_selection}, which showed that it is possible to reduce feature set while retaining prediction accuracy.
+In summary, our approach is novel in that we consider both source code and test suite metrics as factors in making the predictions in software testing. We also performed feature selection on the used features in Appendix~\ref{app:feature_selection}, which showed that it is possible to reduce feature set while retaining prediction accuracy.
 
 
 \section{Limitations}
@@ -43,11 +41,11 @@ Specifically we showed that using all the available features we were able to ach
 We list several limitations of our approach and empirical evaluation:
 
 \begin{itemize}
-	\item In our approach we had removed any source code unit that was abstract/overloaded/anonymous due to their complexity, which reduced our usable data and could have misrepresented the actual systems.
-	\item We currently calculate the \emph{not} (i.e., number of tests) metrics in our approach using Javalanche, ideally this should be calculated using EMMA.
+	\item In our approach we removed any source code unit that was abstract/overloaded/anonymous (due to their complexity), which reduced our usable data and could have misrepresented the actual systems.
+	\item We currently calculate the \emph{NOT} (i.e., number of tests) metrics in our approach using Javalanche, ideally this should be calculated using EMMA.
 	\item We used only 8 open source test subjects, this is probably not a representative sample of software systems.
-	\item We used only a mix of 33 source code and test suite metrics to represent a source code unit, there are probably more metrics that we could use for our predictions.
-	\item We evaluated our approach using a three categories to abstract the exact mutation score prediction. There might be value in a 2 or 4+ category approach.
+	\item We used only considered 33 possible source code and test suite metrics to predict mutation testing scores, there are probably more metrics that we could use for our predictions.
+	\item We evaluated our approach using three categories to abstract the exact mutation score prediction. The results may not represent prediction on a finer grain set of mutation score categories.
 \end{itemize}
 
 Furthermore the issues concerning the threats to validity (see Section~\ref{sec:experiment_threats}) are also limitations to our approach and empirical evaluation.
