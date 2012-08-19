@@ -26,17 +26,21 @@
 
 \pagenumbering{arabic}
 
-% Include the Chapters
+% Include the chapters
 \include{introduction}
 \include{background}
 \include{approach}
 \include{experiment}
 \include{conclusions}
-\include{appendix_a}
-\include{appendix_b}
 
+% Include bibliography in singlespacing
 \singlespacing
 \bibliographystyle{alpha}
 \bibliography{references}
+
+% Include appendix in doublespacing
+\doublespacing
+\include{appendix_a}
+\include{appendix_b}
 
 \end{document}

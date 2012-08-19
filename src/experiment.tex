@@ -6,12 +6,7 @@ In this chapter we evaluate our approach from Chapter~\ref{chap:approach}. We de
 
 \section{Experimental Setup}
 \label{sec:experiment_setup}
-To encourage reproducibility of our empirical evaluation we discuss the specific details concerning following: environment (Section~\ref{subsec:experiment_environment}), tool configuration (Section~\ref{subsec:experiment_tool_configuration}), test subjects (Section~\ref{subsec:experiment_test_subjects}), and data preparation (Section~\ref{subsec:experiment_data_preparation}).
-
-
-\subsection{Environment}
-\label{subsec:experiment_environment}
-We conducted all of the experiments for our empirical evaluation on a single machine that has 6 GB of \gls{ram}, a \gls{hdd} running at 7200 \gls{rpm}  and an Intel Core i7-870 processor running at 2.93 GHz. The environment is relevant as the mutation testing performance cost is dependant on the processor and \gls{hdd} speed.
+To encourage reproducibility of our empirical evaluation we discuss the specific details concerning following: environment (Section~\ref{subsec:experiment_environment}), tool configuration (Section~\ref{subsec:experiment_tool_configuration}), test subjects (Section~\ref{subsec:experiment_test_subjects}), and data preprocessing (Section~\ref{subsec:experiment_data_preprocessing}).
 
 
 \subsection{Tool Configuration}
@@ -47,7 +42,7 @@ We constructed three simple criteria to select our test subjects:
     \hline openfast (1.1.0)~\cite{openfast} & 11646 & 265 & 1447 & 5587 & 115 & 421 & 322 \\
     \hline jsoup (1.6.2)~\cite{jsoup} & 10949 & 198 & 954 & 2883 & 25 & 335 & 319 \\
     \hline joda-primitives (1.0)~\cite{joda-primitives} & 11157 & 128 & 1868 & 6989 & 49 & 746 & 1810 \\
-    \hline \textbf{ALL} & \textbf{126273} & \textbf{1689} & \textbf{13686} & \textbf{131160} & \textbf{1044} & \textbf{11402} & \textbf{10233} \\
+    \hline \textbf{all} & \textbf{126273} & \textbf{1689} & \textbf{13686} & \textbf{131160} & \textbf{1044} & \textbf{11402} & \textbf{10233} \\
     \hline
   \end{tabular}
   \caption{The set of experimental subjects along with source and test metrics.}
@@ -72,9 +67,14 @@ Following the criteria outlined we selected the following 8 open source Java pro
 For our experiments we have 8 test subjects that we can use individually, though we also are able to consider them collectively. Therefore we further refer to the collective set of all the individual test subjects as the \emph{all} set. By combining the individual test subjects we can evaluate our approach on a mix set of data. As each test subject is different from each other in terms of the functionality they provide and the specific structural design choices, though each one is shares the commonality of being a software system. To further explore how our approach performs on different data we consider 8 additional sets using the \emph{all} set as the base, though excluding an individual test subject. In other words we have 8 \emph{all\_but\_<subject>} sets, which is a combination of each individual subject except the \emph{<subject>}. These additional sets allow us to evaluate our prediction approach by keeping one subject completely isolated from the rest. As our approach focuses on prediction of mutation scores using metrics of the test subjects the \emph{all} and \emph{all\_but\_<subject>} sets allow us to evaluate the generalizability of our approach on mixed and isolated test subjects.
 
 
-\subsection{Data Preparation}
-\label{subsec:experiment_data_preparation}
+\subsection{Data Preprocessing}
+\label{subsec:experiment_data_preprocessing}
 We first run each test subject through a verification test \emph{test} that Javalanche provides. This test identifies any unit test cases that cannot execute properly or fail within Javalanche. We have to remove these test cases as the mutation testing process requires a test suite with no errors. We then import all the test subjects into Eclipse since the Eclipse Metrics Plugin operates from Eclipse. With the our approach we simply configure our scripts to identify the test subject to collect data from, which then the results are stored in a database.
+
+
+\subsection{Environment}
+\label{subsec:experiment_environment}
+We conducted all of the experiments for our empirical evaluation on a single machine that has 6 GB of \gls{ram}, a \gls{hdd} running at 7200 \gls{rpm}  and an Intel Core i7-870 processor running at 2.93 GHz. The environment is relevant as the mutation testing performance cost is dependant on the processor and \gls{hdd} speed.
 
 
 \section{Experimental Methodology}
@@ -83,7 +83,7 @@ Our empirical evaluation consists of five separate experiments. We outline our m
 
 \begin{itemize}
   \item \textbf{Mutation Score Distribution (Section~\ref{subsec:experiment_mutation_score_distribution})}: Using our test subjects described in Section~\ref{subsec:experiment_test_subjects} we first want to understand their mutation testing results. Using our approach we collect the source code, test suite metrics and mutation scores of each test subject. As each subject consists of multiple class- and method-level source code units we are interested in the distribution of mutation scores. By understanding the distribution we can gauge the available data that we will have for the later experiments and detect possible anomalies. We can identify classification categories for the future experiments based on the mutation distribution as \gls{svm} have difficulty prediction real values (i.e., the mutation score).
-  \item \textbf{Cross Validation (Section~\ref{subsec:experiment_cross_validation})}: We identified features that describe source code units in Table~\ref{tab:metrics}. We grouped the features into sets so we could evaluate how each set influences our classification performance. In this section we acquire the cross-validation accuracy of using the different feature sets over all the available data to identify the best feature set. We then evaluate the cross-validation accuracy over each individual subject using the best set of features.
+  \item \textbf{Cross Validation (Section~\ref{subsec:experiment_cross_validation})}: We identified features that describe source code units in Table~\ref{tab:metrics}. We grouped the features into sets (see Table~\ref{tab:feature_sets}) so we could evaluate how each set influences our classification performance. In this section we acquire the cross-validation accuracy of using the different feature sets over all the available data to identify the best feature set. We then evaluate the cross-validation accuracy over each individual subject using the best set of features.
   \item \textbf{Prediction on Unknown Data(Section~\ref{subsec:experiment_prediction})}: Cross-validation accuracy provides a good indicator of classification performance though it does not simulate realistic prediction on unknown data. In this section we  control the training and testing data for our \gls{svm} to evaluate the prediction accuracy on unknown data. Using the \emph{all\_but\_<subject>} sets we can evaluate the prediction accuracy when dealing with a unknown test subject that is isolated from the training data. We also evaluate the prediction accuracy of unknown data within an individual test subject. Both of these predictions are on unknown data though they explore the performance differences when prediction within a subject against a different subject.
   \item \textbf{Optimization \& Generalization (Section~\ref{subsec:experiment_optimization_generalization})}: It is not known prior to predicting on unknown data what parameter values to use for the \gls{svm}. In the Section~\ref{subsec:experiment_prediction} parameters are selected based on what maximizes the cross-validation accuracy, with hopes that these parameters generalizes to the unknown data. In this section we identify the most appropriate parameters that generalize to unknown data prediction. We evaluate the implications of using the generalizable parameters with respect to their impact on predicting unknown data.
   \item \textbf{Impact of Data Availability (Section~\ref{subsec:experiment_data})}: Using the findings from the previous experiments we explore the impact of data availability on prediction accuracy. By controlling the amount of data used for training we plot out the prediction accuracies. This experiment evaluates the applicability of using our approach in iterative development where it is beneficial to avoid evaluating every mutant generated.
@@ -98,7 +98,11 @@ The following five sections present experiments used in our empirical evaluation
 \subsection{Mutation Score Distribution}
 \label{subsec:experiment_mutation_score_distribution}
 \begin{quote}
-	\emph{\textbf{Research Question:} Given our test subjects are their test suites effective in accordance to mutation score? Using the distribution of our test subjects' mutation scores can we identify a three category range for the mutation score of source code units?}
+	\emph{\textbf{Research Question \#1:} What is the mutation score distribution of our test subjects?}
+\end{quote}
+
+\begin{quote}
+	\emph{\textbf{Research Question \#2:} Using the distribution of our test subjects' mutation scores can we identify three categories of mutation scores to predict?}
 \end{quote}
 
 \begin{sidewaystable}[!ht]
@@ -258,7 +262,7 @@ The rational behind the categories is separate the lower and upper percentiles i
 \subsection{Cross Validation}
 \label{subsec:experiment_cross_validation}
 \begin{quote}
-	\emph{\textbf{Research Question:} Using the acquired data from our test subjects can we identify a set of features that maximize cross-validation accuracy?}
+	\emph{\textbf{Research Question:} Using the test and source code data from our test subjects can we identify a set of features that maximize cross-validation accuracy?}
 \end{quote}
 
 \begin{table}[!ht]
@@ -305,7 +309,7 @@ Using the determined classification categories from the previous section we have
 
 We use the LIBSVM~\cite{CL11} library to perform 10-fold cross-validation. To evaluate the cross-validation accuracy of the acquired data we randomly under-sample the data to balance the amount of data points within each category. We utilize 191 instances of class-level and 1104 instances of method-level source code units from each category, these values are chosen to maximize the number of instances of the minority category using random under-sampling.
 
-Recall that we have a set of features (i.e., attributes for our vector in the \gls{svm}) as listed in Table~\ref{tab:metrics}. We explore the cross-validation accuracy using different feature sets (i.e., \ding{172}, \ding{173}, \ding{174}, \ding{175}) in Figure~\ref{fig:all_cross_validation_features_class_graph}~\&~\ref{fig:all_cross_validation_features_method_graph}. The cross-validation accuracy of class- and method-level source code units were performed on the collective \emph{all} subject over 10 executions to account for random undersampling of our data. To assess our cross-validation accuracy, we use random seelction as our baseline -- in our case since we undersample our three categories thus random selection will have an accuracy of 33.3333\%. We can see that all feature sets are able to outperform random which indicates that there is some predictive power in the selected feature sets\footnote{Feature set \ding{174} for method-level source code units (Figure~\ref{fig:all_cross_validation_features_method_graph}) does not add any value (as it is specifically tailor for class-level source code units), and thus performs as random}. We include a subset of all features (feature sets \ding{172} \ding{174} \ding{175}) to show the effects of merging only the source and test metrics (excluding coverage feature set \ding{173}). We can clearly see that by using all feature sets together we can acquire higher cross-validation accuracy then using the feature sets alone. This observation supports our intuition that using various source code and test suite metrics together we can predict the mutation scores of source code units well.
+Recall that we have a set of features (i.e., attributes for our vector in the \gls{svm}) as listed in Table~\ref{tab:feature_sets}. We explore the cross-validation accuracy using different feature sets (i.e., \ding{172}, \ding{173}, \ding{174}, \ding{175}) in Figure~\ref{fig:all_cross_validation_features_class_graph}~\&~\ref{fig:all_cross_validation_features_method_graph}. The cross-validation accuracy of class- and method-level source code units were performed on the collective \emph{all} subject over 10 executions to account for random undersampling of our data. To assess our cross-validation accuracy, we use random seelction as our baseline -- in our case since we undersample our three categories thus random selection will have an accuracy of 33.3333\%. We can see that all feature sets are able to outperform random which indicates that there is some predictive power in the selected feature sets\footnote{Feature set \ding{174} for method-level source code units (Figure~\ref{fig:all_cross_validation_features_method_graph}) does not add any value (as it is specifically tailor for class-level source code units), and thus performs as random}. We include a subset of all features (feature sets \ding{172} \ding{174} \ding{175}) to show the effects of merging only the source and test metrics (excluding coverage feature set \ding{173}). We can clearly see that by using all feature sets together we can acquire higher cross-validation accuracy then using the feature sets alone. This observation supports our intuition that using various source code and test suite metrics together we can predict the mutation scores of source code units well.
 
 \begin{figure}[!ht]
   \centering
@@ -364,7 +368,7 @@ We have looked at the overall cross-validation accuracy using the different feat
 \subsection{Prediction on Unknown Data}
 \label{subsec:experiment_prediction}
 \begin{quote}
-	\emph{\textbf{Research Question:} How well can our approach predict on unknown data, within an individual subject and across subjects?}
+	\emph{\textbf{Research Question:} How well can our approach predict on unknown data, within an individual software system and across software systems?}
 \end{quote}
 
 \noindent
@@ -437,7 +441,11 @@ We present the results of training and prediction for class- and method-level in
 \subsection{Optimization \& Generalization}
 \label{subsec:experiment_optimization_generalization}
 \begin{quote}
-	\emph{\textbf{Research Question:} Can we optimize our approach to achieve better performance by using a better measure of classifier performance? Can we identify a general set of \gls{svm} parameters that maximize prediction performance on unknown data?}
+	\emph{\textbf{Research Question \#1:} Can we optimize our approach to achieve better performance by using a different measure of classifier performance?}
+\end{quote}
+
+\begin{quote}
+  \emph{\textbf{Research Question \#2:} Can we identify a general set of \gls{svm} parameters that maximize mutation score prediction performance on unknown data?}
 \end{quote}
 
 \noindent
@@ -629,10 +637,14 @@ After optimizations and generalization our approach for mutation score predictio
 As mentioned before the individual category have a wider variation in prediction accuracy while the \emph{all\_but\_<subject>} category have less variation. With respect to prediction accuracy method-level source code mutation score prediction outperforms class-level predictions. We can see that the prediction accuracy seems to be mostly consistent using the \emph{all\_but\_<subject>} category, but the individual category can allow for individuals which have higher then average prediction accuracy. On average class-level prediction accuracy is 37.8498\pm6.9752 while method-level prediction accuracy is 49.7920\pm3.9737 after parameter generalization. In both class- and method-level these average prediction accuracies outperform random by 4.5165\% and 16.4587\%.
 
 
-\subsection{Impact of Data Availability}
+\subsection{Impact of Training Data Availability on Prediction Accuracy}
 \label{subsec:experiment_data}
 \begin{quote}
-	\emph{\textbf{Research Question:} How is the prediction accuracy impacted by the availability of data? Is it possible to only train on a fraction of the source code units and achieve approximately the same prediction performance on the reminding source code units?}
+	\emph{\textbf{Research Question \#1:} How is the prediction accuracy impacted by the availability of training data?}
+\end{quote}
+
+\begin{quote}
+  \emph{\textbf{Research Question \#2:} Is it possible to only train on a fraction of the source code units and achieve approximately the same prediction performance on the reminding source code units?}
 \end{quote}
 
 \noindent
@@ -710,7 +722,7 @@ We selected tools based on the metrics they could provide as well as the the out
 In this chapter we covered the following topics that demonstrate out approach on several experimental subjects:
 
 \begin{itemize}
-  \item In Section~\ref{sec:experiment_setup} we covered our experimental setup with respect to environment, test subjects, tool configuration and data preparation.
+  \item In Section~\ref{sec:experiment_setup} we covered our experimental setup with respect to environment, test subjects, tool configuration and data preprocessing.
   \item In Section~\ref{sec:experiment_methodology} we discussed our experimental methodology for the five experiments that were conducted in this chapter.
   \item In Section~\ref{sec:experiment_results} we covered a number of experiments and discussed their results. Specifically we experimented with mutation score distribution (Section~\ref{subsec:experiment_mutation_score_distribution}, cross-validation (Section~\ref{subsec:experiment_cross_validation}, prediction (Section~\ref{subsec:experiment_prediction}), optimization \& generalization (Section~\ref{subsec:experiment_optimization_generalization}), and the impact of data availability (Section~\ref{subsec:experiment_data}).
   \item In Section~\ref{sec:experiment_threats} we discussed conclusion, internal, construct and external threats to validity of our empirical evaluation.

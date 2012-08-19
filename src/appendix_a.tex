@@ -4,7 +4,7 @@
 \label{app:mutation_score_distributions}
 The individual mutation score distributions of method-level and class-level source code units from the experimental subjects (see Section~\ref{subsec:experiment_mutation_score_distribution}) are displayed in this appendix. The collective mutation score distribution of all subjects is shown and described in Section~\ref{subsec:experiment_mutation_score_distribution}. Statistical summary of each project's mutation score distribution is presented in Table~\ref{tab:mutation_distribution_class_statistics}~\&~\ref{tab:mutation_distribution_method_statistics}.
 
-\begin{sidewaystable}[ht!]
+\begin{sidewaystable}[h!]
   \centering
   \captionbox{Statistical summary of the class-level data for each subject's mutation score.\label{tab:mutation_distribution_class_statistics}}{
     \rowcolors{1}{gray!30}{gray!20}
@@ -20,7 +20,7 @@ The individual mutation score distributions of method-level and class-level sour
         \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 74\% & 85\% & 93\% & 100 & 0 & 25 & 120 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 77\% & 88\% & 94\% & 100 & 0 & 17 & 83 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 77\% & 79\% & 85\% & 100 & 0 & 10 & 73 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{ALL} & \textbf{72\%} & \textbf{81\%} & \textbf{89\%} & \textbf{100} & \textbf{0} & \textbf{96} & \textbf{864} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all} & \textbf{72\%} & \textbf{81\%} & \textbf{89\%} & \textbf{100} & \textbf{0} & \textbf{96} & \textbf{864} \\
         \hline
       \end{tabular}
     \end{threeparttable}
@@ -44,7 +44,7 @@ The individual mutation score distributions of method-level and class-level sour
         \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 77\% & 87\% & 99\% & 100 & 0 & 159 & 401 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 79\% & 91\% & 99\% & 100 & 0 & 166 & 381 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 71\% & 83\% & 99\% & 100 & 0 & 207 & 675 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{ALL} & \textbf{75\%} & \textbf{87\%} & \textbf{99\%} & \textbf{100} & \textbf{0} & \textbf{2183} & \textbf{5510} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{all} & \textbf{75\%} & \textbf{87\%} & \textbf{99\%} & \textbf{100} & \textbf{0} & \textbf{2183} & \textbf{5510} \\
         \hline
       \end{tabular}
     \end{threeparttable}
@@ -52,6 +52,8 @@ The individual mutation score distributions of method-level and class-level sour
   \vspace{2mm}
   \hrule
 \end{sidewaystable}
+
+\clearpage
 
 \begin{figure}[ht!]
   \centering
@@ -62,7 +64,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Classes,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/barbecue/evaluation_projects_class_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -81,7 +83,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Methods,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/barbecue/evaluation_projects_method_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -100,7 +102,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Classes,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/commons-lang/evaluation_projects_class_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -119,7 +121,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Methods,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/commons-lang/evaluation_projects_method_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -138,7 +140,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Classes,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/jgap/evaluation_projects_class_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -157,7 +159,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Methods,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/jgap/evaluation_projects_method_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -176,7 +178,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Classes,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/joda-primitives/evaluation_projects_class_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -195,7 +197,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Methods,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/joda-primitives/evaluation_projects_method_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -214,7 +216,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Classes,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/joda-time/evaluation_projects_class_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -233,7 +235,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Methods,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/joda-time/evaluation_projects_method_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -252,7 +254,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Classes,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/jsoup/evaluation_projects_class_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -271,7 +273,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Methods,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/jsoup/evaluation_projects_method_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -290,7 +292,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Classes,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/logback-core/evaluation_projects_class_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -309,7 +311,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Methods,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/logback-core/evaluation_projects_method_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -328,7 +330,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Classes,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/openfast/evaluation_projects_class_distribution.txt};
   \end{axis}
   \end{tikzpicture}
@@ -347,7 +349,7 @@ The individual mutation score distributions of method-level and class-level sour
       xlabel=Mutation Score (\%),
       ylabel=\# of Methods,
       width=\linewidth,
-      height=9.0cm]
+      height=8.0cm]
       \addplot[ybar,fill=black] file {plots/openfast/evaluation_projects_method_distribution.txt};
   \end{axis}
   \end{tikzpicture}

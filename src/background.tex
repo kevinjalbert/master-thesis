@@ -206,7 +206,7 @@ To illustrate the effects of a class-level operator, we can look at the \emph{Me
 
 \subsubsection{Other Mutation Operators}
 \label{subsubsec:background_other_operators}
-In addition to the two general sets of mutation operators just described, sets also exist for specify domains (i.e., concurrency and security). Bradbury et. al. presented a set of concurrency mutation operators that is capable of creating data races and deadlock faults~\cite{BCD06}. Shahrair et al. presented multiple sets of mutation operators in the security domain for database injection~\cite{SZ08b}, buffer overflows\cite{SZ08}, grammar-based testing~\cite{OAL06} and cross site scripting~\cite{SZ08a}. Furthermore, as mentioned earlier on in Section~\ref{sec:background_mutation_testing} other domains where mutation testing has been applied have their own set of mutation operators (i.e., spreadsheets, markup), though this is outside the scope of this thesis.
+In addition to the two general sets of mutation operators just described, sets also exist for specify domains (i.e., concurrency and security). Bradbury et. al. presented a set of concurrency mutation operators that is capable of creating concurrency faults (e.g., data races and deadlocks)~\cite{BCD06}. Shahrair and Zulkernine presented multiple sets of mutation operators in the security domain for database injection~\cite{SZ08b}, buffer overflows\cite{SZ08}, grammar-based testing~\cite{OAL06} and cross site scripting~\cite{SZ08a}. Furthermore, as mentioned earlier on in Section~\ref{sec:background_mutation_testing} other domains where mutation testing has been applied have their own set of mutation operators (i.e., spreadsheets, markup), though this is outside the scope of this thesis.
 
 
 \subsection{Mutation Testing Tools}
@@ -217,7 +217,7 @@ In the last decade a number of mutation testing tools for the Java programming l
   \item \textbf{Inception Year}: the year the tool was released to the public.
   \item \textbf{Generation-Level}: mutation can be generated either at the source code or bytecode level. Source code mutation generation requires re-compilation, while bytecode does not.
   \item \textbf{Test Selection}: test selection indicates which unit test cases are ran for each mutant. A naive based approach simply runs all the unit test cases, while convention based runs all tests based on a package/test name or defined annotations. Coverage based approach only runs unit test cases that are directly involved in the mutated source code, while a manual bases approach allows the user to specify each unit test case.
-  \item \textbf{Mutant Insertion}: generated mutants are stored and ran against the selected unit test cases. A naive approach stores the mutants on disk and creates a new \gls{jvm} for each mutant. A schmeta~\cite{UOH93} approach stores all the mutants in a single class, and the mutants are enabled through runtime flags one-at-a-time. An in-memory approach stores all the mutants in-memory which are then injected into the \gls{jvm} by creating a new classloader. An instrumentation approach stores the mutants in memory, but injects them into the \gls{jvm} directly using an instrumentation \gls{api}.
+  \item \textbf{Mutant Insertion}: generated mutants are stored and ran against the selected unit test cases. A naive approach stores the mutants on disk and creates a new \gls{jvm} for each mutant. A schmeta approach stores all the mutants in a single class, and the mutants are enabled through runtime flags one-at-a-time~\cite{UOH93}. An in-memory approach stores all the mutants in-memory which are then injected into the \gls{jvm} by creating a new classloader. An instrumentation approach stores the mutants in memory, but injects them into the \gls{jvm} directly using an instrumentation \gls{api}.
   \item \textbf{Method-Level}: whether a tool has a set of \emph{traditional} method-level mutation operators as mentioned in Section~\ref{subsubsec:background_method_operators}.
   \item \textbf{Class-Level}: whether a tool has a set of object-oriented class-level mutation operators as mentioned in Section~\ref{subsubsec:background_class_operators}.
   \item \textbf{Concurrency-Level}: whether a tool has a set of concurrency-level mutation operators, those which mutate concurrency syntax to cause potential deadlocks, data races and more concurrency related bugs.
@@ -236,7 +236,8 @@ In the last decade a number of mutation testing tools for the Java programming l
   \begin{threeparttable}
     \begin{tabular}{|l|l|l|l|l|l|l|}
       \rowcolor[RGB]{169,196,223}
-      \hline & \textbf{Jester~\cite{Jester}} & \textbf{MuJava~\cite{MOK05}} & \textbf{Jumble~\cite{Jumble}} & \textbf{Javalanche~\cite{SZ09}} & \textbf{Judy~\cite{MR10}} & \textbf{PIT~\cite{PIT}} \\
+      \hline & \textbf{Jester} & \textbf{MuJava} & \textbf{Jumble} & \textbf{Javalanche} & \textbf{Judy} & \textbf{PIT} \\
+      \hline \cellcolor[RGB]{169,196,223} \raggedright\textbf{Citation} & \cite{Jester} & \cite{MOK05} & \cite{Jumble} & \cite{SZ09} & \cite{MR10} & \cite{PIT} \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{Inception Year} & 2001 & 2004 & 2007 & 2009 & 2010 & 2011 \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{Generation-Level} & Source Code & Bytecode & Bytecode & Bytecode & Source Code & Bytecode \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{Test Selection} & Naive\tnote{f} & Manual & Convention & Coverage & Convention & Coverage \\
@@ -268,7 +269,6 @@ In the last decade a number of mutation testing tools for the Java programming l
   \hrule
   \label{tab:mutation_tools}
 \end{sidewaystable}
-
 
 Using this criteria we provide a comparison of a set of mutation testing tools for the Java programming language in Table~\ref{tab:mutation_tools}. We can see various aspects of the mutation testing tools, for example only Javalanche has access to concurrency-level mutation operators while Jumble and Jester do not use a proper form of the method- and class-level mutation operators.
 
@@ -415,10 +415,11 @@ Considering the following criteria for \gls{svm}s we can distinguish between sev
     \centering
     \rowcolors{1}{gray!30}{gray!20}
     \begin{threeparttable}
-      \begin{tabular}{|l|l|l|l|}
+      \begin{tabular}{|l|>{\raggedright\arraybackslash}p{3.20cm}|>{\raggedright\arraybackslash}p{3.20cm}|>{\raggedright\arraybackslash}p{3.20cm}|}
         \rowcolor[RGB]{169,196,223}
-        \hline & \textbf{SVM$^{light}$~\cite{Joa99}} & \textbf{LS-SVMlab~\cite{SV99, PSV+02}} & \textbf{LIBSVM~\cite{CL11}}  \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Inception Year} & 1999 & 1999 & 2000  \\
+        \hline & \textbf{SVM$^{light}$} & \textbf{LS-SVMlab} & \textbf{LIBSVM} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Citation} & \cite{Joa99} & \cite{SV99, PSV+02} & \cite{CL11} \\
+        \hline \cellcolor[RGB]{169,196,223} \textbf{Inception Year} & 1999 & 1999 & 2000 \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{Multiple-Group} & No\tnote{a} & Yes & Yes \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{Cross-Validation} & Yes\tnote{e} & Yes & Yes \\
         \hline \cellcolor[RGB]{169,196,223} \textbf{Measures} & No\tnote{b} & Yes & No\tnote{c} \\
@@ -461,7 +462,7 @@ As mentioned there are a number of software metric entities available. With resp
 
 \subsection{Source Code Metrics}
 \label{subsec:background_source_code_metrics}
-In general, software metrics can be used to measure a number of qualities of a software system. In particular, source code metrics give insight into structural aspects of the system including it's complexity, size, as well as object-oriented attributes~\cite{McCa76, Kan02, HWY09, Hend95, SRD12}. Chidamber et al. presented a suite of object-oriented metrics~\cite{CK94}, around the same time Abreu et al. also presented the MOOD object-oriented suite~\cite{AC94}. Source code metrics are typically extracted from the source code using static analysis techniques. Some metrics like \emph{defect density} make use of external bug reports along with the source code to indicate problematic modules~\cite{FP98}. 
+In general, software metrics can be used to measure a number of qualities of a software system. In particular, source code metrics give insight into structural aspects of the system including it's complexity, size, as well as object-oriented attributes~\cite{McCa76, Kan02, HWY09, Hend95, SRD12}. Chidamber and Kemerer presented a suite of object-oriented metrics~\cite{CK94}, around the same time Abreu and Carapu{\c{c}}a also presented the MOOD object-oriented suite~\cite{AC94}. Source code metrics are typically extracted from the source code using static analysis techniques. Some metrics like \emph{defect density} make use of external bug reports along with the source code to indicate problematic modules~\cite{FP98}. 
 
 For the scope of this thesis we are only considering the Java programming language, which has object-oriented features. This means that source code metrics can be acquired at different scope-levels (i.e., method, class, package, project). For example, we can calculated the cyclomatic complexity~\cite{McCa76} of a method by simply counting the number of decisions points (i.e., different decisions of control statements). We can also calculate the nested block depth of a method, which is determined by the number of nested blocks (i.e., control statements). From a class-level perspective we can measure the number of methods and attributes the class contains. We can also measure the depth of the class in respect to its inheritance tree. At a higher level we start to consider the number of classes within a package, along with measuring coupling inside and outside of the package. These metrics can be used to alert developers if a specific class/method could be problematic. If these metrics reach extreme points (i.e., complex method, large class, high coupling) they can become \emph{code smells} (i.e., source code that is hard to read and maintain) that should be refactored~\cite{FB99}.
 
