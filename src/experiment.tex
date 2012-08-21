@@ -27,7 +27,7 @@ We constructed three simple criteria to select our test subjects:
   \item Our approach required projects with a test suite or set of test cases as it is fundamentally required for mutation testing.
 \end{itemize}
 
-\begin{sidewaystable}[!ht]
+\begin{sidewaystable}[!tb]
   \centering
   \rowcolors{2}{gray!30}{gray!20}
   \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|}
@@ -105,7 +105,7 @@ The following five sections present experiments used in our empirical evaluation
 	\emph{\textbf{Research Question \#2:} Using the distribution of our test subjects' mutation scores can we identify three categories of mutation scores to predict?}
 \end{quote}
 
-\begin{sidewaystable}[!ht]
+\begin{sidewaystable}[!tb]
   \centering
   \captionbox{Mutation testing results of the experimental subjects from Table~\ref{tab:experimental_subjects}.\label{tab:experiments_mutation_results}}{
     \rowcolors{1}{gray!30}{gray!20}
@@ -162,7 +162,7 @@ The following five sections present experiments used in our empirical evaluation
 \noindent
 As described in Chapter~\ref{chap:approach}, our approach uses mutation testing to acquire the necessary mutation score data used for the category of the source code units. Table~\ref{tab:experiments_mutation_results} shows the results of running Javalanche on our experimental subjects. For all of our subjects, mutation testing produced a large number of mutants that were evaluated, taking approximately 64 hours to complete in our experimental environment. As described in Section~\ref{subsec:background_mutation_tools}, Javalanche utilizes \emph{coverage} (i.e., basic block coverage) for test selection which limits the number of mutants to be evaluated to a subset of covered mutants. Javalanche was able to kill 79.7687\% of the covered mutants using all projects cumulatively. All individual projects, except for \emph{barbecue}, exceeded a mutation score of at least 73\% which indicates that the test suites for covered source code units are reasonably effective. The overall coverage is 70.1195\%, indicating that the test suites of the projects did not cover the reminding 29.8805\% of the generated mutants. Realistically, mutation scores are calculated using the entire project's source code, but for our purpose only covered mutants were used. The corrective action for non-covered mutants (i.e., mutants not covered by test suite using basic block coverage) is to add new test cases that provide coverage over the mutant's location.
 
-\begin{figure}[!ht]
+\begin{figure}[!tb]
   \centering
   \begin{tikzpicture}
   \begin{axis}[
@@ -181,7 +181,7 @@ As described in Chapter~\ref{chap:approach}, our approach uses mutation testing 
   \label{fig:mutation_distributions_class_all}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[!tb]
   \centering
   \begin{tikzpicture}
   \begin{axis}[
@@ -200,7 +200,7 @@ As described in Chapter~\ref{chap:approach}, our approach uses mutation testing 
   \label{fig:mutation_distributions_method_all}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[!tb]
   \centering
   \begin{tikzpicture}
   \begin{axis}[
@@ -223,7 +223,7 @@ As described in Chapter~\ref{chap:approach}, our approach uses mutation testing 
   \label{fig:covered_mutant_distributions_class_all}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[!tb]
   \centering
   \begin{tikzpicture}
   \begin{axis}[
@@ -265,7 +265,7 @@ The rational behind the categories is to separate the lower and upper percentile
 	\emph{\textbf{Research Question:} Using the test and source code data from our test subjects can we identify a set of features that maximize cross-validation accuracy?}
 \end{quote}
 
-\begin{table}[!ht]
+\begin{table}[!tb]
   \centering
   \rowcolors{2}{gray!30}{gray!20}
   \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{3cm}|>{\raggedleft\arraybackslash}p{3cm}|>{\raggedleft\arraybackslash}p{3cm}|}
@@ -285,7 +285,7 @@ The rational behind the categories is to separate the lower and upper percentile
 \noindent
 Using the determined classification categories from the previous section, we have imbalanced training data for class- and method-level source code units as shown in Table~\ref{tab:available_data}. Imbalanced data occurs when the data is not evenly distributed across the classification categories. This can be problematic for supervised machine learning techniques as they will heavily classify towards the majority category~\cite{BOSB10}. Barandela et al. indicate that there are three strategies to reduce the problem of imbalanced training data: Over-sample, under-sample, or internally bias the classification process~\cite{BVSF04}. It was shown that simple random under-sampling can be an effective solution (though not always the best) to this problem~\cite{Jap00,AKJ04}. As Akbani et al. mentioned \emph{``\ldots we are throwing away valid instances, which contain valuable information''}~\cite{AKJ04}, therefore we might be limiting the ability to generalize to new unknown data. The alternative is to perform over-sampling, as Batista et al. mention \emph{``\ldots random over-sampling can increase the likelihood of occurring overfitting, since it makes exact copies of the minority class examples''}~\cite{BPM04}. We decided to utilize random under-sampling as it provides a simple approach to dealing with imbalanced data. Furthermore the imbalanced data is not too severe (having a ratio of approximately 2:5), thus we believe we are not losing that much information by under-sampling our training data.
 
-\begin{figure}[!ht]
+\begin{figure}[!tb]
   \centering
   \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
     \input{plots/all_cross_validation_features_class_graph}
@@ -296,7 +296,7 @@ Using the determined classification categories from the previous section, we hav
   \label{fig:all_cross_validation_features_class_graph}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[!tb]
   \centering
   \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
     \input{plots/all_cross_validation_features_method_graph}
@@ -311,7 +311,7 @@ We use the LIBSVM~\cite{CL11} library to perform 10-fold cross-validation. To ev
 
 Recall that we have a set of features (i.e., attributes for our vector in the \gls{svm}) as listed in Table~\ref{tab:feature_sets}. We explore the cross-validation accuracy using different feature sets (i.e., \ding{172}, \ding{173}, \ding{174}, \ding{175}) in Figures~\ref{fig:all_cross_validation_features_class_graph}~\&~\ref{fig:all_cross_validation_features_method_graph}. The cross-validation accuracy of class- and method-level source code units were performed on the collective \emph{all} subject over ten executions to account for random undersampling of our data. To assess our cross-validation accuracy, we use random selection as our baseline. In our case, since we undersample our three categories, random selection will have an accuracy of 33.3333\%. We can see that all feature sets are able to outperform random which indicates that there is some predictive power in the selected feature sets\footnote{Feature set \ding{174} for method-level source code units (Figure~\ref{fig:all_cross_validation_features_method_graph}) does not add any value (as it is specifically tailor for class-level source code units), and thus performs as random}. We include a subset of all features (feature sets \ding{172} \ding{174} \ding{175}) to show the effects of merging only the source and test metrics (excluding coverage feature set \ding{173}). We can clearly see that by using all feature sets together we can acquire higher cross-validation accuracy then using the feature sets alone. This observation supports our intuition that using various source code and test suite metrics together can predict the mutation scores of source code units well.
 
-\begin{figure}[!ht]
+\begin{figure}[!tb]
   \centering
   \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
     \input{plots/individual_cross_validation_class_1_2_3_4_graph}
@@ -324,7 +324,7 @@ Recall that we have a set of features (i.e., attributes for our vector in the \g
   \label{fig:individual_cross_validation_class_1_2_3_4_graph}
 \end{figure}
 
-\begin{figure}[ht!]
+\begin{figure}[!tb]
   \centering
   \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
     \input{plots/individual_cross_validation_method_1_2_3_4_graph}
@@ -337,7 +337,7 @@ Recall that we have a set of features (i.e., attributes for our vector in the \g
   \label{fig:individual_cross_validation_method_1_2_3_4_graph}
 \end{figure}
 
-\begin{table}[!ht]
+\begin{table}[!tb]
   \centering
   \rowcolors{1}{gray!30}{gray!20}
   \begin{threeparttable}
@@ -374,7 +374,7 @@ We have looked at the overall cross-validation accuracy using the different feat
 \noindent
 By using LIBSVM we want to train a classifier such that it can predict well on \emph{unknown data}. Parameter selection and the training/testing data sets play an important role in developing a good classifier. Ultimately, we want to obtain a classifier that is able to \emph{generalize} to new, unknown data. In our specific case, we have eight different subjects (that are most likely not similar to each other in terms of features) in which we want to maximize our performance at predicting unknown data. We used cross-validation in Section~\ref{subsec:experiment_cross_validation} as it mitigates the overfitting problem introduced by training (i.e., a model becomes specifically tuned for the training data set)~\cite{HCL03}. Parameter selection also occurred automatically using a grid search approach to find a set of parameters that maximized the cross-validation accuracy on the training data set.
 
-\begin{table}[!ht]
+\begin{table}[!tb]
   \centering
   \rowcolors{1}{gray!30}{gray!20}
   \begin{threeparttable}
@@ -408,7 +408,7 @@ By using LIBSVM we want to train a classifier such that it can predict well on \
 
 We conducted a number of tests where we use LIBSVM's \emph{easy script} to find the best parameters that maximize cross-validation accuracy and then apply the classifier to unknown data. We continue to undersample our data and conduct each experiment ten times to determine the prediction accuracy. We are interested in the prediction accuracy of unknown data. To investigate this we can consider the \emph{all\_but\_<subject>} sets, where we train our classifier on all but the \emph{<subject>} and then predict on the excluded subject. In addition, we consider the individual subjects where we train using the undersampled data and predict on the remaining unknown data within the individual subject (i.e., what is left from the undersampling). See Table~\ref{tab:experiments_undersampled_data} for the number of remaining unknown values of the individual subjects.
 
-\begin{figure}[!ht]
+\begin{figure}[!tb]
   \centering
   \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
     \input{plots/prediction_class_graph}
@@ -419,7 +419,7 @@ We conducted a number of tests where we use LIBSVM's \emph{easy script} to find 
   \label{fig:prediction_class_graph}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[!tb]
   \centering
   \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
     \input{plots/prediction_method_graph}
@@ -451,7 +451,7 @@ We present the results of training and prediction for class- and method-level in
 \noindent
 We keep track of the frequency of parameter pairs selected over all the prediction experiments conducted in Section~\ref{subsec:experiment_prediction}. As a result of LIBSVM's \emph{easy script}, we saw 57 different pairings of the LIBSVM parameters \emph{cost} and \emph{gamma} (described in Section~\ref{subsec:background_support_vector_machine}). This indicates that the classifiers are being tuned specifically to maximize the cross-validation accuracy. Due to undersampling, different parameters are being used to ensure this maximization of cross-validation accuracy. To encourage generalization of unknown projects and data, ideally we want to find a parameter pairing that maximizes generalizability and classification performance on unknown data. As our approach initially requires mutation testing results to perform training it might be appropriate to select the best parameters for the given data. In the previous section for predictions on unknown data (see Section~\ref{subsec:experiment_prediction}), we included the \emph{all\_but\_<subject>} data sets which for our approach do not require us to have the mutation score for practical usage. In this situation it becomes much more clear on why we need a generalizable set of parameters that hopefully performance well on most subjects. In terms of usability if we can find a general set of parameters for predicting mutation scores, this will lessen the need to specifically tune every classifier prior to prediction.
 
-\begin{sidewaysfigure}[h]
+\begin{sidewaysfigure}[!tb]
   \centering
   \captionbox{Raw output of training on \texttt{joda-time} then predicting on its unknowns using the parameters \emph{cost}=0.03125 and \emph{gamma}=0.0078125.\label{fig:raw_output_bad}}{
     \begin{minipage}{22.0cm}
@@ -503,7 +503,7 @@ We noticed that in some situations accuracy is not the best measure for a classi
   \end{equation}
 \end{itemize}
 
-\begin{table}[!ht]
+\begin{table}[!tb]
   \centering
   \rowcolors{1}{gray!30}{gray!20}
   \begin{threeparttable}
@@ -537,7 +537,7 @@ To further generalize our predictions, we conducted our own grid search with com
 
 Using our search strategy as described we attained the following \gls{svm} parameters for the class-level [\emph{cost}=100, \emph{gamma}=0.01] \& method-level [\emph{cost}=100, \emph{gamma}=1]. These parameters were found to offered the greatest generalizable over the different data sets. Furthermore by maximizing F-score instead of accuracy these parameters will avoid issues presented by using accuracy alone.
 
-\begin{figure}[!ht]
+\begin{figure}[!tb]
   \centering
   \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
     \input{plots/prediction_with_parameters_class_graph}
@@ -548,7 +548,7 @@ Using our search strategy as described we attained the following \gls{svm} param
   \label{fig:prediction_with_parameters_class_graph}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[!tb]
   \centering
   \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
     \input{plots/prediction_with_parameters_method_graph}
@@ -559,7 +559,7 @@ Using our search strategy as described we attained the following \gls{svm} param
   \label{fig:prediction_with_parameters_method_graph}
 \end{figure}
 
-\begin{sidewaystable}[!ht]
+\begin{sidewaystable}[!tb]
   \centering
   \rowcolors{1}{gray!30}{gray!20}
   \begin{threeparttable}
@@ -592,7 +592,7 @@ Using our search strategy as described we attained the following \gls{svm} param
   \label{tab:experiments_comparison_class_prediction}
 \end{sidewaystable}
 
-\begin{sidewaystable}[!ht]
+\begin{sidewaystable}[!tb]
   \centering
   \rowcolors{1}{gray!30}{gray!20}
   \begin{threeparttable}
@@ -650,7 +650,7 @@ As mentioned before, the individual categories have a wider variation in predict
 \noindent
 As we saw in the previous section using our approach we achieve 49.7920\% prediction accuracy of method-level source code units. This result exceeds random by 16.4587\% and therefore shows that our approach is capable of predicting mutation score categories using source code and test suite metrics. As mentioned in the thesis statement, \emph{``The predictions can be used to reduce the resource cost of mutation testing in traditional iterative development.''}. Iterative development is a \gls{sdlc} that allows developers to work on small changes which eventually adds to a large change with respect to a software system. Traditional iterative development may involve expanding/reducing/refactoring the \gls{sut}, and/or attempting to improve the test suite. By including mutation testing between iterations to determine if any improvements have occurred can be costly if done in a naive manner (i.e., re-conduct the whole mutation test process using the new version of the \gls{sut}). Even with an intelligent approach of selective mutation (i.e., only mutation testing source code units that were added/removed/modified since the previous iteration), the cost of mutation testing can still be substantial.
 
-\begin{figure}[!ht]
+\begin{figure}[!tb]
   \centering
   \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
     \input{plots/divisor_class_graph}
@@ -661,7 +661,7 @@ As we saw in the previous section using our approach we achieve 49.7920\% predic
   \label{fig:divisor_class_graph}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[!tb]
   \centering
   \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
     \input{plots/divisor_method_graph}

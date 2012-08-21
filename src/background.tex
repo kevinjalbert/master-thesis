@@ -8,7 +8,7 @@ In this chapter we describe the background techniques and tools used in our rese
 \label{sec:background_mutation_testing}
 As mentioned in Section~\ref{sec:introduction_motivation}, techniques exists that measure code coverage. Mutation testing can be seen as a fault-based coverage technique that demonstrates the absence of faults in a software system~\cite{DLS78, BDLS80}. Mutation testing makes use of fault-based testing by generating a set of mutants, each representing a possible fault in the software system. These mutants are then executed along with the test suite with hopes that the test suite can detect the mutant's fault. If the fault is detected, the test suite is effective enough to handle the detection of that specific bug. If the fault goes undetected, the test suite ability to detect that specific bug is inadequate. Using the results of mutation testing, it is possible to assess the adequacy of a test suite -- the effectiveness of the test suite of detecting bugs.
 
-\begin{figure}[t!]
+\begin{figure}[!tb]
   \centering
   \includegraphics[width=14cm]{figures/mutation_testing_overview.pdf}
   \caption{The mutation testing process.}
@@ -45,7 +45,7 @@ As previously mentioned mutation operators define transformations that attempts 
 
 \subsubsection{Method-Level Mutation Operators}
 \label{subsubsec:background_method_operators}
-\begin{table}[t!]
+\begin{table}[!tb]
   \centering
   \rowcolors{2}{gray!30}{gray!20}
   \begin{tabular}{|l|l|}
@@ -74,7 +74,7 @@ As previously mentioned mutation operators define transformations that attempts 
 
 We first consider the set of method-level mutation operators found in the mutation testing tool \emph{MuJava}~\cite{MOK05}, as they are well documented and designed. These mutation operators apply source transformations that modify expressions at the method-level. These operators can cause unexpected data values to occur, as well as adjust the outcome of conditions. Figure~\ref{tab:method_operators} lists a set of method-level mutation operators~\cite{MO05a}.
 
-\begin{figure}[t!]
+\begin{figure}[!tb]
   \centering
   \begin{minipage}{6.5cm}
   \centering
@@ -93,7 +93,7 @@ We first consider the set of method-level mutation operators found in the mutati
   \label{fig:ROR_mutation}
 \end{figure}
 
-\begin{figure}[t!]
+\begin{figure}[!tb]
   \centering
   \begin{minipage}{6.5cm}
   \centering
@@ -116,7 +116,7 @@ To illustrate the effects of a method-level operator, consider the \emph{Relatio
 
 \subsubsection{Class-Level Mutation Operators}
 \label{subsubsec:background_class_operators}
-\begin{table}[t!]
+\begin{table}[!tb]
   \centering
   \rowcolors{2}{gray!30}{gray!20}
   \begin{tabular}{|c|l|l|}
@@ -164,7 +164,7 @@ To illustrate the effects of a method-level operator, consider the \emph{Relatio
 
 We now look at the set of class-level mutation operators found in \emph{MuJava}~\cite{MOK05, MKO02}. These mutation operators apply source transformations that modify language features at the class-level. These operators can allow objects to behave in unexpected ways, as well as exposing design issues. Table~\ref{tab:class_operators} tabulates the class-level mutation operators~\cite{MO05b}.
 
-\begin{figure}[b!]
+\begin{figure}[!tb]
   \centering
   \begin{minipage}{6.5cm}
   \centering
@@ -183,7 +183,7 @@ We now look at the set of class-level mutation operators found in \emph{MuJava}~
   \label{fig:JID_mutation}
 \end{figure}
 
-\begin{figure}[t!]
+\begin{figure}[!tb]
   \centering
   \begin{minipage}{6.5cm}
   \centering
@@ -231,7 +231,7 @@ In the last decade a number of mutation testing tools for the Java programming l
   \item \textbf{Special Feature}: whether or not a tools has a special feature that is unique in mutation testing.
 \end{itemize}
 
-\begin{sidewaystable}[t!]
+\begin{sidewaystable}[!tb]
   \centering
   \rowcolors{1}{gray!30}{gray!20}
   \begin{threeparttable}
@@ -291,7 +291,7 @@ Many areas of research have benefited from machine learning, such as data mining
 \label{subsec:background_performance_measures}
 Machine learning techniques can be extremely beneficial in solving classification problems. Without a firm understanding of the results, it can be difficult to tell how well the technique is performing on the problem. To understand classification results, the actual \emph{known} classification is required for each data instance, thus it is possible to understand what is correctly classified. For unsupervised learning, the performance measures can be acquired after the classification has occurred, as the correct classifications are available. In supervised learning, we first need to generate a model that we can use to classify new data. To accommodate measuring supervised learning, the available data is split up into \emph{training} and \emph{testing} sets. The training set is used to construct the model which is then used to predict the testing set. The classifications of the predicted set can then be verified against their correct classification to acquire performance measures of the supervised learning technique. It is also possible to perform \emph{cross-validation} which is a technique that assess the prediction accuracy using the trained data. This evaluation is typically used when a small amount of data is used for training. Effectively, this divides a dataset into \emph{n} equal-sized partitions and the \gls{svm} trains on \emph{n-1} sets, predicting on the last. This process is repeated \emph{n} times using a different partition for prediction each time. Finally, all the individual prediction accuracies are tallied and averaged for a cross-validation accuracy of \emph{n}-folds. Commonly a \emph{10-fold} cross-validation is used to evaluate predictive models~\cite{Koh95}.
 
-\begin{figure}[t!]
+\begin{figure}[!tb]
   \centering
   \begin{tikzpicture}[
   box/.style={draw,rectangle,minimum size=2.0cm,text width=5.75cm,align=center}]
@@ -358,7 +358,7 @@ A confusion matrix can visually represent the allotment of predictions over the 
 
 \subsection{Support Vector Machine}
 \label{subsec:background_support_vector_machine}
-\begin{figure}[t!]
+\begin{figure}[!tb]
   \centering
   \fbox{\subfloat[][\gls{svm} separated with a small margin between support vectors.]{
     \includegraphics[width=5.5cm]{figures/SVM_small_margin.pdf}
@@ -379,7 +379,7 @@ A confusion matrix can visually represent the allotment of predictions over the 
 
 A \gls{svm} is an example of a linear discrimination machine learning technique and assumes that \emph{``\ldots instances of a class are linearly separable from instances of other classes''}~\cite{ALP04}. Traditionally, \gls{svm}s have been used for two-group classification problems~\cite{CV95}, but have also been generalized to \emph{n}-group classification problems. The dataset used in \gls{svm} is applied to a \emph{feature space} that consists of a set of \emph{vectors} (a row of data in the dataset), with each vector containing a set of \emph{attributes} (the values that define the vector). Figure~\ref{fig:SVM_margin}, is a \gls{svm} example with each vector having two predictor variables (\emph{x} and \emph{y} coordinates). A \gls{svm} attempts to find the maximum margin space between support vectors of opposite categories, which results in the optimal hyperplane. The optimal hyperplane is chosen over others, because \emph{``Intuitively, we would expect this boundary to generalize well as opposed to the other possible boundaries.''}~\cite{Gun98}.
 
-\begin{figure}[t!]
+\begin{figure}[!tb]
   \centering
   \fbox{\subfloat[][A \gls{svm} that has a non-linear separation between two categories.]{
     \includegraphics[width=5.5cm]{figures/SVM_non-linear.pdf}
@@ -413,7 +413,7 @@ Considering the following criteria for \gls{svm}s, we can distinguish between se
   \item \textbf{Academic Tool}: whether or not the tool was developed from an academic research group, otherwise industry or community developed.
 \end{itemize}
 
-\begin{table}[t!]
+\begin{table}[!tb]
     \centering
     \rowcolors{1}{gray!30}{gray!20}
     \begin{threeparttable}
