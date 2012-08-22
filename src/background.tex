@@ -234,6 +234,8 @@ In the last decade a number of mutation testing tools for the Java programming l
 \begin{sidewaystable}[!tb]
   \centering
   \rowcolors{1}{gray!30}{gray!20}
+  \caption{A categorization of several Java mutation testing tools and their feature (compiled using data from~\cite{PIT, MR10}).}
+  \label{tab:mutation_tools}
   \begin{threeparttable}
     \begin{tabular}{|l|l|l|l|l|l|l|}
       \rowcolor[RGB]{169,196,223}
@@ -265,11 +267,8 @@ In the last decade a number of mutation testing tools for the Java programming l
       \item[h] Limited set of concurrency mutation operators.
     \end{tablenotes}
   \end{threeparttable}
-  \caption{A categorization of several Java mutation testing tools and their feature (compiled using data from~\cite{PIT, MR10}).}
-  \vspace{2mm}
-  \hrule
-  \label{tab:mutation_tools}
 \end{sidewaystable}
+\afterpage\clearpage
 
 Using this criteria we provide a comparison of a set of mutation testing tools for the Java programming language in Table~\ref{tab:mutation_tools}. We can see various aspects of the mutation testing tools. For example, only Javalanche has access to a limited set of concurrency-level mutation operators while Jumble and Jester do not use a proper form of the method- and class-level mutation operators.
 
@@ -414,35 +413,35 @@ Considering the following criteria for \gls{svm}s, we can distinguish between se
 \end{itemize}
 
 \begin{table}[!tb]
-    \centering
-    \rowcolors{1}{gray!30}{gray!20}
-    \begin{threeparttable}
-      \begin{tabular}{|l|>{\raggedright\arraybackslash}p{3.20cm}|>{\raggedright\arraybackslash}p{3.20cm}|>{\raggedright\arraybackslash}p{3.20cm}|}
-        \rowcolor[RGB]{169,196,223}
-        \hline & \textbf{SVM$^{light}$} & \textbf{LS-SVMlab} & \textbf{LIBSVM} \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Citation} & \cite{Joa99} & \cite{SV99, PSV+02} & \cite{CL11} \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Inception Year} & 1999 & 1999 & 2000 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Multiple-Group} & No\tnote{a} & Yes & Yes \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Cross-Validation} & Yes\tnote{e} & Yes & Yes \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Measures} & No\tnote{b} & Yes & No\tnote{c} \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Command-Line} & Yes & No\tnote{d} & Yes\tnote{f} \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Open Source} & Yes & Yes & Yes \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{Academic Tool} & Yes & Yes & Yes \\
-        \hline
-      \end{tabular}
-      \begin{tablenotes}
-        \item[a] There is an alternative tool of the same family that allows this (SVM$^{multiclass}$).
-        \item[b] There is an alternative tool of the same family that allows this only on binary classification (SVM$^{perf}$).
-        \item[c] There is an external extension which allows this only for binary classification.
-        \item[d] Is a MATLAB toolkit, though it is possible to run a MATLAB script via a \gls{cli}.
-        \item[e] Performs a \emph{Leave-One-Out} cross-validation, which is a \emph{n}-fold cross-validating given a \emph{n} vectors in the feature set.
-      \end{tablenotes}
-    \end{threeparttable}
-    \caption{Basic comparison of different \gls{svm} implementations from a user perspective.}
-    \vspace{2mm}
-    \hrule
-    \label{tab:svm_tools}
-  \end{table}
+  \centering
+  \rowcolors{1}{gray!30}{gray!20}
+  \begin{threeparttable}
+    \begin{tabular}{|l|>{\raggedright\arraybackslash}p{3.20cm}|>{\raggedright\arraybackslash}p{3.20cm}|>{\raggedright\arraybackslash}p{3.20cm}|}
+      \rowcolor[RGB]{169,196,223}
+      \hline & \textbf{SVM$^{light}$} & \textbf{LS-SVMlab} & \textbf{LIBSVM} \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Citation} & \cite{Joa99} & \cite{SV99, PSV+02} & \cite{CL11} \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Inception Year} & 1999 & 1999 & 2000 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Multiple-Group} & No\tnote{a} & Yes & Yes \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Cross-Validation} & Yes\tnote{e} & Yes & Yes \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Measures} & No\tnote{b} & Yes & No\tnote{c} \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Command-Line} & Yes & No\tnote{d} & Yes\tnote{f} \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Open Source} & Yes & Yes & Yes \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{Academic Tool} & Yes & Yes & Yes \\
+      \hline
+    \end{tabular}
+    \begin{tablenotes}
+      \item[a] There is an alternative tool of the same family that allows this (SVM$^{multiclass}$).
+      \item[b] There is an alternative tool of the same family that allows this only on binary classification (SVM$^{perf}$).
+      \item[c] There is an external extension which allows this only for binary classification.
+      \item[d] Is a MATLAB toolkit, though it is possible to run a MATLAB script via a \gls{cli}.
+      \item[e] Performs a \emph{Leave-One-Out} cross-validation, which is a \emph{n}-fold cross-validating given a \emph{n} vectors in the feature set.
+    \end{tablenotes}
+  \end{threeparttable}
+  \caption{Basic comparison of different \gls{svm} implementations from a user perspective.}
+  \vspace{2mm}
+  \hrule
+  \label{tab:svm_tools}
+\end{table}
 
 Using this criteria, we provide a comparison of a different \gls{svm} implementations in Table~\ref{tab:svm_tools}. We can see various aspects of different \gls{svm} implementations, for example all three of these \gls{svm}s are open source academic tools that support cross-validation. SVM$^{light}$ does not support multiple-group classification, though it has an alternative tool that does allow this. LS-SVMlab has build in performance measurements, though the tool works as a MATLAB toolkit.
 

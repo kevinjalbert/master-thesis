@@ -29,6 +29,8 @@ We constructed three simple criteria to select our test subjects:
 
 \begin{sidewaystable}[!tb]
   \centering
+  \caption{The set of experimental subjects along with source and test metrics.}
+  \label{tab:experimental_subjects}
   \rowcolors{2}{gray!30}{gray!20}
   \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|>{\raggedleft\arraybackslash}p{1.9cm}|}
     \hline
@@ -45,11 +47,8 @@ We constructed three simple criteria to select our test subjects:
     \hline \textbf{all} & \textbf{126273} & \textbf{1689} & \textbf{13686} & \textbf{131160} & \textbf{1044} & \textbf{11402} & \textbf{10233} \\
     \hline
   \end{tabular}
-  \caption{The set of experimental subjects along with source and test metrics.}
-  \vspace{2mm}
-  \hrule
-  \label{tab:experimental_subjects}
 \end{sidewaystable}
+\afterpage\clearpage
 
 Following the criteria outlined, we selected the following eight open source Java projects shown in Table~\ref{tab:experimental_subjects}. A brief description of each open source software system used in our empirical evaluation is presented as follows:
 
@@ -107,57 +106,53 @@ The following five sections present experiments used in our empirical evaluation
 
 \begin{sidewaystable}[!tb]
   \centering
-  \captionbox{Mutation testing results of the experimental subjects from Table~\ref{tab:experimental_subjects}.\label{tab:experiments_mutation_results}}{
-    \rowcolors{1}{gray!30}{gray!20}
-    \begin{threeparttable}
-      \begin{tabular}{|l|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft\arraybackslash}p{2.5cm}|}
-        \rowcolor[RGB]{169,196,223}
-        \hline & \textbf{Mutants Generated} & \textbf{Mutants Covered} & \textbf{Coverage Percent (\%)} & \textbf{Mutants Killed} & \textbf{Mutation Score (\%)\tnote{a}} & \textbf{Time Taken (\emph{hh:mm:ss})} \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 10682 & 7350 & 68.8073 & 5400 & 73.4694 & 01:49:10 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 27324 & 4339 & 15.8798 & 2727 & 62.8486 & 00:49:51 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 31929 & 17903 & 56.0713 & 13328 & 74.4456 & 07:04:44 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{commons-lang} & 45141 & 41761 & 92.5124 & 33772 & 80.8697 & 15:51:59 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-time} & 70594 & 58595 & 83.0028 & 48545 & 82.8484 & 31:55:50 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 14910 & 8371 & 56.1435 & 6869 & 82.0571 & 01:34:38 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 14165 & 10540 & 74.4088 & 8430 & 79.9810 & 03:55:56 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 22269 & 17334 & 77.8391 & 13499 & 77.8759 & 01:24:33 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{all} & \textbf{237014} & \textbf{166193} & \textbf{70.1195} & \textbf{132570} & \textbf{79.7687} & \textbf{64:26:41} \\
-        \hline
-      \end{tabular}
-      \begin{tablenotes}
-        \item[a] Mutation score is calculated using the covered and killed mutants.
-      \end{tablenotes}
-    \end{threeparttable}
-  }
-
-  \vspace{2mm}
-  \hrule
+  \caption{Mutation testing results of the experimental subjects from Table~\ref{tab:experimental_subjects}.}
+  \label{tab:experiments_mutation_results}
+  \rowcolors{1}{gray!30}{gray!20}
+  \begin{threeparttable}
+    \begin{tabular}{|l|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft\arraybackslash}p{2.5cm}|}
+      \rowcolor[RGB]{169,196,223}
+      \hline & \textbf{Mutants Generated} & \textbf{Mutants Covered} & \textbf{Coverage Percent (\%)} & \textbf{Mutants Killed} & \textbf{Mutation Score (\%)\tnote{a}} & \textbf{Time Taken (\emph{hh:mm:ss})} \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 10682 & 7350 & 68.8073 & 5400 & 73.4694 & 01:49:10 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 27324 & 4339 & 15.8798 & 2727 & 62.8486 & 00:49:51 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 31929 & 17903 & 56.0713 & 13328 & 74.4456 & 07:04:44 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{commons-lang} & 45141 & 41761 & 92.5124 & 33772 & 80.8697 & 15:51:59 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{joda-time} & 70594 & 58595 & 83.0028 & 48545 & 82.8484 & 31:55:50 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 14910 & 8371 & 56.1435 & 6869 & 82.0571 & 01:34:38 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 14165 & 10540 & 74.4088 & 8430 & 79.9810 & 03:55:56 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 22269 & 17334 & 77.8391 & 13499 & 77.8759 & 01:24:33 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{all} & \textbf{237014} & \textbf{166193} & \textbf{70.1195} & \textbf{132570} & \textbf{79.7687} & \textbf{64:26:41} \\
+      \hline
+    \end{tabular}
+    \begin{tablenotes}
+      \item[a] Mutation score is calculated using the covered and killed mutants.
+    \end{tablenotes}
+  \end{threeparttable}
+  
   \vspace{3em}
 
   \centering
-  \captionbox{The usable number of source code unit data points gathered from the experimental subjects in Table~\ref{tab:experimental_subjects}.\label{tab:experiments_collected_data}}{
-    \rowcolors{1}{gray!30}{gray!20}
-    \begin{threeparttable}
-      \begin{tabular}{|l|r|r|}
-        \rowcolor[RGB]{169,196,223}
-        \hline & \textbf{Class-Level} & \textbf{Method-Level} \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 115 & 447 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 31 & 143 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 124 & 655 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{commons-lang} & 124 & 789 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-time} & 194 & 2019 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 120 & 401 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 83 & 381 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 73 & 675 \\
-        \hline \cellcolor[RGB]{169,196,223} \textbf{all} & \textbf{864} & \textbf{5510} \\
-        \hline
-      \end{tabular}
-    \end{threeparttable}
-  }
-
-  \vspace{2mm}
-  \hrule
+  \caption{The usable number of source code unit data points gathered from the test subjects in Table~\ref{tab:experimental_subjects}.}
+  \label{tab:experiments_collected_data}
+  \rowcolors{1}{gray!30}{gray!20}
+  \begin{threeparttable}
+    \begin{tabular}{|l|r|r|}
+      \rowcolor[RGB]{169,196,223}
+      \hline & \textbf{Class-Level} & \textbf{Method-Level} \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 115 & 447 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 31 & 143 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 124 & 655 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{commons-lang} & 124 & 789 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{joda-time} & 194 & 2019 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{openfast} & 120 & 401 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{jsoup} & 83 & 381 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{joda-primitives} & 73 & 675 \\
+      \hline \cellcolor[RGB]{169,196,223} \textbf{all} & \textbf{864} & \textbf{5510} \\
+      \hline
+    \end{tabular}
+  \end{threeparttable}
 \end{sidewaystable}
+\afterpage\clearpage
 
 \noindent
 As described in Chapter~\ref{chap:approach}, our approach uses mutation testing to acquire the necessary mutation score data used for the category of the source code units. Table~\ref{tab:experiments_mutation_results} shows the results of running Javalanche on our experimental subjects. For all of our subjects, mutation testing produced a large number of mutants that were evaluated, taking approximately 64 hours to complete in our experimental environment. As described in Section~\ref{subsec:background_mutation_tools}, Javalanche utilizes \emph{coverage} (i.e., basic block coverage) for test selection which limits the number of mutants to be evaluated to a subset of covered mutants. Javalanche was able to kill 79.7687\% of the covered mutants using all projects cumulatively. All individual projects, except for \emph{barbecue}, exceeded a mutation score of at least 73\% which indicates that the test suites for covered source code units are reasonably effective. The overall coverage is 70.1195\%, indicating that the test suites of the projects did not cover the reminding 29.8805\% of the generated mutants. Realistically, mutation scores are calculated using the entire project's source code, but for our purpose only covered mutants were used. The corrective action for non-covered mutants (i.e., mutants not covered by test suite using basic block coverage) is to add new test cases that provide coverage over the mutant's location.
@@ -279,6 +274,7 @@ The rational behind the categories is to separate the lower and upper percentile
   \end{tabular}
   \caption{The available number of source code units that fall within the determined ranges of mutation scores.}
   \vspace{2mm}
+  \hrule
   \label{tab:available_data}
 \end{table}
 
@@ -453,29 +449,26 @@ We keep track of the frequency of parameter pairs selected over all the predicti
 
 \begin{sidewaysfigure}[!tb]
   \centering
-  \captionbox{Raw output of training on \texttt{joda-time} then predicting on its unknowns using the parameters \emph{cost}=0.03125 and \emph{gamma}=0.0078125.\label{fig:raw_output_bad}}{
-    \begin{minipage}{22.0cm}
-    \scriptsize{
-    \lstinputlisting[language=Java, basicstyle=\footnotesize\ttfamily,]{listings/raw_output_bad.txt}
-    }
-    \end{minipage}
+  \caption{Raw output of training on \texttt{joda-time} then predicting on its unknowns using the parameters \emph{cost}=0.03125 and \emph{gamma}=0.0078125.}
+  \label{fig:raw_output_bad}
+  \begin{minipage}{22.0cm}
+  \scriptsize{
+  \lstinputlisting[language=Java, basicstyle=\footnotesize\ttfamily,]{listings/raw_output_bad.txt}
   }
-
-  \vspace{2mm}
-  \hrule
+  \end{minipage}
+  
 	\vspace{3em}
 
   \centering
-  \captionbox{Raw output of training on \texttt{joda-time} then predicting on its unknowns using the parameters \emph{cost}=8 and \emph{gamma}=0.125.\label{fig:raw_output_good}}{
-    \begin{minipage}{22.0cm}
-    \scriptsize{
-    \lstinputlisting[language=Java, basicstyle=\footnotesize\ttfamily,]{listings/raw_output_good.txt}
-    }
-    \end{minipage}
-	}
-  \vspace{2mm}
-  \hrule
+  \caption{Raw output of training on \texttt{joda-time} then predicting on its unknowns using the parameters \emph{cost}=8 and \emph{gamma}=0.125.}
+  \label{fig:raw_output_good}
+  \begin{minipage}{22.0cm}
+  \scriptsize{
+  \lstinputlisting[language=Java, basicstyle=\footnotesize\ttfamily,]{listings/raw_output_good.txt}
+  }
+  \end{minipage}
 \end{sidewaysfigure}
+\afterpage\clearpage
 
 We noticed that in some situations accuracy is not the best measure for a classifier's effectiveness. For example, consider the following situation: Given imbalanced data for the testing/unknown data set, the accuracy could misrepresent the performance of the classifier. The raw outputs of our classifier using two different sets of parameters on the \emph{joda-time} subject are shown in Figures~\ref{fig:raw_output_bad}~\&~\ref{fig:raw_output_good}. In both of the raw outputs we can see a confusion matrix along with performance measures. We can see in the raw output in Figure~\ref{fig:raw_output_bad} that all of predictions fall in category \texttt{2}. The \emph{joda-time} data set is imbalanced with the majority of data (i.e., 76.1675\% of the data) belonging to category \texttt{2}. Even with the biased predictions made towards the majority category, the accuracy of the prediction is 76.1675\%. In contrast to the the raw output presented in Figure~\ref{fig:raw_output_good} we can see that the accuracy is slightly lower at 71.7391\%. Now even though the accuracy in the second example is slightly lower we can consider it a superior classifier to the former as it actually treats the categories in a more unbiased fashion (i.e., one category is not receiving the majority of predictions like the previous example). To alleviate this problem, we consider other measurements that can be used to assess the predictive capabilities of classifiers, specifically the following measures:
 
@@ -561,6 +554,8 @@ Using our search strategy as described we attained the following \gls{svm} param
 
 \begin{sidewaystable}[!tb]
   \centering
+  \caption{Comparison of class-level prediction accuracy (mean $\pm$ standard deviation) before/after generalized parameters are used.}
+  \label{tab:experiments_comparison_class_prediction}
   \rowcolors{1}{gray!30}{gray!20}
   \begin{threeparttable}
     \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|}
@@ -586,14 +581,13 @@ Using our search strategy as described we attained the following \gls{svm} param
       \hline
     \end{tabular}
   \end{threeparttable}
-  \caption{Comparison of class-level prediction accuracy (mean $\pm$ standard deviation) before/after generalized parameters are used.}
-  \vspace{2mm}
-  \hrule
-  \label{tab:experiments_comparison_class_prediction}
 \end{sidewaystable}
+\afterpage\clearpage
 
 \begin{sidewaystable}[!tb]
   \centering
+  \caption{Comparison of method-level prediction accuracy (mean $\pm$ standard deviation) before/after generalized parameters are used.}
+  \label{tab:experiments_comparison_method_prediction}
   \rowcolors{1}{gray!30}{gray!20}
   \begin{threeparttable}
     \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|}
@@ -619,11 +613,8 @@ Using our search strategy as described we attained the following \gls{svm} param
       \hline
     \end{tabular}
   \end{threeparttable}
-  \caption{Comparison of method-level prediction accuracy (mean $\pm$ standard deviation) before/after generalized parameters are used.}
-  \vspace{2mm}
-  \hrule
-  \label{tab:experiments_comparison_method_prediction}
 \end{sidewaystable}
+\afterpage\clearpage
 
 We present the new generalizable results (see Figures~\ref{fig:prediction_with_parameters_class_graph}~\&~\ref{fig:prediction_with_parameters_method_graph}) in the same format as the pre-generalizable results (see Figures~\ref{fig:prediction_class_graph}~\&~\ref{fig:prediction_method_graph}). Using the generalizable parameters we can see that in both class- and method-level results, the resulting accuracy tend to increase slightly. In some situations we can even see that s decreased variability in accuracy. In particular we can see that in class-level predictions, the possibilities of 0\% accuracy (which occurred in four of the subjects without the generalizable parameters) no longer occurs. This happened as a result of the selecting parameters that maximized F-score instead, which treats the predictions of categories more fairly (i.e., avoiding predicting all of one category, which could be the wrong category). To further see the benefits of using generalized LIBSVM parameters we compared the individual accuracies and standard deviation of each subject. As presented in Tables~\ref{tab:experiments_comparison_class_prediction}~\&~\ref{tab:experiments_comparison_method_prediction}, we can see the gains and losses in mean and standard deviation of prediction accuracy from the application of generalized parameters. In terms of changes, improvement for mean accuracy would be a gain (i.e., better prediction accuracy) while for standard deviation an improvement would be a loss (i.e., smaller variation in prediction accuracy). Of the 16 class-level subjects presented in Table~\ref{tab:experiments_comparison_class_prediction}, 12 out of 16 subjects saw an improvement in mean accuracy and 9 out of 16 subjects saw an improvement in standard deviation. Of the 16 method-level subjects presented in Table~\ref{tab:experiments_comparison_class_prediction}, 13 out of 16 subjects saw an improvement in mean accuracy and 10 out 16 subjects saw an improvement in standard deviation. These results show that the generalized parameters overall had a positive effect on the subjects's performance. Overall, the class-level average saw an improvement of 4.8147\% in mean prediction accuracy with a slight improvement of 0.6775\% in standard deviation. Method-level average prediction accuracy saw an improvement of 3.7847\% while the standard deviation worsend by 0.1363\%. The improvements in both class- and method-level are both a side benefit of using generalized LIBSVM parameters, as the main purpose was to nullify the need for parameter selection (i.e., no need to grid search on known data) to make predictions on unknown data.
 
