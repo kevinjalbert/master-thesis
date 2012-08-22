@@ -123,7 +123,7 @@ To predict the mutation score of method- and class-level source code units our a
   \end{minipage}
   \caption{Example source code of \texttt{Triangle} and its test suite \texttt{TriangleTest}.}
   \vspace{1mm}
-  \footnotesize{\emph{The above example presents a stripped down example of expected input that our prediction approach requires. This system is able to classify triangles, and has a few test cases to test its capabilities in classifying triangles.}}
+  \footnotesize{\emph{The above example presents a stripped down example of expected input that our prediction approach requires. This software system is able to classify triangles, and has a few test cases to test its capabilities in classifying triangles.}}
   \vspace{2mm}
   \hrule
   \label{fig:triangle_example}
@@ -160,13 +160,13 @@ In our research we use Javalanche (version 0.4), a mutation testing tool for Jav
 
 We chose Javalanche for our research because it is customizable and extendable, therefore allowing us to modify Javalanche to calculate unit mutation scores and output a richer set of results. Other benefits of Javalanche include: full integration with JUnit, the use of mutation schemas and bytecode generation to improve performance, and test selection using coverage (see Table~\ref{tab:mutation_tools} for full list). Although Javalanche does not have class-level mutation operators, due to the open source nature of Javalanche we can extend it to incorporate class-level mutation operators. In addition, Javalanche already has concurrency-level mutation operators as well as the ability to identify equivalent mutants using impact analysis.
 
-Using scripts we made our whole approach as automated as possible, thus the user only has to configure a couple variables to target a different project (i.e., package prefix, test suite name, test \& source directories). We have made minor modifications to Javalanche that allows it to use all the specified operators from Table~\ref{tab:javalanche_operators}. Javalanche is also configured to use its coverage impact analysis to give insight on equivalent mutants (more on this in Chapter~\ref{chap:experiment}) though this slows down Javalanche substantially. Furthermore we added a custom analyzer that outputs the mutation scores of each class and method units in the \gls{sut}.
+Using scripts we made our whole approach as automated as possible, thus the user only has to configure a couple variables to target a different software system (i.e., package prefix, test suite name, test \& source directories). We have made minor modifications to Javalanche that allows it to use all the specified operators from Table~\ref{tab:javalanche_operators}. Javalanche is also configured to use its coverage impact analysis to give insight on equivalent mutants (more on this in Chapter~\ref{chap:experiment}) though this slows down Javalanche substantially. Furthermore we added a custom analyzer that outputs the mutation scores of each class and method units in the \gls{sut}.
 
 \begin{figure}[!tb]
   \centering
   \lstinputlisting[literate={,}{\textbf{,}}{1}]{listings/Triangle_class_mutation_score.csv}
   \lstinputlisting[literate={,}{\textbf{,}}{1}]{listings/Triangle_method_mutation_score.csv}
-  \caption{Example \gls{csv} files of the mutation scores from the \texttt{Triangle} system.}
+  \caption{Example \gls{csv} files of the mutation scores from the \texttt{Triangle} software system.}
   \vspace{1mm}
   \footnotesize{\emph{The above file snippets show the generated class (top) and method (bottom) mutation score \gls{csv} files. There are more values related to the number of mutant types generated/killed that are not shown for terseness.}}
   \vspace{2mm}
@@ -174,7 +174,7 @@ Using scripts we made our whole approach as automated as possible, thus the user
   \label{fig:triangle_mutation_scores}
 \end{figure}
 
-Javalanche generates all possible mutants, then considers the set of mutants covered by the provided test suite. Given the set of covered mutants, Javalanche then tests and records the results of each mutant using its subset of covered test cases for that specific mutant. The newly added analyzer for Javalanche then outputs an intermediate \gls{csv} file of mutation scores for the covered source code units. Using the example \texttt{Triangle} system presented in Section~\ref{subsec:approach_inputs} the \gls{csv} file of the acquired mutation scores are shown in Figure~\ref{fig:triangle_mutation_scores}. Using the \gls{csv} file, we populate a database with all the acquired data, easing the management and analysis of the data.
+Javalanche generates all possible mutants, then considers the set of mutants covered by the provided test suite. Given the set of covered mutants, Javalanche then tests and records the results of each mutant using its subset of covered test cases for that specific mutant. The newly added analyzer for Javalanche then outputs an intermediate \gls{csv} file of mutation scores for the covered source code units. Using the example \texttt{Triangle} software system presented in Section~\ref{subsec:approach_inputs} the \gls{csv} file of the acquired mutation scores are shown in Figure~\ref{fig:triangle_mutation_scores}. Using the \gls{csv} file, we populate a database with all the acquired data, easing the management and analysis of the data.
 
 
 \subsection{Collect Source Code Metrics}
@@ -183,7 +183,7 @@ In our research, we use the Eclipse Metrics Plugin (version 1.3.8.20100730-001) 
 
 \begin{sidewaystable}[!tb]
   \centering
-  \caption{Extracted class source code metrics of the \texttt{Triangle} system.}
+  \caption{Extracted class source code metrics of the \texttt{Triangle} software system.}
   \label{tab:triangle_class_extracted_metrics}
 	\rowcolors{2}{gray!30}{gray!20}
 	\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|}
@@ -198,7 +198,7 @@ In our research, we use the Eclipse Metrics Plugin (version 1.3.8.20100730-001) 
   \vspace{3em}
 
   \centering
-  \caption{Extracted method source code metrics of the \texttt{Triangle} system.}
+  \caption{Extracted method source code metrics of the \texttt{Triangle} software system.}
   \label{tab:triangle_method_extracted_metrics}
 	\rowcolors{2}{gray!30}{gray!20}
 	\begin{tabular}{|l|r|r|r|r|}
@@ -230,7 +230,7 @@ At this point in the process we have acquired all the raw data (mutation scores,
 
 \begin{sidewaystable}[!tb]
   \centering
-	\caption{Extracted coverage test suite metrics (feature set \ding{173} of Table~\ref{tab:feature_sets}) of the \texttt{Triangle} system.}
+	\caption{Extracted coverage test suite metrics (feature set \ding{173} of Table~\ref{tab:feature_sets}) of the \texttt{Triangle} software system.}
 	\label{tab:triangle_coverage_metrics}
 	\rowcolors{2}{gray!30}{gray!20}
 	\begin{tabular}{|l|r|r|r|}
@@ -246,7 +246,7 @@ At this point in the process we have acquired all the raw data (mutation scores,
 	\vspace{3em}
 	
 	\centering
-	\caption{Merged test suite metrics (feature set \ding{175} in Table~\ref{tab:feature_sets}) for each source code unit of the \texttt{Triangle} system.}
+	\caption{Merged test suite metrics (feature set \ding{175} in Table~\ref{tab:feature_sets}) for each source code unit of the \texttt{Triangle} software system.}
 	\label{tab:triangle_merge_test_metrics}
 	\rowcolors{2}{gray!30}{gray!20}
 	\begin{tabular}{|l|r|r|r|r|r|r|r|r|}
@@ -262,7 +262,7 @@ At this point in the process we have acquired all the raw data (mutation scores,
 	\vspace{3em}
 
 	\centering
-	\caption{Aggregation of method-level source code metrics for each class-level source code unit (feature set \ding{174} of Table~\ref{tab:feature_sets}) of the \texttt{Triangle} system.}
+	\caption{Aggregation of method-level source code metrics for each class-level source code unit (feature set \ding{174} of Table~\ref{tab:feature_sets}) of the \texttt{Triangle} software system.}
 	\label{tab:triangle_aggregate_metrics}
 	\rowcolors{2}{gray!30}{gray!20}
 	\begin{tabular}{|l|r|r|r|r|r|r|r|r|}
