@@ -207,7 +207,7 @@ To illustrate the effects of a class-level operator, we can look at the \emph{Me
 
 \subsubsection{Other Mutation Operators}
 \label{subsubsec:background_other_operators}
-In addition to the two general sets of mutation operators just described, sets also exist for specific domains (i.e., concurrency and security). Bradbury et. al. presented a set of concurrency mutation operators that is capable of creating concurrency faults (e.g., data races and deadlocks)~\cite{BCD06}. Shahrair and Zulkernine presented multiple sets of mutation operators in the security domain for database injection~\cite{SZ08b}, buffer overflows\cite{SZ08}, and cross site scripting~\cite{SZ08a}. Offutt et. al. presented operators for grammar-based testing~\cite{OAL06}. Furthermore, as mentioned earlier on in Section~\ref{sec:background_mutation_testing}, other domains where mutation testing has been applied have their own set of mutation operators (i.e., spreadsheets, markup), though this is outside the scope of this thesis.
+In addition to the two general sets of mutation operators just described, sets also exist for specific domains (i.e., concurrency and security). Bradbury et al. presented a set of concurrency mutation operators that is capable of creating concurrency faults (e.g., data races and deadlocks)~\cite{BCD06}. Shahrair and Zulkernine presented multiple sets of mutation operators in the security domain for database injection~\cite{SZ08b}, buffer overflows\cite{SZ08}, and cross site scripting~\cite{SZ08a}. Offutt et al. presented operators for grammar-based testing~\cite{OAL06}. Furthermore, as mentioned earlier on in Section~\ref{sec:background_mutation_testing}, other domains where mutation testing has been applied have their own set of mutation operators (i.e., spreadsheets, markup), though this is outside the scope of this thesis.
 
 
 \subsection{Mutation Testing Tools}
@@ -215,20 +215,20 @@ In addition to the two general sets of mutation operators just described, sets a
 In the last decade a number of mutation testing tools for the Java programming language have emerged~\cite{JH10}. We present the following set of criteria that distinguishes most of the tools from each other:
 
 \begin{itemize}
-  \item \textbf{Citation}: the citation for the tool's publication/website.
-  \item \textbf{Inception Year}: the year the tool was released to the public.
-  \item \textbf{Generation-Level}: mutations can be generated either at the source code or bytecode level. Source code mutation generation requires re-compilation while bytecode does not.
-  \item \textbf{Test Selection}: test selection indicates which unit test cases are performed for each mutant. A naive approach simply runs all the unit test cases, while convention based runs all tests based on a package/test name or defined annotations. Coverage based approach only runs unit test cases that are directly involved in the mutated source code, while a manual bases approach allows the user to specify each unit test case.
-  \item \textbf{Mutant Insertion}: generated mutants are stored and ran against the selected unit test cases. A naive approach stores the mutants on disk and creates a new \gls{jvm} for each mutant. A schmeta approach stores all the mutants in a single class, and the mutants are enabled through runtime flags one at a time~\cite{UOH93}. An in-memory approach stores all the mutants in memory which are then injected into the \gls{jvm} by creating a new classloader. An instrumentation approach stores the mutants in memory, but injects them into the \gls{jvm} directly using an instrumentation \gls{api}.
-  \item \textbf{Method-Level}: whether or not a tool has a set of \emph{traditional} method-level mutation operators, as mentioned in Section~\ref{subsubsec:background_method_operators}.
-  \item \textbf{Class-Level}: whether or not a tool has a set of object-oriented class-level mutation operators, as mentioned in Section~\ref{subsubsec:background_class_operators}.
-  \item \textbf{JUnit Support}: whether or not a tool has support for JUnit test cases (de facto for unit testing Java~\cite{JUnit}.
-  \item \textbf{Command-Line}: whether or not a tool has support to be executed via a \gls{cli}.
-  \item \textbf{Structured Output}: whether or not a tool has support to output results in a structure format (i.e., \gls{xml}, \gls{csv})
-  \item \textbf{Unit Scores}: whether or not a tool indicates the mutation score of individual source code units (i.e., the mutation score of methods).
-  \item \textbf{Open Source}: whether or not a tool's source code is open source and freely available to modify.
-  \item \textbf{Academic Tool}: whether or not a tool was developed from an academic research group, otherwise industry or community developed.
-  \item \textbf{Special Feature}: whether or not a tools has a special feature that is unique in mutation testing.
+  \item \textbf{Citation}: The citation for the tool's publication/website.
+  \item \textbf{Inception Year}: The year the tool was released to the public.
+  \item \textbf{Generation-Level}: Mutations can be generated either at the source code or bytecode level. Source code mutation generation requires re-compilation while bytecode does not.
+  \item \textbf{Test Selection}: Test selection indicates which unit test cases are performed for each mutant. A naive approach simply runs all the unit test cases, while convention based runs all tests based on a package/test name or defined annotations. Coverage based approach only runs unit test cases that are directly involved in the mutated source code, while a manual bases approach allows the user to specify each unit test case.
+  \item \textbf{Mutant Insertion}: Generated mutants are stored and ran against the selected unit test cases. A naive approach stores the mutants on disk and creates a new \gls{jvm} for each mutant. A schmeta approach stores all the mutants in a single class, and the mutants are enabled through runtime flags one at a time~\cite{UOH93}. An in-memory approach stores all the mutants in memory which are then injected into the \gls{jvm} by creating a new classloader. An instrumentation approach stores the mutants in memory, but injects them into the \gls{jvm} directly using an instrumentation \gls{api}.
+  \item \textbf{Method-Level}: Whether or not a tool has a set of \emph{traditional} method-level mutation operators, as mentioned in Section~\ref{subsubsec:background_method_operators}.
+  \item \textbf{Class-Level}: Whether or not a tool has a set of object-oriented class-level mutation operators, as mentioned in Section~\ref{subsubsec:background_class_operators}.
+  \item \textbf{JUnit Support}: Whether or not a tool has support for JUnit test cases (de facto for unit testing Java~\cite{JUnit}.
+  \item \textbf{Command-Line}: Whether or not a tool has support to be executed via a \gls{cli}.
+  \item \textbf{Structured Output}: Whether or not a tool has support to output results in a structure format (i.e., \gls{xml}, \gls{csv})
+  \item \textbf{Unit Scores}: Whether or not a tool indicates the mutation score of individual source code units (i.e., the mutation score of methods).
+  \item \textbf{Open Source}: Whether or not a tool's source code is open source and freely available to modify.
+  \item \textbf{Academic Tool}: Whether or not a tool was developed from an academic research group, otherwise industry or community developed.
+  \item \textbf{Special Feature}: Whether or not a tools has a special feature that is unique in mutation testing.
 \end{itemize}
 
 \begin{sidewaystable}[!tb]
@@ -275,7 +275,7 @@ Using this criteria we provide a comparison of a set of mutation testing tools f
 
 \section{Machine Learning}
 \label{sec:background_machine_learning}
-Machine learning is a branch of artificial intelligence that primarily focuses on the ability to classify complex data. Given a dataset with complex relationships, machine learning algorithms can attempt to uncover patterns that characterize the data. With the uncovered patterns and relationships it is then possible to make intelligent predictions based on the data.
+Machine learning is a branch of artificial intelligence that primarily focuses on the ability to classify complex data. Given a data set with complex relationships, machine learning algorithms can attempt to uncover patterns that characterize the data. With the uncovered patterns and relationships it is then possible to make intelligent predictions based on the data.
 
 Machine learning algorithms are either a \emph{supervised} or \emph{unsupervised} learning algorithm. The main difference between the two types of algorithms is whether one can correctly classify data prior to using the algorithm. In situations where no data classification information is known about the data set, then a unsupervised classification algorithm could be used. Unsupervised learning algorithms aim to classify the data based on density or clusters (e.g., \emph{k}-mean clustering). Supervised learning requires that an \emph{expert} can classify some of the data to use for \emph{training}. A supervised learning algorithm creates a model that describes the training data. Unclassified data can then be passed through the model to see what classification best fits the data.
 
@@ -288,7 +288,7 @@ Many areas of research have benefited from machine learning, such as data mining
 
 \subsection{Performance Measures}
 \label{subsec:background_performance_measures}
-Machine learning techniques can be extremely beneficial in solving classification problems. Without a firm understanding of the results, it can be difficult to tell how well the technique is performing on the problem. To understand classification results, the actual \emph{known} classification is required for each data instance, thus it is possible to understand what is correctly classified. For unsupervised learning, the performance measures can be acquired after the classification has occurred, as the correct classifications are available. In supervised learning, we first need to generate a model that we can use to classify new data. To accommodate measuring supervised learning, the available data is split up into \emph{training} and \emph{testing} sets. The training set is used to construct the model which is then used to predict the testing set. The classifications of the predicted set can then be verified against their correct classification to acquire performance measures of the supervised learning technique. It is also possible to perform \emph{cross-validation} which is a technique that assess the prediction accuracy using the trained data. This evaluation is typically used when a small amount of data is used for training. Effectively, this divides a dataset into \emph{n} equal-sized partitions and the \gls{svm} trains on \emph{n-1} sets, predicting on the last. This process is repeated \emph{n} times using a different partition for prediction each time. Finally, all the individual prediction accuracies are tallied and averaged for a cross-validation accuracy of \emph{n}-folds. Commonly a \emph{10-fold} cross-validation is used to evaluate predictive models~\cite{Koh95}.
+Machine learning techniques can be extremely beneficial in solving classification problems. Without a firm understanding of the results, it can be difficult to tell how well the technique is performing on the problem. To understand classification results, the actual \emph{known} classification is required for each data instance, thus it is possible to understand what is correctly classified. For unsupervised learning, the performance measures can be acquired after the classification has occurred, as the correct classifications are available. In supervised learning, we first need to generate a model that we can use to classify new data. To accommodate measuring supervised learning, the available data is split up into \emph{training} and \emph{testing} sets. The training set is used to construct the model which is then used to predict the testing set. The classifications of the predicted set can then be verified against their correct classification to acquire performance measures of the supervised learning technique. It is also possible to perform \emph{cross-validation} which is a technique that assess the prediction accuracy using the trained data. This evaluation is typically used when a small amount of data is used for training. Effectively, this divides a data set into \emph{n} equal-sized partitions and the \gls{svm} trains on \emph{n-1} sets, predicting on the last. This process is repeated \emph{n} times using a different partition for prediction each time. Finally, all the individual prediction accuracies are tallied and averaged for a cross-validation accuracy of \emph{n}-folds. Commonly a \emph{10-fold} cross-validation is used to evaluate predictive models~\cite{Koh95}.
 
 \begin{figure}[!tb]
   \centering
@@ -376,7 +376,7 @@ A confusion matrix can visually represent the allotment of predictions over the 
   \label{fig:SVM_margin}
 \end{figure}
 
-A \gls{svm} is an example of a linear discrimination machine learning technique and assumes that \emph{``\ldots instances of a class are linearly separable from instances of other classes''}~\cite{ALP04}. Traditionally, \gls{svm}s have been used for two-group classification problems~\cite{CV95}, but have also been generalized to \emph{n}-group classification problems. The dataset used in \gls{svm} is applied to a \emph{feature space} that consists of a set of \emph{vectors} (a row of data in the dataset), with each vector containing a set of \emph{attributes} (the values that define the vector). Figure~\ref{fig:SVM_margin}, is a \gls{svm} example with each vector having two predictor variables (\emph{x} and \emph{y} coordinates). A \gls{svm} attempts to find the maximum margin space between support vectors of opposite categories, which results in the optimal hyperplane. The optimal hyperplane is chosen over others, because \emph{``Intuitively, we would expect this boundary to generalize well as opposed to the other possible boundaries.''}~\cite{Gun98}.
+A \gls{svm} is an example of a linear discrimination machine learning technique and assumes that \emph{``\ldots instances of a class are linearly separable from instances of other classes''}~\cite{ALP04}. Traditionally, \gls{svm}s have been used for two-group classification problems~\cite{CV95}, but have also been generalized to \emph{n}-group classification problems. The data set used in \gls{svm} is applied to a \emph{feature space} that consists of a set of \emph{vectors} (a row of data in the data set), with each vector containing a set of \emph{attributes} (the values that define the vector). Figure~\ref{fig:SVM_margin}, is a \gls{svm} example with each vector having two predictor variables (\emph{x} and \emph{y} coordinates). A \gls{svm} attempts to find the maximum margin space between support vectors of opposite categories, which results in the optimal hyperplane. The optimal hyperplane is chosen over others, because \emph{``Intuitively, we would expect this boundary to generalize well as opposed to the other possible boundaries.''}~\cite{Gun98}.
 
 \begin{figure}[!tb]
   \centering
@@ -402,14 +402,14 @@ In some cases a linear separation is not possible in the feature space. An examp
 Considering the following criteria for \gls{svm}s, we can distinguish between several different implementations from a user perspective:
 
 \begin{itemize}
-  \item \textbf{Citation}: the citation for the tool's publication/website.
-  \item \textbf{Inception Year}: the year the tool was released to the public.
-  \item \textbf{Multiple-Group}: whether or not the tool supports multiple group classification problems, in addition to binary group classification.
-  \item \textbf{Cross-Validation}: whether or not the tool supports cross-validation.
-  \item \textbf{Measures}: whether or not the tools supports performance measures to aid in evaluation of classification accuracy.
-  \item \textbf{Command-Line}: whether or not the tool supports to be ran via a command-line interface.
-  \item \textbf{Open Source}: whether or not the tool's source code is open source and freely available to modify.
-  \item \textbf{Academic Tool}: whether or not the tool was developed from an academic research group, otherwise industry or community developed.
+  \item \textbf{Citation}: The citation for the tool's publication/website.
+  \item \textbf{Inception Year}: The year the tool was released to the public.
+  \item \textbf{Multiple-Group}: Whether or not the tool supports multiple group classification problems, in addition to binary group classification.
+  \item \textbf{Cross-Validation}: Whether or not the tool supports cross-validation.
+  \item \textbf{Measures}: Whether or not the tools supports performance measures to aid in evaluation of classification accuracy.
+  \item \textbf{Command-Line}: Whether or not the tool supports to be ran via a command-line interface.
+  \item \textbf{Open Source}: Whether or not the tool's source code is open source and freely available to modify.
+  \item \textbf{Academic Tool}: Whether or not the tool was developed from an academic research group, otherwise industry or community developed.
 \end{itemize}
 
 \begin{table}[!tb]

@@ -21,11 +21,11 @@ A major drawback of mutation testing is that even a small software system may yi
 Mutation testing offers a highly effective approach for determining the effectiveness of a test suite but at high cost. The adoption of mutation testing in industry has been slow due to the performance/scalability issues and tool usability (i.e., integration into a standard \gls{sdlc})~\cite{OU01}. Three approaches have been proposed to improve mutation testing performance and scalability~\cite{OU01}:
 
 \begin{enumerate}
-  \item \textbf{``Do fewer'' approach:} this category of optimizations aims to decrease the computational cost of mutation testing by reducing the number of mutants that a test suite is evaluated against. The most popular example from this category is selective mutation -- the use of a subset of mutation operators that have been empirically shown to be as effective as using an entire set of operators~\cite{OLR+96}.
+  \item \textbf{``Do fewer'' approach:} This category of optimizations aims to decrease the computational cost of mutation testing by reducing the number of mutants that a test suite is evaluated against. The most popular example from this category is selective mutation -- the use of a subset of mutation operators that have been empirically shown to be as effective as using an entire set of operators~\cite{OLR+96}.
 
-  \item \textbf{``Do smarter'' approach:} this category of optimizations aim to decrease the cost of mutation testing by improving the actual mutation testing technique. For example, weak mutation \emph{``\ldots is an approximation technique that compares the internal states of mutant and original program immediately after execution of the mutated portion of the code (instead of comparing the program output)''}~\cite{OU01}.
+  \item \textbf{``Do smarter'' approach:} This category of optimizations aim to decrease the cost of mutation testing by improving the actual mutation testing technique. For example, weak mutation \emph{``\ldots is an approximation technique that compares the internal states of mutant and original program immediately after execution of the mutated portion of the code (instead of comparing the program output)''}~\cite{OU01}.
 
-  \item \textbf{``Do faster'' approach:} this category of optimizations aims to reduce the cost of mutation testing by focusing on performance. For example, one ``do faster'' approach improves compilation time using schema-based mutation -- \emph{``\ldots encodes all mutations into one source level program \ldots''}~\cite{OU01}.
+  \item \textbf{``Do faster'' approach:} This category of optimizations aims to reduce the cost of mutation testing by focusing on performance. For example, one ``do faster'' approach improves compilation time using schema-based mutation -- \emph{``\ldots encodes all mutations into one source level program \ldots''}~\cite{OU01}.
 \end{enumerate}
 
 As an alternative to the above approaches, we propose a \emph{``do fewer and smarter''} approach for mutation testing at the unit level. When mutation testing is used for the creation or improvement of a test suite, the test suite will often have to be applied to the mutants in an iterative fashion as tests are added, removed and modified. Furthermore, the effects on the mutation score after each iteration have to be observed. We propose to replace at least some of the mutation testing of intermediate tests with mutation score prediction and thus decrease the number of mutants that have to be evaluated using a test suite. Our proposed approach uses machine learning to predict the mutation score based on a combination of source code and test suite metrics of the code unit under test.
@@ -39,7 +39,7 @@ As an alternative to the above approaches, we propose a \emph{``do fewer and sma
 
 Essentially, this thesis presents an approach that predicts the mutation scores of code units. This approach is ideal for the iterative creation or improvement of a test suite as it mitigates the amount of time spent on mutation testing (i.e., less testing of mutants).
 
-The scope of this thesis is limited to open-source Java programs. We have selected this scope because mutation testing of Java programs is fairly mature and there are a number of existing mutation tools for Java~\cite{JH10}.
+The scope of this thesis is limited to open source Java programs. We have selected this scope because mutation testing of Java programs is fairly mature and there are a number of existing mutation tools for Java~\cite{JH10}.
 
 
 \section{Contributions}
@@ -61,8 +61,8 @@ This thesis makes the following contributions to the field of mutation testing, 
 In this chapter we have outlined our motivation in Section~\ref{sec:introduction_motivation} and problem in Section~\ref{sec:introduction_problem}. We presented our thesis statement in Section~\ref{sec:introduction_statement_and_scope} along with a general set of contributions for this thesis in Section~\ref{sec:introduction_contributions}. The remaining chapters of this thesis are organized as follows:
 
 \begin{itemize}
-  \item \emph{Chapter~\ref{chap:background}:} we describe the background material and concepts used in this thesis. We look at uses and details of machine learning on how it can be used for classification problems. We illustrate what mutation testing is and  the advantages and disadvantages of using it. We finally cover software metrics and their uses in understanding software systems and complexity.
-  \item \emph{Chapter~\ref{chap:approach}:} we describe our overall approach to mutation score prediction. We cover each step of our approach all while detailing the selected tools used. We discuss related work in the area of predictions using source code metrics.
-  \item \emph{Chapter~\ref{chap:experiment}:} we describe our experimental setup as well as our eight selected experimental subjects. We conduct a number of experiments to evaluate our approach along with discussions.
-  \item \emph{Chapter~\ref{chap:conclusions}:} we summarize the thesis and mentioned the contributions. We outline future work as well as limitations on the thesis.
+  \item \emph{Chapter~\ref{chap:background}:} We describe the background material and concepts used in this thesis. We look at uses and details of machine learning on how it can be used for classification problems. We illustrate what mutation testing is and  the advantages and disadvantages of using it. We finally cover software metrics and their uses in understanding software systems and complexity.
+  \item \emph{Chapter~\ref{chap:approach}:} We describe our overall approach to mutation score prediction. We cover each step of our approach all while detailing the selected tools used. We discuss related work in the area of predictions using source code metrics.
+  \item \emph{Chapter~\ref{chap:experiment}:} We describe our experimental setup as well as our eight selected experimental subjects. We conduct a number of experiments to evaluate our approach along with discussions.
+  \item \emph{Chapter~\ref{chap:conclusions}:} We summarize the thesis and mentioned the contributions. We outline future work as well as limitations on the thesis.
 \end{itemize}
