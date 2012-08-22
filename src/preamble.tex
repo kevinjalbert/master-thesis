@@ -37,7 +37,13 @@
 \usepackage{xfrac}
 \usepackage{adjustbox}
 \usepackage{rotating}
+\usepackage{microtype}
 \usepackage[chapter]{algorithm}
+
+% Avoid widows and orphans
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
 
 % Java source code listing format
 \definecolor{lightgray}{gray}{.95}
