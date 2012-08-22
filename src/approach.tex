@@ -278,7 +278,7 @@ At this point in the process we have acquired all the raw data (mutation scores,
 
 \subsection{Aggregate and Merge Method-Level Metrics}
 \label{subsec:approach_aggregate_merge_metrics}
-The last phase for data synthesis is to merge the source code metrics of the covered unit test cases together into their corresponding source code unit. This merger produces feature set \ding{175} from Table~\ref{tab:feature)sets}. Using our example, this phase produces the synthesized test suite metrics shown in Table~\ref{tab:triangle_merge_test_metrics}.
+The last phase for data synthesis is to merge the source code metrics of the covered unit test cases together into their corresponding source code unit. This merger produces feature set \ding{175} from Table~\ref{tab:feature_sets}. Using our example, this phase produces the synthesized test suite metrics shown in Table~\ref{tab:triangle_merge_test_metrics}.
 
 We also aggregate the method-level source code units metrics into their respected parent class-level source code unit. This allows us to populate the database with metrics from feature set \ding{174} from Table~\ref{tab:feature_sets}. Using our example, the aggregation of method-level metrics to class-level source code units is shown in Table~\ref{tab:triangle_aggregate_metrics}.
 
@@ -292,7 +292,7 @@ We also aggregate the method-level source code units metrics into their respecte
   \end{minipage}
   \caption{Example file format for LIBSVM, a \emph{.libsvm} file of vectors}
   \vspace{1mm}
-  \footnotesize{\emph{In \gls{svm} terms: each row is a vector, the first number in each row is the category and each \texttt{<a>:<b>} represent an attribute. From the example we can see that there are 3 categories (1, 2, and 3) and 12 attributes (1--12). For each attribute \texttt{a} represents the attribute ID and \texttt{b} represents the actual value for that attribute. The attribute ID maps to a specify metrics that the vector is representing. For example, attribute \text{1} might map to the \texttt{MLOC} attribute, and so-forth.}}
+  \footnotesize{\emph{For a \gls{svm}, each row is a vector where the first number in each row is the category and each \texttt{<a>:<b>} represent an attribute. From the above example, there are 3 categories and 12 attributes. For each attribute \texttt{a} represents the attribute ID and \texttt{b} represents the actual value for that attribute. The attribute ID maps to a specify metrics that the vector is representing. For example, attribute \texttt{1} might map to the \texttt{MLOC} attribute, and so-forth.}}
   \vspace{2mm}
   \hrule
   \label{fig:libsvm_file}

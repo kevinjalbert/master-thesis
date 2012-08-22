@@ -376,7 +376,7 @@ By using LIBSVM we want to train a classifier such that it can predict well on \
   \begin{threeparttable}
     \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{4.25cm}|>{\raggedleft\arraybackslash}p{4.25cm}|}
       \rowcolor[RGB]{169,196,223}
-      \hline & \textbf{Class-Level\newline[LOW/MEDIUM/HIGH]} & \textbf{Method-Level\newline[LOW/MEDIUM/HIGH]} \\
+      \hline & \textbf{Class-Level\scriptsize\newline[LOW/MEDIUM/HIGH]} & \textbf{Method-Level\scriptsize\newline[LOW/MEDIUM/HIGH]} \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{logback-core} & 36/43/0 & 0/3/30 \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{barbecue} & 13/12/0 & 20/15/0 \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{jgap} & 24/19/0 & 26/0/38 \\
@@ -451,9 +451,9 @@ We keep track of the frequency of parameter pairs selected over all the predicti
   \centering
   \caption{Raw output of training on \texttt{joda-time} then predicting on its unknowns using the parameters \emph{cost}=0.03125 and \emph{gamma}=0.0078125.}
   \label{fig:raw_output_bad}
-  \begin{minipage}{22.0cm}
+  \begin{minipage}{.95\textheight}
   \scriptsize{
-  \lstinputlisting[language=Java, basicstyle=\footnotesize\ttfamily,]{listings/raw_output_bad.txt}
+  \lstinputlisting[language=Java, basicstyle=\fontsize{3.3mm}{4.3mm}\ttfamily,]{listings/raw_output_bad.txt}
   }
   \end{minipage}
   
@@ -462,9 +462,9 @@ We keep track of the frequency of parameter pairs selected over all the predicti
   \centering
   \caption{Raw output of training on \texttt{joda-time} then predicting on its unknowns using the parameters \emph{cost}=8 and \emph{gamma}=0.125.}
   \label{fig:raw_output_good}
-  \begin{minipage}{22.0cm}
+  \begin{minipage}{.95\textheight}
   \scriptsize{
-  \lstinputlisting[language=Java, basicstyle=\footnotesize\ttfamily,]{listings/raw_output_good.txt}
+  \lstinputlisting[language=Java, basicstyle=\fontsize{3.3mm}{4.3mm}\ttfamily,]{listings/raw_output_good.txt}
   }
   \end{minipage}
 \end{sidewaysfigure}
@@ -643,7 +643,7 @@ As we saw in the previous section using our approach we achieve 49.7920\% predic
 
 \begin{figure}[!tb]
   \centering
-  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+  \begin{adjustbox}{max size={.95\textwidth}{.90\textheight}}
     \input{plots/divisor_class_graph}
   \end{adjustbox}
   \caption{Class-level prediction accuracies of each test subject using training and prediction with various amounts of training data.}
@@ -654,7 +654,7 @@ As we saw in the previous section using our approach we achieve 49.7920\% predic
 
 \begin{figure}[!tb]
   \centering
-  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+  \begin{adjustbox}{max size={.95\textwidth}{.90\textheight}}
     \input{plots/divisor_method_graph}
   \end{adjustbox}
   \caption{Method-level prediction accuracies of each test subject using training and prediction with various amounts of training data.}
@@ -674,7 +674,7 @@ We know that there exists a minimum number of training data items required to re
 
 \section{Threats to Validity}
 \label{sec:experiment_threats}
-We consider the four categories for threats to validity with respect to experimentation in Section~\ref{subsec:experiment_conclusion_validity}--~\ref{subsec:experiment_external_validity}.
+We consider the four categories for threats to validity with respect to experimentation in Section~\ref{subsec:experiment_conclusion_validity}~to~\ref{subsec:experiment_external_validity}.
 
 
 \subsection{Conclusion Validity}
