@@ -19,7 +19,7 @@ As mentioned in Section~\ref{sec:introduction_motivation}, techniques exists tha
 
 Figure~\ref{fig:mutation_testing_overview} illustrates a general approach to mutation testing. Mutation testing uses a set of \emph{mutation operators} to generate faulty versions of a software system's source code called \emph{mutants}. A mutation operator applies a transformation to a software artifact such that it now exhibits a fault (see Section~\ref{subsubsec:background_method_operators} for examples). Mutation operators are designed based on existing fault taxonomy, such that the generate mutants represent real faults. Studies have indicated that mutants could be used as substitutes for real faults~\cite{ABLN06, ABL05, NK11}.
 
-The transformation of a software artifact to create a mutant is typically a small/single change as most bugs follow the \emph{\gls{cph}}~\cite{ABD+79} which suggests that developers write software that is nearly correct. Also the \emph{\gls{ceh}}~\cite{Off92} suggests that a large percent of complex faults can be detected if all the simple faults can be detected. These two hypothesis strengthen the use of small/single changes for mutation operators and why mutation testing is adequate for evaluating test suite effectiveness.
+The transformation of a software artifact to create a mutant is typically a small/single change as most bugs follow the \emph{Competent Programmer Hypothesis}~\cite{ABD+79} which suggests that developers write software that is nearly correct. Also the \emph{Coupling Effect Hypothesis}~\cite{Off92} suggests that a large percent of complex faults can be detected if all the simple faults can be detected. These two hypothesis strengthen the use of small/single changes for mutation operators and why mutation testing is adequate for evaluating test suite effectiveness.
 
 \begin{equation}
   \emph{$\text{mutation score} = \frac{\text{killed mutants}}{\text{total mutants} - \text{equivalent mutants}}$}
@@ -66,7 +66,7 @@ As previously mentioned mutation operators define transformations that attempts 
     \hline \emph{ASR} & Assignment Operator Replacement \\
     \hline
   \end{tabular}
-  \caption{The set of method-level mutation operators from the MuJava mutation testing tool~\cite{MOK05, MO05a}.}
+  \caption{The set of method-level mutation operators from the \emph{MuJava} mutation testing tool~\cite{MOK05, MO05a}.}
   \label{tab:method_operators}
   \vspace{2mm}
   \hrule
@@ -87,7 +87,7 @@ We first consider the set of method-level mutation operators found in the mutati
   \footnotesize{\textbf{Mutant Program}}
   \lstinputlisting[language=Java, literate={>}{{\textcolor{red}{<}}}{1}]{listings/mutation_example.java}
   \end{minipage}
-  \caption{Example application of the \texttt{ROR} method-level mutation operator.}
+  \caption{Example application of the \emph{ROR} method-level mutation operator.}
   \vspace{2mm}
   \hrule
   \label{fig:ROR_mutation}
@@ -219,7 +219,7 @@ In the last decade a number of mutation testing tools for the Java programming l
   \item \textbf{Inception Year}: The year the tool was released to the public.
   \item \textbf{Generation-Level}: Mutations can be generated either at the source code or bytecode level. Source code mutation generation requires re-compilation while bytecode does not.
   \item \textbf{Test Selection}: Test selection indicates which unit test cases are performed for each mutant. A naive approach simply runs all the unit test cases, while convention based runs all tests based on a package/test name or defined annotations. Coverage based approach only runs unit test cases that are directly involved in the mutated source code, while a manual bases approach allows the user to specify each unit test case.
-  \item \textbf{Mutant Insertion}: Generated mutants are stored and ran against the selected unit test cases. A naive approach stores the mutants on disk and creates a new \gls{jvm} for each mutant. A schmeta approach stores all the mutants in a single class, and the mutants are enabled through runtime flags one at a time~\cite{UOH93}. An in-memory approach stores all the mutants in memory which are then injected into the \gls{jvm} by creating a new classloader. An instrumentation approach stores the mutants in memory, but injects them into the \gls{jvm} directly using an instrumentation \gls{api}.
+  \item \textbf{Mutant Insertion}: Generated mutants are stored and ran against the selected unit test cases. A naive approach stores the mutants on disk and creates a new Java Virtual Machine for each mutant. A schmeta approach stores all the mutants in a single class, and the mutants are enabled through runtime flags one at a time~\cite{UOH93}. An in-memory approach stores all the mutants in memory which are then injected into the Java Virtual Machine by creating a new classloader. An instrumentation approach stores the mutants in memory, but injects them into the Java Virtual Machine directly using an instrumentation application programming interface.
   \item \textbf{Method-Level}: Whether or not a tool has a set of \emph{traditional} method-level mutation operators, as mentioned in Section~\ref{subsubsec:background_method_operators}.
   \item \textbf{Class-Level}: Whether or not a tool has a set of object-oriented class-level mutation operators, as mentioned in Section~\ref{subsubsec:background_class_operators}.
   \item \textbf{JUnit Support}: Whether or not a tool has support for JUnit test cases (de facto for unit testing Java~\cite{JUnit}.
@@ -288,7 +288,7 @@ Many areas of research have benefited from machine learning, such as data mining
 
 \subsection{Performance Measures}
 \label{subsec:background_performance_measures}
-Machine learning techniques can be extremely beneficial in solving classification problems. Without a firm understanding of the results, it can be difficult to tell how well the technique is performing on the problem. To understand classification results, the actual \emph{known} classification is required for each data instance, thus it is possible to understand what is correctly classified. For unsupervised learning, the performance measures can be acquired after the classification has occurred, as the correct classifications are available. In supervised learning, we first need to generate a model that we can use to classify new data. To accommodate measuring supervised learning, the available data is split up into \emph{training} and \emph{testing} sets. The training set is used to construct the model which is then used to predict the testing set. The classifications of the predicted set can then be verified against their correct classification to acquire performance measures of the supervised learning technique. It is also possible to perform \emph{cross-validation} which is a technique that assess the prediction accuracy using the trained data. This evaluation is typically used when a small amount of data is used for training. Effectively, this divides a data set into $n$ equal-sized partitions and the \gls{svm} trains on $n-1$ sets, predicting on the last. This process is repeated $n$ times using a different partition for prediction each time. Finally, all the individual prediction accuracies are tallied and averaged for a cross-validation accuracy of $n$-folds. Commonly a $10$-fold cross-validation is used to evaluate predictive models~\cite{Koh95}.
+Machine learning techniques can be extremely beneficial in solving classification problems. Without a firm understanding of the results, it can be difficult to tell how well the technique is performing on the problem. To understand classification results, the actual \emph{known} classification is required for each data instance, thus it is possible to understand what is correctly classified. For unsupervised learning, the performance measures can be acquired after the classification has occurred, as the correct classifications are available. In supervised learning, we first need to generate a model that we can use to classify new data. To accommodate measuring supervised learning, the available data is split up into \emph{training} and \emph{testing} sets. The training set is used to construct the model which is then used to predict the testing set. The classifications of the predicted set can then be verified against their correct classification to acquire performance measures of the supervised learning technique. It is also possible to perform \emph{cross-validation} which is a technique that assess the prediction accuracy using the trained data. This evaluation is typically used when a small amount of data is used for training. Effectively, this divides a data set into $n$ equal-sized partitions and the machine learning technique trains on $n-1$ sets, predicting on the last. This process is repeated $n$ times using a different partition for prediction each time. Finally, all the individual prediction accuracies are tallied and averaged for a cross-validation accuracy of $n$-folds. Commonly a $10$-fold cross-validation is used to evaluate predictive models~\cite{Koh95}.
 
 \begin{figure}[!tb]
   \centering
@@ -331,25 +331,25 @@ A confusion matrix can visually represent the allotment of predictions over the 
 \begin{itemize}
   \item \textbf{Precision} represents the fraction of positive predictions that correctly belong to the positive category.
   \begin{equation}
-    \emph{$\text{precision} = \frac{tp}{tp + fp}$}
+    \emph{$\text{precision} = \frac{TP}{TP + FP}$}
     \label{equ:precision}
   \end{equation}
 
   \item \textbf{Recall} represents the fraction of positive instances that were correctly identified.
   \begin{equation}
-    \emph{$\text{recall} = \frac{tp}{tp + fn}$}
+    \emph{$\text{recall} = \frac{TP}{TP + FN}$}
     \label{equ:recall}
   \end{equation}
 
   \item \textbf{Specificity} represents the fraction of negative predictions that were correctly identified.
   \begin{equation}
-    \emph{$\text{specificity} = \frac{tn}{tn + fp}$}
+    \emph{$\text{specificity} = \frac{TN}{TN + FP}$}
     \label{equ:specificity}
   \end{equation}
 
   \item \textbf{Accuracy} represents the fraction of all true predictions made that were correctly identified.
   \begin{equation}
-    \emph{$\text{accuracy} = \frac{tp + tn}{tp + fp + fn + tn}$}
+    \emph{$\text{accuracy} = \frac{TP + TN}{TP + FP + FN + TN}$}
     \label{equ:accuracy}
   \end{equation}
 \end{itemize}
@@ -376,6 +376,9 @@ A confusion matrix can visually represent the allotment of predictions over the 
   \label{fig:SVM_margin}
 \end{figure}
 
+% Reset the svm glossary as we first talk about it here
+\glsreset{svm}
+
 A \gls{svm} is an example of a linear discrimination machine learning technique and assumes that \emph{``\ldots instances of a class are linearly separable from instances of other classes''}~\cite{ALP04}. Traditionally, \gls{svm}s have been used for two-group classification problems~\cite{CV95}, but have also been generalized to $n$-group classification problems. The data set used in \gls{svm} is applied to a \emph{feature space} that consists of a set of \emph{vectors} (i.e., a row of data in the data set), with each vector containing a set of \emph{attributes}\footnote{With respect to our approach, the use of \emph{attributes}, \emph{metrics} and \emph{features} are interchangeable. They all refer to the value of a metric that is measured from the software system.} (i.e., the values that define the vector). Figure~\ref{fig:SVM_margin}, is a \gls{svm} example with each vector having two predictor variables ($x$ and $y$ coordinates). A \gls{svm} attempts to find the maximum margin space between support vectors of opposite categories, which results in the optimal hyperplane. The optimal hyperplane is chosen over others, because \emph{``Intuitively, we would expect this boundary to generalize well as opposed to the other possible boundaries''}~\cite{Gun98}.
 
 \begin{figure}[!tb]
@@ -397,7 +400,7 @@ A \gls{svm} is an example of a linear discrimination machine learning technique 
   \label{fig:SVM_non-linear_kernel}
 \end{figure}
 
-In some cases a linear separation is not possible in the feature space. An example of this is presented in Figure~\ref{fig:SVM_non-linear_kernel}. It is possible to map the vectors to a higher dimension, so that the feature space now becomes linearly separable. The separating hyperplane is always of $n-1$ dimensions (e.g., two dimensional data is separated with a one dimensional line). Several kernel functions exist, though the \gls{rbf} kernel is highly recommended by the authors of \emph{LIBSVM}~\cite{HCL03}. Kernels have parameters that govern how they form their corresponding hyperplane. The \gls{rbf} kernel has a \emph{gamma} parameter that governs the flexibility of the hyperplane. If the hyperplane is too flexible (i.e., follows the contour of the data too strictly) then it runs the risk of being overfitted for the given data~\cite{BW10}. Overfitting can lower the ability of a classifier to generalize. \gls{svm} handle this first with the maximum margin distance, which allows some flexibility in adding new vectors to the feature space. \gls{svm}s also have a \emph{cost} parameter, where if there is a low cost then the the \gls{svm} will allow some mis-classifications (within a distance from the hyperplane using a function of cost)~\cite{BW10}. A higher cost value will reduce the number of mis-classifications, but may create a model that does not generalize outside of the training data.
+In some cases a linear separation is not possible in the feature space. An example of this is presented in Figure~\ref{fig:SVM_non-linear_kernel}. It is possible to map the vectors to a higher dimension, so that the feature space now becomes linearly separable. The separating hyperplane is always of $n-1$ dimensions (e.g., two dimensional data is separated with a one dimensional line). Several kernel functions exist, though the \emph{radial basis function} kernel is highly recommended by the authors of \emph{LIBSVM}~\cite{HCL03}. Kernels have parameters that govern how they form their corresponding hyperplane. The radial basis function kernel has a \emph{gamma} parameter that governs the flexibility of the hyperplane. If the hyperplane is too flexible (i.e., follows the contour of the data too strictly) then it runs the risk of being overfitted for the given data~\cite{BW10}. Overfitting can lower the ability of a classifier to generalize. \gls{svm} handle this first with the maximum margin distance, which allows some flexibility in adding new vectors to the feature space. \gls{svm}s also have a \emph{cost} parameter, where if there is a low cost then the the \gls{svm} will allow some mis-classifications (within a distance from the hyperplane using a function of cost)~\cite{BW10}. A higher cost value will reduce the number of mis-classifications, but may create a model that does not generalize outside of the training data.
 
 Considering the following criteria for \gls{svm}s, we can distinguish between several different implementations from a user perspective:
 
@@ -407,7 +410,7 @@ Considering the following criteria for \gls{svm}s, we can distinguish between se
   \item \textbf{Multiple-Group}: Whether or not the tool supports multiple group classification problems, in addition to binary group classification.
   \item \textbf{Cross-Validation}: Whether or not the tool supports cross-validation.
   \item \textbf{Measures}: Whether or not the tools supports performance measures to aid in evaluation of classification accuracy.
-  \item \textbf{Command-Line}: Whether or not the tool supports to be ran via a command-line interface.
+  \item \textbf{Command-Line}: Whether or not the tool supports to be ran via a \gls{cli}.
   \item \textbf{Open Source}: Whether or not the tool's source code is open source and freely available to modify.
   \item \textbf{Academic Tool}: Whether or not the tool was developed from an academic research group, otherwise industry or community developed.
 \end{itemize}
@@ -437,7 +440,7 @@ Considering the following criteria for \gls{svm}s, we can distinguish between se
       \item[e] Performs a \emph{Leave-One-Out} cross-validation, which is a $n$-fold cross-validating given a $n$ vectors in the feature set.
     \end{tablenotes}
   \end{threeparttable}
-  \caption{Basic comparison of different \gls{svm} implementations from a user perspective.}
+  \caption{Basic comparison of different \glsentryname{svm} implementations from a user perspective.}
   \vspace{2mm}
   \hrule
   \label{tab:svm_tools}
