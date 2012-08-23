@@ -4,12 +4,12 @@
 This chapter describes our approach to predicting the mutation score of a source code unit under test based on source code and test suite metrics data. Our approach at a high-level can be summarized in the following steps:
 
 \begin{enumerate}
-	\item Collect mutation score data of the \gls{sut}.
-	\item Collect source code metric data of the \gls{sut}.
-	\item Collect test suite metrics data of the \gls{sut}.
-	\item Synthesis collected data together and store it within a database.
-	\item Construct classification model.
-	\item Predict with classification model.
+  \item Collect mutation score data of the \gls{sut}.
+  \item Collect source code metric data of the \gls{sut}.
+  \item Collect test suite metrics data of the \gls{sut}.
+  \item Synthesis collected data together and store it within a database.
+  \item Construct classification model.
+  \item Predict with classification model.
 \end{enumerate}
 
 In Section~\ref{sec:approach_process} we describe each step of our process in detail, according to the overview presented in Figure~\ref{fig:process}. Then in Section~\ref{sec:approach_prediction} we describe how we use the produced classification model of our approach for predictions. We mention related works to our research in Section~\ref{sec:approach_related_work}.
@@ -185,36 +185,36 @@ In our research, we use the Eclipse Metrics Plugin (version 1.3.8.20100730-001) 
   \centering
   \caption{Extracted class source code metrics of the \texttt{Triangle} software system.}
   \label{tab:triangle_class_extracted_metrics}
-	\rowcolors{2}{gray!30}{gray!20}
-	\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|}
-  	\hline
-   	\rowcolor[RGB]{169,196,223}
-  	\textbf{Source Code Unit} & \textbf{NORM} & \textbf{NOF} & \textbf{NSC} & \textbf{DIT} & \textbf{LCOM} & \textbf{NSM} & \textbf{NOM} & \textbf{SIX} & \textbf{WMC} & \textbf{NSF} \\
-  	\hline \texttt{Triangle} & 0 & 0 & 0 & 1 & 0 & 0 & 2 & 0 & 20 & 0 \\
-  	\hline \texttt{TriangleTest} & 0 & 0 & 0 & 1 & 0 & 0 & 6 & 0 & 6 & 0 \\
-  	\hline
-	\end{tabular}
+  \rowcolors{2}{gray!30}{gray!20}
+  \begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|}
+    \hline
+    \rowcolor[RGB]{169,196,223}
+    \textbf{Source Code Unit} & \textbf{NORM} & \textbf{NOF} & \textbf{NSC} & \textbf{DIT} & \textbf{LCOM} & \textbf{NSM} & \textbf{NOM} & \textbf{SIX} & \textbf{WMC} & \textbf{NSF} \\
+    \hline \texttt{Triangle} & 0 & 0 & 0 & 1 & 0 & 0 & 2 & 0 & 20 & 0 \\
+    \hline \texttt{TriangleTest} & 0 & 0 & 0 & 1 & 0 & 0 & 6 & 0 & 6 & 0 \\
+    \hline
+  \end{tabular}
   
   \vspace{3em}
 
   \centering
   \caption{Extracted method source code metrics of the \texttt{Triangle} software system.}
   \label{tab:triangle_method_extracted_metrics}
-	\rowcolors{2}{gray!30}{gray!20}
-	\begin{tabular}{|l|r|r|r|r|}
-  	\hline
-  	\rowcolor[RGB]{169,196,223}
-  	\textbf{Source Code Unit} & \textbf{MLOC} & \textbf{NBD} & \textbf{VG} & \textbf{PAR} \\
-  	\hline \texttt{Triangle.classify} & 20 & 1 & 13 & 3 \\
-  	\hline \texttt{Triangle.isValid} & 5 & 1 & 7 & 3 \\
-  	\hline \texttt{TriangleTest.testScalene} & 2 & 1 & 1 & 0 \\
-   	\hline \texttt{TriangleTest.testIsoceles} & 2 & 1 & 1 & 0 \\
-  	\hline \texttt{TriangleTest.testEquiliteral} & 2 & 1 & 1 & 0 \\
-  	\hline \texttt{TriangleTest.testNegative} & 2 & 1 & 1 & 0 \\
-  	\hline \texttt{TriangleTest.testInvalid} & 2 & 1 & 1 & 0 \\
-  	\hline \texttt{TriangleTest.testValid} & 2 & 1 & 1 & 0 \\
-  	\hline
-	\end{tabular}
+  \rowcolors{2}{gray!30}{gray!20}
+  \begin{tabular}{|l|r|r|r|r|}
+    \hline
+    \rowcolor[RGB]{169,196,223}
+    \textbf{Source Code Unit} & \textbf{MLOC} & \textbf{NBD} & \textbf{VG} & \textbf{PAR} \\
+    \hline \texttt{Triangle.classify} & 20 & 1 & 13 & 3 \\
+    \hline \texttt{Triangle.isValid} & 5 & 1 & 7 & 3 \\
+    \hline \texttt{TriangleTest.testScalene} & 2 & 1 & 1 & 0 \\
+    \hline \texttt{TriangleTest.testIsoceles} & 2 & 1 & 1 & 0 \\
+    \hline \texttt{TriangleTest.testEquiliteral} & 2 & 1 & 1 & 0 \\
+    \hline \texttt{TriangleTest.testNegative} & 2 & 1 & 1 & 0 \\
+    \hline \texttt{TriangleTest.testInvalid} & 2 & 1 & 1 & 0 \\
+    \hline \texttt{TriangleTest.testValid} & 2 & 1 & 1 & 0 \\
+    \hline
+  \end{tabular}
 \end{sidewaystable}
 \afterpage\clearpage
 
@@ -230,48 +230,48 @@ At this point in the process we have acquired all the raw data (mutation scores,
 
 \begin{sidewaystable}[!tb]
   \centering
-	\caption{Extracted coverage test suite metrics (feature set \ding{173} of Table~\ref{tab:feature_sets}) of the \texttt{Triangle} software system.}
-	\label{tab:triangle_coverage_metrics}
-	\rowcolors{2}{gray!30}{gray!20}
-	\begin{tabular}{|l|r|r|r|}
-  	\hline
-  	\rowcolor[RGB]{169,196,223}
-  	\textbf{Source Code Unit} & \textbf{NOT} & \textbf{BCOV} & \textbf{BTOT} \\
-  	\hline \texttt{Triangle} & 6 & 60 & 102 \\
-  	\hline \texttt{Triangle.classify} & 3 & 36 & 72 \\
-  	\hline \texttt{Triangle.isValid} & 6 & 24 & 30 \\
-  	\hline
-	\end{tabular}
-	
-	\vspace{3em}
-	
-	\centering
-	\caption{Merged test suite metrics (feature set \ding{175} in Table~\ref{tab:feature_sets}) for each source code unit of the \texttt{Triangle} software system.}
-	\label{tab:triangle_merge_test_metrics}
-	\rowcolors{2}{gray!30}{gray!20}
-	\begin{tabular}{|l|r|r|r|r|r|r|r|r|}
-  	\hline
-  	\rowcolor[RGB]{169,196,223}
-  	\textbf{Source Code Unit} & \textbf{STMLOC} & \textbf{STNBD} & \textbf{STVG} & \textbf{STPAR} & \textbf{ATMLOC} & \textbf{ATNBD} & \textbf{ATVG} & \textbf{ATPAR}  \\
-  	\hline \texttt{Triangle} & 12 & 6 & 6 & 0 & 2 & 1 & 1 & 0 \\
-  	\hline \texttt{Triangle.classify} & 6 & 3 & 3 & 0 & 2 & 1 & 1 & 0 \\
-  	\hline \texttt{Triangle.isValid} & 12 & 6 & 6 & 0 & 2 & 1 & 1 & 0 \\
-  	\hline
-	\end{tabular}
+  \caption{Extracted coverage test suite metrics (feature set \ding{173} of Table~\ref{tab:feature_sets}) of the \texttt{Triangle} software system.}
+  \label{tab:triangle_coverage_metrics}
+  \rowcolors{2}{gray!30}{gray!20}
+  \begin{tabular}{|l|r|r|r|}
+    \hline
+    \rowcolor[RGB]{169,196,223}
+    \textbf{Source Code Unit} & \textbf{NOT} & \textbf{BCOV} & \textbf{BTOT} \\
+    \hline \texttt{Triangle} & 6 & 60 & 102 \\
+    \hline \texttt{Triangle.classify} & 3 & 36 & 72 \\
+    \hline \texttt{Triangle.isValid} & 6 & 24 & 30 \\
+    \hline
+  \end{tabular}
+  
+  \vspace{3em}
+  
+  \centering
+  \caption{Merged test suite metrics (feature set \ding{175} in Table~\ref{tab:feature_sets}) for each source code unit of the \texttt{Triangle} software system.}
+  \label{tab:triangle_merge_test_metrics}
+  \rowcolors{2}{gray!30}{gray!20}
+  \begin{tabular}{|l|r|r|r|r|r|r|r|r|}
+    \hline
+    \rowcolor[RGB]{169,196,223}
+    \textbf{Source Code Unit} & \textbf{STMLOC} & \textbf{STNBD} & \textbf{STVG} & \textbf{STPAR} & \textbf{ATMLOC} & \textbf{ATNBD} & \textbf{ATVG} & \textbf{ATPAR}  \\
+    \hline \texttt{Triangle} & 12 & 6 & 6 & 0 & 2 & 1 & 1 & 0 \\
+    \hline \texttt{Triangle.classify} & 6 & 3 & 3 & 0 & 2 & 1 & 1 & 0 \\
+    \hline \texttt{Triangle.isValid} & 12 & 6 & 6 & 0 & 2 & 1 & 1 & 0 \\
+    \hline
+  \end{tabular}
 
-	\vspace{3em}
+  \vspace{3em}
 
-	\centering
-	\caption{Aggregation of method-level source code metrics for each class-level source code unit (feature set \ding{174} of Table~\ref{tab:feature_sets}) of the \texttt{Triangle} software system.}
-	\label{tab:triangle_aggregate_metrics}
-	\rowcolors{2}{gray!30}{gray!20}
-	\begin{tabular}{|l|r|r|r|r|r|r|r|r|}
-  	\hline
-  	\rowcolor[RGB]{169,196,223}
-  	\textbf{Source Code Unit} & \textbf{SMLOC} & \textbf{SNBD} & \textbf{SVG} & \textbf{SPAR} & \textbf{AMLOC} & \textbf{ANBD} & \textbf{AVG} & \textbf{APAR}  \\
-  	\hline \texttt{Triangle} & 25 & 2 & 20 & 6 & 12.5 & 1 & 10 & 3 \\
-  	\hline
-	\end{tabular}
+  \centering
+  \caption{Aggregation of method-level source code metrics for each class-level source code unit (feature set \ding{174} of Table~\ref{tab:feature_sets}) of the \texttt{Triangle} software system.}
+  \label{tab:triangle_aggregate_metrics}
+  \rowcolors{2}{gray!30}{gray!20}
+  \begin{tabular}{|l|r|r|r|r|r|r|r|r|}
+    \hline
+    \rowcolor[RGB]{169,196,223}
+    \textbf{Source Code Unit} & \textbf{SMLOC} & \textbf{SNBD} & \textbf{SVG} & \textbf{SPAR} & \textbf{AMLOC} & \textbf{ANBD} & \textbf{AVG} & \textbf{APAR}  \\
+    \hline \texttt{Triangle} & 25 & 2 & 20 & 6 & 12.5 & 1 & 10 & 3 \\
+    \hline
+  \end{tabular}
 \end{sidewaystable}
 \afterpage\clearpage
 
