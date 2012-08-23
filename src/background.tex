@@ -52,18 +52,18 @@ As previously mentioned mutation operators define transformations that attempts 
     \hline
     \rowcolor[RGB]{169,196,223}
     \textbf{Operator} & \textbf{Description} \\
-    \hline AOR & Arithmetic Operator Replacement \\
-    \hline AOI & Arithmetic Operator Insertion \\
-    \hline AOD & Arithmetic Operator Deletion \\
-    \hline ROR & Relational Operator Replacement \\
-    \hline COR & Conditional Operator Replacement \\
-    \hline COI & Conditional Operator Insertion \\
-    \hline COD & Conditional Operator Deletion \\
-    \hline SOR & Shift Operator Replacement \\
-    \hline LOR & Logical Operator Replacement \\
-    \hline LOI & Logical Operator Insertion \\
-    \hline LOD & Logical Operator Deletion \\
-    \hline ASR & Assignment Operator Replacement \\
+    \hline \emph{AOR} & Arithmetic Operator Replacement \\
+    \hline \emph{AOI} & Arithmetic Operator Insertion \\
+    \hline \emph{AOD} & Arithmetic Operator Deletion \\
+    \hline \emph{ROR} & Relational Operator Replacement \\
+    \hline \emph{COR} & Conditional Operator Replacement \\
+    \hline \emph{COI} & Conditional Operator Insertion \\
+    \hline \emph{COD} & Conditional Operator Deletion \\
+    \hline \emph{SOR} & Shift Operator Replacement \\
+    \hline \emph{LOR} & Logical Operator Replacement \\
+    \hline \emph{LOI} & Logical Operator Insertion \\
+    \hline \emph{LOD} & Logical Operator Deletion \\
+    \hline \emph{ASR} & Assignment Operator Replacement \\
     \hline
   \end{tabular}
   \caption{The set of method-level mutation operators from the MuJava mutation testing tool~\cite{MOK05, MO05a}.}
@@ -81,7 +81,7 @@ We first consider the set of method-level mutation operators found in the mutati
   \footnotesize{\textbf{Original Program}}
   \lstinputlisting[language=Java, literate={>}{{\textcolor{red}{>}}}{1}]{listings/mutation_example.java}
   \end{minipage}
-  $\xrightarrow{\texttt{ROR}}$
+  $\xrightarrow{\emph{ROR}}$
   \begin{minipage}{6.5cm}
   \centering
   \footnotesize{\textbf{Mutant Program}}
@@ -100,19 +100,19 @@ We first consider the set of method-level mutation operators found in the mutati
   \footnotesize{\textbf{Original Program}}
   \lstinputlisting[language=Java, literate={this.limit}{{\textcolor{red}{\textbf{this}.limit}}}{10}]{listings/mutation_example.java}
   \end{minipage}
-  $\xrightarrow{\texttt{AOI}}$
+  $\xrightarrow{\emph{AOI}}$
   \begin{minipage}{6.5cm}
   \centering
   \footnotesize{\textbf{Mutant Program}}
   \lstinputlisting[language=Java, literate={this.limit}{{\textcolor{red}{\textbf{this}.limit---}}}{12}]{listings/mutation_example.java}
   \end{minipage}
-  \caption{Example application of the \texttt{AOI} method-level mutation operator.}
+  \caption{Example application of the \emph{AOI} method-level mutation operator.}
   \vspace{2mm}
   \hrule
   \label{fig:AOI_mutation}
 \end{figure}
 
-To illustrate the effects of a method-level operator, consider the \emph{Relational Operator Relational} (\texttt{ROR}) mutation operator. This mutation operator replaces a relational operator (i.e., \texttt{>}, \texttt{>=}, \texttt{==}, \texttt{!=}, \texttt{=<} or \texttt{<}) with another type of relational operator as seen in Figure~\ref{fig:ROR_mutation}. Figure~\ref{fig:AOI_mutation} presents another example demonstrating the \emph{Arithmetic Operator Insertion} (\texttt{AOI}) mutation operator. The remaining set of method-level mutation operators function using a similar approach with other operators (i.e., conditional, shift, logical and assignment).
+To illustrate the effects of a method-level operator, consider the \emph{Relational Operator Relational} (\emph{ROR}) mutation operator. This mutation operator replaces a relational operator (i.e., \texttt{>}, \texttt{>=}, \texttt{==}, \texttt{!=}, \texttt{=<} or \texttt{<}) with another type of relational operator as seen in Figure~\ref{fig:ROR_mutation}. Figure~\ref{fig:AOI_mutation} presents another example demonstrating the \emph{Arithmetic Operator Insertion} (\emph{AOI}) mutation operator. The remaining set of method-level mutation operators function using a similar approach with other operators (i.e., conditional, shift, logical and assignment).
 
 \subsubsection{Class-Level Mutation Operators}
 \label{subsubsec:background_class_operators}
@@ -123,38 +123,38 @@ To illustrate the effects of a method-level operator, consider the \emph{Relatio
     \hline
     \rowcolor[RGB]{169,196,223}
     \textbf{Group} & \textbf{Operator} & \textbf{Description} \\
-    \hline \ding{172} & AMC & Access modifier change \\
-    \hline \ding{173} & IHD & Hiding variable deletion \\
-    \hline \ding{173} & IHI & Hiding variable insertion \\
-    \hline \ding{173} & IOD & Overriding method deletion \\
-    \hline \ding{173} & IOP & Overriding method calling position change \\
-    \hline \ding{173} & IOR & Overriding method rename \\
-    \hline \ding{173} & ISI & \texttt{super} keyword insertion \\
-    \hline \ding{173} & ISD & \texttt{super} keyword deletion \\
-    \hline \ding{173} & IPC & Explicit call to a parent's constructor deletion \\
-    \hline \ding{174} & PNC & \texttt{new} method call with child class type \\
-    \hline \ding{174} & PMD & Member variable declaration with parent class type \\
-    \hline \ding{174} & PPD & Parameter variable declaration with child class type \\
-    \hline \ding{174} & PCI & Type cast operator insertion \\
-    \hline \ding{174} & PCC & Cast type change \\
-    \hline \ding{174} & PCD & Type cast operator deletion \\
-    \hline \ding{174} & PRV & Reference assignment with other comparable variable \\
-    \hline \ding{174} & OMR & Overloading method contents replace \\
-    \hline \ding{174} & OMD & Overloading method deletion \\
-    \hline \ding{174} & OAC & Arguments of overloading method call change \\
-    \hline \ding{175} & JTI & \texttt{this} keyword insertion \\
-    \hline \ding{175} & JTD & \texttt{this} keyword deletion \\
-    \hline \ding{175} & JSI & \texttt{static} modifier insertion \\
-    \hline \ding{175} & JSD & \texttt{static} modifier deletion \\
-    \hline \ding{175} & JID & Member variable initialization deletion \\
-    \hline \ding{175} & JDC & Java-supported default constructor creation \\
-    \hline \ding{175} & EOA & Reference assignment and content assignment replacement \\
-    \hline \ding{175} & EOC & Reference comparison and content comparison replacement \\
-    \hline \ding{175} & EAM & Acessor method change \\
-    \hline \ding{175} & EMM & Modifier method change \\
+    \hline \ding{172} & \emph{AMC} & Access modifier change \\
+    \hline \ding{173} & \emph{IHD} & Hiding variable deletion \\
+    \hline \ding{173} & \emph{IHI} & Hiding variable insertion \\
+    \hline \ding{173} & \emph{IOD} & Overriding method deletion \\
+    \hline \ding{173} & \emph{IOP} & Overriding method calling position change \\
+    \hline \ding{173} & \emph{IOR} & Overriding method rename \\
+    \hline \ding{173} & \emph{ISI} & \texttt{super} keyword insertion \\
+    \hline \ding{173} & \emph{ISD} & \texttt{super} keyword deletion \\
+    \hline \ding{173} & \emph{IPC} & Explicit call to a parent's constructor deletion \\
+    \hline \ding{174} & \emph{PNC} & \texttt{new} method call with child class type \\
+    \hline \ding{174} & \emph{PMD} & Member variable declaration with parent class type \\
+    \hline \ding{174} & \emph{PPD} & Parameter variable declaration with child class type \\
+    \hline \ding{174} & \emph{PCI} & Type cast operator insertion \\
+    \hline \ding{174} & \emph{PCC} & Cast type change \\
+    \hline \ding{174} & \emph{PCD} & Type cast operator deletion \\
+    \hline \ding{174} & \emph{PRV} & Reference assignment with other comparable variable \\
+    \hline \ding{174} & \emph{OMR} & Overloading method contents replace \\
+    \hline \ding{174} & \emph{OMD} & Overloading method deletion \\
+    \hline \ding{174} & \emph{OAC} & Arguments of overloading method call change \\
+    \hline \ding{175} & \emph{JTI} & \texttt{this} keyword insertion \\
+    \hline \ding{175} & \emph{JTD} & \texttt{this} keyword deletion \\
+    \hline \ding{175} & \emph{JSI} & \texttt{static} modifier insertion \\
+    \hline \ding{175} & \emph{JSD} & \texttt{static} modifier deletion \\
+    \hline \ding{175} & \emph{JID} & Member variable initialization deletion \\
+    \hline \ding{175} & \emph{JDC} & Java-supported default constructor creation \\
+    \hline \ding{175} & \emph{EOA} & Reference assignment and content assignment replacement \\
+    \hline \ding{175} & \emph{EOC} & Reference comparison and content comparison replacement \\
+    \hline \ding{175} & \emph{EAM} & Acessor method change \\
+    \hline \ding{175} & \emph{EMM} & Modifier method change \\
     \hline
   \end{tabular}
-  \caption{The set of class-level mutation operators from the MuJava mutation testing tool~\cite{MOK05, MO05b}.}
+  \caption{The set of class-level mutation operators from the \emph{MuJava} mutation testing tool~\cite{MOK05, MO05b}.}
   \vspace{1mm}
   \footnotesize{\emph{The group column indicates the specific language feature of the mutation operator (\ding{172}: Encapsulation, \ding{173}: Inheritance, \ding{174}: Polymorphism, \ding{175}: Java-Specific Features).}}
   \vspace{2mm}
@@ -171,13 +171,13 @@ We now look at the set of class-level mutation operators found in \emph{MuJava}~
   \footnotesize{\textbf{Original Program}}
   \lstinputlisting[language=Java, literate={Integer\ limit\ =\ new\ Integer(10)}{{{\textcolor{red}{Integer\ limit\ =\ \textbf{new}\ Integer(10)}}}}{31}]{listings/mutation_example.java}
   \end{minipage}
-  $\xrightarrow{\texttt{JID}}$
+  $\xrightarrow{\emph{JID}}$
   \begin{minipage}{6.5cm}
   \centering
   \footnotesize{\textbf{Mutant Program}}
   \lstinputlisting[language=Java, literate={Integer\ limit\ =\ new\ Integer(10)}{{{\textcolor{red}{Integer\ limit}}}}{13}]{listings/mutation_example.java}
   \end{minipage}
-  \caption{Example application of the \texttt{JID} class-level mutation operator.}
+  \caption{Example application of the \emph{JID} class-level mutation operator.}
   \vspace{2mm}
   \hrule
   \label{fig:JID_mutation}
@@ -190,19 +190,19 @@ We now look at the set of class-level mutation operators found in \emph{MuJava}~
   \footnotesize{\textbf{Original Program}}
   \lstinputlisting[language=Java, literate={public}{{\textbf{\textcolor{red}{public}}}}{6}]{listings/mutation_example.java}
   \end{minipage}
-  $\xrightarrow{\texttt{AMC}}$
+  $\xrightarrow{\emph{AMC}}$
   \begin{minipage}{6.5cm}
   \centering
   \footnotesize{\textbf{Mutant Program}}
   \lstinputlisting[language=Java, literate={public}{{\textbf{\textcolor{red}{private}}}}{7}]{listings/mutation_example.java}
   \end{minipage}
-  \caption{Example application of the \texttt{AMC} class-level mutation operator.}
+  \caption{Example application of the \emph{AMC} class-level mutation operator.}
   \vspace{2mm}
   \hrule
   \label{fig:AMC_mutation}
 \end{figure}
 
-To illustrate the effects of a class-level operator, we can look at the \emph{Member Variable Initialization Deletion} (\texttt{JID}) mutation operator. This mutation operator deletes an instance variables initialization as sees in Figure~\ref{fig:JID_mutation}. Figure~\ref{fig:AMC_mutation} presents another example demonstrating the \emph{Access Modifier Change} (\texttt{AMC}) mutation operator. The remaining set of class-level mutation operators function by inserting, deleting, and changing certain elements in the class with respect to inheritance, polymorphism, and Java-specific features.
+To illustrate the effects of a class-level operator, we can look at the \emph{Member Variable Initialization Deletion} (\emph{JID}) mutation operator. This mutation operator deletes an instance variables initialization as sees in Figure~\ref{fig:JID_mutation}. Figure~\ref{fig:AMC_mutation} presents another example demonstrating the \emph{Access Modifier Change} (\emph{AMC}) mutation operator. The remaining set of class-level mutation operators function by inserting, deleting, and changing certain elements in the class with respect to inheritance, polymorphism, and Java-specific features.
 
 
 \subsubsection{Other Mutation Operators}
@@ -239,7 +239,7 @@ In the last decade a number of mutation testing tools for the Java programming l
   \begin{threeparttable}
     \begin{tabular}{|l|l|l|l|l|l|l|}
       \rowcolor[RGB]{169,196,223}
-      \hline & \textbf{Jester} & \textbf{MuJava} & \textbf{Jumble} & \textbf{Javalanche} & \textbf{Judy} & \textbf{PIT} \\
+      \hline & \textbf{\emph{Jester}} & \textbf{\emph{MuJava}} & \textbf{\emph{Jumble}} & \textbf{\emph{Javalanche}} & \textbf{\emph{Judy}} & \textbf{\emph{PIT}} \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{Citation} & \cite{Jester} & \cite{MOK05} & \cite{Jumble} & \cite{SZ09} & \cite{MR10} & \cite{PIT} \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{Inception Year} & 2001 & 2004 & 2007 & 2009 & 2010 & 2011 \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{Generation-Level} & Source Code & Bytecode & Bytecode & Bytecode & Source Code & Bytecode \\
@@ -270,7 +270,7 @@ In the last decade a number of mutation testing tools for the Java programming l
 \end{sidewaystable}
 \afterpage\clearpage
 
-Using this criteria we provide a comparison of a set of mutation testing tools for the Java programming language in Table~\ref{tab:mutation_tools}. We can see various aspects of the mutation testing tools. For example, only Javalanche has access to a limited set of concurrency-level mutation operators while Jumble and Jester do not use a proper form of the method- and class-level mutation operators.
+Using this criteria we provide a comparison of a set of mutation testing tools for the Java programming language in Table~\ref{tab:mutation_tools}. We can see various aspects of the mutation testing tools. For example, only \emph{Javalanche} has access to a limited set of concurrency-level mutation operators while \emph{Jumble} and \emph{Jester} do not use a proper form of the method- and class-level mutation operators.
 
 
 \section{Machine Learning}
@@ -281,14 +281,14 @@ Machine learning algorithms are either a \emph{supervised} or \emph{unsupervised
 
 If one does not have any idea of what they are trying to classify, unsupervised learning is the best approach. It is not possible to categorize the data correctly, and incorrect categorization would only be detrimental to the classification. If it is possible to categorize the data then it becomes possible to perform supervised learning on the data. With correct categorization for the training data, future data can be classified on the constructed model from the training phase. In a sense, unsupervised learning is more for exploratory purposes, while supervised learning is more on constructing a classifier.
 
-In either case, both learning algorithms require data to be classified. Each element within the data set consist of a feature set of size \emph{n}. The power of machine learning comes from its ability to handle multiple dimensions of features for multiple dimensions of classification categories. For unsupervised learning, each element within the data set does not require a classification category, however for supervised learning this a pre-determined category is required (at least initially to build the model).
+In either case, both learning algorithms require data to be classified. Each element within the data set consist of a feature set of size $n$. The power of machine learning comes from its ability to handle multiple dimensions of features for multiple dimensions of classification categories. For unsupervised learning, each element within the data set does not require a classification category, however for supervised learning this a pre-determined category is required (at least initially to build the model).
 
-Many areas of research have benefited from machine learning, such as data mining~\cite{WFH11}, computer vision~\cite{Her03}, biology~\cite{OLP08}, business~\cite{Her00}, and health sciences~\cite{Kon01}. Furthermore, most companies that offer a complex recommendation system utilize machine learning techniques. For example, in 2006 \emph{Netflix} challenged the computer science, data mining, and machine learning communities to develop a system that exceed its own recommendation system~\cite{BL07}. Several tools exist that provide sophisticated machine learning techniques to the general community in an \emph{off-the-shelf} toolkit format such as WEKA~\cite{HFH+09} and SHOGUN~\cite{SRH+10}.
+Many areas of research have benefited from machine learning, such as data mining~\cite{WFH11}, computer vision~\cite{Her03}, biology~\cite{OLP08}, business~\cite{Her00}, and health sciences~\cite{Kon01}. Furthermore, most companies that offer a complex recommendation system utilize machine learning techniques. For example, in 2006 \emph{Netflix} challenged the computer science, data mining, and machine learning communities to develop a system that exceed its own recommendation system~\cite{BL07}. Several tools exist that provide sophisticated machine learning techniques to the general community in an off-the-shelf toolkit format such as \emph{WEKA}~\cite{HFH+09} and \emph{SHOGUN}~\cite{SRH+10}.
 
 
 \subsection{Performance Measures}
 \label{subsec:background_performance_measures}
-Machine learning techniques can be extremely beneficial in solving classification problems. Without a firm understanding of the results, it can be difficult to tell how well the technique is performing on the problem. To understand classification results, the actual \emph{known} classification is required for each data instance, thus it is possible to understand what is correctly classified. For unsupervised learning, the performance measures can be acquired after the classification has occurred, as the correct classifications are available. In supervised learning, we first need to generate a model that we can use to classify new data. To accommodate measuring supervised learning, the available data is split up into \emph{training} and \emph{testing} sets. The training set is used to construct the model which is then used to predict the testing set. The classifications of the predicted set can then be verified against their correct classification to acquire performance measures of the supervised learning technique. It is also possible to perform \emph{cross-validation} which is a technique that assess the prediction accuracy using the trained data. This evaluation is typically used when a small amount of data is used for training. Effectively, this divides a data set into \emph{n} equal-sized partitions and the \gls{svm} trains on \emph{n-1} sets, predicting on the last. This process is repeated \emph{n} times using a different partition for prediction each time. Finally, all the individual prediction accuracies are tallied and averaged for a cross-validation accuracy of \emph{n}-folds. Commonly a \emph{10-fold} cross-validation is used to evaluate predictive models~\cite{Koh95}.
+Machine learning techniques can be extremely beneficial in solving classification problems. Without a firm understanding of the results, it can be difficult to tell how well the technique is performing on the problem. To understand classification results, the actual \emph{known} classification is required for each data instance, thus it is possible to understand what is correctly classified. For unsupervised learning, the performance measures can be acquired after the classification has occurred, as the correct classifications are available. In supervised learning, we first need to generate a model that we can use to classify new data. To accommodate measuring supervised learning, the available data is split up into \emph{training} and \emph{testing} sets. The training set is used to construct the model which is then used to predict the testing set. The classifications of the predicted set can then be verified against their correct classification to acquire performance measures of the supervised learning technique. It is also possible to perform \emph{cross-validation} which is a technique that assess the prediction accuracy using the trained data. This evaluation is typically used when a small amount of data is used for training. Effectively, this divides a data set into $n$ equal-sized partitions and the \gls{svm} trains on $n-1$ sets, predicting on the last. This process is repeated $n$ times using a different partition for prediction each time. Finally, all the individual prediction accuracies are tallied and averaged for a cross-validation accuracy of $n$-folds. Commonly a $10$-fold cross-validation is used to evaluate predictive models~\cite{Koh95}.
 
 \begin{figure}[!tb]
   \centering
@@ -318,9 +318,9 @@ Machine learning techniques can be extremely beneficial in solving classificatio
     \node [left=-.1cm of confusion_matrix,text width=1.5cm,align=right] {\textbf{Actual \\ Value}};
     \node [above=-.1cm of confusion_matrix] {\textbf{Prediction Value}};
   \end{tikzpicture}
-  \caption{A 2~\times~2 confusion matrix for classification results of the \texttt{A} category.}
+  \caption{A $2~\times~2$ confusion matrix for classification results of the \texttt{A} category.}
   \vspace{1mm}
-  \footnotesize{\emph{It is possible to extend a confusion matrix to n~\times~n dimensions. For each category the (\gls{tp}, \gls{fn}, \gls{fp}, and \gls{tn}) variables need to be calculated.}}
+  \footnotesize{\emph{It is possible to extend a confusion matrix to $n~\times~n$ dimensions. For each category the (\gls{tp}, \gls{fn}, \gls{fp}, and \gls{tn}) variables need to be calculated.}}
   \vspace{2mm}
   \hrule
   \label{fig:example_confusion_matrix}
@@ -376,7 +376,7 @@ A confusion matrix can visually represent the allotment of predictions over the 
   \label{fig:SVM_margin}
 \end{figure}
 
-A \gls{svm} is an example of a linear discrimination machine learning technique and assumes that \emph{``\ldots instances of a class are linearly separable from instances of other classes''}~\cite{ALP04}. Traditionally, \gls{svm}s have been used for two-group classification problems~\cite{CV95}, but have also been generalized to \emph{n}-group classification problems. The data set used in \gls{svm} is applied to a \emph{feature space} that consists of a set of \emph{vectors} (i.e., a row of data in the data set), with each vector containing a set of \emph{attributes}\footnote{With respect to our approach, the use of \emph{attributes}, \emph{metrics} and \emph{features} are interchangeable. They all refer to the value of a metric that is measured from the software system.} (i.e., the values that define the vector). Figure~\ref{fig:SVM_margin}, is a \gls{svm} example with each vector having two predictor variables (\emph{x} and \emph{y} coordinates). A \gls{svm} attempts to find the maximum margin space between support vectors of opposite categories, which results in the optimal hyperplane. The optimal hyperplane is chosen over others, because \emph{``Intuitively, we would expect this boundary to generalize well as opposed to the other possible boundaries''}~\cite{Gun98}.
+A \gls{svm} is an example of a linear discrimination machine learning technique and assumes that \emph{``\ldots instances of a class are linearly separable from instances of other classes''}~\cite{ALP04}. Traditionally, \gls{svm}s have been used for two-group classification problems~\cite{CV95}, but have also been generalized to $n$-group classification problems. The data set used in \gls{svm} is applied to a \emph{feature space} that consists of a set of \emph{vectors} (i.e., a row of data in the data set), with each vector containing a set of \emph{attributes}\footnote{With respect to our approach, the use of \emph{attributes}, \emph{metrics} and \emph{features} are interchangeable. They all refer to the value of a metric that is measured from the software system.} (i.e., the values that define the vector). Figure~\ref{fig:SVM_margin}, is a \gls{svm} example with each vector having two predictor variables ($x$ and $y$ coordinates). A \gls{svm} attempts to find the maximum margin space between support vectors of opposite categories, which results in the optimal hyperplane. The optimal hyperplane is chosen over others, because \emph{``Intuitively, we would expect this boundary to generalize well as opposed to the other possible boundaries''}~\cite{Gun98}.
 
 \begin{figure}[!tb]
   \centering
@@ -397,7 +397,7 @@ A \gls{svm} is an example of a linear discrimination machine learning technique 
   \label{fig:SVM_non-linear_kernel}
 \end{figure}
 
-In some cases a linear separation is not possible in the feature space. An example of this is presented in Figure~\ref{fig:SVM_non-linear_kernel}. It is possible to map the vectors to a higher dimension, so that the feature space now becomes linearly separable. The separating hyperplane is always of \emph{n}-1 dimensions (e.g., two dimensional data is separated with a one dimensional line). Several kernel functions exist, though the \gls{rbf} kernel is highly recommended by the authors of LIBSVM~\cite{HCL03}. Kernels have parameters that govern how they form their corresponding hyperplane. The \gls{rbf} kernel has a \emph{gamma} parameter that governs the flexibility of the hyperplane. If the hyperplane is too flexible (i.e., follows the contour of the data too strictly) then it runs the risk of being overfitted for the given data~\cite{BW10}. Overfitting can lower the ability of a classifier to generalize. \gls{svm} handle this first with the maximum margin distance, which allows some flexibility in adding new vectors to the feature space. \gls{svm}s also have a \emph{cost} parameter, where if there is a low cost then the the \gls{svm} will allow some mis-classifications (within a distance from the hyperplane using a function of cost)~\cite{BW10}. A higher cost value will reduce the number of mis-classifications, but may create a model that does not generalize outside of the training data.
+In some cases a linear separation is not possible in the feature space. An example of this is presented in Figure~\ref{fig:SVM_non-linear_kernel}. It is possible to map the vectors to a higher dimension, so that the feature space now becomes linearly separable. The separating hyperplane is always of $n-1$ dimensions (e.g., two dimensional data is separated with a one dimensional line). Several kernel functions exist, though the \gls{rbf} kernel is highly recommended by the authors of \emph{LIBSVM}~\cite{HCL03}. Kernels have parameters that govern how they form their corresponding hyperplane. The \gls{rbf} kernel has a \emph{gamma} parameter that governs the flexibility of the hyperplane. If the hyperplane is too flexible (i.e., follows the contour of the data too strictly) then it runs the risk of being overfitted for the given data~\cite{BW10}. Overfitting can lower the ability of a classifier to generalize. \gls{svm} handle this first with the maximum margin distance, which allows some flexibility in adding new vectors to the feature space. \gls{svm}s also have a \emph{cost} parameter, where if there is a low cost then the the \gls{svm} will allow some mis-classifications (within a distance from the hyperplane using a function of cost)~\cite{BW10}. A higher cost value will reduce the number of mis-classifications, but may create a model that does not generalize outside of the training data.
 
 Considering the following criteria for \gls{svm}s, we can distinguish between several different implementations from a user perspective:
 
@@ -418,7 +418,7 @@ Considering the following criteria for \gls{svm}s, we can distinguish between se
   \begin{threeparttable}
     \begin{tabular}{|l|>{\raggedright\arraybackslash}p{3.20cm}|>{\raggedright\arraybackslash}p{3.20cm}|>{\raggedright\arraybackslash}p{3.20cm}|}
       \rowcolor[RGB]{169,196,223}
-      \hline & \textbf{SVM$^{light}$} & \textbf{LS-SVMlab} & \textbf{LIBSVM} \\
+      \hline & \textbf{\emph{SVM$^{light}$}} & \textbf{\emph{LS-SVMlab}} & \textbf{\emph{LIBSVM}} \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{Citation} & \cite{Joa99} & \cite{SV99, PSV+02} & \cite{CL11} \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{Inception Year} & 1999 & 1999 & 2000 \\
       \hline \cellcolor[RGB]{169,196,223} \textbf{Multiple-Group} & No\tnote{a} & Yes & Yes \\
@@ -430,11 +430,11 @@ Considering the following criteria for \gls{svm}s, we can distinguish between se
       \hline
     \end{tabular}
     \begin{tablenotes}
-      \item[a] There is an alternative tool of the same family that allows this (SVM$^{multiclass}$).
-      \item[b] There is an alternative tool of the same family that allows this only on binary classification (SVM$^{perf}$).
+      \item[a] There is an alternative tool of the same family that allows this (\emph{SVM$^{multiclass}$}).
+      \item[b] There is an alternative tool of the same family that allows this only on binary classification (\emph{SVM$^{perf}$}).
       \item[c] There is an external extension which allows this only for binary classification.
       \item[d] Is a MATLAB toolkit, though it is possible to run a MATLAB script via a \gls{cli}.
-      \item[e] Performs a \emph{Leave-One-Out} cross-validation, which is a \emph{n}-fold cross-validating given a \emph{n} vectors in the feature set.
+      \item[e] Performs a \emph{Leave-One-Out} cross-validation, which is a $n$-fold cross-validating given a $n$ vectors in the feature set.
     \end{tablenotes}
   \end{threeparttable}
   \caption{Basic comparison of different \gls{svm} implementations from a user perspective.}
@@ -443,7 +443,7 @@ Considering the following criteria for \gls{svm}s, we can distinguish between se
   \label{tab:svm_tools}
 \end{table}
 
-Using this criteria, we provide a comparison of a different \gls{svm} implementations in Table~\ref{tab:svm_tools}. We can see various aspects of different \gls{svm} implementations, for example all three of these \gls{svm}s are open source academic tools that support cross-validation. SVM$^{light}$ does not support multiple-group classification, though it has an alternative tool that does allow this. LS-SVMlab has build in performance measurements, though the tool works as a MATLAB toolkit.
+Using this criteria, we provide a comparison of a different \gls{svm} implementations in Table~\ref{tab:svm_tools}. We can see various aspects of different \gls{svm} implementations, for example all three of these \gls{svm}s are open source academic tools that support cross-validation. \emph{SVM$^{light}$} does not support multiple-group classification, though it has an alternative tool that does allow this. \emph{LS-SVMlab} has build in performance measurements, though the tool works as a MATLAB toolkit.
 
 
 \section{Software Metrics}
@@ -480,5 +480,5 @@ In this chapter we have covered the following background topics for the research
 \begin{itemize}
   \item In Section~\ref{sec:background_mutation_testing} we covered what mutation testing is and how it relates to test suite effectiveness with respect to fault detection adequacy. We explored various sets of mutation operators with examples for method- and class-level mutation. A set of Java specific mutation tools was also discussed  for comparison.
   \item In Section~\ref{sec:background_machine_learning} we covered what machine learning is and the differences between supervised and unsupervised classification. We specifically covered common performance measures and how \gls{svm}s work.
-  \item In Section~\ref{sec:background_metrics} we covered software metrics -- specifically source code and test suite metrics. We explain how source code metrics can be used to identify \emph{code smells} and some examples of these metrics. We also explain several approaches to test suite metrics using a combination of source code metrics on test cases as well as coverage metrics.
+  \item In Section~\ref{sec:background_metrics} we covered software metrics -- specifically source code and test suite metrics. We explain how source code metrics can be used to identify code smells and some examples of these metrics. We also explain several approaches to test suite metrics using a combination of source code metrics on test cases as well as coverage metrics.
 \end{itemize}
