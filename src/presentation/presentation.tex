@@ -2,17 +2,12 @@
 \mode<presentation>
 
 % Include additional LaTeX packages
-\usepackage{subfigure}
-\usepackage{multicol}
-\usepackage{amsmath}
-\usepackage{epsfig}
 \usepackage{graphicx}
-\usepackage[all,knot]{xy}
-\xyoption{arc}
-\usepackage{url}
-\usepackage{multimedia}
-\usepackage{hyperref}
-\usepackage{setspace}
+\usepackage[style=verbose-note,autocite=footnote,abbreviate=true,backend=bibtex]{biblatex} 
+
+% Set up biblatex to use smaller font
+\AtEveryCitekey{\iffootnote{\tiny}{}}      
+\addbibresource{../thesis/references.bib}
 
 % Set up Beamer theme
 \usetheme{Dresden}
@@ -29,43 +24,118 @@
 \setbeamercolor{alerted text}{fg=blue}
 
 % Presentation information
-\title[SHORT TITLE -- \insertframenumber/\inserttotalframenumber]{FULL TITLE \vspace{.20cm} \hrule}
-\subtitle{SUB-TITLE}
-\author[\copyright 2011, AUTHOR]{AUTHOR}
-\institute{INSTITUTE}
-\date{\tiny DATE}
+\title[M.Sc. Thesis -- \insertframenumber/\inserttotalframenumber]{Predicting Mutation Score Using Source Code and Test Suite Metrics \vspace{0.5em} \hrule}
+\subtitle{M.Sc. Thesis}
+\author[\copyright 2012, Kevin Jalbert]{\textbf{Kevin Jalbert} \\ \vspace{0.5em} \scriptsize{\texttt{kevin.jalbert@uoit.ca}}}
+\institute[UOIT]{Software Quality Research Group (\url{sqrg.ca}) \\ University of Ontario Institute of Technology \\ Oshawa, Ontario, Canada}
+\date{\tiny September 5$^{th}$, 2012}
 
 \begin{document}
 
 % Create title page
 \frame{\maketitle}
 
-% Create table of contents
-\frame{\frametitle{Outline}\tableofcontents}
 
-\section{First}
-\subsection{Sub-First}
-\frame{\frametitle{Sub-First}
+% Introduction
+%%%%%%%%%%%%%%
+\section{Introduction}
+\subsection{Motivation}
+\frame{\frametitle{Motivation}
   \begin{itemize}
-    \item \alert{Item List}
-    \item With highlighted \alert{alerts}
+    \item Software testing and verification is costly (approximate cost for United States in 2002 was \$59.5 billion)~\footcite{RTI02}.
+    \item Source code and test suites are the two core artifacts involved with software testing.
   \end{itemize}
 }
 
-\subsection{Sub-Second}
-\frame{\frametitle{Sub-Second}
-  Next sub-section
+\frame{\frametitle{Test Suite Effectiveness}
+  \begin{itemize}
+    \item An effective test suite is \emph{``\ldots one that is capable of detecting all real bugs''}~\footcite{Wey93}.
+    \item Several techniques exist that measure code coverage (e.g., branch, statement, path) being exercised by a test suite~\footcite{ZHM97}
+    \item A more effective means of determining test suite effectiveness is to use mutation testing.
+  \end{itemize}
 }
 
-\section{Second}
-\subsection{Sub-First}
-\frame{\frametitle{Second}
+\frame{\frametitle{Mutation Testing}
+  \begin{itemize}
+    \item A set of mutation operators can be used to generate faulty versions of a software system's source code called mutants.
+    \item The mutants are tested against the test suite, the percentage of mutants detected (i.e., killed) represents the mutation score.
+    \item Mutation operator are based on existing fault taxonomy, where each operator corresponds to a specific type of fault.
+  \end{itemize}
+}
+
+\subsection{Problem}
+\frame{\frametitle{Problem}
+  \begin{itemize}
+    \item Mutation testing is effective at determining test suite effectiveness.
+    \item Hundreds or thousands of mutants can be generated for even small software systems.
+    \item Adoption of mutation testing in industry has been slow mainly due to performance/scalability issues in evaluating mutants~\footcite{OU01}.
+  \end{itemize}
+}
+
+\subsection{Thesis Statement}
+\frame{\frametitle{Thesis Statement}
+  \textit{The use of source code and test suite metrics in combination with machine learning techniques can accurately predict mutation scores. Furthermore, the predictions can be used to reduce the performance cost of mutation testing when used to iteratively develop test suites.}
+}
+
+
+% Background
+%%%%%%%%%%%%
+\section{Background}
+\subsection{Mutation Testing}
+\frame{\frametitle{Mutation Testing}
   New section
 }
 
-\subsection{Sub-Second}
-\frame{\frametitle{Sub-Second}
+\subsection{Machine Learning}
+\frame{\frametitle{Machine Learning}
   Next sub-section
+}
+
+\subsection{Software Metrics}
+\frame{\frametitle{Software Metrics}
+  Next sub-section
+}
+
+
+% Approach
+%%%%%%%%%%
+\section{Approach}
+\subsection{Process}
+\frame{\frametitle{Process}
+  New section
+}
+
+\subsection{Prediction}
+\frame{\frametitle{Prediction}
+  Next sub-section
+}
+
+\subsection{Related Work}
+\frame{\frametitle{Related Work}
+  Next sub-section
+}
+
+
+% Empirical Evaluation
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Empirical Evaluation}
+\subsection{Experimental Setup}
+\frame{\frametitle{Experimental Setup}
+  New section
+}
+
+\subsection{Experimental Results}
+\frame{\frametitle{Experimental Results}
+  Next sub-section
+}
+
+
+% Conclusions
+%%%%%%%%%%%%%
+\section{Conclusions}
+\subsection{Conclusions}
+\frame{\frametitle{Conclusions}
+  New section
 }
 
 % Ending slide is title page again
