@@ -1,6 +1,29 @@
 % !TEX root = presentation.tex
 \section{Conclusions}
 \subsection{Conclusions}
-\frame{\frametitle{Conclusions}
-  New section
+\frame{\frametitle{Contributions}
+  \begin{itemize}
+  	\item New approach for predicting mutation scores using source code and test suite metrics.
+		\item Demonstrated that feature sets in combination provides more accuracy than individually.
+		\item Demonstrated that prediction on unknown data is possible.
+		\item Identified a generalizable set of \textit{LIBSVM} parameters that maximize F-score over the test subject.
+		\item Demonstrated it is not necessary to train on 90\% in order to achieve near optimal prediction accuracy. 
+  \end{itemize}
+}
+
+\subsection{Conclusions}
+\frame{\frametitle{Future Work}
+  \begin{itemize}
+  	\item Improve Approach:
+		\begin{itemize}
+	  	\item More metrics.
+  		\item More mutation operators.
+		\end{itemize}
+  	\item Generalizability of Results:
+		\begin{itemize}
+  	  \item More test subjects.
+		  \item More statistical measures and validation
+		  \item Different tools.
+		\end{itemize}
+  \end{itemize}
 }
