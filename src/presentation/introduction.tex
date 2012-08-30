@@ -3,52 +3,59 @@
 \subsection{Motivation}
 \frame{\frametitle{Motivation}
   \begin{itemize}
-    \item Software testing and verification is costly (approximate cost for United States in 2002 was \$59.5 billion)~\footcite{RTI02}.
-    \item Source code and test suites are the two core artifacts involved with software testing.
+    \item \alert{Software testing and verification} is costly (approximate cost for United States in 2002 was \alert{\$59.5 billion})~\footcite{RTI02}.
+    \item \alert{Core} software testing \alert{artifacts}:
+    \begin{itemize}
+      \item Source code.
+      \item Test suite.
+    \end{itemize}
   \end{itemize}
 }
 
 \subsubsection{Test Suite Effectiveness}
 \frame{\frametitle{Test Suite Effectiveness}
   \begin{itemize}
-    \item An effective test suite is \textit{``\ldots one that is capable of detecting all real bugs''}~\footcite{Wey93}.
-    \item Several techniques exist that measure code coverage (e.g., branch, statement, path) being exercised by a test suite~\footcite{ZHM97}
-    \item A more effective means of determining test suite effectiveness is to use mutation testing.
+    \item An effective test suite is \textit{``\ldots one that is capable of \alert{detecting all real bugs}''}~\footcite{Wey93}.
+    \item Can measure \alert{code coverage} (e.g., branch, statement, path) being exercised by a test suite~\footcite{ZHM97}
+    \item A more \alert{effective} determination of test suite effectiveness is \alert{mutation testing}.
   \end{itemize}
 }
 
 \subsubsection{Mutation Testing}
 \frame{\frametitle{Mutation Testing}
   \begin{itemize}
-    \item A set of mutation operators can be used to generate faulty versions of a software system's source code called mutants.
-    \item The mutants are tested against the test suite, the percentage of mutants detected (i.e., killed) represents the mutation score.
-    \item Mutation operator are based on existing fault taxonomy, where each operator corresponds to a specific type of fault.
+    \item \alert{Mutation operators}:
+    \begin{itemize}
+      \item Generate faulty versions (i.e., \alert{mutants}) of a software system.
+      \item Based on existing \alert{fault taxonomy}.
+    \end{itemize}
+    \item Mutants are \alert{tested} against a test suite.
+    \item Percentage of detected mutants (i.e., \alert{killed}) represents the \alert{mutation score}.
   \end{itemize}
 }
 
 \subsection{Problem}
 \frame{\frametitle{Problem}
   \begin{itemize}
-    \item Mutation testing is effective at determining test suite effectiveness.
-    \item Hundreds or thousands of mutants can be generated for even small software systems.
-    \item Adoption of mutation testing in industry has been slow mainly due to performance/scalability issues in evaluating mutants~\footcite{OU01}.
-    \item Mutation testing would have to be applied frequently during development
+    \item \alert{Hundreds or thousands} of mutants can be generated for even \alert{small} software systems.
+    \item \alert{Slow industry adoption} of mutation testing due to \alert{performance/scalability} in evaluating mutants~\footcite{OU01}.
+    \item Mutation testing would have to be applied \alert{frequently} during development
   \end{itemize}
 }
 
 \subsection{Thesis Statement}
 \frame{\frametitle{Thesis Statement}
-  \begin{Large}
-    \textit{``The use of source code and test suite metrics in combination with machine learning techniques can accurately predict mutation scores. Furthermore, the predictions can be used to reduce the performance cost of mutation testing when used to iteratively develop test suites.''}
-  \end{Large}
+  \begin{large}
+    \textit{``The use of source code and test suite \alert{metrics} in combination with \alert{machine learning} techniques can accurately predict \alert{mutation scores}. Furthermore, the predictions can be used to \alert{reduce} the performance \alert{cost} of mutation testing when used to iteratively develop test suites.''}
+  \end{large}
   \vspace{5mm}
   \hrule
   \vspace{5mm}
   \begin{itemize}
-    \item A ``do fewer and smarter'' technique for mutation testing
+    \item A \alert{``do fewer and smarter''} technique for mutation testing.
     \begin{itemize}
-      \item Identify source code units that have low/high coverage
-      \item Ability to prioritize mutation testing for specific mutants
+      \item Identify source code units that have \alert{low/high coverage}.
+      \item Ability to \alert{prioritize} mutation testing for specific mutants.
     \end{itemize}
   \end{itemize}
 }
