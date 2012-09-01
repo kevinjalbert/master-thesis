@@ -38,7 +38,7 @@
       \hline \textbf{all} & \textbf{126273} & \textbf{13686} & \textbf{131160} & \textbf{11402} & \textbf{10233} \\
       \hline
     \end{tabular}
-    \caption{The eight open source test subjects used in the empirical evaluation.}
+    \caption{The eight \alert{open source} test subjects used in the empirical evaluation.}
   \end{table}
   \footnotetext{Lines of Code (LOC)}
 }
@@ -46,15 +46,15 @@
 \subsubsection{Test Subjects [cont.]}
 \frame{\frametitle{Test Subjects [cont.]}
   \begin{itemize}
-    \item We use all subjects individually (\textit{subject})
+    \item We use all subjects \alert{individually} (\textit{subject})
     \begin{itemize}
       \item \textit{jgap}, \textit{openfast}, \textit{jsoup}, etc\ldots
     \end{itemize}
-    \item We use all subjects collectively (\textit{all})
+    \item We use all subjects \alert{collectively} (\textit{all})
     \begin{itemize}
       \item e.g., \textit{jgap} + \textit{openfast} + \textit{jsoup} + etc\ldots
     \end{itemize}
-    \item We use all subjects except one (\textit{all\_but\_subject})
+    \item We use \alert{all} subjects \alert{except one} (\textit{all\_but\_subject})
     \begin{itemize}
       \item e.g., \textit{all\_but\_jgap}, \textit{all\_but\_openfast}, \textit{all\_but\_jsoup}, etc\ldots
     \end{itemize}
@@ -75,11 +75,11 @@
 \subsection{Mutation Score Distribution}
 \frame{\frametitle{Mutation Score Distribution}
   \begin{quote}
-    \textit{\textbf{Research Question \#1:} What is the mutation score distribution of our test subjects?}
+    \textit{\textbf{Research Question \#1:} What is the \alert{mutation score distribution} of our test subjects?}
   \end{quote}
 
   \begin{quote}
-    \textit{\textbf{Research Question \#2:} Using the distribution of our test subjects' mutation scores can we identify three categories of mutation scores to predict?}
+    \textit{\textbf{Research Question \#2:} Using the distribution of our test subjects' mutation scores can we identify \alert{three categories} of mutation scores to predict?}
   \end{quote}
 }
 
@@ -123,7 +123,7 @@
     \end{axis}
     \end{tikzpicture}
     \vspace{-2mm}
-    \caption{Mutation score distribution of methods from all eight test subjects that can be used for training.}
+    \caption{Mutation score \alert{distribution of methods} from all eight test subjects that can be \alert{used for training}.}
   \end{figure}
 }
 
@@ -143,7 +143,7 @@
       \hline
     \end{tabular}
     \vspace{-2mm}
-    \caption{The available number of source code units that fall within the determined ranges of mutation scores.}
+    \caption{The available \alert{number of source code units} that fall within the \alert{determined ranges} of mutation scores.}
   \end{table}
 }
 
@@ -152,21 +152,21 @@
   \begin{figure}
     \centering
     \includegraphics[width=9cm]{../thesis/figures/undersampling.pdf}
-    \caption{Undersampling a data set for balanced categories.}
+    \caption{\alert{Undersampling} a data set for \alert{balanced} categories.}
   \end{figure}
 }
   
 \subsection{Cross-Validation}
 \frame{\frametitle{Cross-Validation}
   \begin{quote}
-    \textit{\textbf{Research Question:} Using the test suite and source code data from our test subjects can we identify a set of features that maximize cross-validation accuracy?}
+    \textit{\textbf{Research Question:} Using the test suite and source code data from our test subjects can we identify a \alert{set of features} that \alert{maximize cross-validation accuracy}?}
   \end{quote}
 }
 
 \subsection{Feature Sets}
 \frame{\frametitle{Feature Sets}
   \begin{itemize}
-    \item 33 individual metrics logically grouped into four feature sets:
+    \item \alert{\textbf{33} individual metrics} logically grouped into \alert{four feature sets}:
     \begin{itemize}
       \item \ding{172} -- Source Code.
       \item \ding{173} -- Coverage.
@@ -184,7 +184,7 @@
       \input{../thesis/plots/all_cross_validation_features_method_graph}
     \end{adjustbox}
     \vspace{-2mm}
-    \caption{Method-level cross-validation accuracy of feature sets on the \textit{all} data set.}
+    \caption{Method-level cross-validation accuracy of feature sets on the \alert{\textit{all} data set}.}
   \end{figure}
 }
 
@@ -196,14 +196,14 @@
       \input{../thesis/plots/individual_cross_validation_method_1_2_3_4_graph}
     \end{adjustbox}
     \vspace{-2mm}
-    \caption{Method-level cross-validation accuracy using all feature sets (\ding{172} \ding{173} \ding{174} \ding{175}).}
+    \caption{Method-level cross-validation accuracy of \alert{all test subjects} using \alert{all feature sets} (\ding{172} \ding{173} \ding{174} \ding{175}).}
   \end{figure}
 }
 
 \subsection{Prediction on Unknown Data}
 \frame{\frametitle{Prediction on Unknown Data}
   \begin{quote}
-    \textit{\textbf{Research Question:} How well can our approach predict on unknown data, within an individual software system and across software systems?}
+    \textit{\textbf{Research Question:} How well can our approach \alert{predict on unknown data}, within an \alert{individual} software system and \alert{across} software systems?}
   \end{quote}
 }
 
@@ -215,31 +215,31 @@
       \input{../thesis/plots/prediction_method_graph}
     \end{adjustbox}
     \vspace{-2mm}
-    \caption{Method-level training and prediction accuracy on unknown data.}
+    \caption{Method-level training and \alert{prediction} accuracy on \alert{unknown data}.}
   \end{figure}
 }
 
 \subsection{Optimization and Generalization}
 \frame{\frametitle{Optimization and Generalization}
   \begin{quote}
-    \textit{\textbf{Research Question \#1:} Can we optimize our approach to achieve better performance by using a different measure of classifier performance?}
+    \textit{\textbf{Research Question \#1:} Can we optimize our approach to achieve \alert{better performance} by using a \alert{different measure} of classifier performance?}
   \end{quote}
 
   \begin{quote}
-    \textit{\textbf{Research Question \#2:} Can we identify a general set of support vector machine parameters that maximize mutation score prediction performance on unknown data?}
+    \textit{\textbf{Research Question \#2:} Can we identify a \alert{general set} of support vector machine \alert{parameters} that \alert{maximize} mutation score prediction \alert{performance} on \alert{unknown data}?}
   \end{quote}
 }
 
 \subsection{Better Measure -- F-score}
 \frame{\frametitle{Better Measure -- F-score}
   \begin{itemize}
-    \item Imbalanced date is problematic for classifiers.
-    \item Prefer for the majority category.
-    \item Accuracy will be high if all predictions are in the majority category.
+    \item \alert{Imbalanced date} is problematic for classifiers.
+    \item Prefer for the \alert{majority category}.
+    \item Accuracy will be high if \alert{all predictions} are in the majority category.
   \end{itemize}
   \hrule
   \vspace{3mm}
-  \textbf{F-score} represents the harmonic mean of the recall and precision for a category.
+  \textbf{F-score} represents the harmonic mean of the \alert{recall} and \alert{precision} for a category.
   \begin{equation}
     \textit{$\text{F-score} = 2*\frac{recall * precision}{recall + precision}$}
   \end{equation}
@@ -253,27 +253,27 @@
       \input{../thesis/plots/prediction_with_parameters_method_graph}
     \end{adjustbox}
     \vspace{-2mm}
-    \caption{Method-level training and prediction accuracy on unknown data using generalized parameters [\textit{cost}=100, \textit{gamma}=0.01].}
+    \caption{Method-level training and \alert{prediction} accuracy on \alert{unknown data} using \alert{generalized parameters} [\textit{cost}=100, \textit{gamma}=0.01].}
   \end{figure}
 }
 
 \subsubsection{Optimization and Generalization [cont.]}
 \frame{\frametitle{Optimization and Generalization [cont.]}
   \begin{itemize}
-    \item Average prediction accuracy of 49.7920\% on unknown data.
-    \item An improvement of 3.7847\% over non-generalized parameters.
-    \item Reduces need for per-project tuning.
+    \item Average prediction accuracy of \textbf{49.7920\%} on unknown data.
+    \item An \alert{improvement} of \textbf{3.7847\%} over \alert{non-generalized} parameters.
+    \item Reduces need for \alert{per-project tuning}.
   \end{itemize}
 }
 
 \subsection{Impact of Training Data Availability on Prediction Accuracy}
 \frame{\frametitle{Impact of Training Data Availability on Prediction Accuracy}
   \begin{quote}
-    \textit{\textbf{Research Question \#1:} How is the prediction accuracy impacted by the availability of training data?}
+    \textit{\textbf{Research Question \#1:} How is the \alert{prediction} accuracy \alert{impacted} by the \alert{availability} of \alert{training data}?}
   \end{quote}
 
   \begin{quote}
-    \textit{\textbf{Research Question \#2:} Is it possible to only train on a fraction of the source code units and achieve approximately the same prediction performance on the remaining source code units?}
+    \textit{\textbf{Research Question \#2:} Is it possible to only \alert{train on a fraction} of the source code units and achieve \alert{approximately} the \alert{same prediction performance} on the remaining source code units?}
   \end{quote}
 }
 
@@ -285,6 +285,6 @@
       \input{../thesis/plots/min_divisor_method_graph}
     \end{adjustbox}
     \vspace{-2mm}
-    \caption{Method-level prediction accuracies using various amounts of training data.}
+    \caption{Method-level prediction accuracies using \alert{various amounts} of \alert{training data}.}
   \end{figure}
 }

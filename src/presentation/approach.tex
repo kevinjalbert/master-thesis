@@ -39,11 +39,11 @@
     \qquad
     \begin{column}{5.75cm}
       \begin{itemize}
-        \item Input -- Units of test cases and units of source code:
+        \item \textbf{Input} -- Units of \alert{test cases} and units of \alert{source code}:
         \begin{enumerate}
-          \item Collect mutation scores using \textit{Javalanche}\footnote{\tiny{\url{github.com/david-schuler/javalanche}}}.
-          \item Collect source code metrics using \textit{Eclipse Metrics Plugin}\footnote{\tiny{\url{metrics2.sourceforge.net/}}}.
-          \item Collect coverage metrics using \textit{EMMA}\footnote{\tiny{\url{emma.sourceforge.net/}}}.
+          \item Collect \alert{mutation scores} using \textit{Javalanche}\footnote{\tiny{\url{github.com/david-schuler/javalanche}}}.
+          \item Collect \alert{source code} metrics using \textit{Eclipse Metrics Plugin}\footnote{\tiny{\url{metrics2.sourceforge.net/}}}.
+          \item Collect \alert{coverage} metrics using \textit{EMMA}\footnote{\tiny{\url{emma.sourceforge.net/}}}.
         \end{enumerate}
       \end{itemize}
     \end{column}
@@ -63,12 +63,12 @@
     \qquad
     \begin{column}{5.75cm}
       \begin{itemize}
-        \item Output -- Category/feature data for source code units:
+        \item \textbf{Output} -- \alert{Category/feature data} for source code units:
         \begin{enumerate}
-          \item Combine source code and coverage metrics together.
-          \item Merge source code metrics of the touched tests for each source code unit.
-          \item Aggregate method-level source code unit metrics into class-level source code units.
-          \item Create \texttt{.libsvm} file using feature/category data.
+          \item \alert{Combine} source code and coverage metrics together.
+          \item \alert{Merge} source code metrics of the touched tests for each source code unit.
+          \item \alert{Aggregate} method-level source code unit metrics into class-level source code units.
+          \item \alert{Create} \texttt{.libsvm} file using feature/category data.
         \end{enumerate}
       \end{itemize}
     \end{column}
@@ -84,11 +84,11 @@
     \qquad
     \begin{column}{6.75cm}
       \begin{itemize}
-        \item Predict -- Use trained support vector machine.
+        \item \textbf{Predict} -- Use \alert{trained} support vector machine.
         \begin{enumerate}
-          \item Collect source code and test suite metrics.
-          \item Synthesis collected metrics.
-          \item Use trained LIBSVM\footnote{\tiny{\url{csie.ntu.edu.tw/~cjlin/libsvm/}}} to make prediction for source code units.
+          \item \alert{Collect} source code and test suite metrics.
+          \item \alert{Synthesis} collected metrics.
+          \item Use \alert{trained} LIBSVM\footnote{\tiny{\url{csie.ntu.edu.tw/~cjlin/libsvm/}}} to make \alert{prediction} for source code units.
         \end{enumerate}
       \end{itemize}
     \end{column}
@@ -98,8 +98,8 @@
 \subsection{Related Work}
 \frame{\frametitle{Related Work}
   \begin{itemize}
-    \item Analysis of test effectiveness, test coverage and test suite size~\footcite{Ino12}.
-    \item Bug prediction and fault localization:
+    \item Analysis of \alert{test effectiveness and coverage}~\footcite{Ino12}.
+    \item \alert{Bug prediction and localization}:
     \begin{itemize}
       \item Using source code~\footcite{MKPS00}.
       \item Using bug reports~\footcite{KL05}.
