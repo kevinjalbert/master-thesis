@@ -1,22 +1,36 @@
 % !TEX root = presentation.tex
 \section{Approach}
+\subsection{Thesis Statement}
+\frame{\frametitle{Thesis Statement}
+  \begin{large}
+    \textit{``The use of source code and test suite \alert{metrics} in combination with \alert{machine learning} techniques can accurately predict \alert{mutation scores}. Furthermore, the predictions can be used to \alert{reduce} the performance \alert{cost} of mutation testing when used to iteratively develop test suites.''}
+  \end{large}
+  \vspace{5mm}
+  \hrule
+  \vspace{5mm}
+  \begin{itemize}
+    \item A \alert{``do fewer and smarter''} technique for mutation testing.
+    \begin{itemize}
+      \item Identify source code units that have \alert{low/high coverage}.
+      \item Ability to \alert{prioritize} mutation testing for specific mutants.
+    \end{itemize}
+  \end{itemize}
+}
+
 \subsection{Process}
 \frame{\frametitle{Process}
   \begin{enumerate}
-    \item Collect mutation score data of the software system under test.
-    \item Collect source code metric data of the software system under test.
-    \item Collect test suite metrics data of the software system under test.
-    \item Synthesis collected data together and store it within a database.
-    \item Construct classification model.
-    \item Predict with classification model.
+    \item Data collection.
+    \item Data synthesis.
+    \item Data prediction.
   \end{enumerate}
 }
 
 \subsubsection{Data Collection}
 \frame{\frametitle{Data Collection}
   \begin{columns}
-  	\begin{column}{5.75cm}
-    	\flushleft
+    \begin{column}{5.75cm}
+      \flushleft
       \includegraphics[width=5.25cm]{../thesis/figures/process_a_clean.pdf}
       \vspace{-4mm}
       \Huge \centering
@@ -39,7 +53,7 @@
 \subsubsection{Data Synthesis}
 \frame{\frametitle{Data Synthesis}
   \begin{columns}
-  	\begin{column}{5.75cm}
+    \begin{column}{5.75cm}
       \Huge \centering
       \ldots
       \vspace{-2mm}
@@ -49,7 +63,7 @@
     \qquad
     \begin{column}{5.75cm}
       \begin{itemize}
-        \item Goal -- Category/feature data for source code units:
+        \item Output -- Category/feature data for source code units:
         \begin{enumerate}
           \item Combine source code and coverage metrics together.
           \item Merge source code metrics of the touched tests for each source code unit.
@@ -61,19 +75,22 @@
   \end{columns}
 }
 
-\subsubsection{Prediction}
-\frame{\frametitle{Prediction}
+\subsubsection{Data Prediction}
+\frame{\frametitle{Data Prediction}
   \begin{columns}
-  	\begin{column}{4.75cm}
+    \begin{column}{4.75cm}
       \includegraphics[width=4cm]{../thesis/figures/process_prediction_clean.pdf}
     \end{column}
     \qquad
     \begin{column}{6.75cm}
-      \begin{enumerate}
-        \item Collect source code and test suite metrics.
-        \item Synthesis collected metrics.
-        \item Use trained LIBSVM\footnote{\tiny{\url{csie.ntu.edu.tw/~cjlin/libsvm/}}} to make prediction for source code units.
-      \end{enumerate}
+      \begin{itemize}
+        \item Predict -- Use trained support vector machine.
+        \begin{enumerate}
+          \item Collect source code and test suite metrics.
+          \item Synthesis collected metrics.
+          \item Use trained LIBSVM\footnote{\tiny{\url{csie.ntu.edu.tw/~cjlin/libsvm/}}} to make prediction for source code units.
+        \end{enumerate}
+      \end{itemize}
     \end{column}
   \end{columns}
 }
@@ -81,12 +98,12 @@
 \subsection{Related Work}
 \frame{\frametitle{Related Work}
   \begin{itemize}
-  	\item Fault localization:
-		\begin{itemize}
-		  \item Using source code~\footcite{MKPS00}.
-		  \item Using bug reports~\footcite{KL05}.
-		  \item Using test coverage~\footcite{WDC10}.
-		\end{itemize}
-		\item Relationship between test effectiveness, test coverage and test suite size~\footcite{Ino12}.
+    \item Analysis of test effectiveness, test coverage and test suite size~\footcite{Ino12}.
+    \item Bug prediction and fault localization:
+    \begin{itemize}
+      \item Using source code~\footcite{MKPS00}.
+      \item Using bug reports~\footcite{KL05}.
+      \item Using test coverage~\footcite{WDC10}.
+    \end{itemize}
   \end{itemize}
 }

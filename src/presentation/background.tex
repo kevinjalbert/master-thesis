@@ -1,88 +1,5 @@
 % !TEX root = presentation.tex
 \section{Background}
-\subsection{Mutation Testing Overview}
-\frame{\frametitle{Mutation Testing Overview}
-  \begin{figure}[!tb]
-    \centering
-    \includegraphics[width=\textwidth]{../thesis/figures/mutation_testing_overview.pdf}
-    \caption{The mutation testing process.}
-    \label{fig:mutation_testing_overview}
-  \end{figure}
-  \hrule
-  \vspace{5mm}
-  \begin{equation}
-    \textit{$\text{mutation score} = \frac{\text{killed mutants}}{\text{total mutants} - \text{equivalent mutants}}$}
-    \label{equ:mutation_score}
-  \end{equation}
-}
-
-\subsubsection{Supporting Mutation Testing}
-\frame{\frametitle{Supporting Mutation Testing}
-  \begin{itemize}
-    \item \textbf{Competent Programmer Hypothesis}~\footcite{ABD+79}: developers write software that is \alert{nearly correct}.
-    \item \textbf{Coupling Effect Hypothesis}~\footcite{Off92}: a large percent of \alert{complex faults} can be detected if all the \alert{simple faults} can be detected.
-    \item Together these two hypothesis strengthen:
-    \begin{itemize}
-      \item The use of \alert{small/single changes} for mutation operators.
-      \item Why mutation testing is \alert{adequate} for evaluating test suite effectiveness.
-    \end{itemize}
-  \end{itemize}
-}
-
-\subsubsection{Method-Level Mutation Operators}
-\frame{\frametitle{Method-Level Mutation Operators}
-  \scriptsize
-  \begin{table}[!tb]
-    \centering
-    \rowcolors{2}{gray!30}{gray!20}
-    \begin{tabular}{|l|l|}
-      \hline
-      \rowcolor[RGB]{169,196,223}
-      \textbf{Operator} & \textbf{Description} \\
-      \hline \textit{AOR} & Arithmetic Operator Replacement \\
-      \hline \textit{AOI} & Arithmetic Operator Insertion \\
-      \hline \textit{AOD} & Arithmetic Operator Deletion \\
-      \hline \textit{ROR} & Relational Operator Replacement \\
-      \hline \textit{COR} & Conditional Operator Replacement \\
-      \hline \textit{COI} & Conditional Operator Insertion \\
-      \hline \textit{COD} & Conditional Operator Deletion \\
-      \hline \textit{SOR} & Shift Operator Replacement \\
-      \hline \textit{LOR} & Logical Operator Replacement \\
-      \hline \textit{LOI} & Logical Operator Insertion \\
-      \hline \textit{LOD} & Logical Operator Deletion \\
-      \hline \textit{ASR} & Assignment Operator Replacement \\
-      \hline
-    \end{tabular}
-    \caption{The set of method-level mutation operators from the \textit{MuJava} mutation testing tool~\footcite{MOK05}.}
-    \label{tab:method_operators}
-  \end{table}
-}
-
-\subsubsection{Mutation Operator Example (ROR)}
-\frame{\frametitle{Mutation Operator Example (\textit{ROR})}
-  \begin{figure}[!tb]
-    \centering
-    \begin{minipage}{4.75cm}
-      \centering
-      \footnotesize{\textbf{Original Program}}
-      \lstinputlisting[language=Java, literate={>}{{\textcolor{red}{>}}}{1}]{../thesis/listings/mutation_example.java}
-    \end{minipage}
-    $\xrightarrow{\textit{ROR}}$
-    \begin{minipage}{4.75cm}
-      \centering
-      \footnotesize{\textbf{Mutant Program}}
-      \lstinputlisting[language=Java, literate={>}{{\textcolor{red}{<}}}{1}]{../thesis/listings/mutation_example.java}
-    \end{minipage}
-    \caption{Example application of the \textit{ROR} method-level mutation operator.}
-    \vspace{2mm}
-    \hrule
-    \label{fig:ROR_mutation}
-  \end{figure}
-  \begin{itemize}
-    \item Replaces a relational operator (i.e., \texttt{>}, \texttt{>=}, \texttt{==}, \texttt{!=}, \texttt{=<} or \texttt{<}) with another type of relational operator.
-  \end{itemize}
-}
-
 \subsection{Machine Learning}
 \frame{\frametitle{Machine Learning}
   \begin{itemize}
@@ -179,6 +96,21 @@
       \item Balanced Accuracy.
       \item Youden's Index.
      \end{itemize}
+  \end{itemize}
+}
+
+\subsubsection{Cross-Validation}
+\frame{\frametitle{Cross-Validation}
+  \begin{itemize}
+    \item Evaluation using \textit{n}-fold cross-validation:
+    \begin{enumerate}
+      \item \alert{Split data} into \textit{n} equal sections.
+      \item Use \textit{n-1} sections for \alert{training set}.
+      \item Use remaining section for \alert{test set}.
+      \item \alert{Predict} on test set and determine performance.
+      \item Repeat step 2--4 a total of \textit{n} times using \alert{different test sets}.
+      \item Determine \alert{average value} of measured performances over the \textit{n} folds.
+    \end{enumerate}
   \end{itemize}
 }
 

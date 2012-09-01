@@ -1,24 +1,45 @@
 % !TEX root = presentation.tex
 \section{Empirical Evaluation}
-\subsection{Test Subjects}
+\subsection{Thesis Statement [recap]}
+\frame{\frametitle{Thesis Statement [recap]}
+  \begin{large}
+    \textit{``The use of source code and test suite \alert{metrics} in combination with \alert{machine learning} techniques can accurately predict \alert{mutation scores}. Furthermore, the predictions can be used to \alert{reduce} the performance \alert{cost} of mutation testing when used to iteratively develop test suites.''}
+  \end{large}
+  \vspace{5mm}
+  \hrule
+  \vspace{5mm}
+  \begin{itemize}
+    \item A \alert{``do fewer and smarter''} technique for mutation testing.
+    \begin{itemize}
+      \item Identify source code units that have \alert{low/high coverage}.
+      \item Ability to \alert{prioritize} mutation testing for specific mutants.
+    \end{itemize}
+  \end{itemize}
+}
+
+\subsubsection{Test Subjects}
 \frame{\frametitle{Test Subjects}
-  \tiny
-  \rowcolors{2}{gray!30}{gray!20}
-  \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{0.8cm}|>{\raggedleft\arraybackslash}p{0.8cm}|>{\raggedleft\arraybackslash}p{0.9cm}|>{\raggedleft\arraybackslash}p{0.8cm}|>{\raggedleft\arraybackslash}p{0.8cm}|>{\raggedleft\arraybackslash}p{0.9cm}|>{\raggedleft\arraybackslash}p{0.8cm}|}
-    \hline
-    \rowcolor[RGB]{169,196,223}
-    \textbf{Test Subject} & \textbf{Source LOC\footnotemark} & \textbf{Source Classes} & \textbf{Source Methods} & \textbf{Test LOC} & \textbf{Test Classes} & \textbf{Test Methods} & \textbf{Test Cases} \\
-    \hline \emph{logback-core} & 12118 & 249 & 1270 & 8377 & 174 & 688 & 286 \\
-    \hline \emph{barbecue} & 4790 & 58 & 299 & 2910 & 38 & 416 & 225 \\
-    \hline \emph{jgap } & 28975 & 415 & 3017 & 19694 & 180 & 1633 & 1355 \\
-    \hline \emph{commons-lang} & 19499 & 149 & 1196 & 33332 & 242 & 2408 & 2050 \\
-    \hline \emph{joda-time} & 27139 & 227 & 3635 & 51388 & 221 & 4755 & 3866 \\
-    \hline \emph{openfast} & 11646 & 265 & 1447 & 5587 & 115 & 421 & 322 \\
-    \hline \emph{jsoup} & 10949 & 198 & 954 & 2883 & 25 & 335 & 319 \\
-    \hline \emph{joda-primitives} & 11157 & 128 & 1868 & 6989 & 49 & 746 & 1810 \\
-    \hline \textbf{all} & \textbf{126273} & \textbf{1689} & \textbf{13686} & \textbf{131160} & \textbf{1044} & \textbf{11402} & \textbf{10233} \\
-    \hline
-  \end{tabular}
+  \scriptsize
+  \begin{table}
+    \centering
+    \rowcolors{2}{gray!30}{gray!20}
+    \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{0.8cm}|>{\raggedleft\arraybackslash}p{1.2cm}|>{\raggedleft\arraybackslash}p{0.8cm}|>{\raggedleft\arraybackslash}p{1.2cm}|>{\raggedleft\arraybackslash}p{0.8cm}|}
+      \hline
+      \rowcolor[RGB]{150,160,240}
+      \textbf{Test Subject} & \textbf{Source LOC\footnotemark} & \textbf{Source Methods} & \textbf{Test LOC} & \textbf{Test Methods} & \textbf{Test Cases} \\
+      \hline \textit{logback-core} & 12118 & 1270 & 8377 & 688 & 286 \\
+      \hline \textit{barbecue} & 4790 & 299 & 2910 & 416 & 225 \\
+      \hline \textit{jgap } & 28975 & 3017 & 19694 & 1633 & 1355 \\
+      \hline \textit{commons-lang} & 19499 & 1196 & 33332 & 2408 & 2050 \\
+      \hline \textit{joda-time} & 27139 & 3635 & 51388 & 4755 & 3866 \\
+      \hline \textit{openfast} & 11646 & 1447 & 5587 & 421 & 322 \\
+      \hline \textit{jsoup} & 10949 & 954 & 2883 & 335 & 319 \\
+      \hline \textit{joda-primitives} & 11157 & 1868 & 6989 & 746 & 1810 \\
+      \hline \textbf{all} & \textbf{126273} & \textbf{13686} & \textbf{131160} & \textbf{11402} & \textbf{10233} \\
+      \hline
+    \end{tabular}
+    \caption{The eight open source test subjects used in the empirical evaluation.}
+  \end{table}
   \footnotetext{Lines of Code (LOC)}
 }
 
@@ -26,43 +47,67 @@
 \frame{\frametitle{Test Subjects [cont.]}
   \begin{itemize}
     \item We use all subjects individually (\textit{subject})
+    \begin{itemize}
+      \item \textit{jgap}, \textit{openfast}, \textit{jsoup}, etc\ldots
+    \end{itemize}
     \item We use all subjects collectively (\textit{all})
+    \begin{itemize}
+      \item e.g., \textit{jgap} + \textit{openfast} + \textit{jsoup} + etc\ldots
+    \end{itemize}
     \item We use all subjects except one (\textit{all\_but\_subject})
+    \begin{itemize}
+      \item e.g., \textit{all\_but\_jgap}, \textit{all\_but\_openfast}, \textit{all\_but\_jsoup}, etc\ldots
+    \end{itemize}
   \end{itemize}
 }
 
 \subsection{Experiments}
 \frame{\frametitle{Experiments}
   \begin{enumerate}
-    \item \textbf{Mutation Score Distribution}: Identify classification categories.
-     \item \textbf{Cross-Validation}: Acquire cross-validation accuracy using the different feature sets.
-    \item \textbf{Prediction on Unknown Data}: Simulate realistic prediction on unknown data.
-    \item \textbf{Optimization and Generalization}: Identify the most appropriate parameters that generalize to unknown data prediction.
-    \item \textbf{Impact of Training Data Availability on Prediction Accuracy}: Evaluate the applicability of the approach in iterative development.
+    \item \textbf{Mutation Score Distribution}
+    \item \textbf{Cross-Validation}
+    \item \textbf{Prediction on Unknown Data}
+    \item \textbf{Optimization and Generalization}
+    \item \textbf{Impact of Training Data Availability on Prediction Accuracy}
   \end{enumerate}
+}
+
+\subsection{Mutation Score Distribution}
+\frame{\frametitle{Mutation Score Distribution}
+  \begin{quote}
+    \textit{\textbf{Research Question \#1:} What is the mutation score distribution of our test subjects?}
+  \end{quote}
+
+  \begin{quote}
+    \textit{\textbf{Research Question \#2:} Using the distribution of our test subjects' mutation scores can we identify three categories of mutation scores to predict?}
+  \end{quote}
 }
 
 \subsubsection{Mutation Testing Results}
 \frame{\frametitle{Mutation Testing Results}
-  \tiny
-  \rowcolors{2}{gray!30}{gray!20}
-  \begin{tabular}{|l|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft\arraybackslash}p{1.2cm}|}
-    \rowcolor[RGB]{169,196,223}
-    \hline \textbf{Test Subject} & \textbf{Mutants Generated} & \textbf{Mutants Covered} & \textbf{Coverage (\%)} & \textbf{Mutants Killed} & \textbf{Mutation Score (\%)} & \textbf{Time Taken (\emph{hh:mm:ss})} \\
-    \hline \emph{logback-core} & 10682 & 7350 & 68.8073 & 5400 & 73.4694 & 01:49:10 \\
-    \hline \emph{barbecue} & 27324 & 4339 & 15.8798 & 2727 & 62.8486 & 00:49:51 \\
-    \hline \emph{jgap} & 31929 & 17903 & 56.0713 & 13328 & 74.4456 & 07:04:44 \\
-    \hline \emph{commons-lang} & 45141 & 41761 & 92.5124 & 33772 & 80.8697 & 15:51:59 \\
-    \hline \emph{joda-time} & 70594 & 58595 & 83.0028 & 48545 & 82.8484 & 31:55:50 \\
-    \hline \emph{openfast} & 14910 & 8371 & 56.1435 & 6869 & 82.0571 & 01:34:38 \\
-    \hline \emph{jsoup} & 14165 & 10540 & 74.4088 & 8430 & 79.9810 & 03:55:56 \\
-    \hline \emph{joda-primitives} & 22269 & 17334 & 77.8391 & 13499 & 77.8759 & 01:24:33 \\
-    \hline \textbf{all} & \textbf{237014} & \textbf{166193} & \textbf{70.1195} & \textbf{132570} & \textbf{79.7687} & \textbf{64:26:41} \\
-    \hline
-  \end{tabular}
+  \begin{table}
+    \tiny
+    \centering
+    \rowcolors{2}{gray!30}{gray!20}
+    \begin{tabular}{|l|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft\arraybackslash}p{1.2cm}|}
+      \rowcolor[RGB]{160,160,220}
+      \hline \textbf{Test Subject} & \textbf{Mutants Generated} & \textbf{Mutants Covered} & \textbf{Coverage (\%)} & \textbf{Mutants Killed} & \textbf{Mutation Score (\%)} & \textbf{Time Taken (\textit{hh:mm:ss})} \\
+      \hline \textit{logback-core} & 10682 & 7350 & 68.8073 & 5400 & 73.4694 & 01:49:10 \\
+      \hline \textit{barbecue} & 27324 & 4339 & 15.8798 & 2727 & 62.8486 & 00:49:51 \\
+      \hline \textit{jgap} & 31929 & 17903 & 56.0713 & 13328 & 74.4456 & 07:04:44 \\
+      \hline \textit{commons-lang} & 45141 & 41761 & 92.5124 & 33772 & 80.8697 & 15:51:59 \\
+      \hline \textit{joda-time} & 70594 & 58595 & 83.0028 & 48545 & 82.8484 & 31:55:50 \\
+      \hline \textit{openfast} & 14910 & 8371 & 56.1435 & 6869 & 82.0571 & 01:34:38 \\
+      \hline \textit{jsoup} & 14165 & 10540 & 74.4088 & 8430 & 79.9810 & 03:55:56 \\
+      \hline \textit{joda-primitives} & 22269 & 17334 & 77.8391 & 13499 & 77.8759 & 01:24:33 \\
+      \hline \textbf{all} & \textbf{237014} & \textbf{166193} & \textbf{70.1195} & \textbf{132570} & \textbf{79.7687} & \textbf{64:26:41} \\
+      \hline
+    \end{tabular}
+    \caption{Mutation testing results for each of the test subjects.}
+  \end{table}
 }
 
-\subsection{Mutation Score Distribution}
+\subsubsection{Mutation Score Distribution}
 \frame{\frametitle{Mutation Score Distribution}
   \begin{figure}[!tb]
     \centering
@@ -77,29 +122,45 @@
         \addplot[ybar,fill=black] file {../thesis/plots/all/evaluation_projects_method_distribution.txt};
     \end{axis}
     \end{tikzpicture}
+    \vspace{-2mm}
     \caption{Mutation score distribution of methods from all eight test subjects that can be used for training.}
-    \label{fig:mutation_distributions_method_all}
   \end{figure}
 }
 
 \subsubsection{Mutation Score Categories}
 \frame{\frametitle{Mutation Score Categories}
-\begin{table}[!tb]
+  \begin{table}[!tb]
     \scriptsize
     \centering
     \rowcolors{2}{gray!30}{gray!20}
     \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{2cm}|>{\raggedleft\arraybackslash}p{2cm}|>{\raggedleft\arraybackslash}p{2cm}|}
       \hline
-      \rowcolor[RGB]{169,196,223}
-      \textbf{Category} & \textbf{Mutation Score Range} & \textbf{Class-Level} & \textbf{Method-Level} \\
-      \hline LOW & [0\% -- 70\%) & 191 & 1104 \\
-      \hline MEDIUM & [70\% -- 90\%) & 459 & 1782 \\
-      \hline HIGH & [90\% -- 100\%] & 214 & 2624 \\
+      \rowcolor[RGB]{150,160,240}
+      \textbf{Category} & \textbf{Mutation Score Range} & \textbf{Method-Level} \\
+      \hline LOW & [0\% -- 70\%) & 1104 \\
+      \hline MEDIUM & [70\% -- 90\%) & 1782 \\
+      \hline HIGH & [90\% -- 100\%] & 2624 \\
       \hline
     \end{tabular}
+    \vspace{-2mm}
     \caption{The available number of source code units that fall within the determined ranges of mutation scores.}
-    \label{tab:available_data}
   \end{table}
+}
+
+\subsubsection{Undersampling Categories}
+\frame{\frametitle{Undersampling Categories}
+  \begin{figure}
+    \centering
+    \includegraphics[width=9cm]{../thesis/figures/undersampling.pdf}
+    \caption{Undersampling a data set for balanced categories.}
+  \end{figure}
+}
+  
+\subsection{Cross-Validation}
+\frame{\frametitle{Cross-Validation}
+  \begin{quote}
+    \textit{\textbf{Research Question:} Using the test suite and source code data from our test subjects can we identify a set of features that maximize cross-validation accuracy?}
+  \end{quote}
 }
 
 \subsection{Feature Sets}
@@ -122,8 +183,8 @@
     \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
       \input{../thesis/plots/all_cross_validation_features_method_graph}
     \end{adjustbox}
-    \caption{Method-level cross-validation accuracy of feature sets on the \textit{all} subject.}
-    \label{fig:all_cross_validation_features_method_graph}
+    \vspace{-2mm}
+    \caption{Method-level cross-validation accuracy of feature sets on the \textit{all} data set.}
   \end{figure}
 }
 
@@ -134,33 +195,66 @@
     \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
       \input{../thesis/plots/individual_cross_validation_method_1_2_3_4_graph}
     \end{adjustbox}
-    \caption{Method-level cross-validation accuracy of each test subject using all feature sets (\ding{172} \ding{173} \ding{174} \ding{175}).}
-    \label{fig:individual_cross_validation_method_1_2_3_4_graph}
+    \vspace{-2mm}
+    \caption{Method-level cross-validation accuracy using all feature sets (\ding{172} \ding{173} \ding{174} \ding{175}).}
   \end{figure}
 }
 
 \subsection{Prediction on Unknown Data}
+\frame{\frametitle{Prediction on Unknown Data}
+  \begin{quote}
+    \textit{\textbf{Research Question:} How well can our approach predict on unknown data, within an individual software system and across software systems?}
+  \end{quote}
+}
+
+\subsubsection{Prediction on Unknown Data}
 \frame{\frametitle{Prediction on Unknown Data}
   \begin{figure}[!tb]
     \centering
     \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
       \input{../thesis/plots/prediction_method_graph}
     \end{adjustbox}
-    \caption{Method-level training and prediction accuracy over the eight test subjects and sets of \textit{all\_but\_subject} subjects.}
-    \label{fig:prediction_method_graph}
+    \vspace{-2mm}
+    \caption{Method-level training and prediction accuracy on unknown data.}
   \end{figure}
 }
 
 \subsection{Optimization and Generalization}
 \frame{\frametitle{Optimization and Generalization}
-\begin{figure}[!tb]
-  \centering
-  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
-    \input{../thesis/plots/prediction_with_parameters_method_graph}
-  \end{adjustbox}
-  \caption{Method-level training and prediction accuracy over the eight test subjects and set of \textit{all\_but\_subject} using generalized parameters [\textit{cost}=100, \textit{gamma}=0.01].}
-  \label{fig:prediction_with_parameters_class_graph}
-\end{figure}
+  \begin{quote}
+    \textit{\textbf{Research Question \#1:} Can we optimize our approach to achieve better performance by using a different measure of classifier performance?}
+  \end{quote}
+
+  \begin{quote}
+    \textit{\textbf{Research Question \#2:} Can we identify a general set of support vector machine parameters that maximize mutation score prediction performance on unknown data?}
+  \end{quote}
+}
+
+\subsection{Better Measure -- F-score}
+\frame{\frametitle{Better Measure -- F-score}
+  \begin{itemize}
+    \item Imbalanced date is problematic for classifiers.
+    \item Prefer for the majority category.
+    \item Accuracy will be high if all predictions are in the majority category.
+  \end{itemize}
+  \hrule
+  \vspace{3mm}
+  \textbf{F-score} represents the harmonic mean of the recall and precision for a category.
+  \begin{equation}
+    \textit{$\text{F-score} = 2*\frac{recall * precision}{recall + precision}$}
+  \end{equation}
+}
+
+\subsection{Optimization and Generalization}
+\frame{\frametitle{Optimization and Generalization}
+  \begin{figure}[!tb]
+    \centering
+    \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
+      \input{../thesis/plots/prediction_with_parameters_method_graph}
+    \end{adjustbox}
+    \vspace{-2mm}
+    \caption{Method-level training and prediction accuracy on unknown data using generalized parameters [\textit{cost}=100, \textit{gamma}=0.01].}
+  \end{figure}
 }
 
 \subsubsection{Optimization and Generalization [cont.]}
@@ -174,12 +268,23 @@
 
 \subsection{Impact of Training Data Availability on Prediction Accuracy}
 \frame{\frametitle{Impact of Training Data Availability on Prediction Accuracy}
+  \begin{quote}
+    \textit{\textbf{Research Question \#1:} How is the prediction accuracy impacted by the availability of training data?}
+  \end{quote}
+
+  \begin{quote}
+    \textit{\textbf{Research Question \#2:} Is it possible to only train on a fraction of the source code units and achieve approximately the same prediction performance on the remaining source code units?}
+  \end{quote}
+}
+
+\subsection{Impact of Training Data Availability on Prediction Accuracy}
+\frame{\frametitle{Impact of Training Data Availability on Prediction Accuracy}
   \begin{figure}[!tb]
     \centering
-    \begin{adjustbox}{max size={0.7\textwidth}{.7\textheight}}
-      \input{../thesis/plots/divisor_method_graph}
+    \begin{adjustbox}{max size={.95\textwidth}{.75\textheight}}
+      \input{../thesis/plots/min_divisor_method_graph}
     \end{adjustbox}
-    \caption{Method-level prediction accuracies of each test subject using training and prediction with various amounts of training data.}
-    \label{fig:divisor_method_graph}
+    \vspace{-2mm}
+    \caption{Method-level prediction accuracies using various amounts of training data.}
   \end{figure}
 }
