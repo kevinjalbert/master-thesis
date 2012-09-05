@@ -9,6 +9,19 @@
   \end{itemize}
 }
 
+\subsubsection{Supporting Mutation Testing}
+\frame{\frametitle{Supporting Mutation Testing}
+  \begin{itemize}
+    \item \textbf{Competent Programmer Hypothesis}~\footcite{ABD+79}: developers write software that is \alert{nearly correct}.
+    \item \textbf{Coupling Effect Hypothesis}~\footcite{Off92}: a large percent of \alert{complex faults} can be detected if all the \alert{simple faults} can be detected.
+    \item Together these two hypothesis strengthen:
+    \begin{itemize}
+      \item The use of \alert{small/single changes} for mutation operators.
+      \item Why mutation testing is \alert{adequate} for evaluating test suite effectiveness.
+    \end{itemize}
+  \end{itemize}
+}
+
 \subsection{Mutation Testing Overview}
 \frame{\frametitle{Mutation Testing Overview}
   \begin{figure}[!tb]
@@ -25,16 +38,28 @@
   \end{equation}
 }
 
-\subsubsection{Supporting Mutation Testing}
-\frame{\frametitle{Supporting Mutation Testing}
+\subsubsection{Mutation Operator Example (ROR)}
+\frame{\frametitle{Mutation Operator Example (\textit{ROR})}
+  \begin{figure}[!tb]
+    \centering
+    \begin{minipage}{4.75cm}
+      \centering
+      \footnotesize{\textbf{Original Program}}
+      \lstinputlisting[language=Java, literate={>}{{\textcolor{red}{>}}}{1}]{../thesis/listings/mutation_example.java}
+    \end{minipage}
+    $\xrightarrow{\textit{ROR}}$
+    \begin{minipage}{4.75cm}
+      \centering
+      \footnotesize{\textbf{Mutant Program}}
+      \lstinputlisting[language=Java, literate={>}{{\textcolor{red}{<}}}{1}]{../thesis/listings/mutation_example.java}
+    \end{minipage}
+    \caption{Example application of the \textit{ROR} method-level mutation operator.}
+    \vspace{2mm}
+    \hrule
+    \label{fig:ROR_mutation}
+  \end{figure}
   \begin{itemize}
-    \item \textbf{Competent Programmer Hypothesis}~\footcite{ABD+79}: developers write software that is \alert{nearly correct}.
-    \item \textbf{Coupling Effect Hypothesis}~\footcite{Off92}: a large percent of \alert{complex faults} can be detected if all the \alert{simple faults} can be detected.
-    \item Together these two hypothesis strengthen:
-    \begin{itemize}
-      \item The use of \alert{small/single changes} for mutation operators.
-      \item Why mutation testing is \alert{adequate} for evaluating test suite effectiveness.
-    \end{itemize}
+    \item Replaces a relational operator (i.e., \texttt{>}, \texttt{>=}, \texttt{==}, \texttt{!=}, \texttt{=<} or \texttt{<}) with another type of relational operator.
   \end{itemize}
 }
 
@@ -67,33 +92,8 @@
   \end{table}
 }
 
-\subsubsection{Mutation Operator Example (ROR)}
-\frame{\frametitle{Mutation Operator Example (\textit{ROR})}
-  \begin{figure}[!tb]
-    \centering
-    \begin{minipage}{4.75cm}
-      \centering
-      \footnotesize{\textbf{Original Program}}
-      \lstinputlisting[language=Java, literate={>}{{\textcolor{red}{>}}}{1}]{../thesis/listings/mutation_example.java}
-    \end{minipage}
-    $\xrightarrow{\textit{ROR}}$
-    \begin{minipage}{4.75cm}
-      \centering
-      \footnotesize{\textbf{Mutant Program}}
-      \lstinputlisting[language=Java, literate={>}{{\textcolor{red}{<}}}{1}]{../thesis/listings/mutation_example.java}
-    \end{minipage}
-    \caption{Example application of the \textit{ROR} method-level mutation operator.}
-    \vspace{2mm}
-    \hrule
-    \label{fig:ROR_mutation}
-  \end{figure}
-  \begin{itemize}
-    \item Replaces a relational operator (i.e., \texttt{>}, \texttt{>=}, \texttt{==}, \texttt{!=}, \texttt{=<} or \texttt{<}) with another type of relational operator.
-  \end{itemize}
-}
-
-\subsection{Problem}
-\frame{\frametitle{Problem}
+\subsection{Challenges in Mutation Testing Adoption}
+\frame{\frametitle{Challenges in Mutation Testing Adoption}
   \begin{itemize}
     \item \alert{Hundreds or thousands} of mutants can be generated for even \alert{small} software systems.
     \item \alert{Slow industry adoption} of mutation testing due to \alert{performance/scalability} in evaluating mutants~\footcite{OU01}.

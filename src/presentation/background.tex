@@ -6,32 +6,15 @@
     \item Machine learning is a branch of \alert{artificial intelligence}.
     \item Focuses on the ability to \alert{classify} complex data.
     \item Uncover \alert{patterns} that characterize the data.
-  \end{itemize}
-}
-
-\subsubsection{Machine Learning Categories}
-\frame{\frametitle{Machine Learning Categories}
-  \begin{itemize}
-    \item \textbf{Unsupervised Learning:}
-    \begin{itemize}
-      \item Data has \alert{unknown category}.
-      \item Groups data into clusters based on \alert{similarity}.
-    \end{itemize}
-    \item \textbf{Supervised Learning:}
-    \begin{itemize}
-      \item Data has \alert{known category}.
-      \item \alert{Trains} on known data to \alert{predict} on unknown data.
-      \item Useful for \alert{classification/prediction}.
-    \end{itemize}
+    \item Can \alert{trains} on known data to \alert{predict} on unknown data.
   \end{itemize}
 }
 
 \subsubsection{Evaluating Applications of Machine Learning}
 \frame{\frametitle{Evaluating Applications of Machine Learning}
   \begin{itemize}
-    \item How do you \alert{measure} the \alert{performance} of your clustering/classification algorithm?
+    \item How do you \alert{measure} the \alert{performance} of your clustering/classification algorithm~\footnote{Requires data to have known categories}.?
     \begin{itemize}
-      \item Have data with \alert{known categories}.
       \item \alert{Compare} determined category vs. known category.
       \item Use a \alert{confusion matrix} and known measures.
       \item Use \alert{cross-validation}
@@ -50,20 +33,20 @@
         [box,
           label=left:\texttt{A},
           label=above:\texttt{A}
-        ] {\underline{True Positives (tp)} \\ \small{\texttt{A} correctly classified as \texttt{A}}};
+        ] {\underline{True Positives (TP)} \\ \textit{\scriptsize{\texttt{A} correctly classified as \texttt{A}}}};
         \pgfmatrixnextcell
         \node (actual_positive_prediction_negative)
         [box,
           label=above:\texttt{B}
-        ] {\underline{False Negatives (fn)} \\ \small{\texttt{A} incorrectly classified as \texttt{B}}};
+        ] {\underline{False Negatives (FN)} \\ \textit{\scriptsize{\texttt{A} incorrectly classified as \texttt{B}}}};
         \\
         \node (actual_negative_prediction_positive)
         [box,
           label=left:\texttt{B}
-        ] {\underline{False Positives (fp)} \\ \small{\texttt{B} incorrectly classified as \texttt{A}}};
+        ] {\underline{False Positives (FP)} \\ \textit{\scriptsize{\texttt{B} incorrectly classified as \texttt{A}}}};
         \pgfmatrixnextcell
         \node (actual_negative_prediction_negative)
-        [box] {\underline{True Negatives (tn)} \\ \small{reminding categories correctly classified not as \texttt{A}}};
+        [box] {\underline{True Negatives (TN)} \\ \textit{\scriptsize{remaining categories correctly classified not as \texttt{A}}}};
         \\
       };
       \node [left=-.1cm of confusion_matrix,text width=1.5cm,align=right] {\textbf{Actual \\ Value}};
@@ -71,7 +54,7 @@
     \end{tikzpicture}
     \caption{A $2~\times~2$ confusion matrix for classification results of the \texttt{A} category.}
     \vspace{1mm}
-    \footnotesize{\textit{It is possible to extend a confusion matrix to $n~\times~n$ dimensions. For each category the (tp, fn, fp, and tn) variables need to be calculated.}}
+    \footnotesize{\textit{It is possible to extend a confusion matrix to $n~\times~n$ dimensions. For each category the (TP, FN, FP, and TN) variables need to be calculated.}}
     \label{fig:example_confusion_matrix}
   \end{figure}
 }
