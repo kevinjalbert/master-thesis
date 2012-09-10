@@ -6,7 +6,7 @@
     \item Machine learning is a branch of \alert{artificial intelligence}.
     \item Focuses on the ability to \alert{classify} complex data.
     \item Uncover \alert{patterns} that characterize the data.
-    \item Can \alert{trains} on known data to \alert{predict} on unknown data.
+    \item Can \alert{train} on known data to \alert{predict} on unknown data.
   \end{itemize}
 }
 
@@ -116,7 +116,6 @@
 \subsubsection{Support Vector Machine Kernel Function}
 \frame{\frametitle{Support Vector Machine Kernel Function}
   \begin{itemize}
-    \item Works for \alert{\textit{many}-group} classification.
     \item Works on \alert{non-linearly separable} data using \alert{kernel functions}.
   \end{itemize}
   \begin{figure}
@@ -126,6 +125,9 @@
     \includegraphics[width=3.5cm]{../thesis/figures/SVM_kernel_function.pdf}
     \caption{\alert{Map} feature space into a \alert{higher dimension} and attempt to linearly separate vectors.}
   \end{figure}
+  \begin{itemize}
+    \item Works for \alert{\textit{many}-group} classification.
+  \end{itemize}
 }
 
 \subsection{Software Metrics}
@@ -137,13 +139,19 @@
       \item \textbf{Attribute:} Represents a \alert{feature} or \alert{property} of an \textit{entity}.
       \item \textbf{Model:} Represents a \alert{specific viewpoint} of an \textit{attribute}.
     \end{itemize}
+    \item Example:
+    \begin{itemize}
+    	\item Entity: people
+			\item Attribute: hieght
+			\item Model: barefoot, back against wall, legs straight, hair down
+		\end{itemize}
   \end{itemize}
 }
 
 \subsubsection{Source Code Metrics}
 \frame{\frametitle{Source Code Metrics}
   \begin{itemize}
-    \item Measures \alert{structural} aspects of the \alert{source code}.
+    \item Measure \alert{structural} aspects of the \alert{source code}.
     \item Typically done using \alert{static analysis} on the source code files.
     \begin{itemize}
       \item Complexity.
@@ -159,10 +167,11 @@
 \frame{\frametitle{Test Suite Metrics Metrics}
   \begin{itemize}
     \item Measure \alert{similar} structural aspects to \alert{source code metrics} (e.g., complexity, etc\ldots).
-    \item Measures \alert{relationship} between \alert{test suite} and the \alert{software system under test}.
+    \item Measure \alert{relationship} between \alert{test suite} and the \alert{software system under test}.
     \begin{itemize}
       \item Number of test cases for system/class/method.
       \item Statement/branch/decision coverage.
+      \item etc\ldots
     \end{itemize}
   \end{itemize}
 }

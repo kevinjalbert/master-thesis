@@ -40,25 +40,10 @@
     \end{tabular}
     \caption{The eight \alert{open source} test subjects used in the empirical evaluation.}
   \end{table}
-  \footnotetext{Lines of Code (LOC)}
-}
-
-\subsubsection{Test Subjects [cont.]}
-\frame{\frametitle{Test Subjects [cont.]}
   \begin{itemize}
-    \item We use all subjects \alert{individually} (\textit{subject})
-    \begin{itemize}
-      \item \textit{jgap}, \textit{openfast}, \textit{jsoup}, etc\ldots
-    \end{itemize}
-    \item We use all subjects \alert{collectively} (\textit{all})
-    \begin{itemize}
-      \item e.g., \textit{jgap} + \textit{openfast} + \textit{jsoup} + etc\ldots
-    \end{itemize}
-    \item We use \alert{all} subjects \alert{except one} (\textit{all\_but\_subject})
-    \begin{itemize}
-      \item e.g., \textit{all\_but\_jgap}, \textit{all\_but\_openfast}, \textit{all\_but\_jsoup}, etc\ldots
-    \end{itemize}
-  \end{itemize}
+  	\item We use \alert{metrics} from the source code and test suite as \alert{attributes} for \alert{predictions}
+ 	\end{itemize}
+  \footnotetext{Lines of Code (LOC)}
 }
 
 \subsection{Experiments}
@@ -68,7 +53,7 @@
     \item \textbf{Cross-Validation}
     \item \textbf{Prediction on Unknown Data}
     \item \textbf{Optimization and Generalization}
-    \item \textbf{Impact of Training Data Availability on Prediction Accuracy}
+    \item \textbf{Impact of Amount of Training Data on Prediction Accuracy}
   \end{enumerate}
 }
 
@@ -92,15 +77,15 @@
     \begin{tabular}{|l|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft\arraybackslash}p{1.2cm}|}
       \rowcolor[RGB]{160,160,220}
       \hline \textbf{Test Subject} & \textbf{Mutants Generated} & \textbf{Mutants Covered} & \textbf{Coverage (\%)} & \textbf{Mutants Killed} & \textbf{Mutation Score (\%)} & \textbf{Time Taken (\textit{hh:mm:ss})} \\
-      \hline \textit{logback-core} & 10682 & 7350 & 68.8073 & 5400 & 73.4694 & 01:49:10 \\
-      \hline \textit{barbecue} & 27324 & 4339 & 15.8798 & 2727 & 62.8486 & 00:49:51 \\
-      \hline \textit{jgap} & 31929 & 17903 & 56.0713 & 13328 & 74.4456 & 07:04:44 \\
-      \hline \textit{commons-lang} & 45141 & 41761 & 92.5124 & 33772 & 80.8697 & 15:51:59 \\
-      \hline \textit{joda-time} & 70594 & 58595 & 83.0028 & 48545 & 82.8484 & 31:55:50 \\
-      \hline \textit{openfast} & 14910 & 8371 & 56.1435 & 6869 & 82.0571 & 01:34:38 \\
-      \hline \textit{jsoup} & 14165 & 10540 & 74.4088 & 8430 & 79.9810 & 03:55:56 \\
-      \hline \textit{joda-primitives} & 22269 & 17334 & 77.8391 & 13499 & 77.8759 & 01:24:33 \\
-      \hline \textbf{all} & \textbf{237014} & \textbf{166193} & \textbf{70.1195} & \textbf{132570} & \textbf{79.7687} & \textbf{64:26:41} \\
+      \hline \textit{logback-core} & 10682 & 7350 & 68.8 & 5400 & 73.5 & 01:49:10 \\
+      \hline \textit{barbecue} & 27324 & 4339 & 15.9 & 2727 & 62.8 & 00:49:51 \\
+      \hline \textit{jgap} & 31929 & 17903 & 56.1 & 13328 & 74.4 & 07:04:44 \\
+      \hline \textit{commons-lang} & 45141 & 41761 & 92.5 & 33772 & 80.9 & 15:51:59 \\
+      \hline \textit{joda-time} & 70594 & 58595 & 83.0 & 48545 & 82.8 & 31:55:50 \\
+      \hline \textit{openfast} & 14910 & 8371 & 56.1 & 6869 & 82.1 & 01:34:38 \\
+      \hline \textit{jsoup} & 14165 & 10540 & 74.4 & 8430 & 80.0 & 03:55:56 \\
+      \hline \textit{joda-primitives} & 22269 & 17334 & 77.8 & 13499 & 77.9 & 01:24:33 \\
+      \hline \textbf{all} & \textbf{237014} & \textbf{166193} & \textbf{70.1} & \textbf{132570} & \textbf{79.8} & \textbf{64:26:41} \\
       \hline
     \end{tabular}
     \caption{Mutation testing results for each of the test subjects.}
@@ -184,7 +169,7 @@
       \input{../thesis/plots/all_cross_validation_features_method_graph}
     \end{adjustbox}
     \vspace{-2mm}
-    \caption{Method-level cross-validation accuracy of feature sets on the \alert{\textit{all} data set}.}
+    \caption{Method-level cross-validation accuracy of feature sets on the \alert{\textit{all} data set} (cumulative data from all individual subjects).}
   \end{figure}
 }
 
@@ -196,14 +181,14 @@
       \input{../thesis/plots/individual_cross_validation_method_1_2_3_4_graph}
     \end{adjustbox}
     \vspace{-2mm}
-    \caption{Method-level cross-validation accuracy of \alert{all test subjects} using \alert{all feature sets} (\ding{172} \ding{173} \ding{174} \ding{175}).}
+    \caption{Method-level cross-validation accuracy of \alert{all individual test subjects} using \alert{all feature sets} (\ding{172} \ding{173} \ding{174} \ding{175}).}
   \end{figure}
 }
 
 \subsection{Prediction on Unknown Data}
 \frame{\frametitle{Prediction on Unknown Data}
   \begin{quote}
-    \textit{\textbf{Research Question:} How well can our approach \alert{predict on unknown data}, within an \alert{individual} software system and \alert{across} software systems?}
+    \textit{\textbf{Research Question:} How well can our approach predict on \alert{unknown data}, \alert{within a} software system and \alert{across} software systems?}
   \end{quote}
 }
 
@@ -224,7 +209,7 @@
       \input{../thesis/plots/prediction_method_graph}
     \end{adjustbox}
     \vspace{-2mm}
-    \caption{Method-level training and \alert{prediction} accuracy on \alert{unknown data}.}
+    \caption{Method-level training and \alert{prediction} accuracy on \alert{unknown data} (all\_but\_\textit{subject} uses all but one subject for training and predicts the excluded one).}
   \end{figure}
 }
 
@@ -242,9 +227,13 @@
 \subsection{Better Measure -- F-score}
 \frame{\frametitle{Better Measure -- F-score}
   \begin{itemize}
-    \item \alert{Imbalanced data} is problematic for classifiers.
-    \item Prefer for the \alert{majority category}.
-    \item Accuracy will be high if \alert{all predictions} are in the majority category.
+    \item \alert{Previous} prediction on unknown data:
+    \begin{itemize}
+    	\item \alert{Automatically} obtained LIBSVM \alert{parameters}.
+			\item Used \alert{cross-validation accuracy} on the \alert{training} data.
+    	\item Could still favour \alert{majority} category in \alert{test} data.
+    \end{itemize}
+    \item \alert{Optimize} LIBSVM to perform better on \alert{predicting unknown} test data.
   \end{itemize}
   \hrule
   \vspace{3mm}
@@ -269,16 +258,16 @@
 \subsubsection{Optimization and Generalization [cont.]}
 \frame{\frametitle{Optimization and Generalization [cont.]}
   \begin{itemize}
-    \item Average \alert{prediction accuracy} of \textbf{49.7920\%} on \alert{unknown data}.
-    \item An \alert{improvement} of \textbf{3.7847\%} over \alert{non-generalized} parameters.
+    \item Average \alert{prediction accuracy} of \textbf{49.8\%} on \alert{unknown data}.
+    \item An \alert{improvement} of \textbf{3.8\%} over \alert{non-generalized} parameters.
     \item Reduces need for \alert{per-project tuning}.
   \end{itemize}
 }
 
-\subsection{Impact of Training Data Availability on Prediction Accuracy}
-\frame{\frametitle{Impact of Training Data Availability on Prediction Accuracy}
+\subsection{Impact of Amount of Training Data on Prediction Accuracy}
+\frame{\frametitle{Impact of Amount of Training Data on Prediction Accuracy}
   \begin{quote}
-    \textit{\textbf{Research Question \#1:} How is the \alert{prediction} accuracy \alert{impacted} by the \alert{availability} of \alert{training data}?}
+    \textit{\textbf{Research Question \#1:} How is the \alert{prediction} accuracy \alert{impacted} by the \alert{amount} of \alert{training data}?}
   \end{quote}
 
   \begin{quote}
@@ -286,8 +275,8 @@
   \end{quote}
 }
 
-\subsection{Impact of Training Data Availability on Prediction Accuracy}
-\frame{\frametitle{Impact of Training Data Availability on Prediction Accuracy}
+\subsection{Impact of Amount of Training Data on Prediction Accuracy}
+\frame{\frametitle{Impact of Amount of Training Data on Prediction Accuracy}
   \begin{figure}[!tb]
     \centering
     \begin{adjustbox}{max size={.95\textwidth}{.75\textheight}}
