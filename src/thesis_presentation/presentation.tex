@@ -1,0 +1,85 @@
+\documentclass[compress,xcolor=table]{beamer}
+\mode<presentation>
+
+% Include additional LaTeX packages
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{color}
+\usepackage{url}
+\usepackage{pgfplots}
+\usepackage{adjustbox}
+\usepackage{pifont}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+% Set up caption font size
+\captionsetup{font=scriptsize,labelfont=scriptsize}
+
+% Java source code listing format
+\definecolor{lightgray}{gray}{.95}
+\definecolor{darkgray}{gray}{.80}
+
+\lstset{
+  lineskip=0.5pt,
+  basicstyle=\tiny\ttfamily,
+  numberstyle=\tiny,
+  stepnumber=1,
+  numbersep=3pt,
+  fontadjust=true,
+  backgroundcolor=\color{lightgray},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  keepspaces=true,
+  frame=none,
+  tabsize=2,
+  captionpos=b,
+  breaklines=true,
+  breakatwhitespace=false,
+  escapeinside={\%}{)}
+}
+
+% Set up biblatex to use smaller font
+\usepackage[style=verbose-note,autocite=footnote,abbreviate=true,backend=bibtex]{biblatex}
+\AtEveryCitekey{\iffootnote{\tiny}{}}
+\addbibresource{../thesis/references.bib}
+
+% Set up Beamer theme
+\usetheme{Dresden}
+\usecolortheme{lily}
+\usefonttheme{structuresmallcapsserif}
+\usepackage{beamerinnerthemecircles}
+\usepackage{beamerouterthememiniframes}
+\useoutertheme[subsection=false]{smoothbars}
+
+% Removes the Beamer navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% Sets the color for the \alert{} text
+\setbeamercolor{alerted text}{fg=blue}
+
+% Presentation information
+\title[M.Sc. Thesis -- \insertframenumber/\inserttotalframenumber]{Predicting Mutation Score Using Source Code and Test Suite Metrics \vspace{0.5em} \hrule}
+\subtitle{M.Sc. Thesis}
+\author[\copyright 2012, Kevin Jalbert]{\textbf{Kevin Jalbert} \\ \vspace{0.3em} \scriptsize{\texttt{kevin.jalbert@uoit.ca}} \\ \vspace{1em} \tiny Supervisor: Dr. Jeremy S. Bradbury}
+\institute[UOIT]{Software Quality Research Group (\url{sqrg.ca}) \\ University of Ontario Institute of Technology \\ Oshawa, Ontario, Canada}
+\date{\tiny September 5$^{th}$, 2012}
+
+\begin{document}
+
+% Create title page
+\frame{\maketitle}
+
+% Sections
+\include{introduction}
+\include{background}
+\include{approach}
+\include{evaluation}
+\include{conclusion}
+
+% Ending slide is title page again
+\section*{}
+\frame{\titlepage}
+
+\end{document}
