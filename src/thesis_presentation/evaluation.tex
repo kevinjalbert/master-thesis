@@ -1,20 +1,14 @@
 % !TEX root = presentation.tex
 \section{Empirical Evaluation}
-\subsection{Thesis Statement [recap]}
-\frame{\frametitle{Thesis Statement [recap]}
-  \begin{large}
-    \textit{``The use of source code and test suite \alert{metrics} in combination with \alert{machine learning} techniques can accurately predict \alert{mutation scores}. Furthermore, the predictions can be used to \alert{reduce} the performance \alert{cost} of mutation testing when used to iteratively develop test suites.''}
-  \end{large}
-  \vspace{5mm}
-  \hrule
-  \vspace{5mm}
-  \begin{itemize}
-    \item A \alert{``do fewer and smarter''} technique for mutation testing.
-    \begin{itemize}
-      \item Identify source code units that have \alert{low/high coverage}.
-      \item Ability to \alert{prioritize} mutation testing for specific mutants.
-    \end{itemize}
-  \end{itemize}
+\subsection{Experiments}
+\frame{\frametitle{Experiments}
+  \begin{enumerate}
+    \item \textbf{Mutation Score Distribution}
+    \item \textbf{Cross-Validation}
+    \item \textbf{Prediction on Unknown Data}
+    \item Optimization and Generalization
+    \item Impact of Amount of Training Data on Prediction Accuracy
+  \end{enumerate}
 }
 
 \subsubsection{Test Subjects}
@@ -46,17 +40,6 @@
   \footnotetext{Lines of Code (LOC)}
 }
 
-\subsection{Experiments}
-\frame{\frametitle{Experiments}
-  \begin{enumerate}
-    \item \textbf{Mutation Score Distribution}
-    \item \textbf{Cross-Validation}
-    \item \textbf{Prediction on Unknown Data}
-    \item \textbf{Optimization and Generalization}
-    \item \textbf{Impact of Amount of Training Data on Prediction Accuracy}
-  \end{enumerate}
-}
-
 \subsection{Mutation Score Distribution}
 \frame{\frametitle{Mutation Score Distribution}
   \begin{quote}
@@ -66,30 +49,6 @@
   \begin{quote}
     \textit{\textbf{Research Question \#2:} Using the distribution of our test subjects' mutation scores can we identify \alert{three categories} of mutation scores to predict?}
   \end{quote}
-}
-
-\subsubsection{Mutation Testing Results}
-\frame{\frametitle{Mutation Testing Results}
-  \begin{table}
-    \tiny
-    \centering
-    \rowcolors{2}{gray!30}{gray!20}
-    \begin{tabular}{|l|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft}p{1.0cm}|>{\raggedleft\arraybackslash}p{1.2cm}|}
-      \rowcolor[RGB]{160,160,220}
-      \hline \textbf{Test Subject} & \textbf{Mutants Generated} & \textbf{Mutants Covered} & \textbf{Coverage (\%)} & \textbf{Mutants Killed} & \textbf{Mutation Score (\%)} & \textbf{Time Taken (\textit{hh:mm:ss})} \\
-      \hline \textit{logback-core} & 10682 & 7350 & 68.8 & 5400 & 73.5 & 01:49:10 \\
-      \hline \textit{barbecue} & 27324 & 4339 & 15.9 & 2727 & 62.8 & 00:49:51 \\
-      \hline \textit{jgap} & 31929 & 17903 & 56.1 & 13328 & 74.4 & 07:04:44 \\
-      \hline \textit{commons-lang} & 45141 & 41761 & 92.5 & 33772 & 80.9 & 15:51:59 \\
-      \hline \textit{joda-time} & 70594 & 58595 & 83.0 & 48545 & 82.8 & 31:55:50 \\
-      \hline \textit{openfast} & 14910 & 8371 & 56.1 & 6869 & 82.1 & 01:34:38 \\
-      \hline \textit{jsoup} & 14165 & 10540 & 74.4 & 8430 & 80.0 & 03:55:56 \\
-      \hline \textit{joda-primitives} & 22269 & 17334 & 77.8 & 13499 & 77.9 & 01:24:33 \\
-      \hline \textbf{all} & \textbf{237014} & \textbf{166193} & \textbf{70.1} & \textbf{132570} & \textbf{79.8} & \textbf{64:26:41} \\
-      \hline
-    \end{tabular}
-    \caption{Mutation testing results for each of the test subjects.}
-  \end{table}
 }
 
 \subsubsection{Mutation Score Distribution}
@@ -173,32 +132,11 @@
   \end{figure}
 }
 
-\subsubsection{Cross-Validation Accuracy}
-\frame{\frametitle{Cross-Validation Accuracy}
-  \begin{figure}[!tb]
-    \centering
-    \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
-      \input{../thesis/plots/individual_cross_validation_method_1_2_3_4_graph}
-    \end{adjustbox}
-    \vspace{-2mm}
-    \caption{Method-level cross-validation accuracy of \alert{all individual test subjects} using \alert{all feature sets} (\ding{172} \ding{173} \ding{174} \ding{175}).}
-  \end{figure}
-}
-
 \subsection{Prediction on Unknown Data}
 \frame{\frametitle{Prediction on Unknown Data}
   \begin{quote}
     \textit{\textbf{Research Question:} How well can our approach predict on \alert{unknown data}, \alert{within a} software system and \alert{across} software systems?}
   \end{quote}
-}
-
-\subsubsection{Undersampling Categories [recap]}
-\frame{\frametitle{Undersampling Categories [recap]}
-  \begin{figure}
-    \centering
-    \includegraphics[width=9cm]{../thesis/figures/undersampling.pdf}
-    \caption{\alert{Undersampling} a data set for \alert{balanced} categories.}
-  \end{figure}
 }
 
 \subsubsection{Prediction on Unknown Data}
@@ -210,79 +148,5 @@
     \end{adjustbox}
     \vspace{-2mm}
     \caption{Method-level training and \alert{prediction} accuracy on \alert{unknown data} (all\_but\_\textit{subject} uses all but one subject for training and predicts the excluded one).}
-  \end{figure}
-}
-
-\subsection{Optimization and Generalization}
-\frame{\frametitle{Optimization and Generalization}
-  \begin{quote}
-    \textit{\textbf{Research Question \#1:} Can we optimize our approach to achieve \alert{better performance} by using a \alert{different measure} of classifier performance?}
-  \end{quote}
-
-  \begin{quote}
-    \textit{\textbf{Research Question \#2:} Can we identify a \alert{general set} of support vector machine \alert{parameters} that \alert{maximize} mutation score prediction \alert{performance} on \alert{unknown data}?}
-  \end{quote}
-}
-
-\subsection{Better Measure -- F-score}
-\frame{\frametitle{Better Measure -- F-score}
-  \begin{itemize}
-    \item \alert{Previous} prediction on unknown data:
-    \begin{itemize}
-    	\item \alert{Automatically} obtained LIBSVM \alert{parameters}.
-			\item Used \alert{cross-validation accuracy} on the \alert{training} data.
-    	\item Could still favour \alert{majority} category in \alert{test} data.
-    \end{itemize}
-    \item \alert{Optimize} LIBSVM to perform better on \alert{predicting unknown} test data.
-  \end{itemize}
-  \hrule
-  \vspace{3mm}
-  \textbf{F-score} represents the harmonic mean of the \alert{recall} and \alert{precision} for a category.
-  \begin{equation}
-    \textit{$\text{F-score} = 2*\frac{recall * precision}{recall + precision}$}
-  \end{equation}
-}
-
-\subsection{Optimization and Generalization}
-\frame{\frametitle{Optimization and Generalization}
-  \begin{figure}[!tb]
-    \centering
-    \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
-      \input{../thesis/plots/prediction_with_parameters_method_graph}
-    \end{adjustbox}
-    \vspace{-2mm}
-    \caption{Method-level training and \alert{prediction} accuracy on \alert{unknown data} using \alert{generalized parameters} [\textit{cost}=100, \textit{gamma}=0.01].}
-  \end{figure}
-}
-
-\subsubsection{Optimization and Generalization [cont.]}
-\frame{\frametitle{Optimization and Generalization [cont.]}
-  \begin{itemize}
-    \item Average \alert{prediction accuracy} of \textbf{49.8\%} on \alert{unknown data}.
-    \item An \alert{improvement} of \textbf{3.8\%} over \alert{non-generalized} parameters.
-    \item Reduces need for \alert{per-project tuning}.
-  \end{itemize}
-}
-
-\subsection{Impact of Amount of Training Data on Prediction Accuracy}
-\frame{\frametitle{Impact of Amount of Training Data on Prediction Accuracy}
-  \begin{quote}
-    \textit{\textbf{Research Question \#1:} How is the \alert{prediction} accuracy \alert{impacted} by the \alert{amount} of \alert{training data}?}
-  \end{quote}
-
-  \begin{quote}
-    \textit{\textbf{Research Question \#2:} Is it possible to only \alert{train on a fraction} of the source code units and achieve \alert{approximately} the \alert{same prediction performance} on the remaining source code units?}
-  \end{quote}
-}
-
-\subsection{Impact of Amount of Training Data on Prediction Accuracy}
-\frame{\frametitle{Impact of Amount of Training Data on Prediction Accuracy}
-  \begin{figure}[!tb]
-    \centering
-    \begin{adjustbox}{max size={.95\textwidth}{.75\textheight}}
-      \input{../thesis/plots/min_divisor_method_graph}
-    \end{adjustbox}
-    \vspace{-2mm}
-    \caption{Method-level prediction accuracies using \alert{various amounts} of \alert{training data}.}
   \end{figure}
 }

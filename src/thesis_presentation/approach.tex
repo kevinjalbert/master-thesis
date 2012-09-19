@@ -11,8 +11,52 @@
   \begin{itemize}
     \item A \alert{``do fewer and smarter''} technique for mutation testing.
     \begin{itemize}
-      \item Identify source code units that have \alert{low/high coverage}.
+      \item Identify source code units (i.e., method/classes) that have \alert{low/high coverage}.
       \item Ability to \alert{prioritize} mutation testing for specific mutants.
+    \end{itemize}
+  \end{itemize}
+}
+
+\subsection{Support Vector Machine}
+\frame{\frametitle{Support Vector Machine}
+  \begin{itemize}
+    \item A \alert{supervised} machine learning \alert{classification} technique.
+    \item Models a \alert{feature space} constructed using a set of \alert{vectors}.
+    \item Vectors have a set of \alert{attributes} and a \alert{category}.
+  \end{itemize}
+  \begin{figure}
+    \centering
+    \includegraphics[width=4cm]{../thesis/figures/SVM_small_margin.pdf}
+    $\xrightarrow{\texttt{Better Margin}}$
+    \includegraphics[width=4cm]{../thesis/figures/SVM_maximum_margin.pdf}
+    \caption{A support vector machine attempts to \alert{linearly separate} vectors using a \alert{hyperplane}, such that the \alert{margin} is maximized.}
+  \end{figure}
+}
+
+\subsubsection{Source Code Metrics}
+\frame{\frametitle{Source Code Metrics}
+  \begin{itemize}
+    \item Measure \alert{structural} aspects of the \alert{source code}.
+    \item Typically done using \alert{static analysis} on the source code files.
+    \begin{itemize}
+      \item Complexity.
+      \item Number of source lines of code.
+      \item Maximum nested block depth in a method.
+      \item Number of methods/classes.
+      \item etc\ldots
+    \end{itemize}
+  \end{itemize}
+}
+
+\subsubsection{Test Suite Metrics}
+\frame{\frametitle{Test Suite Metrics Metrics}
+  \begin{itemize}
+    \item Measure \alert{similar} structural aspects to \alert{source code metrics} (e.g., complexity, etc\ldots).
+    \item Measure \alert{relationship} between \alert{test suite} and the \alert{software system under test}.
+    \begin{itemize}
+      \item Number of test cases for system/class/method.
+      \item Statement/branch/decision coverage.
+      \item etc\ldots
     \end{itemize}
   \end{itemize}
 }
@@ -93,17 +137,4 @@
       \end{itemize}
     \end{column}
   \end{columns}
-}
-
-\subsection{Related Work}
-\frame{\frametitle{Related Work}
-  \begin{itemize}
-    \item Analysis of \alert{test effectiveness and coverage}~\footcite{Ino12}.
-    \item \alert{Bug prediction and localization}:
-    \begin{itemize}
-      \item Using source code~\footcite{MKPS00}.
-      \item Using bug reports~\footcite{KL05}.
-      \item Using test coverage~\footcite{WDC10}.
-    \end{itemize}
-  \end{itemize}
 }

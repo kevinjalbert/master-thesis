@@ -59,12 +59,22 @@
 % Sets the color for the \alert{} text
 \setbeamercolor{alerted text}{fg=blue}
 
+% Setting for backup/extra slides
+\newcommand{\backupbegin}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
 % Presentation information
 \title[M.Sc. Thesis -- \insertframenumber/\inserttotalframenumber]{Predicting Mutation Score Using Source Code and Test Suite Metrics \vspace{0.5em} \hrule}
 \subtitle{M.Sc. Thesis}
 \author[\copyright 2012, Kevin Jalbert]{\textbf{Kevin Jalbert} \\ \vspace{0.3em} \scriptsize{\texttt{kevin.jalbert@uoit.ca}} \\ \vspace{1em} \tiny Supervisor: Dr. Jeremy S. Bradbury}
-\institute[UOIT]{Software Quality Research Group (\url{sqrg.ca}) \\ University of Ontario Institute of Technology \\ Oshawa, Ontario, Canada}
-\date{\tiny September 5$^{th}$, 2012}
+\institute[UOIT]{Software Quality Research Lab (\url{sqrlab.ca}) \\ University of Ontario Institute of Technology \\ Oshawa, Ontario, Canada}
+\date{\tiny September 26$^{th}$, 2012}
 
 \begin{document}
 
@@ -73,7 +83,6 @@
 
 % Sections
 \include{introduction}
-\include{background}
 \include{approach}
 \include{evaluation}
 \include{conclusion}
@@ -81,5 +90,10 @@
 % Ending slide is title page again
 \section*{}
 \frame{\titlepage}
+
+% Include extra slides at ending
+\backupbegin
+\include{extras}
+\backupend
 
 \end{document}
