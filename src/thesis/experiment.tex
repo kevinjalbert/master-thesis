@@ -113,15 +113,15 @@ The following five sections present experiments used in our empirical evaluation
     \begin{tabular}{|l|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft}p{2.5cm}|>{\raggedleft\arraybackslash}p{2.5cm}|}
       \rowcolor[RGB]{169,196,223}
       \hline \textbf{Test Subject} & \textbf{Mutants Generated} & \textbf{Mutants Covered} & \textbf{Coverage Percent (\%)} & \textbf{Mutants Killed} & \textbf{Mutation Score (\%)\tnote{a}} & \textbf{Time Taken (\emph{hh:mm:ss})} \\
-      \hline \emph{logback-core} & 10682 & 7350 & 68.8073 & 5400 & 73.4694 & 01:49:10 \\
-      \hline \emph{barbecue} & 27324 & 4339 & 15.8798 & 2727 & 62.8486 & 00:49:51 \\
-      \hline \emph{jgap} & 31929 & 17903 & 56.0713 & 13328 & 74.4456 & 07:04:44 \\
-      \hline \emph{commons-lang} & 45141 & 41761 & 92.5124 & 33772 & 80.8697 & 15:51:59 \\
-      \hline \emph{joda-time} & 70594 & 58595 & 83.0028 & 48545 & 82.8484 & 31:55:50 \\
-      \hline \emph{openfast} & 14910 & 8371 & 56.1435 & 6869 & 82.0571 & 01:34:38 \\
-      \hline \emph{jsoup} & 14165 & 10540 & 74.4088 & 8430 & 79.9810 & 03:55:56 \\
-      \hline \emph{joda-primitives} & 22269 & 17334 & 77.8391 & 13499 & 77.8759 & 01:24:33 \\
-      \hline \textbf{all} & \textbf{237014} & \textbf{166193} & \textbf{70.1195} & \textbf{132570} & \textbf{79.7687} & \textbf{64:26:41} \\
+      \hline \emph{logback-core} & 10682 & 7350 & 68.8 & 5400 & 73.5 & 01:49:10 \\
+      \hline \emph{barbecue} & 27324 & 4339 & 15.9 & 2727 & 62.8 & 00:49:51 \\
+      \hline \emph{jgap} & 31929 & 17903 & 56.1 & 13328 & 74.4 & 07:04:44 \\
+      \hline \emph{commons-lang} & 45141 & 41761 & 92.5 & 33772 & 80.9 & 15:51:59 \\
+      \hline \emph{joda-time} & 70594 & 58595 & 83.0 & 48545 & 82.8 & 31:55:50 \\
+      \hline \emph{openfast} & 14910 & 8371 & 56.1 & 6869 & 82.1 & 01:34:38 \\
+      \hline \emph{jsoup} & 14165 & 10540 & 74.4 & 8430 & 80.0 & 03:55:56 \\
+      \hline \emph{joda-primitives} & 22269 & 17334 & 77.8 & 13499 & 77.9 & 01:24:33 \\
+      \hline \textbf{all} & \textbf{237014} & \textbf{166193} & \textbf{70.1} & \textbf{132570} & \textbf{79.8} & \textbf{64:26:41} \\
       \hline
     \end{tabular}
     \begin{tablenotes}
@@ -155,7 +155,7 @@ The following five sections present experiments used in our empirical evaluation
 \afterpage\clearpage
 
 \noindent
-As described in Chapter~\ref{chap:approach}, our approach uses mutation testing to acquire the necessary mutation score data used for the category of the source code units. Table~\ref{tab:experiments_mutation_results} shows the results of running \emph{Javalanche} on our test subjects. For all of our test subjects, mutation testing produced a large number of mutants that were evaluated, taking approximately 64 hours to complete in our experimental environment. As described in Section~\ref{subsec:background_mutation_tools}, \emph{Javalanche} utilizes \emph{coverage} (i.e., basic block coverage) for test selection which limits the number of mutants to be evaluated to a subset of covered mutants. \emph{Javalanche} was able to kill 79.7687\% of the covered mutants using all projects cumulatively. All individual projects, except for \emph{barbecue}, exceeded a mutation score of at least 73\% which indicates that the test suites for covered source code units are reasonably effective. The overall coverage is 70.1195\%, indicating that the test suites of the projects did not cover the reminding 29.8805\% of the generated mutants. Realistically, mutation scores are calculated using the entire project's source code, but for our purpose only covered mutants were used. The corrective action for non-covered mutants (i.e., mutants not covered by test suite using basic block coverage) is to add new test cases that provide coverage over the mutant's location.
+As described in Chapter~\ref{chap:approach}, our approach uses mutation testing to acquire the necessary mutation score data used for the category of the source code units. Table~\ref{tab:experiments_mutation_results} shows the results of running \emph{Javalanche} on our test subjects. For all of our test subjects, mutation testing produced a large number of mutants that were evaluated, taking approximately 64 hours to complete in our experimental environment. As described in Section~\ref{subsec:background_mutation_tools}, \emph{Javalanche} utilizes \emph{coverage} (i.e., basic block coverage) for test selection which limits the number of mutants to be evaluated to a subset of covered mutants. \emph{Javalanche} was able to kill 79.8\% of the covered mutants using all projects cumulatively. All individual projects, except for \emph{barbecue}, exceeded a mutation score of at least 73\% which indicates that the test suites for covered source code units are reasonably effective. The overall coverage is 70.1\%, indicating that the test suites of the projects did not cover the reminding 29.9\% of the generated mutants. Realistically, mutation scores are calculated using the entire project's source code, but for our purpose only covered mutants were used. The corrective action for non-covered mutants (i.e., mutants not covered by test suite using basic block coverage) is to add new test cases that provide coverage over the mutant's location.
 
 \begin{figure}[!tb]
   \centering
@@ -305,7 +305,7 @@ Using the determined classification categories from the previous section, we hav
 
 We use the \emph{LIBSVM}~\cite{CL11} library to perform $10$-fold cross-validation. To evaluate the cross-validation accuracy of the acquired data we randomly under-sample the data to balance the amount of data points within each category. We utilize 191 class-level and 1104 method-level source code units data points from each category, these values are chosen to maximize the number of data points from the minority category using random under-sampling.
 
-Recall that we have a set of features (i.e., attributes for our vector in the \gls{svm}) as listed in Table~\ref{tab:feature_sets}. We explore the cross-validation accuracy using different feature sets (i.e., \ding{172}, \ding{173}, \ding{174}, \ding{175}) in Figures~\ref{fig:all_cross_validation_features_class_graph}~and~\ref{fig:all_cross_validation_features_method_graph}. The cross-validation accuracy of class- and method-level source code units were performed on the collective \emph{all} subject over ten executions to account for random undersampling of our data. To assess our cross-validation accuracy, we use random selection as our baseline. In our case, since we undersample our three categories, random selection will have an accuracy of 33.3333\%. We can see that all feature sets are able to outperform random which indicates that there is some predictive power in the selected feature sets\footnote{Feature set \ding{174} for method-level source code units (Figure~\ref{fig:all_cross_validation_features_method_graph}) does not add any value (as it is specifically tailor for class-level source code units), and thus performs at random.}. We include a subset of all features (feature sets \ding{172} \ding{174} \ding{175}) to show the effects of merging only the source code and test suite metrics (excluding coverage feature set \ding{173}). We can clearly see that by using all feature sets together we can acquire higher cross-validation accuracy then using the feature sets alone. This observation supports our intuition that using various source code and test suite metrics together can predict the mutation scores of source code units well.
+Recall that we have a set of features (i.e., attributes for our vector in the \gls{svm}) as listed in Table~\ref{tab:feature_sets}. We explore the cross-validation accuracy using different feature sets (i.e., \ding{172}, \ding{173}, \ding{174}, \ding{175}) in Figures~\ref{fig:all_cross_validation_features_class_graph}~and~\ref{fig:all_cross_validation_features_method_graph}. The cross-validation accuracy of class- and method-level source code units were performed on the collective \emph{all} subject over ten executions to account for random undersampling of our data. To assess our cross-validation accuracy, we use random selection as our baseline. In our case, since we undersample our three categories, random selection will have an accuracy of 33.3\%. We can see that all feature sets are able to outperform random which indicates that there is some predictive power in the selected feature sets\footnote{Feature set \ding{174} for method-level source code units (Figure~\ref{fig:all_cross_validation_features_method_graph}) does not add any value (as it is specifically tailor for class-level source code units), and thus performs at random.}. We include a subset of all features (feature sets \ding{172} \ding{174} \ding{175}) to show the effects of merging only the source code and test suite metrics (excluding coverage feature set \ding{173}). We can clearly see that by using all feature sets together we can acquire higher cross-validation accuracy then using the feature sets alone. This observation supports our intuition that using various source code and test suite metrics together can predict the mutation scores of source code units well.
 
 \begin{figure}[!tb]
   \centering
@@ -422,7 +422,7 @@ We conducted a number of tests where we use \emph{LIBSVM}'s \emph{easy script} t
   \label{fig:prediction_method_graph}
 \end{figure}
 
-We present the results of training and prediction for class- and method-level in Figures~\ref{fig:prediction_class_graph}~and~\ref{fig:prediction_method_graph}. We can see a common trend in both class- and method-level source code units for prediction accuracy, the individual test subjects have a much wider variation in accuracy, while the variation in the \emph{all\_but\_<subject>} subjects is less so. This is mainly due to the low amount of training data provided due to undersampling as we previously mentioned in Section~\ref{subsec:experiment_cross_validation} using Table~\ref{tab:experiments_undersampled_data}. In the class-level accuracies, we can see that a number of the test subjects have variations in their accuracy that was actually 0\%. In these situations nothing was predicted correctly, we describe why this might be occurring in Section~\ref{subsec:experiment_optimization_generalization}. A number of the class-level test subjects mean accuracies are just above or below the random value of 33.3333\%, which is a little disappointing. On the contrary, method-level test subjects mostly perform much better then their class-level counterparts. We see the similar trends from cross-validation (see Section~\ref{subsec:experiment_cross_validation}) for \emph{joda-primitives} and \emph{joda-time} for method-level accuracies. The differences between the class- and method-level source code unit prediction of unknown data is interesting and could be a cause of the two following factors:
+We present the results of training and prediction for class- and method-level in Figures~\ref{fig:prediction_class_graph}~and~\ref{fig:prediction_method_graph}. We can see a common trend in both class- and method-level source code units for prediction accuracy, the individual test subjects have a much wider variation in accuracy, while the variation in the \emph{all\_but\_<subject>} subjects is less so. This is mainly due to the low amount of training data provided due to undersampling as we previously mentioned in Section~\ref{subsec:experiment_cross_validation} using Table~\ref{tab:experiments_undersampled_data}. In the class-level accuracies, we can see that a number of the test subjects have variations in their accuracy that was actually 0\%. In these situations nothing was predicted correctly, we describe why this might be occurring in Section~\ref{subsec:experiment_optimization_generalization}. A number of the class-level test subjects mean accuracies are just above or below the random value of 33.3\%, which is a little disappointing. On the contrary, method-level test subjects mostly perform much better then their class-level counterparts. We see the similar trends from cross-validation (see Section~\ref{subsec:experiment_cross_validation}) for \emph{joda-primitives} and \emph{joda-time} for method-level accuracies. The differences between the class- and method-level source code unit prediction of unknown data is interesting and could be a cause of the two following factors:
 
 \begin{itemize}
   \item Classes have much more factors involved in them (i.e., a set of methods) thus harder to predict.
@@ -466,7 +466,7 @@ We keep track of the frequency of parameter pairs selected over all the predicti
 \end{sidewaysfigure}
 \afterpage\clearpage
 
-We noticed that in some situations accuracy is not the best measure for a classifier's effectiveness. For example, consider the following situation: Given imbalanced data for the testing/unknown data set, the accuracy could misrepresent the performance of the classifier. The raw outputs of our classifier using two different sets of parameters on the \emph{joda-time} subject are shown in Figures~\ref{fig:raw_output_bad}~and~\ref{fig:raw_output_good}. In both of the raw outputs we can see a confusion matrix along with performance measures. We can see in the raw output in Figure~\ref{fig:raw_output_bad} that all of predictions fall in category $2$. The \emph{joda-time} data set is imbalanced with the majority of data (i.e., 76.1675\% of the data) belonging to category $2$. Even with the biased predictions made towards the majority category, the accuracy of the prediction is 76.1675\%. In contrast to the the raw output presented in Figure~\ref{fig:raw_output_good} we can see that the accuracy is slightly lower at 71.7391\%. Now even though the accuracy in the second example is slightly lower we can consider it a superior classifier to the former as it actually treats the categories in a more unbiased fashion (i.e., one category is not receiving the majority of predictions like the previous example). To alleviate this problem, we consider other measurements that can be used to assess the predictive capabilities of classifiers, specifically the following measures:
+We noticed that in some situations accuracy is not the best measure for a classifier's effectiveness. For example, consider the following situation: Given imbalanced data for the testing/unknown data set, the accuracy could misrepresent the performance of the classifier. The raw outputs of our classifier using two different sets of parameters on the \emph{joda-time} subject are shown in Figures~\ref{fig:raw_output_bad}~and~\ref{fig:raw_output_good}. In both of the raw outputs we can see a confusion matrix along with performance measures. We can see in the raw output in Figure~\ref{fig:raw_output_bad} that all of predictions fall in category $2$. The \emph{joda-time} data set is imbalanced with the majority of data (i.e., 76.2\% of the data) belonging to category $2$. Even with the biased predictions made towards the majority category, the accuracy of the prediction is 76.2\%. In contrast to the the raw output presented in Figure~\ref{fig:raw_output_good} we can see that the accuracy is slightly lower at 71.7\%. Now even though the accuracy in the second example is slightly lower we can consider it a superior classifier to the former as it actually treats the categories in a more unbiased fashion (i.e., one category is not receiving the majority of predictions like the previous example). To alleviate this problem, we consider other measurements that can be used to assess the predictive capabilities of classifiers, specifically the following measures:
 
 \begin{itemize}
   \item \textbf{F-score} represents the harmonic mean of the recall and precision for a category~\cite{SJS06}. A score closer to 1 (i.e., 100\%) represents better performance.
@@ -499,10 +499,10 @@ We noticed that in some situations accuracy is not the best measure for a classi
     \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{3.5cm}|>{\raggedleft\arraybackslash}p{3.5cm}|}
       \rowcolor[RGB]{169,196,223}
       \hline \textbf{Performance Measure} & \textbf{Bad Classifier (Figure~\ref{fig:raw_output_bad})} & \textbf{Good Classifier (Figure~\ref{fig:raw_output_good})} \\
-      \hline Mean Accuracy & 76.1675\% & 71.7391\% \\
-      \hline Mean F-score & 28.8239\% & 45.3783\% \\
-      \hline Mean Balance Accuracy & 50.0000\% & 62.2753\% \\
-      \hline Mean Youden-index & 00.0000\% & 24.5506\% \\
+      \hline Mean Accuracy & 76.2\% & 71.7\% \\
+      \hline Mean F-score & 28.8\% & 45.4\% \\
+      \hline Mean Balance Accuracy & 50.0\% & 62.3\% \\
+      \hline Mean Youden-index & 00.0\% & 24.6\% \\
       \hline
     \end{tabular}
   \end{threeparttable}
@@ -557,23 +557,23 @@ Using our search strategy as described we attained the following \gls{svm} param
     \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|}
       \rowcolor[RGB]{169,196,223}
       \hline \textbf{Test Subject} & \textbf{Before Parameter Generalization (\%) (Figure~\ref{fig:prediction_method_graph})} & \textbf{After Parameter Generalization (\%) (Figure~\ref{fig:prediction_with_parameters_method_graph})} & \textbf{Gain($\uparrow$)/Lost($\downarrow$) from Parameter Generalization (\%)} \\
-      \hline \emph{logback-core} & 54.3038\pm3.9333 & 39.8734\pm12.5488 & $\downarrow$14.4304\pm$\uparrow$8.6155 \\
-      \hline \emph{barbecue} & 34.4000\pm15.4574 & 40.0000\pm9.2376 & $\uparrow$5.6000\pm$\downarrow$6.2198 \\
-      \hline \emph{jgap} & 38.1395\pm20.5448 & 46.9767\pm7.4998 & $\uparrow$8.8372\pm$\downarrow$13.0450 \\
-      \hline \emph{commons-lang} & 27.0000\pm17.9120 & 30.2857\pm11.2647 & $\uparrow$3.2857\pm$\downarrow$6.6473 \\
-      \hline \emph{joda-time} & 42.6718\pm6.1749 & 41.6031\pm6.6280 & $\downarrow$1.0687\pm$\uparrow$0.4531 \\
-      \hline \emph{openfast} & 28.1250\pm5.1267 & 32.0833\pm5.3069 & $\uparrow$3.9583\pm$\uparrow$0.1802 \\
-      \hline \emph{jsoup} & 28.6364\pm12.5949 & 33.8637\pm10.4122 & $\uparrow$5.2273\pm$\downarrow$2.1827 \\
-      \hline \emph{joda-primitives} & 0.0000\pm0.0000 & 28.8572\pm17.7255 & $\uparrow$28.8572\pm$\uparrow$17.7255 \\
-      \hline \emph{all\_but\_logback-core} & 29.0435\pm3.6938 & 38.0870\pm2.6503 & $\uparrow$9.0435\pm$\downarrow$1.0435 \\
-      \hline \emph{all\_but\_barbecue} & 36.1291\pm6.4157 & 31.6129\pm4.7604 & $\downarrow$4.5162\pm$\downarrow$1.6553 \\
-      \hline \emph{all\_but\_jgap} & 34.0323\pm6.0921 & 41.4516\pm2.0188 & $\uparrow$7.4193\pm$\downarrow$4.0733 \\
-      \hline \emph{all\_but\_commons-lang} & 32.0968\pm2.1118 & 32.9032\pm2.9643 & $\uparrow$0.8064\pm$\uparrow$0.8525 \\
-      \hline \emph{all\_but\_joda-time} & 35.5670\pm4.8538 & 48.6082\pm2.3186 & $\uparrow$13.0412\pm$\downarrow$2.5352 \\
-      \hline \emph{all\_but\_openfast} & 37.4167\pm2.6484 & 39.6667\pm3.1963 & $\uparrow$2.2500\pm$\uparrow$0.5479 \\
-      \hline \emph{all\_but\_jsoup} & 44.6988\pm5.8323 & 43.0121\pm4.9854 & $\downarrow$1.6867\pm$\downarrow$0.8469 \\
-      \hline \emph{all\_but\_joda-primitives} & 26.3014\pm6.0509 & 36.7123\pm8.0862 & $\uparrow$10.4109\pm$\uparrow$2.0353 \\
-      \hline \textbf{average} & \textbf{33.0351\pm7.6527} & \textbf{37.8498\pm6.9752} & $\uparrow$\textbf{4.8147\pm}$\downarrow$\textbf{0.6775} \\
+      \hline \emph{logback-core} & 54.3\pm3.9 & 39.9\pm12.5 & $\downarrow$14.4\pm$\uparrow$8.6 \\
+      \hline \emph{barbecue} & 34.4\pm15.5 & 40.0\pm9.2 & $\uparrow$5.6\pm$\downarrow$6.3 \\
+      \hline \emph{jgap} & 38.1\pm20.5 & 47.0\pm7.5 & $\uparrow$8.9\pm$\downarrow$13.0 \\
+      \hline \emph{commons-lang} & 27.0\pm17.9 & 30.3\pm11.3 & $\uparrow$3.3\pm$\downarrow$6.6 \\
+      \hline \emph{joda-time} & 42.7\pm6.2 & 41.6\pm6.6 & $\downarrow$1.1\pm$\uparrow$0.4 \\
+      \hline \emph{openfast} & 28.1\pm5.1 & 32.1\pm5.3 & $\uparrow$4.0\pm$\uparrow$0.2 \\
+      \hline \emph{jsoup} & 28.6\pm12.6 & 33.9\pm10.4 & $\uparrow$5.3\pm$\downarrow$2.2 \\
+      \hline \emph{joda-primitives} & 0.0\pm0.0 & 28.9\pm17.7 & $\uparrow$28.9\pm$\uparrow$17.7 \\
+      \hline \emph{all\_but\_logback-core} & 29.0\pm3.7 & 38.1\pm2.7 & $\uparrow$9.1\pm$\downarrow$1.0 \\
+      \hline \emph{all\_but\_barbecue} & 36.1\pm6.4 & 31.6\pm4.8 & $\downarrow$4.5\pm$\downarrow$1.6 \\
+      \hline \emph{all\_but\_jgap} & 34.0\pm6.1 & 41.5\pm2.0 & $\uparrow$7.5\pm$\downarrow$4.1 \\
+      \hline \emph{all\_but\_commons-lang} & 32.1\pm2.1 & 32.9\pm3.0 & $\uparrow$0.8\pm$\uparrow$0.9 \\
+      \hline \emph{all\_but\_joda-time} & 35.6\pm4.9 & 48.6\pm2.3 & $\uparrow$13.0\pm$\downarrow$2.6 \\
+      \hline \emph{all\_but\_openfast} & 37.4\pm2.6 & 39.7\pm3.2 & $\uparrow$2.3\pm$\uparrow$0.6 \\
+      \hline \emph{all\_but\_jsoup} & 44.7\pm5.8 & 43.0\pm5.0 & $\downarrow$1.7\pm$\downarrow$0.8 \\
+      \hline \emph{all\_but\_joda-primitives} & 26.3\pm6.1 & 36.7\pm8.1 & $\uparrow$10.4\pm$\uparrow$2.0 \\
+      \hline \textbf{average} & \textbf{33.0\pm7.5} & \textbf{37.9\pm7.0} & $\uparrow$\textbf{4.9\pm}$\downarrow$\textbf{0.5} \\
       \hline
     \end{tabular}
   \end{threeparttable}
@@ -589,30 +589,30 @@ Using our search strategy as described we attained the following \gls{svm} param
     \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|}
       \rowcolor[RGB]{169,196,223}
       \hline \textbf{Test Subject} & \textbf{Before Parameter Generalization (\%) (Figure~\ref{fig:prediction_method_graph})} & \textbf{After Parameter Generalization (\%) (Figure~\ref{fig:prediction_with_parameters_method_graph})} & \textbf{Gain($\uparrow$)/Lost($\downarrow$) from Parameter Generalization (\%)} \\
-      \hline \emph{logback-core} & 42.4242\pm5.7140 & 47.5758\pm10.8838 & $\uparrow$5.1516\pm$\uparrow$5.1698 \\
-      \hline \emph{barbecue} & 45.4286\pm8.0193 & 52.2857\pm8.7339 & $\uparrow$6.8571\pm$\uparrow$0.7146 \\
-      \hline \emph{jgap} & 43.4375\pm5.1455 & 53.4375\pm7.1716 & $\uparrow$10.0000\pm$\uparrow$2.0261 \\
-      \hline \emph{commons-lang} & 55.7506\pm3.7019 & 52.1883\pm2.2773 & $\downarrow$3.5623\pm$\downarrow$1.4246 \\
-      \hline \emph{joda-time} & 62.9952\pm3.4259 & 67.4557\pm5.6466 & $\uparrow$4.4605\pm$\uparrow$2.2207 \\
-      \hline \emph{openfast} & 48.2967\pm4.2910 & 50.9890\pm5.5901 & $\uparrow$2.6923\pm$\uparrow$1.2991 \\
-      \hline \emph{jsoup} & 36.7633\pm8.0078 & 43.1884\pm7.5811 & $\uparrow$6.4251\pm$\downarrow$0.4267 \\
-      \hline \emph{joda-primitives} & 90.1111\pm2.6938 & 87.0556\pm1.5282 & $\downarrow$3.0555\pm$\downarrow$1.1656 \\
-      \hline \emph{all\_but\_logback-core} & 34.3177\pm1.9480 & 37.6062\pm1.6556 & $\uparrow$3.2885\pm$\downarrow$0.2924 \\
-      \hline \emph{all\_but\_barbecue} & 41.6783\pm4.6175 & 46.9230\pm2.6051 & $\uparrow$5.2447\pm$\downarrow$2.0124 \\
-      \hline \emph{all\_but\_jgap} & 41.5573\pm1.9576 & 46.9160\pm1.2956 & $\uparrow$5.3587\pm$\downarrow$0.6620 \\
-      \hline \emph{all\_but\_commons-lang} & 37.6173\pm2.0652 & 46.5906\pm2.4686 & $\uparrow$8.9733\pm$\uparrow$0.4034 \\
-      \hline \emph{all\_but\_joda-time} & 35.3836\pm2.0964 & 43.6602\pm1.5886 & $\uparrow$8.2766\pm$\downarrow$0.5078 \\
-      \hline \emph{all\_but\_openfast} & 35.9102\pm2.1677 & 44.3391\pm1.6110 & $\uparrow$8.4289\pm$\downarrow$0.5567 \\
-      \hline \emph{all\_but\_jsoup} & 42.5197\pm1.3497 & 47.6903\pm0.9667 & $\uparrow$5.1706\pm$\downarrow$0.3830 \\
-      \hline \emph{all\_but\_joda-primitives} & 31.9259\pm4.1973 & 28.7703\pm1.9751 & $\downarrow$3.1556\pm$\downarrow$2.2222 \\
-      \hline \textbf{average} & \textbf{46.0073\pm3.8374} & \textbf{49.7920\pm3.9737} & $\uparrow$\textbf{3.7847\pm}$\uparrow$\textbf{0.1363} \\
+      \hline \emph{logback-core} & 42.4\pm5.7 & 47.6\pm10.9 & $\uparrow$5.2\pm$\uparrow$5.2 \\
+      \hline \emph{barbecue} & 45.4\pm8.0 & 52.3\pm8.7 & $\uparrow$6.9\pm$\uparrow$0.7 \\
+      \hline \emph{jgap} & 43.4\pm5.1 & 53.4\pm7.2 & $\uparrow$10.0\pm$\uparrow$2.0 \\
+      \hline \emph{commons-lang} & 55.8\pm3.7 & 52.2\pm2.3 & $\downarrow$3.6\pm$\downarrow$1.4 \\
+      \hline \emph{joda-time} & 63.0\pm3.4 & 67.5\pm5.6 & $\uparrow$4.5\pm$\uparrow$2.2 \\
+      \hline \emph{openfast} & 48.3\pm4.3 & 51.0\pm5.6 & $\uparrow$2.7\pm$\uparrow$1.3 \\
+      \hline \emph{jsoup} & 36.8\pm8.0 & 43.2\pm7.6 & $\uparrow$6.4\pm$\downarrow$0.4 \\
+      \hline \emph{joda-primitives} & 90.1\pm2.7 & 87.1\pm1.5 & $\downarrow$3.1\pm$\downarrow$1.2 \\
+      \hline \emph{all\_but\_logback-core} & 34.3\pm1.9 & 37.6\pm1.7 & $\uparrow$3.3\pm$\downarrow$0.3 \\
+      \hline \emph{all\_but\_barbecue} & 41.7\pm4.6 & 46.9\pm2.6 & $\uparrow$5.2\pm$\downarrow$2.0 \\
+      \hline \emph{all\_but\_jgap} & 41.6\pm2.0 & 46.9\pm1.3 & $\uparrow$5.4\pm$\downarrow$0.7 \\
+      \hline \emph{all\_but\_commons-lang} & 37.6\pm2.1 & 46.6\pm2.5 & $\uparrow$9.0\pm$\uparrow$0.4 \\
+      \hline \emph{all\_but\_joda-time} & 35.4\pm2.1 & 43.7\pm1.6 & $\uparrow$8.3\pm$\downarrow$0.5 \\
+      \hline \emph{all\_but\_openfast} & 35.9\pm2.2 & 44.3\pm1.6 & $\uparrow$8.4\pm$\downarrow$0.6 \\
+      \hline \emph{all\_but\_jsoup} & 42.5\pm1.3 & 47.7\pm1.0 & $\uparrow$5.2\pm$\downarrow$0.4 \\
+      \hline \emph{all\_but\_joda-primitives} & 31.9\pm4.2 & 28.8\pm2.0 & $\downarrow$3.2\pm$\downarrow$2.2 \\
+      \hline \textbf{average} & \textbf{45.4\pm3.7} & \textbf{49.8\pm4.0} & $\uparrow$\textbf{4.4\pm}$\uparrow$\textbf{0.3} \\
       \hline
     \end{tabular}
   \end{threeparttable}
 \end{sidewaystable}
 \afterpage\clearpage
 
-We present the new generalizable results (see Figures~\ref{fig:prediction_with_parameters_class_graph}~and~\ref{fig:prediction_with_parameters_method_graph}) in the same format as the pre-generalizable results (see Figures~\ref{fig:prediction_class_graph}~and~\ref{fig:prediction_method_graph}). Using the generalizable parameters we can see that in both class- and method-level results, the resulting accuracy tend to increase slightly. In some situations we can even see that s decreased variability in accuracy. In particular we can see that in class-level predictions, the possibilities of 0\% accuracy (which occurred in four of the test subjects without the generalizable parameters) no longer occurs. This happened as a result of the selecting parameters that maximized F-score instead, which treats the predictions of categories more fairly (i.e., avoiding predicting all of one category, which could be the wrong category). To further see the benefits of using generalized \emph{LIBSVM} parameters we compared the individual accuracies and standard deviation of each test subject. As presented in Tables~\ref{tab:experiments_comparison_class_prediction}~and~\ref{tab:experiments_comparison_method_prediction}, we can see the gains and losses in mean and standard deviation of prediction accuracy from the application of generalized parameters. In terms of changes, improvement for mean accuracy would be a gain (i.e., better prediction accuracy) while for standard deviation an improvement would be a loss (i.e., smaller variation in prediction accuracy). Of the 16 class-level test subjects presented in Table~\ref{tab:experiments_comparison_class_prediction}, 12 out of 16 test subjects saw an improvement in mean accuracy and 9 out of 16 test subjects saw an improvement in standard deviation. Of the 16 method-level test subjects presented in Table~\ref{tab:experiments_comparison_class_prediction}, 13 out of 16 test subjects saw an improvement in mean accuracy and 10 out 16 test subjects saw an improvement in standard deviation. These results show that the generalized parameters overall had a positive effect on the test subjects's performance. Overall, the class-level average saw an improvement of 4.8147\% in mean prediction accuracy with a slight improvement of 0.6775\% in standard deviation. Method-level average prediction accuracy saw an improvement of 3.7847\% while the standard deviation worsened by 0.1363\%. The improvements in both class- and method-level are both a side benefit of using generalized \emph{LIBSVM} parameters, as the main purpose was to nullify the need for parameter selection (i.e., no need to grid search on known data) to make predictions on unknown data.
+We present the new generalizable results (see Figures~\ref{fig:prediction_with_parameters_class_graph}~and~\ref{fig:prediction_with_parameters_method_graph}) in the same format as the pre-generalizable results (see Figures~\ref{fig:prediction_class_graph}~and~\ref{fig:prediction_method_graph}). Using the generalizable parameters we can see that in both class- and method-level results, the resulting accuracy tend to increase slightly. In some situations we can even see that s decreased variability in accuracy. In particular we can see that in class-level predictions, the possibilities of 0\% accuracy (which occurred in four of the test subjects without the generalizable parameters) no longer occurs. This happened as a result of the selecting parameters that maximized F-score instead, which treats the predictions of categories more fairly (i.e., avoiding predicting all of one category, which could be the wrong category). To further see the benefits of using generalized \emph{LIBSVM} parameters we compared the individual accuracies and standard deviation of each test subject. As presented in Tables~\ref{tab:experiments_comparison_class_prediction}~and~\ref{tab:experiments_comparison_method_prediction}, we can see the gains and losses in mean and standard deviation of prediction accuracy from the application of generalized parameters. In terms of changes, improvement for mean accuracy would be a gain (i.e., better prediction accuracy) while for standard deviation an improvement would be a loss (i.e., smaller variation in prediction accuracy). Of the 16 class-level test subjects presented in Table~\ref{tab:experiments_comparison_class_prediction}, 12 out of 16 test subjects saw an improvement in mean accuracy and 9 out of 16 test subjects saw an improvement in standard deviation. Of the 16 method-level test subjects presented in Table~\ref{tab:experiments_comparison_class_prediction}, 13 out of 16 test subjects saw an improvement in mean accuracy and 10 out 16 test subjects saw an improvement in standard deviation. These results show that the generalized parameters overall had a positive effect on the test subjects's performance. Overall, the class-level average saw an improvement of 4.9\% in mean prediction accuracy with a slight improvement of 0.5\% in standard deviation. Method-level average prediction accuracy saw an improvement of 4.4\% while the standard deviation worsened by 0.3\%. The improvements in both class- and method-level are both a side benefit of using generalized \emph{LIBSVM} parameters, as the main purpose was to nullify the need for parameter selection (i.e., no need to grid search on known data) to make predictions on unknown data.
 
 After optimizations and generalization, our approach for mutation score prediction using source code and test suite metrics can out perform random in nearly all test subjects observed. There are two categories of test subjects we observed for predictions:
 
@@ -621,7 +621,7 @@ After optimizations and generalization, our approach for mutation score predicti
   \item The \emph{all\_but\_<subject>} subjects by training on the seven other test subjects and predicting on the unknown test subject.
 \end{itemize}
 
-As mentioned before, the individual subjects have a wider variation in prediction accuracy while the \emph{all\_but\_<subject>} subjects have less variation. With respect to prediction accuracy, method-level source code mutation score prediction outperforms class-level predictions. We can see that the prediction accuracy seems to be mostly consistent using the \emph{all\_but\_<subject>} subject, but the individual subject can allow for individuals which have higher then average prediction accuracy. On average, class-level prediction accuracy is 37.8498\%\pm6.9752\% while method-level prediction accuracy is 49.7920\%\pm3.9737\% after parameter generalization. In both class- and method-level these average prediction accuracies outperform random by 4.5165\% and 16.4587\%.
+As mentioned before, the individual subjects have a wider variation in prediction accuracy while the \emph{all\_but\_<subject>} subjects have less variation. With respect to prediction accuracy, method-level source code mutation score prediction outperforms class-level predictions. We can see that the prediction accuracy seems to be mostly consistent using the \emph{all\_but\_<subject>} subject, but the individual subject can allow for individuals which have higher then average prediction accuracy. On average, class-level prediction accuracy is 37.9\%\pm7.0\% while method-level prediction accuracy is 49.8\%\pm4.0\% after parameter generalization. In both class- and method-level these average prediction accuracies outperform random by 4.6\% and 16.5\%.
 
 
 \subsection{Impact of Training Data Availability on Prediction Accuracy}
@@ -635,7 +635,7 @@ As mentioned before, the individual subjects have a wider variation in predictio
 \end{quote}
 
 \noindent
-As we saw in the previous section using our approach we achieve 49.7920\% prediction accuracy of method-level source code units. This result exceeds random by 16.4587\% and therefore shows that our approach is capable of predicting mutation score categories using source code and test suite metrics. As mentioned in the thesis statement, \emph{``The predictions can be used to reduce the resource cost of mutation testing in traditional iterative development.''}. Iterative development is a software development life cycle that allows developers to work on small changes which eventually adds to a large change with respect to a software system. Traditional iterative development may involve expanding/reducing/refactoring the \gls{sut}, and/or attempting to improve the test suite. By including mutation testing between iterations to determine if any improvements have occurred can be costly if done in a naive manner (i.e., re-conduct the whole mutation test process using the new version of the \gls{sut}). Even with an intelligent approach of selective mutation (i.e., only mutation testing source code units that were added/removed/modified since the previous iteration), the cost of mutation testing can still be substantial.
+As we saw in the previous section using our approach we achieve 49.8\% prediction accuracy of method-level source code units. This result exceeds random by 16.5\% and therefore shows that our approach is capable of predicting mutation score categories using source code and test suite metrics. As mentioned in the thesis statement, \emph{``The predictions can be used to reduce the resource cost of mutation testing in traditional iterative development.''}. Iterative development is a software development life cycle that allows developers to work on small changes which eventually adds to a large change with respect to a software system. Traditional iterative development may involve expanding/reducing/refactoring the \gls{sut}, and/or attempting to improve the test suite. By including mutation testing between iterations to determine if any improvements have occurred can be costly if done in a naive manner (i.e., re-conduct the whole mutation test process using the new version of the \gls{sut}). Even with an intelligent approach of selective mutation (i.e., only mutation testing source code units that were added/removed/modified since the previous iteration), the cost of mutation testing can still be substantial.
 
 \begin{figure}[!tb]
   \centering
