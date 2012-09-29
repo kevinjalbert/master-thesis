@@ -360,7 +360,9 @@ We have looked at the overall cross-validation accuracy using the different feat
 \subsection{Prediction on Unknown Data}
 \label{subsec:experiment_prediction}
 \begin{quote}
-  \emph{\textbf{Research Question:} How well can our approach predict on unknown data, within an individual software system and across software systems?}
+  \emph{\textbf{Research Question \#1:} How well can our approach predict on unknown data, within an individual software system?}
+  
+  \emph{\textbf{Research Question \#2:} How well can our approach predict on unknown data, accross software systems?}
 \end{quote}
 
 \noindent
@@ -398,36 +400,76 @@ By using \emph{LIBSVM} we want to train a classifier such that it can predict we
   \label{tab:experiments_remaining_data}
 \end{table}
 
-We conducted a number of tests where we use \emph{LIBSVM}'s \emph{easy script} to find the best parameters that maximize cross-validation accuracy and then apply the classifier to unknown data. We continue to undersample our data and conduct each experiment ten times to determine the prediction accuracy. We are interested in the prediction accuracy of unknown data. To investigate this we can consider the \emph{all\_but\_<subject>} subjects, where we train our classifier on all but the \emph{<subject>} and then predict on the excluded test subject. In addition, we consider the individual test subjects where we train using the undersampled data and predict on the remaining unknown data within the individual test subject (i.e., what is left from the undersampling). See Table~\ref{tab:experiments_undersampled_data} for the number of remaining unknown values of the individual test subjects.
+We conducted a number of tests where we use \emph{LIBSVM}'s \emph{easy script} to find the best parameters that maximize cross-validation accuracy and then apply the classifier to unknown data. We continue to undersample our data and conduct each experiment ten times to determine the prediction accuracy. We are interested in the prediction accuracy of unknown data within a system as well as across systems. See Table~\ref{tab:experiments_remaining_data} for the number of unknown data items being used for each subject with respect to predictions on unknown data. For within a system we train on the undersampled data of an individual test subject and predict on the remaining unknown data (i.e., what is left from the undersampling). For across systems we can consider the \emph{all\_but\_<subject>} subjects, where we train our classifier on all but the \emph{<subject>} and then predict on the excluded test subject. Section~\ref{subsubsec:prediction_within_system} presents results for prediction within a system, and Section~\ref{subsubsec:prediction_across_systems} presents results for prediction across systems.
+
+
+\subsubsection{Prediction Within a System}
+\label{subsubsec:prediction_within_system}
+This experiment explores the capability of predicting unknown source code units within a software system. Situations such as the addition of new features or source code units fits this experiment.
 
 \begin{figure}[!tb]
   \centering
-  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
-    \input{plots/prediction_class_graph}
+  \begin{adjustbox}{max size={\textwidth}{\textheight}}
+    \input{plots/prediction_class_within_graph}
   \end{adjustbox}
-  \caption{Class-level training and prediction accuracy over the eight test subjects and sets of \emph{all\_but\_<subject>} subjects.}
+  \caption{Class-level training and prediction accuracy on unknown data within a system.}
   \vspace{2mm}
   \hrule
-  \label{fig:prediction_class_graph}
+  \label{fig:prediction_class_within_graph}
 \end{figure}
+
+The class-level training and prediction accuracy of unknown data within a system is shown in Figure~\ref{fig:prediction_class_within_graph}. We can see that a number of the test subjects have large variations in their accuracy, and in four cases actually hit 0\%. These 0\% situation indicate that nothing was correctly predicted, we how this situation might be occurring in Section~\ref{subsec:experiment_optimization_generalization}. We also can note that half of the test subjects for class-level prediction of unknown data within a system had a performance worse than random. The average prediction accuracy of for this experiment is 31.7\%\pm10.2\%, which is lower than random with a large standard deviation.
 
 \begin{figure}[!tb]
   \centering
-  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
-    \input{plots/prediction_method_graph}
+  \begin{adjustbox}{max size={\textwidth}{\textheight}}
+    \input{plots/prediction_method_within_graph}
   \end{adjustbox}
-  \caption{Method-level training and prediction accuracy over the eight test subjects and sets of \emph{all\_but\_<subject>} subjects.}
+  \caption{Method-level training and prediction accuracy on unknown data within a system.}
   \vspace{2mm}
   \hrule
-  \label{fig:prediction_method_graph}
+  \label{fig:prediction_method_within_graph}
 \end{figure}
 
-We present the results of training and prediction for class- and method-level in Figures~\ref{fig:prediction_class_graph}~and~\ref{fig:prediction_method_graph}. We can see a common trend in both class- and method-level source code units for prediction accuracy, the individual test subjects have a much wider variation in accuracy, while the variation in the \emph{all\_but\_<subject>} subjects is less so. This is mainly due to the low amount of training data provided due to undersampling as we previously mentioned in Section~\ref{subsec:experiment_cross_validation} using Table~\ref{tab:experiments_undersampled_data}. In the class-level accuracies, we can see that a number of the test subjects have variations in their accuracy that was actually 0\%. In these situations nothing was predicted correctly, we describe why this might be occurring in Section~\ref{subsec:experiment_optimization_generalization}. A number of the class-level test subjects mean accuracies are just above or below the random value of 33.3\%, which is a little disappointing. On the contrary, method-level test subjects mostly perform much better then their class-level counterparts. We see the similar trends from cross-validation (see Section~\ref{subsec:experiment_cross_validation}) for \emph{joda-primitives} and \emph{joda-time} for method-level accuracies. The differences between the class- and method-level source code unit prediction of unknown data is interesting and could be a cause of the two following factors:
-
+The method-level training and prediction accuracy of unknown data within a system is shown in Figure~\ref{fig:prediction_method_within_graph}. The mean average prediction accuracies of the test subject vary, which suggests that the prediction quality might depending on the project itself, or that more data is required for this experiment. While \textit{joda-primatives}'s mean prediction accuracy for class-level was 0\%, the mean accuracy for method-level was approximately 90\%. It seems to be that \textit{joda-primatives} represents an outlier in our test subjects. All mean prediction accuracies exceed random for method-level predictions, while class-level predictions did not fare as well. This suggests that class-level predictions are harder to predict because:
 \begin{itemize}
   \item Classes have much more factors involved in them (i.e., a set of methods) thus harder to predict.
   \item Our approach does not account for overloaded, anonymous, and abstract methods thus the classes are partially incomplete in data.
+  \item For our experiment we had considerably less class-level data available than that of method-level data.
 \end{itemize}
+The average prediction accuracy of for this experiment is 53.2\%\pm5.1\%, which is higher than random with half the standard deviation of the class-level predictions.
+
+
+\subsubsection{Prediction Across Systems}
+\label{subsubsec:prediction_across_systems}
+This experiment explores the capability of predicting unknown source code units across a software system. Whether predictions will fare as well as predictions within a system (see Section~\ref{subsubsec:prediction_within_system} is explored in this section.
+
+\begin{figure}[!tb]
+  \centering
+  \begin{adjustbox}{max size={\textwidth}{\textheight}}
+    \input{plots/prediction_class_across_graph}
+  \end{adjustbox}
+  \caption{Class-level training and prediction accuracy on unknown data across systems.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:prediction_class_across_graph}
+\end{figure}
+
+
+The class-level training and prediction accuracy of unknown data across a system is shown in Figure~\ref{fig:prediction_class_across_graph}. Of the eight test subjects three of them are below random with respect to mean prediction accuracy. With respect to Figure~\ref{fig:prediction_class_within_graph}, the class-level prediction accuracy within a system has much more variation in accuracy than across systems. The less variation in prediction accuracy across systems is most likely due to the fact of having more data items present as we now consider seven of the test subjects for training data. The average prediction accuracy of for this experiment is 34.4\%\pm4.7\%, which is slightly higher than random and is an improvement over the class-level within systems (only because the within systems had a 0\% for \textit{joda-primatives}, otherwise within a system average accuracy would have been 36.2\%).
+
+\begin{figure}[!tb]
+  \centering
+  \begin{adjustbox}{max size={\textwidth}{\textheight}}
+    \input{plots/prediction_method_across_graph}
+  \end{adjustbox}
+  \caption{Method-level training and prediction accuracy on unknown data across systems.}
+  \vspace{2mm}
+  \hrule
+  \label{fig:prediction_method_across_graph}
+\end{figure}
+
+The method-level training and prediction accuracy of unknown data across a system is shown in Figure~\ref{fig:prediction_method_across_graph}. Of the test subjects all but \textit{joda-primatives} have a mean accuracy that exceeds random. With respect to Figure~\ref{fig:prediction_method_within_graph}, the method-level prediction accuracy within a system has much more variation in accuracy than across systems. The less variation in prediction accuracy across systems is most likely due to the fact of having more data items present as we now consider seven of the test subjects for training data. The average prediction accuracy of for this experiment is 37.6\%\pm2.6\%, which is slightly higher than random. With respect to the prediction accuracy within a system for method-level source code units this experiment has shown a drop of 15.6\% in prediction accuracy. This drop in accuracy suggests that prediction across systems is a more challenging prediction to make regarding mutation score prediction.
 
 
 \subsection{Optimization and Generalization}
@@ -441,7 +483,7 @@ We present the results of training and prediction for class- and method-level in
 \end{quote}
 
 \noindent
-We keep track of the frequency of parameter pairs selected over all the prediction experiments conducted in Section~\ref{subsec:experiment_prediction}. As a result of \emph{LIBSVM}'s \emph{easy script}, we saw 57 different pairings of the \emph{LIBSVM} parameters \emph{cost} and \emph{gamma} (described in Section~\ref{subsec:background_support_vector_machine}). This indicates that the classifiers are being tuned specifically to maximize the cross-validation accuracy. Due to undersampling, different parameters are being used to ensure this maximization of cross-validation accuracy. To encourage generalization of unknown projects and data, ideally we want to find a parameter pairing that maximizes generalizability and classification performance on unknown data. As our approach initially requires mutation testing results to perform training it might be appropriate to select the best parameters for the given data. In the previous section for predictions on unknown data (see Section~\ref{subsec:experiment_prediction}), we included the \emph{all\_but\_<subject>} subjects which for our approach do not require us to have the mutation score for practical usage. In this situation it becomes much more clear on why we need a generalizable set of parameters that hopefully performance well on most test subjects. In terms of usability if we can find a general set of parameters for predicting mutation scores, this will lessen the need to specifically tune every classifier prior to prediction.
+We kept track of the frequency of parameter pairs selected over all the prediction experiments conducted in Section~\ref{subsec:experiment_prediction}. As a result of \emph{LIBSVM}'s \emph{easy script}, we saw 57 different pairings of the \emph{LIBSVM} parameters \emph{cost} and \emph{gamma} (described in Section~\ref{subsec:background_support_vector_machine}). This indicates that the classifiers are being tuned specifically to maximize the cross-validation accuracy. Due to undersampling, different parameters are being used to ensure this maximization of cross-validation accuracy. To encourage generalization of unknown projects and data, ideally we want to find a parameter pairing that maximizes generalizability and classification performance on unknown data. As our approach initially requires mutation testing results to perform training it might be appropriate to select the best parameters for the given data. In the previous section for predictions on unknown data (see Section~\ref{subsec:experiment_prediction}), we explored predictions within and across systems. For this experiment we continue with the same setup by considering across and within systems. Regarding this experiment it becomes much more clear on why we need a generalizable set of parameters that hopefully performance well on most test subjects. In terms of usability if we can find a general set of parameters for predicting mutation scores, this will lessen the need to specifically tune every classifier prior to prediction.
 
 \begin{sidewaysfigure}[!tb]
   \centering
@@ -524,39 +566,78 @@ To further generalize our predictions, we conducted our own grid search with com
   \item We pick the parameter pairing that perform best on both the individual subjects and the \emph{all\_but\_<subject>} subjects.
 \end{enumerate}
 
-Using our search strategy as described we attained the following \gls{svm} parameters for the class-level [\emph{cost}=100, \emph{gamma}=0.01] and method-level [\emph{cost}=100, \emph{gamma}=1]. These parameters were found to offered the greatest generalizable over the different data sets. Furthermore by maximizing F-score instead of accuracy these parameters will avoid issues presented by using accuracy alone.
+Using our search strategy as described we attained the following \gls{svm} parameters for the class-level [\emph{cost}=100, \emph{gamma}=0.01] and method-level [\emph{cost}=100, \emph{gamma}=1]. These parameters were found to offered the greatest generalizable over the different data sets. Furthermore by maximizing F-score instead of accuracy these parameters will avoid issues presented by using accuracy alone. Section~\ref{subsubsec:prediction_with_parameters_within_system} presents results for prediction within a system, and Section~\ref{subsubsec:prediction_with_parameters_across_systems} presents results for prediction across systems. Both which utilize the found set of parameters that offer the greatest performance with respect to maximizing F-score on predicting unknown data. A comparison between pre/post generalized parameter prediction performance is explored in Section~\ref{sububsec:comparison_prediction_performance_generalized}.
+
+
+\subsubsection{Prediction Within a System}
+\label{subsubsec:prediction_with_parameters_within_system}
+This experiment is the same as the previous one (see Section~\ref{subsubsec:prediction_within_system}) in that we are concerned with assessing the prediction capability within a system. The only difference is that these results are based on a generalized set of parameters found through a grid search (found in Section~\ref{subsec:experiment_optimization_generalization}).
 
 \begin{figure}[!tb]
   \centering
-  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
-    \input{plots/prediction_with_parameters_class_graph}
+  \begin{adjustbox}{max size={\textwidth}{\textheight}}
+    \input{plots/prediction_with_parameters_class_within_graph}
   \end{adjustbox}
-  \caption{Class-level training and prediction accuracy over the eight test subjects and set of \emph{all\_but\_<subject>} subjects using generalized parameters [\emph{cost}=100, \emph{gamma}=0.01].}
+  \caption{Class-level training and prediction accuracy on unknown data within a system using generalized parameters [\emph{cost}=100, \emph{gamma}=0.01].}
   \vspace{2mm}
   \hrule
-  \label{fig:prediction_with_parameters_class_graph}
+  \label{fig:prediction_with_parameters_class_within_graph}
 \end{figure}
+
+The class-level training and prediction accuracy of unknown data within a system using generalized parameters is shown in Figure~\ref{fig:prediction_with_parameters_class_within_graph}. We can see that a number of the test subjects still have large variations in their accuracy when compared to the same experiment without the generalized parameters (see Figure~\ref{fig:prediction_class_within_graph}). There are no more cases of 0\% mean accuracy anymore which is a good sign that the generalized parameters using F-score actually alleviated this situation. Three of the eight subjects have a mean accuracy lower than random. The average prediction accuracy of for this experiment is 36.7\%\pm10.1\%, which is slightly higher than random and is an improvement of +5.0\% over the non-generalized parameter experiment (see Table~\ref{tab:experiments_comparison_class_within_prediction}).
 
 \begin{figure}[!tb]
   \centering
-  \begin{adjustbox}{max size={.95\textwidth}{.95\textheight}}
-    \input{plots/prediction_with_parameters_method_graph}
+  \begin{adjustbox}{max size={\textwidth}{\textheight}}
+    \input{plots/prediction_with_parameters_method_within_graph}
   \end{adjustbox}
-  \caption{Method-level training and prediction accuracy over the eight test subjects and set of \emph{all\_but\_<subject>} subjects using generalized parameters [\emph{cost}=100, \emph{gamma}=1].}
+  \caption{Method-level training and prediction accuracy on unknown data within a system using generalized parameters [\emph{cost}=100, \emph{gamma}=1].}
   \vspace{2mm}
   \hrule
-  \label{fig:prediction_with_parameters_method_graph}
+  \label{fig:prediction_with_parameters_method_within_graph}
 \end{figure}
+
+The method-level training and prediction accuracy of unknown data within a system using generalized parameters is shown in Figure~\ref{fig:prediction_with_parameters_method_within_graph}. We can see that the results are similar when compared to the same experiment without the generalized parameters (see Figure~\ref{fig:prediction_method_within_graph}). The average prediction accuracy of for this experiment is 56.8\%\pm6.2\%, which is higher than random and is an improvement of +3.6\% over the non-generalized parameter experiment (see Table~\ref{tab:experiments_comparison_method_within_prediction}).
+
+\subsubsection{Prediction Across Systems}
+\label{subsubsec:prediction_with_parameters_across_systems}
+This experiment is the same as the previous one (see Section~\ref{subsubsec:prediction_across_system}) in that we are concerned with assessing the prediction capability across systems. The only difference is that these results are based on a generalized set of parameters found through a grid search (found in Section~\ref{subsec:experiment_optimization_generalization}).
+
+\begin{figure}[!tb]
+  \centering
+  \begin{adjustbox}{max size={\textwidth}{\textheight}}
+    \input{plots/prediction_with_parameters_class_across_graph}
+  \end{adjustbox}
+  \caption{Class-level training and prediction accuracy on unknown data across systems using generalized parameters [\emph{cost}=100, \emph{gamma}=0.01].}
+  \vspace{2mm}
+  \hrule
+  \label{fig:prediction_with_parameters_class_across_graph}
+\end{figure}
+
+The class-level training and prediction accuracy of unknown data across systems using generalized parameters is shown in Figure~\ref{fig:prediction_with_parameters_class_across_graph}. When compared to the same experiment without the generalized parameters (see Figure~\ref{fig:prediction_class_across_graph}) we can see slight improvements in terms of mean accuracy, in particular there are only 2 test subjects with less than random mean accuracy. The average prediction accuracy of for this experiment is 39.0\%\pm3.9\%, which is slightly higher than random and is an improvement of +4.6\% over the non-generalized parameter experiment (see Table~\ref{tab:experiments_comparison_class_across_prediction}).
+
+\begin{figure}[!tb]
+  \centering
+  \begin{adjustbox}{max size={\textwidth}{\textheight}}
+    \input{plots/prediction_with_parameters_method_across_graph}
+  \end{adjustbox}
+  \caption{Method-level training and prediction accuracy on unknown data across systems using generalized parameters [\emph{cost}=100, \emph{gamma}=1].}
+  \vspace{2mm}
+  \hrule
+  \label{fig:prediction_with_parameters_method_across_graph}
+\end{figure}
+
+The method-level training and prediction accuracy of unknown data across systems using generalized parameters is shown in Figure~\ref{fig:prediction_with_parameters_method_across_graph}. We can see that the results are similar when compared to the same experiment without the generalized parameters (see Figure~\ref{fig:prediction_method_within_graph}). The average prediction accuracy of for this experiment is 42.8\%\pm1.8\%, which is higher than random and is an improvement of +5.2\% over the non-generalized parameter experiment (see Table~\ref{tab:experiments_comparison_method_across_prediction}).
 
 \begin{sidewaystable}[!tb]
   \centering
-  \caption{Comparison of class-level prediction accuracy (mean $\pm$ standard deviation) before/after generalized parameters are used.}
-  \label{tab:experiments_comparison_class_prediction}
+  \caption{Comparison of class-level prediction accuracy within systems (mean $\pm$ standard deviation) before/after generalized parameters are used.}
+  \label{tab:experiments_comparison_class_within_prediction}
   \rowcolors{1}{gray!30}{gray!20}
   \begin{threeparttable}
     \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|}
       \rowcolor[RGB]{169,196,223}
-      \hline \textbf{Test Subject} & \textbf{Before Parameter Generalization (\%) (Figure~\ref{fig:prediction_method_graph})} & \textbf{After Parameter Generalization (\%) (Figure~\ref{fig:prediction_with_parameters_method_graph})} & \textbf{Gain($\uparrow$)/Lost($\downarrow$) from Parameter Generalization (\%)} \\
+      \hline \textbf{Test Subject} & \textbf{Before Parameter Generalization (\%) (Figure~\ref{fig:prediction_class_within_graph})} & \textbf{After Parameter Generalization (\%) (Figure~\ref{fig:prediction_with_parameters_class_within_graph})} & \textbf{Gain($\uparrow$)/Lost($\downarrow$) from Parameter Generalization (\%)} \\
       \hline \emph{logback-core} & 54.3\pm3.9 & 39.9\pm12.5 & $\downarrow$14.4\pm$\uparrow$8.6 \\
       \hline \emph{barbecue} & 34.4\pm15.5 & 40.0\pm9.2 & $\uparrow$5.6\pm$\downarrow$6.3 \\
       \hline \emph{jgap} & 38.1\pm20.5 & 47.0\pm7.5 & $\uparrow$8.9\pm$\downarrow$13.0 \\
@@ -565,6 +646,21 @@ Using our search strategy as described we attained the following \gls{svm} param
       \hline \emph{openfast} & 28.1\pm5.1 & 32.1\pm5.3 & $\uparrow$4.0\pm$\uparrow$0.2 \\
       \hline \emph{jsoup} & 28.6\pm12.6 & 33.9\pm10.4 & $\uparrow$5.3\pm$\downarrow$2.2 \\
       \hline \emph{joda-primitives} & 0.0\pm0.0 & 28.9\pm17.7 & $\uparrow$28.9\pm$\uparrow$17.7 \\
+      \hline \textbf{average} & \textbf{31.7\pm10.2} & \textbf{36.7\pm10.1} & $\uparrow$\textbf{5.0\pm}$\downarrow$\textbf{0.1} \\
+      \hline
+    \end{tabular}
+  \end{threeparttable}
+
+  \vspace{3em}
+
+  \centering
+  \caption{Comparison of class-level prediction accuracy across systems (mean $\pm$ standard deviation) before/after generalized parameters are used.}
+  \label{tab:experiments_comparison_class_across_prediction}
+  \rowcolors{1}{gray!30}{gray!20}
+  \begin{threeparttable}
+    \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|}
+      \rowcolor[RGB]{169,196,223}
+      \hline \textbf{Test Subject} & \textbf{Before Parameter Generalization (\%) (Figure~\ref{fig:prediction_class_across_graph})} & \textbf{After Parameter Generalization (\%) (Figure~\ref{fig:prediction_with_parameters_class_across_graph})} & \textbf{Gain($\uparrow$)/Lost($\downarrow$) from Parameter Generalization (\%)} \\
       \hline \emph{all\_but\_logback-core} & 29.0\pm3.7 & 38.1\pm2.7 & $\uparrow$9.1\pm$\downarrow$1.0 \\
       \hline \emph{all\_but\_barbecue} & 36.1\pm6.4 & 31.6\pm4.8 & $\downarrow$4.5\pm$\downarrow$1.6 \\
       \hline \emph{all\_but\_jgap} & 34.0\pm6.1 & 41.5\pm2.0 & $\uparrow$7.5\pm$\downarrow$4.1 \\
@@ -573,7 +669,7 @@ Using our search strategy as described we attained the following \gls{svm} param
       \hline \emph{all\_but\_openfast} & 37.4\pm2.6 & 39.7\pm3.2 & $\uparrow$2.3\pm$\uparrow$0.6 \\
       \hline \emph{all\_but\_jsoup} & 44.7\pm5.8 & 43.0\pm5.0 & $\downarrow$1.7\pm$\downarrow$0.8 \\
       \hline \emph{all\_but\_joda-primitives} & 26.3\pm6.1 & 36.7\pm8.1 & $\uparrow$10.4\pm$\uparrow$2.0 \\
-      \hline \textbf{average} & \textbf{33.0\pm7.5} & \textbf{37.9\pm7.0} & $\uparrow$\textbf{4.9\pm}$\downarrow$\textbf{0.5} \\
+      \hline \textbf{average} & \textbf{34.4\pm4.7} & \textbf{39.0\pm3.9} & $\uparrow$\textbf{4.6\pm}$\downarrow$\textbf{0.8} \\
       \hline
     \end{tabular}
   \end{threeparttable}
@@ -582,47 +678,67 @@ Using our search strategy as described we attained the following \gls{svm} param
 
 \begin{sidewaystable}[!tb]
   \centering
-  \caption{Comparison of method-level prediction accuracy (mean $\pm$ standard deviation) before/after generalized parameters are used.}
-  \label{tab:experiments_comparison_method_prediction}
+  \caption{Comparison of method-level prediction accuracy within systems (mean $\pm$ standard deviation) before/after generalized parameters are used.}
+  \label{tab:experiments_comparison_method_within_prediction}
   \rowcolors{1}{gray!30}{gray!20}
   \begin{threeparttable}
     \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|}
       \rowcolor[RGB]{169,196,223}
-      \hline \textbf{Test Subject} & \textbf{Before Parameter Generalization (\%) (Figure~\ref{fig:prediction_method_graph})} & \textbf{After Parameter Generalization (\%) (Figure~\ref{fig:prediction_with_parameters_method_graph})} & \textbf{Gain($\uparrow$)/Lost($\downarrow$) from Parameter Generalization (\%)} \\
+      \hline \textbf{Test Subject} & \textbf{Before Parameter Generalization (\%) (Figure~\ref{fig:prediction_method_within_graph})} & \textbf{After Parameter Generalization (\%) (Figure~\ref{fig:prediction_with_parameters_method_within_graph})} & \textbf{Gain($\uparrow$)/Lost($\downarrow$) from Parameter Generalization (\%)} \\
       \hline \emph{logback-core} & 42.4\pm5.7 & 47.6\pm10.9 & $\uparrow$5.2\pm$\uparrow$5.2 \\
       \hline \emph{barbecue} & 45.4\pm8.0 & 52.3\pm8.7 & $\uparrow$6.9\pm$\uparrow$0.7 \\
-      \hline \emph{jgap} & 43.4\pm5.1 & 53.4\pm7.2 & $\uparrow$10.0\pm$\uparrow$2.0 \\
+      \hline \emph{jgap} & 43.4\pm5.1 & 53.4\pm7.2 & $\uparrow$10.0\pm$\uparrow$2.1 \\
       \hline \emph{commons-lang} & 55.8\pm3.7 & 52.2\pm2.3 & $\downarrow$3.6\pm$\downarrow$1.4 \\
       \hline \emph{joda-time} & 63.0\pm3.4 & 67.5\pm5.6 & $\uparrow$4.5\pm$\uparrow$2.2 \\
       \hline \emph{openfast} & 48.3\pm4.3 & 51.0\pm5.6 & $\uparrow$2.7\pm$\uparrow$1.3 \\
       \hline \emph{jsoup} & 36.8\pm8.0 & 43.2\pm7.6 & $\uparrow$6.4\pm$\downarrow$0.4 \\
-      \hline \emph{joda-primitives} & 90.1\pm2.7 & 87.1\pm1.5 & $\downarrow$3.1\pm$\downarrow$1.2 \\
-      \hline \emph{all\_but\_logback-core} & 34.3\pm1.9 & 37.6\pm1.7 & $\uparrow$3.3\pm$\downarrow$0.3 \\
+      \hline \emph{joda-primitives} & 90.1\pm2.7 & 87.1\pm1.5 & $\downarrow$3.0\pm$\downarrow$1.2 \\
+      \hline \textbf{average} & \textbf{53.2\pm5.1} & \textbf{56.8\pm6.2} & $\uparrow$\textbf{3.6\pm}$\uparrow$\textbf{1.1} \\
+      \hline
+    \end{tabular}
+  \end{threeparttable}
+
+  \vspace{3em}
+
+  \centering
+  \caption{Comparison of method-level prediction accuracy across systems (mean $\pm$ standard deviation) before/after generalized parameters are used.}
+  \label{tab:experiments_comparison_method_across_prediction}
+  \rowcolors{1}{gray!30}{gray!20}
+  \begin{threeparttable}
+    \begin{tabular}{|l|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}|}
+      \rowcolor[RGB]{169,196,223}
+      \hline \textbf{Test Subject} & \textbf{Before Parameter Generalization (\%) (Figure~\ref{fig:prediction_method_across_graph})} & \textbf{After Parameter Generalization (\%) (Figure~\ref{fig:prediction_with_parameters_method_across_graph})} & \textbf{Gain($\uparrow$)/Lost($\downarrow$) from Parameter Generalization (\%)} \\
+      \hline \emph{all\_but\_logback-core} & 34.3\pm1.9 & 37.6\pm1.7 & $\uparrow$3.3\pm$\downarrow$0.2 \\
       \hline \emph{all\_but\_barbecue} & 41.7\pm4.6 & 46.9\pm2.6 & $\uparrow$5.2\pm$\downarrow$2.0 \\
-      \hline \emph{all\_but\_jgap} & 41.6\pm2.0 & 46.9\pm1.3 & $\uparrow$5.4\pm$\downarrow$0.7 \\
+      \hline \emph{all\_but\_jgap} & 41.6\pm2.0 & 46.9\pm1.3 & $\uparrow$5.3\pm$\downarrow$0.7 \\
       \hline \emph{all\_but\_commons-lang} & 37.6\pm2.1 & 46.6\pm2.5 & $\uparrow$9.0\pm$\uparrow$0.4 \\
       \hline \emph{all\_but\_joda-time} & 35.4\pm2.1 & 43.7\pm1.6 & $\uparrow$8.3\pm$\downarrow$0.5 \\
       \hline \emph{all\_but\_openfast} & 35.9\pm2.2 & 44.3\pm1.6 & $\uparrow$8.4\pm$\downarrow$0.6 \\
-      \hline \emph{all\_but\_jsoup} & 42.5\pm1.3 & 47.7\pm1.0 & $\uparrow$5.2\pm$\downarrow$0.4 \\
-      \hline \emph{all\_but\_joda-primitives} & 31.9\pm4.2 & 28.8\pm2.0 & $\downarrow$3.2\pm$\downarrow$2.2 \\
-      \hline \textbf{average} & \textbf{45.4\pm3.7} & \textbf{49.8\pm4.0} & $\uparrow$\textbf{4.4\pm}$\uparrow$\textbf{0.3} \\
+      \hline \emph{all\_but\_jsoup} & 42.5\pm1.3 & 47.7\pm1.0 & $\uparrow$5.2\pm$\downarrow$0.3 \\
+      \hline \emph{all\_but\_joda-primitives} & 31.9\pm4.2 & 28.8\pm2.0 & $\downarrow$3.1\pm$\downarrow$2.2 \\
+      \hline \textbf{average} & \textbf{37.6\pm2.6} & \textbf{42.8\pm1.8} & $\uparrow$\textbf{5.2\pm}$\uparrow$\textbf{0.8} \\
       \hline
     \end{tabular}
   \end{threeparttable}
 \end{sidewaystable}
 \afterpage\clearpage
 
-We present the new generalizable results (see Figures~\ref{fig:prediction_with_parameters_class_graph}~and~\ref{fig:prediction_with_parameters_method_graph}) in the same format as the pre-generalizable results (see Figures~\ref{fig:prediction_class_graph}~and~\ref{fig:prediction_method_graph}). Using the generalizable parameters we can see that in both class- and method-level results, the resulting accuracy tend to increase slightly. In some situations we can even see that s decreased variability in accuracy. In particular we can see that in class-level predictions, the possibilities of 0\% accuracy (which occurred in four of the test subjects without the generalizable parameters) no longer occurs. This happened as a result of the selecting parameters that maximized F-score instead, which treats the predictions of categories more fairly (i.e., avoiding predicting all of one category, which could be the wrong category). To further see the benefits of using generalized \emph{LIBSVM} parameters we compared the individual accuracies and standard deviation of each test subject. As presented in Tables~\ref{tab:experiments_comparison_class_prediction}~and~\ref{tab:experiments_comparison_method_prediction}, we can see the gains and losses in mean and standard deviation of prediction accuracy from the application of generalized parameters. In terms of changes, improvement for mean accuracy would be a gain (i.e., better prediction accuracy) while for standard deviation an improvement would be a loss (i.e., smaller variation in prediction accuracy). Of the 16 class-level test subjects presented in Table~\ref{tab:experiments_comparison_class_prediction}, 12 out of 16 test subjects saw an improvement in mean accuracy and 9 out of 16 test subjects saw an improvement in standard deviation. Of the 16 method-level test subjects presented in Table~\ref{tab:experiments_comparison_class_prediction}, 13 out of 16 test subjects saw an improvement in mean accuracy and 10 out 16 test subjects saw an improvement in standard deviation. These results show that the generalized parameters overall had a positive effect on the test subjects's performance. Overall, the class-level average saw an improvement of 4.9\% in mean prediction accuracy with a slight improvement of 0.5\% in standard deviation. Method-level average prediction accuracy saw an improvement of 4.4\% while the standard deviation worsened by 0.3\%. The improvements in both class- and method-level are both a side benefit of using generalized \emph{LIBSVM} parameters, as the main purpose was to nullify the need for parameter selection (i.e., no need to grid search on known data) to make predictions on unknown data.
+\subsubsection{The Effects of Generalized Parameters on Prediction Performance} 
+\label{sububsec:comparison_prediction_performance_generalized}
+Using the generalizable parameters we can see that in both class- and method-level results, the resulting accuracy tend to increase slightly. In some situations we can even see that a decreased variability in accuracy. In particular we can see that in class-level predictions, the possibilities of 0\% accuracy (which occurred in four of the test subjects without the generalizable parameters) no longer occurs. This happened as a result of the selecting parameters that maximized F-score instead, which treats the predictions of categories more fairly (i.e., avoiding predicting all of one category, which could be the wrong category). To further see the benefits of using generalized \emph{LIBSVM} parameters we compared the individual accuracies and standard deviation of each test subject.
 
-After optimizations and generalization, our approach for mutation score prediction using source code and test suite metrics can out perform random in nearly all test subjects observed. There are two categories of test subjects we observed for predictions:
+As presented in Tables~\ref{tab:experiments_comparison_class_within_prediction}~--~\ref{tab:experiments_comparison_method_across_prediction}, we can see the gains and losses in mean and standard deviation of prediction accuracy from the application of generalized parameters. In terms of changes, improvement for mean accuracy would be a gain (i.e., better prediction accuracy) while for standard deviation an improvement would be a loss (i.e., smaller variation in prediction accuracy). Of the 16 class-level test subjects presented in Table~\ref{tab:experiments_comparison_class_within_prediction}~and~\ref{tab:experiments_comparison_class_across_prediction}, 12 out of 16 test subjects saw an improvement in mean accuracy and 9 out of 16 test subjects saw an improvement in standard deviation. Of the 16 method-level test subjects presented in Table~\ref{tab:experiments_comparison_method_within_prediction}~and~\ref{tab:experiments_comparison_method_across_prediction}, 13 out of 16 test subjects saw an improvement in mean accuracy and 10 out 16 test subjects saw an improvement in standard deviation. These results show that the generalized parameters overall had a positive effect on the test subjects's performance. 
 
+Overall, the following summarizes the results of using generalized parameters for our approach on prediction of unknown data within and across systems:
 \begin{itemize}
-  \item The individual test subjects by training on undersampled data and predicting on the remaining unknown data.
-  \item The \emph{all\_but\_<subject>} subjects by training on the seven other test subjects and predicting on the unknown test subject.
+  \item Class-level average prediction accuracy on unknown data within systems saw an improvement of +5.0\% with an improvement of -0.1\% in standard deviation. Resulting in a average prediction accuracy of 36.7\%\pm10.1\%.
+  \item Class-level average prediction accuracy on unknown data across systems saw an improvement of +4.6\% with an improvement of -0.8\% in standard deviation. Resulting in a average prediction accuracy of 39.0\%\pm3.9\%.
+  \item Method-level average prediction accuracy on unknown data within systems saw an improvement of +3.6\% with a decline in standard deviation of +1.1. Resulting in a average prediction accuracy of 56.8\%\pm6.2\%.
+  \item Method-level average prediction accuracy on unknown data within systems saw an improvement of +5.2\% with a decline in standard deviation of +0.8. Resulting in a average prediction accuracy of 42.8\%\pm1.8\%.
 \end{itemize}
+With respect to predictions in general, method-level prediction have a higher mean accuracy in all situations (i.e., within and across systems). Furthermore, predictions within systems tend to high higher standard deviation than predictions across systems. This difference in standard deviation most likely is attributed to the abundance of data items present for training and prediction. With respect to prediction accuracy the class-level predictions actually performed better across systems only by a difference of 2.3\%, while method-level predictions performed better within systems by a difference of 14\%.
 
-As mentioned before, the individual subjects have a wider variation in prediction accuracy while the \emph{all\_but\_<subject>} subjects have less variation. With respect to prediction accuracy, method-level source code mutation score prediction outperforms class-level predictions. We can see that the prediction accuracy seems to be mostly consistent using the \emph{all\_but\_<subject>} subject, but the individual subject can allow for individuals which have higher then average prediction accuracy. On average, class-level prediction accuracy is 37.9\%\pm7.0\% while method-level prediction accuracy is 49.8\%\pm4.0\% after parameter generalization. In both class- and method-level these average prediction accuracies outperform random by 4.6\% and 16.5\%.
-
+The improvements in both class- and method-level are both a side benefit of using generalized \emph{LIBSVM} parameters, as the main purpose was to nullify the need for parameter selection (i.e., no need to grid search on known data) to make predictions on unknown data. After optimizations and generalization, our approach for mutation score prediction using source code and test suite metrics can out perform random in nearly all test subjects observed. 
 
 \subsection{Impact of Training Data Availability on Prediction Accuracy}
 \label{subsec:experiment_data}
@@ -635,7 +751,7 @@ As mentioned before, the individual subjects have a wider variation in predictio
 \end{quote}
 
 \noindent
-As we saw in the previous section using our approach we achieve 49.8\% prediction accuracy of method-level source code units. This result exceeds random by 16.5\% and therefore shows that our approach is capable of predicting mutation score categories using source code and test suite metrics. As mentioned in the thesis statement, \emph{``The predictions can be used to reduce the resource cost of mutation testing in traditional iterative development.''}. Iterative development is a software development life cycle that allows developers to work on small changes which eventually adds to a large change with respect to a software system. Traditional iterative development may involve expanding/reducing/refactoring the \gls{sut}, and/or attempting to improve the test suite. By including mutation testing between iterations to determine if any improvements have occurred can be costly if done in a naive manner (i.e., re-conduct the whole mutation test process using the new version of the \gls{sut}). Even with an intelligent approach of selective mutation (i.e., only mutation testing source code units that were added/removed/modified since the previous iteration), the cost of mutation testing can still be substantial.
+As we saw in the previous section using our approach we achieve 56.8\% prediction accuracy of method-level source code units within systems. This result exceeds random by 23.5\% and therefore shows that our approach is capable of predicting mutation score categories using source code and test suite metrics at least within systems. As mentioned in the thesis statement, \emph{``The predictions can be used to reduce the resource cost of mutation testing in traditional iterative development.''}. Iterative development is a software development life cycle that allows developers to work on small changes which eventually adds to a large change with respect to a software system. Traditional iterative development may involve expanding/reducing/refactoring the \gls{sut}, and/or attempting to improve the test suite. By including mutation testing between iterations to determine if any improvements have occurred can be costly if done in a naive manner (i.e., re-conduct the whole mutation test process using the new version of the \gls{sut}). Even with an intelligent approach of selective mutation (i.e., only mutation testing source code units that were added/removed/modified since the previous iteration), the cost of mutation testing can still be substantial.
 
 \begin{figure}[!tb]
   \centering
