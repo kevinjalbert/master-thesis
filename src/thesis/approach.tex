@@ -105,7 +105,9 @@ As our approach attempts to predict the mutation score of source code units we n
 
 We acquire the source code unit metrics described in Table~\ref{tab:metrics} using \emph{Eclipse Metrics Plugin} (further described in Section~\ref{subsec:approach_collect_source_metrics}) and \emph{EMMA} (further described in Section~\ref{subsec:approach_collect_coverage_metrics}). We aggregate method-level metrics into class-level metrics to follow the scope hierarchy. We also compute the mutation scores using \emph{Javalanche} (further described in Section~\ref{subsec:approach_collect_mutation_scores}) and combine those with the source code unit metrics to create our required input for training and prediction. 
 
-In Appendix~\ref{app:feature_selection} we investigated the correlation between the mutation score (i.e., what we are predicting) and the individual metrics (i.e., attributes we are using to make the predictions). We found that there approximately six metrics that provided moderate correlation with the mutation score, while the remaining metrics provided only weak or no-correlation. There is no single metric that provides a strong correlation with the mutation score, which suggests this is a difficult prediction to make.
+In Appendix~\ref{app:feature_selection} we investigated the correlation between the mutation score (i.e., what we are predicting) and the individual metrics (i.e., attributes we are using to make the predictions). We found that there approximately six metrics that provided moderate correlation with the mutation score, while the remaining metrics provided only weak or no-correlation. \begin{quote}
+  \emph{There is no single metric that provides a strong correlation with the mutation score, which suggests this is a difficult prediction to make.}
+\end{quote}
 
 The following sections walk through the complete process one phase at a time, providing examples where possible. The entire process is executed using our custom scripts that automate data collection, synthesis, and evaluation\footnote{Scripts and documentation: \texttt{https://github.com/sqrlab/mutation\_score\_predictor}.}.
 
